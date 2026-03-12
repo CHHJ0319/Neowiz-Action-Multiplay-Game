@@ -6,6 +6,8 @@ namespace Actor
     {
         private float HP;
 
+        public EnemyType Type { get; private set; } = EnemyType.Red;
+
         public void TakeDamage()
         {
             DestroySelf();
