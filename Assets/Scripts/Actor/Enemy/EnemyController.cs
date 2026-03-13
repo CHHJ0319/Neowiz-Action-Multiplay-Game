@@ -13,15 +13,15 @@ namespace Actor.Enemy
 
         private float HP;
 
-        public EnemyType Type { get; private set; } = EnemyType.Red;
+        public Data.ElementType Type { get; private set; } = Data.ElementType.Red;
 
         private void Awake()
         {
-            EnemyType type = GetRandomEnemyType();
+            Data.ElementType type = GetRandomElementType();
             SetType(type);
         }
 
-        private void SetType(EnemyType type)
+        private void SetType(Data.ElementType type)
         {
             Type = type;
 
@@ -29,48 +29,51 @@ namespace Actor.Enemy
             {
                 switch (type)
                 {
-                    case EnemyType.Red:
+                    case Data.ElementType.Red:
                         ringTarget.material = typeRed;
                         break;
-                    case EnemyType.Green:
+                    case Data.ElementType.Green:
                         ringTarget.material = typeGreen;
                         break;
-                    case EnemyType.Blue:
+                    case Data.ElementType.Blue:
                         ringTarget.material = typeBlue;
                         break;
                 }
             }
         }
 
-        public void TakeDamage()
+        public void TakeDamage(Data.ElementType type)
         {
-            DestroySelf();
+            if(Type == type)
+            {
+                DestroySelf();
+            }
         }
 
         public void DestroySelf()
         {
-            //Destroy(gameObject);
+            Destroy(gameObject);
         }
 
-        public EnemyType GetRandomEnemyType()
+        public Data.ElementType GetRandomElementType()
         {
             int randomIndex = Random.Range(0, 3);
 
             if(randomIndex == 0)
             {
-                return EnemyType.Red;
+                return Data.ElementType.Red;
             }
             else if (randomIndex == 1)
             {
-                return EnemyType.Green;
+                return Data.ElementType.Green;
             }
             else if (randomIndex == 2)
             {
-                return EnemyType.Blue;
+                return Data.ElementType.Blue;
             }
             else
             {
-                return EnemyType.Red;
+                return Data.ElementType.Red;
             }
         }
     }

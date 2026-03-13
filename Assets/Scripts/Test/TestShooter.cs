@@ -13,6 +13,7 @@ namespace Test
         public float spawnOffset = 1.0f;
 
         private Camera mainCamera;
+        private Data.ElementType type = Data.ElementType.Red;
 
         void Start()
         {
@@ -27,6 +28,32 @@ namespace Test
             if (value.isPressed)
             {
                 Shoot();
+            }
+        }
+
+        void OnQuickSlot1(InputValue value)
+        {
+            if (value.isPressed)
+            {
+                type = Data.ElementType.Red;
+            }
+        }
+
+        void OnQuickSlot2(InputValue value)
+        {
+            if (value.isPressed)
+            {
+                type = Data.ElementType.Green;
+
+            }
+        }
+
+        void OnQuickSlot3(InputValue value)
+        {
+            if (value.isPressed)
+            {
+                type = Data.ElementType.Blue;
+
             }
         }
 
@@ -50,8 +77,9 @@ namespace Test
             Vector3 direction = (targetPoint - spawnPosition).normalized;
 
             GameObject bullet = Instantiate(bulletPrefab, spawnPosition, Quaternion.LookRotation(direction));
-            Rigidbody rb = bullet.GetComponent<Rigidbody>();
+            bullet.GetComponent<Actor.Weapon.Bullet>().Intialize(type);
 
+            Rigidbody rb = bullet.GetComponent<Rigidbody>();
             if (rb != null)
             {
                 rb.linearVelocity = direction * bulletSpeed;

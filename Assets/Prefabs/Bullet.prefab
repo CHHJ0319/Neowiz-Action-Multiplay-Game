@@ -49,6 +49,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Actor.Weapon.Bullet
   lifeTime: 3
+  typeRed: {fileID: 2100000, guid: 555c8006e4624b74f864892ea47a053d, type: 2}
+  typeGreen: {fileID: 2100000, guid: 93a3ce3d977653a4d8c9d59b7947b910, type: 2}
+  typeBlue: {fileID: 2100000, guid: ac0b1ed607e5e834c8acd7996540d976, type: 2}
 --- !u!33 &8624482665795494366
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -82,7 +85,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 555c8006e4624b74f864892ea47a053d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
