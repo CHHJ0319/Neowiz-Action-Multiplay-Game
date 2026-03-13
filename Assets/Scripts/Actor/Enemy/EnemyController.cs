@@ -8,6 +8,7 @@ namespace Actor.Enemy
     {
         public MeshRenderer ringTarget;
 
+        public int damage = 1;
         public float speed = 5;
 
         [Header("Type Materials")]
