@@ -1000,13 +1000,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1415176457}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: -10}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 10, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!114 &1415176461
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1098,10 +1098,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Actor.Enemy.EnemySpawner
   target: {fileID: 620170039}
   normalEnemyPrefab: {fileID: 1946403360690627630, guid: 53715b5a4522f4746ad84730f945206f, type: 3}
-  minX: -10
-  maxX: 10
-  minZ: -10
-  maxZ: 10
+  mainCam: {fileID: 1415176459}
+  fixedSpawnY: 0.5
+  offScreenOffset: 1.1
+  negativeOffset: -0.1
 --- !u!114 &1574359450
 MonoBehaviour:
   m_ObjectHideFlags: 0

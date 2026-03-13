@@ -12,17 +12,18 @@ namespace Actor.Enemy
         public GameObject normalEnemyPrefab;
 
         [Header("Spawn Range")]
-        public float minX = -10f;
-        public float maxX = 10f;
-        public float minZ = -10f;
-        public float maxZ = 10f;
+        public Camera mainCam;
+        public float fixedSpawnY = 0.5f;
+        public float offScreenOffset = 1.1f;
+        public float negativeOffset = -0.1f;
 
         private float normalEnemySpawnRate = 70f;
         private float bigEnemySpawnRate = 20f;
         private float multiTypeEnemySpawnRate = 100f;
 
-        void Start()
+        void Awake()
         {
+            if (mainCam == null) mainCam = Camera.main;
         }
 
         void OnInteract(InputValue value)
@@ -63,10 +64,37 @@ namespace Actor.Enemy
 
         private Vector3 GetRandomSpawnPosition()
         {
-            float randomX = Random.Range(minX, maxX);
-            float randomZ = Random.Range(minZ, maxZ);
+            float viewportX = 0f;
+            float viewportY = 0f;
 
-            return new Vector3(randomX, 0.5f, randomZ);
+            int side = Random.Range(0, 3);
+
+            switch (side)
+            {
+                case 0:
+                    viewportX = Random.Range(negativeOffset, offScreenOffset);
+                    viewportY = offScreenOffset;
+                    break;
+
+                case 1:
+                    viewportX = negativeOffset;
+                    viewportY = Random.Range(0f, offScreenOffset);
+                    break;
+
+                case 2:
+                    viewportX = offScreenOffset;
+                    viewportY = Random.Range(0f, offScreenOffset);
+                    break;
+            }
+
+            Ray ray = mainCam.ViewportPointToRay(new Vector3(viewportX, viewportY, 0));
+            Plane groundPlane = new Plane(Vector3.up, new Vector3(0, fixedSpawnY, 0));
+            if (groundPlane.Raycast(ray, out float distance))
+            {
+                return ray.GetPoint(distance);
+            }
+
+            return new Vector3(0, fixedSpawnY, 0);
         }
     }
 }
