@@ -15,7 +15,7 @@ namespace Actor.Weapon
         {
             if (other.CompareTag("Enemy"))
             {
-                EnemyController enemy = other.GetComponent<EnemyController>();
+                Enemy.EnemyController enemy = other.GetComponent<Enemy.EnemyController>();
                 enemy.TakeDamage();
             }
 

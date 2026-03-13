@@ -1,4 +1,4 @@
 public enum EnemyType
 {
-    Red, Blue, Yellow
+    Red, Green, Blue
 }
