@@ -8,7 +8,7 @@ namespace Actor.Enemy
     {
         public MeshRenderer ringTarget;
 
-        public int damage = 1;
+        public float damage = 10;
         public float speed = 5;
 
         [Header("Type Materials")]
@@ -43,8 +43,13 @@ namespace Actor.Enemy
         {
             if (other.CompareTag("Player"))
             {
-                Destroy(gameObject);
             }
+            else if (other.CompareTag("Barricade"))
+            {
+                Events.PlayerFieldEvents.HandleEnemyCollision(damage);
+            }
+
+            Destroy(gameObject);
         }
 
         private void SetType()
