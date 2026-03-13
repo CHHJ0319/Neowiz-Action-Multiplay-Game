@@ -8,6 +8,8 @@ namespace Actor.Enemy
     {
         public MeshRenderer ringTarget;
 
+        public float Speed { get; private set; } = 5;
+
         [Header("Type Materials")]
         public Material typeRed;
         public Material typeGreen;
@@ -31,6 +33,14 @@ namespace Actor.Enemy
 
             CalculateTotalHP();
             UpdateHPTexts();
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("Player"))
+            {
+                Destroy(gameObject);
+            }
         }
 
         private void SetType(Data.ElementType type)
