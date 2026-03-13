@@ -29,6 +29,11 @@ namespace Actor
             hp -= damage;
 
             Events.PlayerFieldEvents.UpdateHPBar(hp/maxHP);
+
+            if(hp <= 0)
+            {
+                RoundManager.Instance.EndRound();
+            }
         }
     }
 }

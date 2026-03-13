@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class RoundManager : MonoBehaviour
+public class UIManager : MonoBehaviour
 {
-    public static RoundManager Instance { get; private set; }
+    public static UIManager Instance { get; private set; }
 
     private void Awake()
     {
@@ -18,8 +18,4 @@ public class RoundManager : MonoBehaviour
         }
     }
 
-    public void EndRound()
-    {
-
-    }
 }
