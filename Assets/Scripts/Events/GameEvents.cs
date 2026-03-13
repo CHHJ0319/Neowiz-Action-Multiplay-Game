@@ -6,6 +6,7 @@ namespace Events
     {
         public static event Action OnQuitButtonClicked;
 
+        
         public static void QuitGame()
         {
             OnQuitButtonClicked?.Invoke();
