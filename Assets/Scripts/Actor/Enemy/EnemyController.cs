@@ -1,52 +1,79 @@
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 namespace Actor.Enemy
 {
     public class EnemyController : MonoBehaviour
     {
-        [Header("Type Material")]
         public MeshRenderer ringTarget;
 
+        [Header("Type Materials")]
         public Material typeRed;
         public Material typeGreen;
         public Material typeBlue;
 
-        private float HP;
+        [Header("HP")]
+        public int hpRed = 1;
+        public int hpGreen = 1;
+        public int hpBlue = 1;
+        public TextMeshPro hpRedText;
+        public TextMeshPro hpGreenText;
+        public TextMeshPro hpBlueText;
+        private int totalHP;
 
-        public Data.ElementType Type { get; private set; } = Data.ElementType.Red;
+        public List<Data.ElementType> Types = new List<Data.ElementType>();
 
         private void Awake()
         {
-            Data.ElementType type = GetRandomElementType();
-            SetType(type);
+            SetType(Data.ElementType.Red);
+            SetType(Data.ElementType.Green);
+
+            CalculateTotalHP();
+            UpdateHPTexts();
         }
 
         private void SetType(Data.ElementType type)
         {
-            Type = type;
+            Types.Add(type);
 
-            if (ringTarget != null)
-            {
-                switch (type)
-                {
-                    case Data.ElementType.Red:
-                        ringTarget.material = typeRed;
-                        break;
-                    case Data.ElementType.Green:
-                        ringTarget.material = typeGreen;
-                        break;
-                    case Data.ElementType.Blue:
-                        ringTarget.material = typeBlue;
-                        break;
-                }
-            }
+            SetRingTarget(type);
+            SetHPtexts(type);
         }
 
         public void TakeDamage(Data.ElementType type)
         {
-            if(Type == type)
+            if(Types.Contains(type))
             {
-                DestroySelf();
+                switch (type)
+                {
+                    case Data.ElementType.Red:
+                        if(hpRed > 0)
+                        {
+                            hpRed--;
+                        }
+                        break;
+                    case Data.ElementType.Green:
+                        if (hpGreen > 0)
+                        {
+                            hpGreen--;
+                        }
+                        break;
+                    case Data.ElementType.Blue:
+                        if (hpBlue > 0)
+                        {
+                            hpBlue--;
+                        }
+                        break;
+                }
+
+                CalculateTotalHP();
+                UpdateHPTexts();
+
+                if(totalHP <= 0)
+                {
+                    DestroySelf();
+                }
             }
         }
 
@@ -74,6 +101,70 @@ namespace Actor.Enemy
             else
             {
                 return Data.ElementType.Red;
+            }
+        }
+
+        #region HPText
+        private void SetHPtexts(Data.ElementType type)
+        {
+            if (type == Data.ElementType.Red)
+            {
+                hpRedText.gameObject.SetActive(true);
+            }
+            if (type == Data.ElementType.Green)
+            {
+                hpGreenText.gameObject.SetActive(true);
+            }
+            if (type == Data.ElementType.Blue)
+            {
+                hpBlueText.gameObject.SetActive(true);
+            }
+        }
+
+        private void UpdateHPTexts()
+        {
+            hpRedText.text = "" + hpRed;
+            hpGreenText.text = "" + hpGreen;
+            hpBlueText.text = "" + hpBlue;
+        }
+        #endregion
+
+        private void SetRingTarget(Data.ElementType type)
+        {
+            if (ringTarget != null)
+            {
+                switch (type)
+                {
+                    case Data.ElementType.Red:
+                        ringTarget.material = typeRed;
+                        break;
+                    case Data.ElementType.Green:
+                        ringTarget.material = typeGreen;
+                        break;
+                    case Data.ElementType.Blue:
+                        ringTarget.material = typeBlue;
+                        break;
+                }
+            }
+        }
+
+        private void CalculateTotalHP()
+        {
+            totalHP = 0;
+
+            if (Types.Contains(Data.ElementType.Red))
+            {
+                totalHP += hpRed;
+            }
+
+            if (Types.Contains(Data.ElementType.Green))
+            {
+                totalHP += hpGreen;
+            }
+
+            if (Types.Contains(Data.ElementType.Blue))
+            {
+                totalHP += hpBlue;
             }
         }
     }
