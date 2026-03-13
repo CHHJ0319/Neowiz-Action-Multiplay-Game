@@ -8,6 +8,16 @@ namespace UI.GameScene
         public Image barricadeHPBar;
         public GameObject resultPanel;
 
+        public Button quitButton;
+
+        private void Awake()
+        {
+            if (quitButton != null)
+            {
+                quitButton.onClick.AddListener(Events.GameEvents.QuitGame);
+            }
+        }
+
         private void OnEnable()
         {
             Events.PlayerFieldEvents.OnHPChanged += UpdateBarricadeHPBar;

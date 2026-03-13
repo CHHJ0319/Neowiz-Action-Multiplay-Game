@@ -17,4 +17,25 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    private void OnEnable()
+    {
+        Events.GameEvents.OnQuitButtonClicked += QuitGame;
+    }
+
+    private void OnDisable()
+    {
+        Events.GameEvents.OnQuitButtonClicked -= QuitGame;
+    }
+
+    public void QuitGame()
+    {
+
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+
+#else
+        Application.Quit();
+#endif
+    }
 }

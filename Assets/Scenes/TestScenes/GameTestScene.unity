@@ -1257,6 +1257,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UI.GameScene.UIController
   barricadeHPBar: {fileID: 1223166004}
   resultPanel: {fileID: 1097423826}
+  quitButton: {fileID: 953782935}
 --- !u!1001 &3299236519965365898
 PrefabInstance:
   m_ObjectHideFlags: 0
