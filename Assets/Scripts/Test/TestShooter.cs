@@ -5,6 +5,8 @@ namespace Test
 {
     public class TestShooter : MonoBehaviour
     {
+        public Transform target;
+
         [Header("References")]
         public GameObject bulletPrefab;
 
@@ -59,22 +61,9 @@ namespace Test
 
         private void Shoot()
         {
-            Ray ray = mainCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
-            RaycastHit hit;
-            Vector3 targetPoint;
-
-            if (Physics.Raycast(ray, out hit))
-            {
-                targetPoint = hit.point;
-            }
-            else
-            {
-                targetPoint = ray.GetPoint(100f);
-            }
-
             Vector3 spawnPosition = mainCamera.transform.position + mainCamera.transform.forward * spawnOffset;
 
-            Vector3 direction = (targetPoint - spawnPosition).normalized;
+            Vector3 direction = (target.localPosition - spawnPosition).normalized;
 
             GameObject bullet = Instantiate(bulletPrefab, spawnPosition, Quaternion.LookRotation(direction));
             bullet.GetComponent<Actor.Weapon.Bullet>().Intialize(type);

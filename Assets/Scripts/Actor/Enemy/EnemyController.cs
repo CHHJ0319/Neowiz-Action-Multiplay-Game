@@ -8,7 +8,7 @@ namespace Actor.Enemy
     {
         public MeshRenderer ringTarget;
 
-        public float Speed { get; private set; } = 5;
+        public float speed = 5;
 
         [Header("Type Materials")]
         public Material typeRed;
@@ -26,10 +26,13 @@ namespace Actor.Enemy
 
         public List<Data.ElementType> Types = new List<Data.ElementType>();
 
+        private Rigidbody rb;
+
         private void Awake()
         {
-            SetType(Data.ElementType.Red);
-            SetType(Data.ElementType.Green);
+            rb = GetComponent<Rigidbody>();
+
+            SetType();
 
             CalculateTotalHP();
             UpdateHPTexts();
@@ -43,12 +46,31 @@ namespace Actor.Enemy
             }
         }
 
-        private void SetType(Data.ElementType type)
+        private void SetType()
         {
+            Data.ElementType type = GetRandomElementType();
             Types.Add(type);
 
             SetRingTarget(type);
             SetHPtexts(type);
+        }
+
+        public void SetMultiType()
+        {
+            int randomIndex = Random.Range(1, 3);
+
+            switch (randomIndex)
+            {
+                case 1:
+                    SetType();
+                    SetType();
+                    break;
+                case 2:
+                    SetType();
+                    SetType();
+                    SetType();
+                    break;
+            }
         }
 
         public void TakeDamage(Data.ElementType type)
@@ -87,31 +109,17 @@ namespace Actor.Enemy
             }
         }
 
-        public void DestroySelf()
+        public void Launch(Vector3 direction)
         {
-            Destroy(gameObject);
+            if (rb != null)
+            {
+                rb.linearVelocity = direction * speed;
+            }
         }
 
-        public Data.ElementType GetRandomElementType()
+        private void DestroySelf()
         {
-            int randomIndex = Random.Range(0, 3);
-
-            if(randomIndex == 0)
-            {
-                return Data.ElementType.Red;
-            }
-            else if (randomIndex == 1)
-            {
-                return Data.ElementType.Green;
-            }
-            else if (randomIndex == 2)
-            {
-                return Data.ElementType.Blue;
-            }
-            else
-            {
-                return Data.ElementType.Red;
-            }
+            Destroy(gameObject);
         }
 
         #region HPText
@@ -175,6 +183,28 @@ namespace Actor.Enemy
             if (Types.Contains(Data.ElementType.Blue))
             {
                 totalHP += hpBlue;
+            }
+        }
+
+        private Data.ElementType GetRandomElementType()
+        {
+            int randomIndex = Random.Range(0, 3);
+
+            if (randomIndex == 0)
+            {
+                return Data.ElementType.Red;
+            }
+            else if (randomIndex == 1)
+            {
+                return Data.ElementType.Green;
+            }
+            else if (randomIndex == 2)
+            {
+                return Data.ElementType.Blue;
+            }
+            else
+            {
+                return Data.ElementType.Red;
             }
         }
     }
