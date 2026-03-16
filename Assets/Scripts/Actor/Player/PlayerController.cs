@@ -7,6 +7,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float dashSpeed = 10f;
     [SerializeField] private float rotationSpeed = 15f;
 
+    [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private Transform firePoint;
+    [SerializeField] private float bulletSpeed = 20f;
+
     private Rigidbody rb;
     private PlayerInputHandler inputHandler;
 
@@ -19,6 +23,7 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         ApplyMovement();
+        Shoot();
     }
 
     private void ApplyMovement()
@@ -34,6 +39,21 @@ public class PlayerController : MonoBehaviour
         {
             Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
             rb.MoveRotation(Quaternion.Slerp(rb.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime));
+        }
+    }
+
+    private void Shoot()
+    {
+        if (inputHandler.isFirePressed)
+        {
+            GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+
+            Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
+
+            if (bulletRb != null)
+            {
+                bulletRb.linearVelocity = firePoint.forward * bulletSpeed;
+            }
         }
     }
 }
