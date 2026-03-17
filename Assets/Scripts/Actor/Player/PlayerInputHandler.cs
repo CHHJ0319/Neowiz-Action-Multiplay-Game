@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Unity.VisualScripting;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerInputHandler : MonoBehaviour
@@ -18,6 +19,7 @@ public class PlayerInputHandler : MonoBehaviour
             return false;
         }
     }
+    public Vector2 mouseInput;
 
     private void Awake()
     {
@@ -36,5 +38,8 @@ public class PlayerInputHandler : MonoBehaviour
         }
     }
 
-    
+    public void OnPointer(InputValue value)
+    {
+        mouseInput = value.Get<Vector2>();
+    }
 }
