@@ -17,8 +17,8 @@ namespace Actor.Enemy
         public float offScreenOffset = 1.1f;
         public float negativeOffset = -0.1f;
 
-        private float normalEnemySpawnRate = 70f;
-        private float bigEnemySpawnRate = 20f;
+        private float normalEnemySpawnRate = 40f;
+        private float multiLivesEnemySpawnRate = 90f;
         private float multiTypeEnemySpawnRate = 100f;
 
         void Awake()
@@ -36,11 +36,16 @@ namespace Actor.Enemy
                 {
                     SpawnerNormalEnemy();
                 }
+                else if (randomRate < multiLivesEnemySpawnRate)
+                {
+                    SpawnerMultiLivesEnemy();
+                }
                 else if (randomRate < multiTypeEnemySpawnRate)
                 {
                     SpawnerMultiTypeEnemy();
                 }
             }
+                                    
         }
 
         public void SpawnerNormalEnemy()
@@ -49,6 +54,16 @@ namespace Actor.Enemy
             Vector3 direction = (target.localPosition - spawnPosition).normalized;
 
             GameObject enemy = Instantiate(normalEnemyPrefab, spawnPosition, Quaternion.LookRotation(direction));
+            enemy.GetComponent<Actor.Enemy.EnemyController>().Launch(direction);
+        }
+
+        public void SpawnerMultiLivesEnemy()
+        {
+            Vector3 spawnPosition = GetRandomSpawnPosition();
+            Vector3 direction = (target.localPosition - spawnPosition).normalized;
+
+            GameObject enemy = Instantiate(normalEnemyPrefab, spawnPosition, Quaternion.LookRotation(direction));
+            enemy.GetComponent<Actor.Enemy.EnemyController>().SetMultipleLives();
             enemy.GetComponent<Actor.Enemy.EnemyController>().Launch(direction);
         }
 

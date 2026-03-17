@@ -61,6 +61,38 @@ namespace Actor.Enemy
             SetHPtexts(type);
         }
 
+        private void SetHealthByType(Data.ElementType type, int amount)
+        {
+            switch (type)
+            {
+                case Data.ElementType.Red:
+                    hpRed = amount; 
+                    hpRedText.gameObject.SetActive(true);
+                    break;
+
+                case Data.ElementType.Green:
+                    hpGreen = amount;
+                    hpGreenText.gameObject.SetActive(true);
+                    break;
+
+                case Data.ElementType.Blue:
+                    hpBlue = amount;
+                    hpBlueText.gameObject.SetActive(true);
+                    break;
+            }
+        }
+
+        public void SetMultipleLives()
+        {
+            foreach (Data.ElementType myType in Types)
+            {
+                SetHealthByType(myType, 10); 
+            }
+
+            CalculateTotalHP();
+            UpdateHPTexts();
+        }
+
         public void SetMultiType()
         {
             int randomIndex = Random.Range(1, 3);
