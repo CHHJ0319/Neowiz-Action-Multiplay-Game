@@ -1,23 +1,34 @@
+using UnityEngine;
+
 namespace Actor.Item
 {
     public class BulletBox : ItemBox
     {
         private int ammo = 10;
 
-        public override void Use()
+        private bool isCollected = false;
+
+        private void OnTriggerEnter(Collider other)
         {
-            AddAmmo();
+            if (isCollected) return;
+
+            if (other.CompareTag("Player"))
+            {
+                Actor.Player.PlayerController player = other.gameObject.GetComponent<Actor.Player.PlayerController>();
+
+                if(player.PlayerType == Data.PlayerType.Shooter)
+                {
+                    AddAmmo(player);
+                }
+            }
         }
 
-        private void AddAmmo()
+        private void AddAmmo(Actor.Player.PlayerController player)
         {
-            PlayerController player = transform.root.GetComponent<PlayerController>();
+            player.AddAmmo(ammo);
 
-            if (player != null)
-            {
-                //player.AddAmmo(ammo);
-                Destroy(gameObject);
-            }
+            isCollected = true;
+            Destroy(gameObject);
         }
     }
 }

@@ -1,114 +1,166 @@
+using Actor.Weapon;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+namespace Actor.Player 
 {
-    [Header("Movement Settings")]
-    [SerializeField] private float walkSpeed = 5f;
-    [SerializeField] private float dashSpeed = 10f;
-    [SerializeField] private float rotationSpeed = 15f;
-
-    [Header("Attack Settings")]
-    [SerializeField] private GameObject bulletPrefab;
-    [SerializeField] private Transform firePoint;
-    [SerializeField] private float bulletSpeed = 20f;
-
-    [Header("Pointer Settings")]
-    [SerializeField] private Transform pointer;
-    [SerializeField] private float pointerSpeed = 10f;
-    [SerializeField] private float distanceFromCamera = 10f;
-
-    [SerializeField] private Transform itemHolder;
-
-    private Rigidbody rb;
-    private PlayerInputHandler inputHandler;
-
-    private void Awake()
+    public class PlayerController : MonoBehaviour
     {
-        rb = GetComponent<Rigidbody>();
-        inputHandler = GetComponent<PlayerInputHandler>();
-    }
+        [Header("Movement Settings")]
+        [SerializeField] private float walkSpeed = 5f;
+        [SerializeField] private float dashSpeed = 10f;
+        [SerializeField] private float rotationSpeed = 15f;
 
-    private void FixedUpdate()
-    {
-        ApplyMovement();
-        Shoot();
-        MovePointer();
-    }
+        [Header("Attack Settings")]
+        [SerializeField] private GameObject bulletPrefab;
+        [SerializeField] private Transform firePoint;
+        [SerializeField] private float bulletSpeed = 20f;
 
-    private void OnTriggerStay(Collider other)
-    {
+        [Header("Pointer Settings")]
+        [SerializeField] private Transform pointer;
+        [SerializeField] private float pointerSpeed = 10f;
+        [SerializeField] private float distanceFromCamera = 10f;
 
-        if (inputHandler.interactAction.triggered)
+        [SerializeField] private Transform itemHolder;
+
+        private Rigidbody rb;
+        private PlayerInputHandler inputHandler;
+
+        public Data.PlayerType PlayerType = Data.PlayerType.Shooter;
+        public int ammo;
+
+        private void Awake()
         {
-            if (other.CompareTag("Item"))
+            rb = GetComponent<Rigidbody>();
+            inputHandler = GetComponent<PlayerInputHandler>();
+
+            ammo = 10;
+        }
+
+        private void FixedUpdate()
+        {
+            ApplyMovement();
+            Shoot();
+            MovePointer();
+        }
+
+        private void OnTriggerStay(Collider other)
+        {
+
+            if (inputHandler.interactAction.triggered)
             {
-                PickUp(other.gameObject);
+                if (other.CompareTag("Item"))
+                {
+                    PickUp(other.gameObject);
+                }
             }
         }
-    }
 
-    private void ApplyMovement()
-    {
-        float currentSpeed = inputHandler.isDashPressed ? dashSpeed : walkSpeed;
-
-        Vector3 moveDirection = new Vector3(inputHandler.moveInput.x, 0, inputHandler.moveInput.y);
-
-        Vector3 targetVelocity = moveDirection * currentSpeed;
-        rb.linearVelocity = new Vector3(targetVelocity.x, rb.linearVelocity.y, targetVelocity.z);
-
-        if (moveDirection.magnitude > 0.1f)
+        private void ApplyMovement()
         {
-            Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
-            rb.MoveRotation(Quaternion.Slerp(rb.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime));
-        }
-    }
+            float currentSpeed = inputHandler.isDashPressed ? dashSpeed : walkSpeed;
 
-    private void Shoot()
-    {
-        if (inputHandler.isFirePressed)
-        {
-            GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+            Vector3 moveDirection = new Vector3(inputHandler.moveInput.x, 0, inputHandler.moveInput.y);
 
-            Vector3 direction = (pointer.position - firePoint.position).normalized;
-            direction.y = 0;
-            direction = direction.normalized;
+            Vector3 targetVelocity = moveDirection * currentSpeed;
+            rb.linearVelocity = new Vector3(targetVelocity.x, rb.linearVelocity.y, targetVelocity.z);
 
-            Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
-            if (bulletRb != null)
+            if (moveDirection.magnitude > 0.1f)
             {
-                bulletRb.linearVelocity = direction * bulletSpeed;
+                Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
+                rb.MoveRotation(Quaternion.Slerp(rb.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime));
+            }
+        }
+
+        #region Shoot
+        private void Shoot()
+        {
+            if (inputHandler.isFirePressed)
+            {
+                if(PlayerType == Data.PlayerType.Shooter)
+                {
+                    ShootBullet();
+                }
+                else if(PlayerType == Data.PlayerType.Supporter)
+                {
+                    ShootItem();
+                }
+            }
+        }
+
+        private void ShootBullet()
+        {
+            if(ammo > 0)
+            {
+                GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+
+                Vector3 direction = (pointer.position - firePoint.position).normalized;
+                direction.y = 0;
+                direction = direction.normalized;
+
+                Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
+                if (bulletRb != null)
+                {
+                    bulletRb.linearVelocity = direction * bulletSpeed;
+                }
+
+                bullet.transform.forward = direction;
+
+                ammo--;
+            }
+        }
+
+        private void ShootItem()
+        {
+            if(itemHolder.childCount > 0)
+            {
+                GameObject itemBox = itemHolder.GetChild(0).gameObject;
+
+                Vector3 direction = (pointer.position - itemHolder.position).normalized;
+
+                Rigidbody itemBoxRB = itemBox.GetComponent<Rigidbody>();
+                if (itemBoxRB != null)
+                {
+                    itemBoxRB.linearVelocity = direction * bulletSpeed;
+                }
+
+                itemBox.transform.forward = direction;
+            }
+        }
+        #endregion
+
+        private void MovePointer()
+        {
+            Vector3 screenPosition = new Vector3(inputHandler.mouseInput.x, inputHandler.mouseInput.y, distanceFromCamera);
+
+            Vector3 targetPosition = Camera.main.ScreenToWorldPoint(screenPosition);
+
+            pointer.position = Vector3.Lerp(pointer.position, targetPosition, pointerSpeed * Time.deltaTime);
+        }
+
+        private void PickUp(GameObject item)
+        {
+            item.transform.SetParent(itemHolder);
+
+            item.transform.localPosition = Vector3.zero;
+            item.transform.localRotation = Quaternion.identity;
+
+            Rigidbody rb = item.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                rb.isKinematic = true;
             }
 
-            bullet.transform.forward = direction;
-        }
-    }
-
-    private void MovePointer()
-    {
-        Vector3 screenPosition = new Vector3(inputHandler.mouseInput.x, inputHandler.mouseInput.y, distanceFromCamera);
-
-        Vector3 targetPosition = Camera.main.ScreenToWorldPoint(screenPosition);
-
-        pointer.position = Vector3.Lerp(pointer.position, targetPosition, pointerSpeed * Time.deltaTime);
-    }
-
-    private void PickUp(GameObject item)
-    {
-        item.transform.SetParent(itemHolder);
-
-        item.transform.localPosition = Vector3.zero;      
-        item.transform.localRotation = Quaternion.identity;
-
-        Rigidbody rb = item.GetComponent<Rigidbody>();
-        if (rb != null)
-        {
-            rb.isKinematic = true;
+            Collider col = item.GetComponent<Collider>();
+            if (col != null)
+            {
+                col.enabled = false;
+            }
         }
 
-        Collider col = item.GetComponent<Collider>();
-        if (col != null)
+        public void AddAmmo(int ammo)
         {
-            col.enabled = false;
+            this.ammo += ammo;
         }
     }
 }
+
