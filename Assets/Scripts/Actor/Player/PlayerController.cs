@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -18,6 +17,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float pointerSpeed = 10f;
     [SerializeField] private float distanceFromCamera = 10f;
 
+    [SerializeField] private Transform itemHolder;
 
     private Rigidbody rb;
     private PlayerInputHandler inputHandler;
@@ -33,6 +33,18 @@ public class PlayerController : MonoBehaviour
         ApplyMovement();
         Shoot();
         MovePointer();
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+
+        if (inputHandler.interactAction.triggered)
+        {
+            if (other.CompareTag("Item"))
+            {
+                PickUp(other.gameObject);
+            }
+        }
     }
 
     private void ApplyMovement()
@@ -78,5 +90,25 @@ public class PlayerController : MonoBehaviour
         Vector3 targetPosition = Camera.main.ScreenToWorldPoint(screenPosition);
 
         pointer.position = Vector3.Lerp(pointer.position, targetPosition, pointerSpeed * Time.deltaTime);
+    }
+
+    private void PickUp(GameObject item)
+    {
+        item.transform.SetParent(itemHolder);
+
+        item.transform.localPosition = Vector3.zero;      
+        item.transform.localRotation = Quaternion.identity;
+
+        Rigidbody rb = item.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.isKinematic = true;
+        }
+
+        Collider col = item.GetComponent<Collider>();
+        if (col != null)
+        {
+            col.enabled = false;
+        }
     }
 }
