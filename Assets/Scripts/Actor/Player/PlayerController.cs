@@ -74,7 +74,7 @@ namespace Actor.Player
         #region Shoot
         private void Shoot()
         {
-            if (inputHandler.isFirePressed)
+            if (inputHandler.attackAction.triggered)
             {
                 if(PlayerType == Data.PlayerType.Shooter)
                 {
