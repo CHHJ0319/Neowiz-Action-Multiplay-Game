@@ -47,9 +47,8 @@ namespace Actor.Enemy
             else if (other.CompareTag("Barricade"))
             {
                 Events.PlayerFieldEvents.HandleEnemyCollision(damage);
+                Destroy(gameObject);
             }
-
-            Destroy(gameObject);
         }
 
         private void SetType()
@@ -66,7 +65,7 @@ namespace Actor.Enemy
             switch (type)
             {
                 case Data.ElementType.Red:
-                    hpRed = amount; 
+                    hpRed = amount;
                     hpRedText.gameObject.SetActive(true);
                     break;
 
@@ -86,7 +85,7 @@ namespace Actor.Enemy
         {
             foreach (Data.ElementType myType in Types)
             {
-                SetHealthByType(myType, 10); 
+                SetHealthByType(myType, 10);
             }
 
             CalculateTotalHP();
@@ -95,52 +94,45 @@ namespace Actor.Enemy
 
         public void SetMultiType()
         {
-            int randomIndex = Random.Range(1, 3);
+            int targetTypeCount = UnityEngine.Random.Range(2, 4);
 
-            switch (randomIndex)
+            while (Types.Count < targetTypeCount)
             {
-                case 1:
-                    SetType();
-                    SetType();
-                    break;
-                case 2:
-                    SetType();
-                    SetType();
-                    SetType();
-                    break;
+                Data.ElementType newType = GetRandomElementType();
+
+                if (!Types.Contains(newType))
+                {
+                    Types.Add(newType);
+                    SetRingTarget(newType);
+                    SetHPtexts(newType);
+                }
             }
+
+            CalculateTotalHP();
+            UpdateHPTexts();
         }
 
         public void TakeDamage(Data.ElementType type)
         {
-            if(Types.Contains(type))
+            if (Types.Contains(type))
             {
                 switch (type)
                 {
                     case Data.ElementType.Red:
-                        if(hpRed > 0)
-                        {
-                            hpRed--;
-                        }
+                        if (hpRed > 0) hpRed--;
                         break;
                     case Data.ElementType.Green:
-                        if (hpGreen > 0)
-                        {
-                            hpGreen--;
-                        }
+                        if (hpGreen > 0) hpGreen--;
                         break;
                     case Data.ElementType.Blue:
-                        if (hpBlue > 0)
-                        {
-                            hpBlue--;
-                        }
+                        if (hpBlue > 0) hpBlue--;
                         break;
                 }
 
                 CalculateTotalHP();
                 UpdateHPTexts();
 
-                if(totalHP <= 0)
+                if (totalHP <= 0)
                 {
                     DestroySelf();
                 }
@@ -226,24 +218,11 @@ namespace Actor.Enemy
 
         private Data.ElementType GetRandomElementType()
         {
-            int randomIndex = Random.Range(0, 3);
+            int randomIndex = UnityEngine.Random.Range(0, 3);
 
-            if (randomIndex == 0)
-            {
-                return Data.ElementType.Red;
-            }
-            else if (randomIndex == 1)
-            {
-                return Data.ElementType.Green;
-            }
-            else if (randomIndex == 2)
-            {
-                return Data.ElementType.Blue;
-            }
-            else
-            {
-                return Data.ElementType.Red;
-            }
+            if (randomIndex == 0) return Data.ElementType.Red;
+            else if (randomIndex == 1) return Data.ElementType.Green;
+            else return Data.ElementType.Blue;
         }
     }
 }
