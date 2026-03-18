@@ -66,17 +66,14 @@ namespace Actor.Enemy
             {
                 case Data.ElementType.Red:
                     hpRed = amount;
-                    hpRedText.gameObject.SetActive(true);
                     break;
 
                 case Data.ElementType.Green:
                     hpGreen = amount;
-                    hpGreenText.gameObject.SetActive(true);
                     break;
 
                 case Data.ElementType.Blue:
                     hpBlue = amount;
-                    hpBlueText.gameObject.SetActive(true);
                     break;
             }
         }
@@ -85,7 +82,7 @@ namespace Actor.Enemy
         {
             foreach (Data.ElementType myType in Types)
             {
-                SetHealthByType(myType, 10);
+                SetHealthByType(myType, 3);
             }
 
             CalculateTotalHP();
@@ -114,28 +111,33 @@ namespace Actor.Enemy
 
         public void TakeDamage(Data.ElementType type)
         {
-            if (Types.Contains(type))
+            //if (Types.Contains(type))
+            //{
+            //    switch (type)
+            //    {
+            //        case Data.ElementType.Red:
+            //            if (hpRed > 0) hpRed--;
+            //            break;
+            //        case Data.ElementType.Green:
+            //            if (hpGreen > 0) hpGreen--;
+            //            break;
+            //        case Data.ElementType.Blue:
+            //            if (hpBlue > 0) hpBlue--;
+            //            break;
+            //    }
+
+            //    CalculateTotalHP();
+            //    UpdateHPTexts();
+
+            //    
+            //}
+
+            totalHP--;
+            UpdateHPTexts();
+
+            if (totalHP <= 0)
             {
-                switch (type)
-                {
-                    case Data.ElementType.Red:
-                        if (hpRed > 0) hpRed--;
-                        break;
-                    case Data.ElementType.Green:
-                        if (hpGreen > 0) hpGreen--;
-                        break;
-                    case Data.ElementType.Blue:
-                        if (hpBlue > 0) hpBlue--;
-                        break;
-                }
-
-                CalculateTotalHP();
-                UpdateHPTexts();
-
-                if (totalHP <= 0)
-                {
-                    DestroySelf();
-                }
+                DestroySelf();
             }
         }
 
@@ -155,25 +157,27 @@ namespace Actor.Enemy
         #region HPText
         private void SetHPtexts(Data.ElementType type)
         {
-            if (type == Data.ElementType.Red)
-            {
-                hpRedText.gameObject.SetActive(true);
-            }
-            if (type == Data.ElementType.Green)
-            {
-                hpGreenText.gameObject.SetActive(true);
-            }
-            if (type == Data.ElementType.Blue)
-            {
-                hpBlueText.gameObject.SetActive(true);
-            }
+            hpRedText.gameObject.SetActive(true);
+            //if (type == Data.ElementType.Red)
+            //{
+            //    hpRedText.gameObject.SetActive(true);
+            //}
+            //if (type == Data.ElementType.Green)
+            //{
+            //    hpGreenText.gameObject.SetActive(true);
+            //}
+            //if (type == Data.ElementType.Blue)
+            //{
+            //    hpBlueText.gameObject.SetActive(true);
+            //}
         }
 
         private void UpdateHPTexts()
         {
-            hpRedText.text = "" + hpRed;
-            hpGreenText.text = "" + hpGreen;
-            hpBlueText.text = "" + hpBlue;
+            hpRedText.text = "" + totalHP;
+            //hpRedText.text = "" + hpRed;
+            //hpGreenText.text = "" + hpGreen;
+            //hpBlueText.text = "" + hpBlue;
         }
         #endregion
 

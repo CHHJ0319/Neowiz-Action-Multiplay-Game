@@ -55,7 +55,8 @@ namespace Actor.Enemy
             }
             else if (randomRate < multiTypeEnemySpawnRate)
             {
-                SpawnerMultiTypeEnemy(spawnPosition, direction);
+                SpawnerNormalEnemy(spawnPosition, direction);
+                //SpawnerMultiTypeEnemy(spawnPosition, direction);
             }
         }
 

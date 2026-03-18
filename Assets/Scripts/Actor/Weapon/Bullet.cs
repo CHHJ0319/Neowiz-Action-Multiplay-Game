@@ -31,9 +31,8 @@ namespace Actor.Weapon
             {
                 Enemy.EnemyController enemy = other.GetComponent<Enemy.EnemyController>();
                 enemy.TakeDamage(Type);
+                Destroy(gameObject);
             }
-
-            //Destroy(gameObject);
         }
 
         public void Intialize(Data.ElementType type)

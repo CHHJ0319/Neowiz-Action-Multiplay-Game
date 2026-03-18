@@ -33,13 +33,17 @@ namespace Actor.Player
             rb = GetComponent<Rigidbody>();
             inputHandler = GetComponent<PlayerInputHandler>();
 
-            ammo = 10;
+            ammo = 100;
+        }
+
+        private void Update()
+        {
+            Shoot();
         }
 
         private void FixedUpdate()
         {
             ApplyMovement();
-            Shoot();
             MovePointer();
         }
 

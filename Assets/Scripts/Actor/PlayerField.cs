@@ -32,7 +32,7 @@ namespace Actor
 
             if(hp <= 0)
             {
-                Events.RoundEvents.EndRound();
+                //Events.RoundEvents.EndRound();
             }
         }
     }

@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace Actor.Enemy
 {
@@ -8,12 +7,10 @@ namespace Actor.Enemy
     {
         public EnemySpawner spawner;
 
-        void OnInteract(InputValue value)
+        public void GameStart(GameObject button)
         {
-            if (value.isPressed)
-            {
-                StartCoroutine(SpawnAllPatternsRoutine());
-            }
+            button.SetActive(false);
+            StartCoroutine(SpawnAllPatternsRoutine());
         }
 
         public IEnumerator SpawnAllPatternsRoutine()
