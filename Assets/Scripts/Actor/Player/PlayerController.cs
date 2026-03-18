@@ -114,12 +114,14 @@ namespace Actor.Player
             if(itemHolder.childCount > 0)
             {
                 GameObject itemBox = itemHolder.GetChild(0).gameObject;
+                itemBox.transform.SetParent(null);
 
                 Vector3 direction = (pointer.position - itemHolder.position).normalized;
 
                 Rigidbody itemBoxRB = itemBox.GetComponent<Rigidbody>();
                 if (itemBoxRB != null)
                 {
+                    itemBoxRB.isKinematic = false;
                     itemBoxRB.linearVelocity = direction * bulletSpeed;
                 }
 

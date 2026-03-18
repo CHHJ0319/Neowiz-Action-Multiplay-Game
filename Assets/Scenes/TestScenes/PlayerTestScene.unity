@@ -411,7 +411,8 @@ MonoBehaviour:
   pointerSpeed: 10
   distanceFromCamera: 9
   itemHolder: {fileID: 459109789}
-  playerType: 1
+  PlayerType: 0
+  ammo: 0
 --- !u!4 &617147122
 Transform:
   m_ObjectHideFlags: 0
@@ -449,6 +450,15 @@ MonoBehaviour:
     m_Type: 0
     m_ExpectedControlType: 
     m_Id: 4161ad42-cf11-41ac-84dd-108ad500ebcd
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  attackAction:
+    m_Name: Attack
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 5afe7c4f-123a-4395-aba1-4e8ee1bd923f
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings: []
