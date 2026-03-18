@@ -20,12 +20,12 @@ public class GameManager : MonoBehaviour
 
     private void OnEnable()
     {
-        Events.GameEvents.OnQuitButtonClicked += QuitGame;
+        Events.GameEvents.OnQuitGame += QuitGame;
     }
 
     private void OnDisable()
     {
-        Events.GameEvents.OnQuitButtonClicked -= QuitGame;
+        Events.GameEvents.OnQuitGame -= QuitGame;
     }
 
     public void QuitGame()

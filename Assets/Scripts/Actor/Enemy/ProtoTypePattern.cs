@@ -7,9 +7,18 @@ namespace Actor.Enemy
     {
         public EnemySpawner spawner;
 
-        public void GameStart(GameObject button)
+        private void OnEnable()
         {
-            button.SetActive(false);
+            Events.RoundEvents.OnRoundStarted += StartPattern;
+        }
+
+        private void OnDisable()
+        {
+            Events.RoundEvents.OnRoundStarted -= StartPattern;
+        }
+
+        public void StartPattern()
+        {
             StartCoroutine(SpawnAllPatternsRoutine());
         }
 
@@ -32,6 +41,10 @@ namespace Actor.Enemy
             yield return new WaitForSeconds(1.5f);
 
             StartCoroutine(SpawnMeteorRain(10));
+
+            yield return new WaitForSeconds(10.0f);
+
+            Events.RoundEvents.EndRound();
         }
 
         private IEnumerator SpawnGapWall(int enemiesPerWave, int waves)

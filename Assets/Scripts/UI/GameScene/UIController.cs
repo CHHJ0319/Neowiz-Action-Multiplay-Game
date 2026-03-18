@@ -7,14 +7,14 @@ namespace UI.GameScene
     {
         public Image barricadeHPBar;
         public GameObject resultPanel;
-
-        public Button quitButton;
+        
+        public Button roundStartButton;
 
         private void Awake()
         {
-            if (quitButton != null)
+            if (roundStartButton != null)
             {
-                quitButton.onClick.AddListener(Events.GameEvents.QuitGame);
+                roundStartButton.onClick.AddListener(OnRoundStartButtonClicked);
             }
         }
 
@@ -23,6 +23,7 @@ namespace UI.GameScene
             Events.PlayerFieldEvents.OnHPChanged += UpdateBarricadeHPBar;
 
             Events.RoundEvents.OnRoundEnded += ShowResultPanel;
+            Events.RoundEvents.OnRoundEnded += ShowRoundStartButton;
         }
 
         private void OnDisable()
@@ -30,6 +31,7 @@ namespace UI.GameScene
             Events.PlayerFieldEvents.OnHPChanged -= UpdateBarricadeHPBar;
 
             Events.RoundEvents.OnRoundEnded -= ShowResultPanel;
+            Events.RoundEvents.OnRoundEnded -= ShowRoundStartButton;
         }
 
         private void UpdateBarricadeHPBar(float hpRate)
@@ -43,6 +45,17 @@ namespace UI.GameScene
         private void ShowResultPanel()
         {
             resultPanel.SetActive(true);
+        }
+
+        private void OnRoundStartButtonClicked()
+        {
+            Events.RoundEvents.StartRound();
+            roundStartButton.gameObject.SetActive(false);
+        }
+
+        private void ShowRoundStartButton()
+        {
+            roundStartButton.gameObject.SetActive(true);
         }
     }
 }

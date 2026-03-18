@@ -1,5 +1,6 @@
 using Actor.Weapon;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Actor.Player 
 {
@@ -16,7 +17,8 @@ namespace Actor.Player
         [SerializeField] private float bulletSpeed = 20f;
 
         [Header("Pointer Settings")]
-        [SerializeField] private Transform pointer;
+        [SerializeField] private Canvas parentCanvas;
+        [SerializeField] private RectTransform pointer;
         [SerializeField] private float pointerSpeed = 10f;
         [SerializeField] private float distanceFromCamera = 10f;
 
@@ -28,12 +30,26 @@ namespace Actor.Player
         public Data.PlayerType PlayerType = Data.PlayerType.Shooter;
         public int ammo;
 
+        private Vector3 pointerPos;
+
         private void Awake()
         {
             rb = GetComponent<Rigidbody>();
             inputHandler = GetComponent<PlayerInputHandler>();
 
             ammo = 100;
+        }
+
+        private void OnEnable()
+        {
+            Events.RoundEvents.OnRoundStarted += ShowPointer;
+            Events.RoundEvents.OnRoundEnded += HidePointer;
+        }
+
+        private void OnDisable()
+        {
+            Events.RoundEvents.OnRoundStarted -= ShowPointer;
+            Events.RoundEvents.OnRoundEnded -= HidePointer;
         }
 
         private void Update()
@@ -97,7 +113,7 @@ namespace Actor.Player
             {
                 GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
 
-                Vector3 direction = (pointer.position - firePoint.position).normalized;
+                Vector3 direction = (pointerPos - firePoint.position).normalized;
                 direction.y = 0;
                 direction = direction.normalized;
 
@@ -120,7 +136,7 @@ namespace Actor.Player
                 GameObject itemBox = itemHolder.GetChild(0).gameObject;
                 itemBox.transform.SetParent(null);
 
-                Vector3 direction = (pointer.position - itemHolder.position).normalized;
+                Vector3 direction = (pointerPos - itemHolder.position).normalized;
 
                 Rigidbody itemBoxRB = itemBox.GetComponent<Rigidbody>();
                 if (itemBoxRB != null)
@@ -137,10 +153,10 @@ namespace Actor.Player
         private void MovePointer()
         {
             Vector3 screenPosition = new Vector3(inputHandler.mouseInput.x, inputHandler.mouseInput.y, distanceFromCamera);
+            pointerPos = Camera.main.ScreenToWorldPoint(screenPosition);
 
-            Vector3 targetPosition = Camera.main.ScreenToWorldPoint(screenPosition);
-
-            pointer.position = Vector3.Lerp(pointer.position, targetPosition, pointerSpeed * Time.deltaTime);
+            Vector2 mousePosition = Mouse.current.position.ReadValue();
+            pointer.position = mousePosition;
         }
 
         private void PickUp(GameObject item)
@@ -166,6 +182,16 @@ namespace Actor.Player
         public void AddAmmo(int ammo)
         {
             this.ammo += ammo;
+        }
+
+        private void ShowPointer()
+        {
+            pointer.gameObject.SetActive(true);
+        }
+
+        private void HidePointer()
+        {
+            pointer.gameObject.SetActive(false);
         }
     }
 }

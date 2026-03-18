@@ -4,12 +4,12 @@ namespace Events
 {
     public static class GameEvents
     {
-        public static event Action OnQuitButtonClicked;
+        public static event Action OnQuitGame;
 
         
         public static void QuitGame()
         {
-            OnQuitButtonClicked?.Invoke();
+            OnQuitGame?.Invoke();
         }
     }
 }

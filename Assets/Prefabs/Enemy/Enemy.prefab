@@ -233,7 +233,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Actor.EnemyController
   ringTarget: {fileID: 6390586324230055802}
   damage: 10
-  speed: 1
+  speed: 5
   typeRed: {fileID: 2100000, guid: 8b9ad7e2b932c0a49bbae2d7796aaffb, type: 2}
   typeGreen: {fileID: 2100000, guid: 846fae12fb4382f48a5657b134f93620, type: 2}
   typeBlue: {fileID: 2100000, guid: 51b12f8ffbbdd5743b96f985517b1676, type: 2}
