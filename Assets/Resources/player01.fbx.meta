@@ -1,14 +1,9 @@
 fileFormatVersion: 2
-guid: 1286f292441d50e418420ca44abde829
+guid: 19e2ebed912836f47b739c0356b30109
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: colormap
-    second: {fileID: 2100000, guid: 49df2acee0d213d419f5bb645df0689a, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -97,7 +92,7 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     globalScale: 1
-    rootMotionBoneName: 
+    rootMotionBoneName: Root
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
