@@ -877,6 +877,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -5207561562118268301, guid: 00ecd2560e1daf74583b5e0628128997, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 4140195894
+      objectReference: {fileID: 0}
     - target: {fileID: 298427653747277566, guid: 00ecd2560e1daf74583b5e0628128997, type: 3}
       propertyPath: m_Name
       value: Player
@@ -924,14 +928,6 @@ PrefabInstance:
     - target: {fileID: 1200556822224926997, guid: 00ecd2560e1daf74583b5e0628128997, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8228642264112133640, guid: 00ecd2560e1daf74583b5e0628128997, type: 3}
-      propertyPath: dashAction.m_Name
-      value: Dash
-      objectReference: {fileID: 0}
-    - target: {fileID: 8228642264112133640, guid: 00ecd2560e1daf74583b5e0628128997, type: 3}
-      propertyPath: moveAction.m_Name
-      value: Move
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

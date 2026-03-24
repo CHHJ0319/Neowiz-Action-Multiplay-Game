@@ -1,10 +1,10 @@
+using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 namespace Actor.Player 
 {
-    public class PlayerController : MonoBehaviour
+    public class PlayerController : NetworkBehaviour
     {
         [Header("Movement Settings")]
         [SerializeField] private float walkSpeed = 5f;
@@ -173,6 +173,8 @@ namespace Actor.Player
 
         private void PickUp()
         {
+            if (targetItem == null) return;
+
             targetItem.transform.SetParent(itemHolder);
 
             targetItem.transform.localPosition = Vector3.zero;
