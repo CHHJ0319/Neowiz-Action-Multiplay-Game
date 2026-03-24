@@ -111,29 +111,24 @@ namespace Actor.Enemy
 
         public void TakeDamage(Data.ElementType type)
         {
-            //if (Types.Contains(type))
-            //{
-            //    switch (type)
-            //    {
-            //        case Data.ElementType.Red:
-            //            if (hpRed > 0) hpRed--;
-            //            break;
-            //        case Data.ElementType.Green:
-            //            if (hpGreen > 0) hpGreen--;
-            //            break;
-            //        case Data.ElementType.Blue:
-            //            if (hpBlue > 0) hpBlue--;
-            //            break;
-            //    }
+            if (Types.Contains(type))
+            {
+                switch (type)
+                {
+                    case Data.ElementType.Red:
+                        if (hpRed > 0) hpRed--;
+                        break;
+                    case Data.ElementType.Green:
+                        if (hpGreen > 0) hpGreen--;
+                        break;
+                    case Data.ElementType.Blue:
+                        if (hpBlue > 0) hpBlue--;
+                        break;
+                }
 
-            //    CalculateTotalHP();
-            //    UpdateHPTexts();
-
-            //    
-            //}
-
-            totalHP--;
-            UpdateHPTexts();
+                CalculateTotalHP();
+                UpdateHPTexts();
+            }
 
             if (totalHP <= 0)
             {
@@ -157,27 +152,25 @@ namespace Actor.Enemy
         #region HPText
         private void SetHPtexts(Data.ElementType type)
         {
-            hpRedText.gameObject.SetActive(true);
-            //if (type == Data.ElementType.Red)
-            //{
-            //    hpRedText.gameObject.SetActive(true);
-            //}
-            //if (type == Data.ElementType.Green)
-            //{
-            //    hpGreenText.gameObject.SetActive(true);
-            //}
-            //if (type == Data.ElementType.Blue)
-            //{
-            //    hpBlueText.gameObject.SetActive(true);
-            //}
+            if (type == Data.ElementType.Red)
+            {
+                hpRedText.gameObject.SetActive(true);
+            }
+            if (type == Data.ElementType.Green)
+            {
+                hpGreenText.gameObject.SetActive(true);
+            }
+            if (type == Data.ElementType.Blue)
+            {
+                hpBlueText.gameObject.SetActive(true);
+            }
         }
 
         private void UpdateHPTexts()
         {
-            hpRedText.text = "" + totalHP;
-            //hpRedText.text = "" + hpRed;
-            //hpGreenText.text = "" + hpGreen;
-            //hpBlueText.text = "" + hpBlue;
+            hpRedText.text = "" + hpRed;
+            hpGreenText.text = "" + hpGreen;
+            hpBlueText.text = "" + hpBlue;
         }
         #endregion
 

@@ -7,27 +7,57 @@ namespace Actor.Player
     {
         private PlayerInput playerInput;
 
-        public Vector2 moveInput;
-        public bool isDashPressed;
-        public Vector2 mouseInput;
-        public InputAction interactAction;
-        public InputAction attackAction;
+        private InputAction moveAction;
+        private InputAction interactAction;
+        private InputAction attackAction;
+        private InputAction dashAction;
+        private InputAction pointerAction;
+
+        public bool isDashPressed { get; private set; }
+        public Vector2 mouseInput { get; private set; }
+
+        public float horizontal => moveAction.ReadValue<Vector2>().x;
+        public float vertical => moveAction.ReadValue<Vector2>().y;
 
         private void Awake()
         {
             playerInput = GetComponent<PlayerInput>();
 
-            interactAction = playerInput.actions["Interact"];
-            attackAction = playerInput.actions["Attack"];
+            var actions = playerInput.actions;
+            moveAction = actions["Move"];
+            dashAction = actions["Dash"];
+            pointerAction = actions["Pointer"];
+            interactAction = actions["Interact"];
+            attackAction = actions["Attack"];
+            
         }
 
-        private void OnMove(InputValue value) => moveInput = value.Get<Vector2>();
-
-        private void OnDash(InputValue value) => isDashPressed = value.isPressed;
-
-        public void OnPointer(InputValue value)
+        private void OnEnable()
         {
-            mouseInput = value.Get<Vector2>();
+            dashAction.started += OnDashStarted;
+            dashAction.canceled += OnDashCanceled;
+
+            pointerAction.performed += OnPointerPerformed;
+
+            interactAction.performed += ctx => OnInteract();
+        }
+
+        private void OnDisable()
+        {
+            dashAction.started -= OnDashStarted;
+            dashAction.canceled -= OnDashCanceled;
+
+            pointerAction.performed -= OnPointerPerformed;
+        }
+
+        private void OnDashStarted(InputAction.CallbackContext context) => isDashPressed = true;
+        private void OnDashCanceled(InputAction.CallbackContext context) => isDashPressed = false;
+
+        private void OnPointerPerformed(InputAction.CallbackContext context) => mouseInput = context.ReadValue<Vector2>();
+
+        private void OnInteract()
+        {
+            
         }
     }
 }

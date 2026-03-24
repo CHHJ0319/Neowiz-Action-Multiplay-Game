@@ -1,5 +1,5 @@
-using Actor.Weapon;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 namespace Actor.Player 
@@ -30,6 +30,8 @@ namespace Actor.Player
         public Data.PlayerType PlayerType = Data.PlayerType.Shooter;
         public int ammo;
 
+        Vector3 velocity = new Vector3(0,0,0);
+
         private Vector3 pointerPos;
 
         private void Awake()
@@ -54,6 +56,7 @@ namespace Actor.Player
 
         private void Update()
         {
+            CalculateVeocity();
             Shoot();
         }
 
@@ -65,46 +68,47 @@ namespace Actor.Player
 
         private void OnTriggerStay(Collider other)
         {
+            //if (inputHandler.interactAction.triggered)
+            //{
+            //    if (other.CompareTag("Item"))
+            //    {
+            //        PickUp(other.gameObject);
+            //    }
+            //}
+        }
 
-            if (inputHandler.interactAction.triggered)
-            {
-                if (other.CompareTag("Item"))
-                {
-                    PickUp(other.gameObject);
-                }
-            }
+        private void CalculateVeocity()
+        {
+            Vector3 moveDirection = new Vector3(inputHandler.horizontal, 0, inputHandler.vertical);
+            float currentSpeed = inputHandler.isDashPressed ? dashSpeed : walkSpeed;
+            velocity = moveDirection * currentSpeed;
         }
 
         private void ApplyMovement()
         {
-            float currentSpeed = inputHandler.isDashPressed ? dashSpeed : walkSpeed;
+            rb.linearVelocity = new Vector3(velocity.x, rb.linearVelocity.y, velocity.z);
 
-            Vector3 moveDirection = new Vector3(inputHandler.moveInput.x, 0, inputHandler.moveInput.y);
-
-            Vector3 targetVelocity = moveDirection * currentSpeed;
-            rb.linearVelocity = new Vector3(targetVelocity.x, rb.linearVelocity.y, targetVelocity.z);
-
-            if (moveDirection.magnitude > 0.1f)
-            {
-                Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
-                rb.MoveRotation(Quaternion.Slerp(rb.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime));
-            }
+            //if (moveDirection.magnitude > 0.1f)
+            //{
+            //    Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
+            //    rb.MoveRotation(Quaternion.Slerp(rb.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime));
+            //}
         }
 
         #region Shoot
         private void Shoot()
         {
-            if (inputHandler.attackAction.triggered)
-            {
-                if(PlayerType == Data.PlayerType.Shooter)
-                {
-                    ShootBullet();
-                }
-                else if(PlayerType == Data.PlayerType.Supporter)
-                {
-                    ShootItem();
-                }
-            }
+            //if (inputHandler.attackAction.triggered)
+            //{
+            //    if(PlayerType == Data.PlayerType.Shooter)
+            //    {
+            //        ShootBullet();
+            //    }
+            //    else if(PlayerType == Data.PlayerType.Supporter)
+            //    {
+            //        ShootItem();
+            //    }
+            //}
         }
 
         private void ShootBullet()
