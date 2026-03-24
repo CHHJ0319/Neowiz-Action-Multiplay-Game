@@ -10,7 +10,15 @@ public class ActorManager : NetworkBehaviour
 
     public GameObject[] playerPrefabs;
 
-    public NetworkVariable<int> playerCount = new NetworkVariable<int>(); 
+    public NetworkVariable<int> playerCount = new NetworkVariable<int>();
+
+    private Vector3[] playerSpawnPositions =
+    {
+        new Vector3(-2f, 0f, -2f),
+        new Vector3(2f, 0f, -2f),
+        new Vector3(-2f, 0f, -4f),
+        new Vector3(2f, 0f, -4f),
+    };
 
     private void Awake()
     {
@@ -36,13 +44,10 @@ public class ActorManager : NetworkBehaviour
     public void SpawnPlayerServerRpc(ulong clientId)
     {
         GameObject player = Instantiate(playerPrefabs[0]);
+        player.transform.localPosition = playerSpawnPositions[playerCount.Value];
 
         NetworkObject nv = player.GetComponent<NetworkObject>();
         nv.SpawnAsPlayerObject(clientId);
-
-        player.GetComponent<PlayerController>().SetPointer(playerCount.Value);
-        Vector3 randomPos = new Vector3(0f, 0f, -3f);
-        player.GetComponent<PlayerController>().SetPosition(randomPos);
 
         playerCount.Value++;
     }

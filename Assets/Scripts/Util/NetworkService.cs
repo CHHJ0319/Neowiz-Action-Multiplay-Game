@@ -31,6 +31,7 @@ namespace Util
                 Debug.LogException(e);
             }
         }
+
         public static IEnumerator ConfigureTransportAndStartNgoAsHost()
         {
             var serverRelayUtilityTask = Util.NetworkService.AllocateRelayServerAndGetJoinCode(m_MaxConnections);
@@ -103,15 +104,7 @@ namespace Util
                 throw;
             }
 
-            return new RelayServerData(
-                allocation.RelayServer.IpV4,
-                (ushort)allocation.RelayServer.Port,
-                allocation.AllocationIdBytes,
-                allocation.ConnectionData,
-                allocation.ConnectionData,
-                allocation.Key,
-                true
-            );
+            return allocation.ToRelayServerData("dtls");
         }
 
         private static async Task<RelayServerData> JoinRelayServerFromJoinCode(string joinCode)
@@ -133,15 +126,7 @@ namespace Util
             Debug.Log($"host: {allocation.HostConnectionData[0]} {allocation.HostConnectionData[1]}");
             Debug.Log($"client: {allocation.AllocationId}");
 
-            return new RelayServerData(
-                allocation.RelayServer.IpV4,
-                (ushort)allocation.RelayServer.Port,
-                allocation.AllocationIdBytes,
-                allocation.ConnectionData,
-                allocation.HostConnectionData,
-                allocation.Key,
-                true
-            );
+            return allocation.ToRelayServerData("dtls");
         }
     }
 }

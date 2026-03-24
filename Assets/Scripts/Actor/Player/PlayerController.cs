@@ -1,5 +1,4 @@
 using Unity.Netcode;
-using UnityEditor.Timeline.Actions;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -61,11 +60,16 @@ namespace Actor.Player
 
         public override void OnNetworkSpawn()
         {
-            if (!IsOwner)
+            if (IsOwner)
             {
-                GetComponent<PlayerInput>().enabled = false;
-                return;
+                inputHandler.SetPlayerInputEnabled(true);
             }
+            else
+            {
+                inputHandler.SetPlayerInputEnabled(false);
+            }
+
+            //SetPointer(ActorManager.Instance.playerCount.Value);
         }
 
         public override void OnNetworkDespawn()
@@ -176,7 +180,10 @@ namespace Actor.Player
             targetPosition = Camera.main.ScreenToWorldPoint(screenPosition);
 
             Vector2 mousePosition = Mouse.current.position.ReadValue();
-            pointer.position = mousePosition;
+            if(pointer != null)
+            {
+                pointer.position = mousePosition;
+            }
         }
 
         private void Interact(InputAction.CallbackContext context)
@@ -217,11 +224,6 @@ namespace Actor.Player
         public void SetPointer(int playerIndex)
         {
             pointer = UIManager.Instance.GetPointer(playerIndex);
-        }
-
-        public void SetPosition(Vector3 pos)
-        {
-            transform.localPosition = pos;
         }
 
         private void ShowPointer()

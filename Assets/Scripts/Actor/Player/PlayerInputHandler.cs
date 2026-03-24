@@ -46,6 +46,18 @@ namespace Actor.Player
 
         }
 
+        public void SetPlayerInputEnabled(bool isEnabled)
+        {
+            if (isEnabled)
+            {
+                playerInput.actions.Enable();
+            }
+            else
+            {
+                playerInput.actions.Disable();
+            }
+        }
+
         private void OnDashStarted(InputAction.CallbackContext context) => isDashPressed = true;
         private void OnDashCanceled(InputAction.CallbackContext context) => isDashPressed = false;
     }
