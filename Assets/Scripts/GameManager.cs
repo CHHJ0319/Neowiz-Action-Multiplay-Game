@@ -1,6 +1,6 @@
-using UnityEngine;
+using Unity.Netcode;
 
-public class GameManager : MonoBehaviour
+public class GameManager : NetworkBehaviour
 {
     public static GameManager Instance { get; private set; }
 
