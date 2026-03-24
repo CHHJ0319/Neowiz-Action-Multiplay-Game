@@ -1,8 +1,11 @@
 using Unity.Netcode;
+using UnityEngine;
 
 public class ActorManager : NetworkBehaviour
 {
     public static ActorManager Instance { get; private set; }
+
+    public GameObject[] playerPrefabs;
 
     private void Awake()
     {
