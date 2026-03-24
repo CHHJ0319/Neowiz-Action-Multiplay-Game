@@ -8,10 +8,10 @@ namespace Actor.Player
         private PlayerInput playerInput;
 
         private InputAction moveAction;
-        private InputAction interactAction;
-        private InputAction attackAction;
         private InputAction dashAction;
         private InputAction pointerAction;
+        public InputAction attackAction;
+        public InputAction interactAction;
 
         public bool isDashPressed { get; private set; }
         public Vector2 mouseInput { get; private set; }
@@ -27,9 +27,8 @@ namespace Actor.Player
             moveAction = actions["Move"];
             dashAction = actions["Dash"];
             pointerAction = actions["Pointer"];
-            interactAction = actions["Interact"];
             attackAction = actions["Attack"];
-            
+            interactAction = actions["Interact"];
         }
 
         private void OnEnable()
@@ -37,9 +36,7 @@ namespace Actor.Player
             dashAction.started += OnDashStarted;
             dashAction.canceled += OnDashCanceled;
 
-            pointerAction.performed += OnPointerPerformed;
-
-            interactAction.performed += ctx => OnInteract();
+            pointerAction.performed += ctx => mouseInput = ctx.ReadValue<Vector2>();
         }
 
         private void OnDisable()
@@ -47,17 +44,9 @@ namespace Actor.Player
             dashAction.started -= OnDashStarted;
             dashAction.canceled -= OnDashCanceled;
 
-            pointerAction.performed -= OnPointerPerformed;
         }
 
         private void OnDashStarted(InputAction.CallbackContext context) => isDashPressed = true;
         private void OnDashCanceled(InputAction.CallbackContext context) => isDashPressed = false;
-
-        private void OnPointerPerformed(InputAction.CallbackContext context) => mouseInput = context.ReadValue<Vector2>();
-
-        private void OnInteract()
-        {
-            
-        }
     }
 }

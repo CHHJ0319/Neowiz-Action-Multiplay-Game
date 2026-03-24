@@ -17,7 +17,6 @@ namespace Actor.Player
         [SerializeField] private float bulletSpeed = 20f;
 
         [Header("Pointer Settings")]
-        [SerializeField] private Canvas parentCanvas;
         [SerializeField] private RectTransform pointer;
         [SerializeField] private float pointerSpeed = 10f;
         [SerializeField] private float distanceFromCamera = 10f;
@@ -27,12 +26,13 @@ namespace Actor.Player
         private Rigidbody rb;
         private PlayerInputHandler inputHandler;
 
-        public Data.PlayerType PlayerType = Data.PlayerType.Shooter;
+        public Data.PlayerType PlayerType { get; private set; } = Data.PlayerType.Supporter;
         public int ammo;
 
         Vector3 velocity = new Vector3(0,0,0);
 
-        private Vector3 pointerPos;
+        private Vector3 targetPosition;
+        private GameObject targetItem;
 
         private void Awake()
         {
@@ -44,12 +44,18 @@ namespace Actor.Player
 
         private void OnEnable()
         {
+            inputHandler.attackAction.performed += Shoot;
+            inputHandler.interactAction.performed += Interact;
+
             Events.RoundEvents.OnRoundStarted += ShowPointer;
             Events.RoundEvents.OnRoundEnded += HidePointer;
         }
 
         private void OnDisable()
         {
+            inputHandler.attackAction.performed -= Shoot;
+            inputHandler.interactAction.performed -= Interact;
+
             Events.RoundEvents.OnRoundStarted -= ShowPointer;
             Events.RoundEvents.OnRoundEnded -= HidePointer;
         }
@@ -57,7 +63,6 @@ namespace Actor.Player
         private void Update()
         {
             CalculateVeocity();
-            Shoot();
         }
 
         private void FixedUpdate()
@@ -68,13 +73,11 @@ namespace Actor.Player
 
         private void OnTriggerStay(Collider other)
         {
-            //if (inputHandler.interactAction.triggered)
-            //{
-            //    if (other.CompareTag("Item"))
-            //    {
-            //        PickUp(other.gameObject);
-            //    }
-            //}
+            if (other.CompareTag("Item"))
+            {
+                GameObject item = other.gameObject;
+                targetItem = item;
+            }
         }
 
         private void CalculateVeocity()
@@ -96,19 +99,16 @@ namespace Actor.Player
         }
 
         #region Shoot
-        private void Shoot()
+        private void Shoot(InputAction.CallbackContext context)
         {
-            //if (inputHandler.attackAction.triggered)
-            //{
-            //    if(PlayerType == Data.PlayerType.Shooter)
-            //    {
-            //        ShootBullet();
-            //    }
-            //    else if(PlayerType == Data.PlayerType.Supporter)
-            //    {
-            //        ShootItem();
-            //    }
-            //}
+            if (PlayerType == Data.PlayerType.Shooter)
+            {
+                ShootBullet();
+            }
+            else if (PlayerType == Data.PlayerType.Supporter)
+            {
+                ShootItem();
+            }
         }
 
         private void ShootBullet()
@@ -117,7 +117,7 @@ namespace Actor.Player
             {
                 GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
 
-                Vector3 direction = (pointerPos - firePoint.position).normalized;
+                Vector3 direction = (targetPosition - firePoint.position).normalized;
                 direction.y = 0;
                 direction = direction.normalized;
 
@@ -140,7 +140,7 @@ namespace Actor.Player
                 GameObject itemBox = itemHolder.GetChild(0).gameObject;
                 itemBox.transform.SetParent(null);
 
-                Vector3 direction = (pointerPos - itemHolder.position).normalized;
+                Vector3 direction = (targetPosition - itemHolder.position).normalized;
 
                 Rigidbody itemBoxRB = itemBox.GetComponent<Rigidbody>();
                 if (itemBoxRB != null)
@@ -157,26 +157,34 @@ namespace Actor.Player
         private void MovePointer()
         {
             Vector3 screenPosition = new Vector3(inputHandler.mouseInput.x, inputHandler.mouseInput.y, distanceFromCamera);
-            pointerPos = Camera.main.ScreenToWorldPoint(screenPosition);
+            targetPosition = Camera.main.ScreenToWorldPoint(screenPosition);
 
             Vector2 mousePosition = Mouse.current.position.ReadValue();
             pointer.position = mousePosition;
         }
 
-        private void PickUp(GameObject item)
+        private void Interact(InputAction.CallbackContext context)
         {
-            item.transform.SetParent(itemHolder);
+            if(PlayerType == Data.PlayerType.Supporter)
+            {
+                PickUp();
+            }
+        }
 
-            item.transform.localPosition = Vector3.zero;
-            item.transform.localRotation = Quaternion.identity;
+        private void PickUp()
+        {
+            targetItem.transform.SetParent(itemHolder);
 
-            Rigidbody rb = item.GetComponent<Rigidbody>();
+            targetItem.transform.localPosition = Vector3.zero;
+            targetItem.transform.localRotation = Quaternion.identity;
+
+            Rigidbody rb = targetItem.GetComponent<Rigidbody>();
             if (rb != null)
             {
                 rb.isKinematic = true;
             }
 
-            Collider col = item.GetComponent<Collider>();
+            Collider col = targetItem.GetComponent<Collider>();
             if (col != null)
             {
                 col.enabled = false;

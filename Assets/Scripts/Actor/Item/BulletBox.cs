@@ -18,7 +18,7 @@ namespace Actor.Item
 
                 if(player.PlayerType == Data.PlayerType.Shooter)
                 {
-                    AddAmmo(player);
+                    //AddAmmo(player);
                 }
             }
         }
