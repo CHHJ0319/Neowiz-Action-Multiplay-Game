@@ -1,5 +1,8 @@
 using System;
+using System.Collections;
 using System.Threading.Tasks;
+using Unity.Netcode;
+using Unity.Netcode.Transports.UTP;
 using Unity.Networking.Transport.Relay;
 using Unity.Services.Authentication;
 using Unity.Services.Core;
@@ -12,6 +15,8 @@ namespace Util
     public static class NetworkService
     {
         public static string JoinCode { get; private set; }
+
+        private const int m_MaxConnections = 4;
 
         public static async void InitializeUnityServicesAsync()
         {
@@ -26,8 +31,51 @@ namespace Util
                 Debug.LogException(e);
             }
         }
+        public static IEnumerator ConfigureTransportAndStartNgoAsHost()
+        {
+            var serverRelayUtilityTask = Util.NetworkService.AllocateRelayServerAndGetJoinCode(m_MaxConnections);
+            while (!serverRelayUtilityTask.IsCompleted)
+            {
+                yield return null;
+            }
+            if (serverRelayUtilityTask.IsFaulted)
+            {
+                Debug.LogError("Exception thrown when attempting to start Relay Server. Server not started. Exception: " + serverRelayUtilityTask.Exception.Message);
+                yield break;
+            }
 
-        public static async Task<RelayServerData> AllocateRelayServerAndGetJoinCode(int maxConnections, string region = null)
+            var relayServerData = serverRelayUtilityTask.Result;
+            NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
+
+            NetworkManager.Singleton.StartHost();
+
+            yield return new WaitForSeconds(2.0f);
+        }
+
+        public static IEnumerator ConfigureTransportAndStartNgoAsClient(string relayJoinCode)
+        {
+            var clientRelayUtilityTask = Util.NetworkService.JoinRelayServerFromJoinCode(relayJoinCode);
+
+            while (!clientRelayUtilityTask.IsCompleted)
+            {
+                yield return null;
+            }
+
+            if (clientRelayUtilityTask.IsFaulted)
+            {
+                Debug.LogError("Exception thrown when attempting to connect to Relay Server. Exception: " + clientRelayUtilityTask.Exception.Message);
+                yield break;
+            }
+
+            var relayServerData = clientRelayUtilityTask.Result;
+            NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
+
+            NetworkManager.Singleton.StartClient();
+
+            yield return new WaitForSeconds(2.0f);
+        }
+
+        private static async Task<RelayServerData> AllocateRelayServerAndGetJoinCode(int maxConnections, string region = null)
         {
             Allocation allocation;
             try
@@ -64,7 +112,7 @@ namespace Util
             );
         }
 
-        public static async Task<RelayServerData> JoinRelayServerFromJoinCode(string joinCode)
+        private static async Task<RelayServerData> JoinRelayServerFromJoinCode(string joinCode)
         {
             JoinAllocation allocation;
             try

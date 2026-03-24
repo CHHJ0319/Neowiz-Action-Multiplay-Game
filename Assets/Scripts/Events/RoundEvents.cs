@@ -8,6 +8,12 @@ namespace Events
         public static event Action OnRoundEnded;
         public static event Action OnRoundStarted;
 
+        public static void Clear()
+        {
+            OnRoundEnded = null;
+            OnRoundStarted = null;
+        }
+
         public static void EndRound()
         {
             OnRoundEnded?.Invoke();

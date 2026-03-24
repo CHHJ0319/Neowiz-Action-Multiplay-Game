@@ -8,6 +8,12 @@ namespace Events
         public static event Action<float> OnEnemyCollided;
         public static event Action<float> OnHPChanged;
 
+        public static void Clear()
+        {
+            OnEnemyCollided = null;
+            OnHPChanged = null;
+        }
+
         public static void HandleEnemyCollision(float damage)
         {
             OnEnemyCollided?.Invoke(damage);
