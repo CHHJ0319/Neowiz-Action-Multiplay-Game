@@ -1,3 +1,4 @@
+using Actor;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,12 +7,27 @@ namespace UI
 {
     public class NetworPanel : MonoBehaviour
     {
+        public static NetworPanel Instance;
+
         [SerializeField] private TMP_InputField joinCodeInputField;
         [SerializeField] private Button accessButton;
+        [SerializeField] private TextMeshProUGUI joinCode;
 
         void Awake()
         {
+            Instance = this;
+
             accessButton.onClick.AddListener(Access);
+        }
+
+        private void OnEnable()
+        {
+            Events.UIEvents.OnJoinCodeGenerated += SetJoinCode;
+        }
+
+        private void OnDisable()
+        {
+            Events.UIEvents.OnJoinCodeGenerated -= SetJoinCode;
         }
 
         private void Access()
@@ -26,6 +42,15 @@ namespace UI
             {
                 Events.GameEvents.StartHost();
             }
+
+            joinCodeInputField.gameObject.SetActive(false);
+            accessButton.gameObject.SetActive(false);
+        }
+
+        public void SetJoinCode(string code)
+        {
+            joinCode.gameObject.SetActive(true);
+            joinCode.text = code;
         }
     }
 }

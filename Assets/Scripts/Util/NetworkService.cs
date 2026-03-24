@@ -94,6 +94,8 @@ namespace Util
             try
             {
                 JoinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
+
+                Events.UIEvents.SetJoinCode(JoinCode);
             }
             catch
             {

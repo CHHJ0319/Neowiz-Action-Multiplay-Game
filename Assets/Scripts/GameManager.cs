@@ -74,6 +74,7 @@ public class GameManager : NetworkBehaviour
     {
         Events.GameEvents.Clear();
         Events.ActorEvents.Clear();
+        Events.UIEvents.Clear();
         Events.RoundEvents.Clear();
         Events.PlayerFieldEvents.Clear();
 
