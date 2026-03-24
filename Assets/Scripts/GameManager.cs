@@ -59,7 +59,7 @@ public class GameManager : NetworkBehaviour
     {
         yield return StartCoroutine(Util.NetworkService.ConfigureTransportAndStartNgoAsHost());
 
-        //yield return StartCoroutine(NextStepCoroutine());
+        yield return StartCoroutine(ActorManager.Instance.SpawnPlayer(OwnerClientId));
     }
 
     private IEnumerator StartClientSequence(string joinCode)
@@ -73,8 +73,10 @@ public class GameManager : NetworkBehaviour
     private void ClearEvents()
     {
         Events.GameEvents.Clear();
-        Events.PlayerFieldEvents.Clear();
+        Events.ActorEvents.Clear();
         Events.RoundEvents.Clear();
+        Events.PlayerFieldEvents.Clear();
+
     }
 
     private void QuitGame()

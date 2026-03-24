@@ -1,6 +1,8 @@
+using UI;
+using Unity.Netcode;
 using UnityEngine;
 
-public class UIManager : MonoBehaviour
+public class UIManager : NetworkBehaviour
 {
     public static UIManager Instance { get; private set; }
 
@@ -18,4 +20,8 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public RectTransform GetPointer(int playerIndex)
+    {
+        return UI.CanvasController.Instance.GetPointer(playerIndex);
+    }
 }

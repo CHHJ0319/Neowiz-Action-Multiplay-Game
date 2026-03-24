@@ -4,12 +4,16 @@ namespace Actor
 {
     public class PlayerField : MonoBehaviour
     {
+        public static PlayerField Instance;
+
         public float hp;
 
         private float maxHP = 100;
 
         private void Awake()
         {
+            Instance = this;
+
             hp = maxHP;
             Events.PlayerFieldEvents.UpdateHPBar(hp/maxHP);
         }

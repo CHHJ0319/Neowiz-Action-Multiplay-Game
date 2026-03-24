@@ -1,4 +1,5 @@
 using Unity.Netcode;
+using UnityEditor.Timeline.Actions;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -26,7 +27,7 @@ namespace Actor.Player
         private Rigidbody rb;
         private PlayerInputHandler inputHandler;
 
-        public Data.PlayerType PlayerType { get; private set; } = Data.PlayerType.Supporter;
+        public Data.PlayerType PlayerType { get; private set; } = Data.PlayerType.Shooter;
         public int ammo;
 
         Vector3 velocity = new Vector3(0,0,0);
@@ -44,7 +45,6 @@ namespace Actor.Player
 
         private void OnEnable()
         {
-            inputHandler.attackAction.performed += Shoot;
             inputHandler.interactAction.performed += Interact;
 
             Events.RoundEvents.OnRoundStarted += ShowPointer;
@@ -53,22 +53,35 @@ namespace Actor.Player
 
         private void OnDisable()
         {
-            inputHandler.attackAction.performed -= Shoot;
             inputHandler.interactAction.performed -= Interact;
 
             Events.RoundEvents.OnRoundStarted -= ShowPointer;
             Events.RoundEvents.OnRoundEnded -= HidePointer;
         }
 
+        public override void OnNetworkSpawn()
+        {
+            if (!IsOwner)
+            {
+                GetComponent<PlayerInput>().enabled = false;
+                return;
+            }
+        }
+
+        public override void OnNetworkDespawn()
+        {
+        }
+
         private void Update()
         {
             CalculateVeocity();
+            MovePointer();
+            Shoot();
         }
 
         private void FixedUpdate()
         {
             ApplyMovement();
-            MovePointer();
         }
 
         private void OnTriggerStay(Collider other)
@@ -99,15 +112,18 @@ namespace Actor.Player
         }
 
         #region Shoot
-        private void Shoot(InputAction.CallbackContext context)
+        private void Shoot()
         {
-            if (PlayerType == Data.PlayerType.Shooter)
+            if(inputHandler.attackAction.triggered)
             {
-                ShootBullet();
-            }
-            else if (PlayerType == Data.PlayerType.Supporter)
-            {
-                ShootItem();
+                if (PlayerType == Data.PlayerType.Shooter)
+                {
+                    ShootBullet();
+                }
+                else if (PlayerType == Data.PlayerType.Supporter)
+                {
+                    ShootItem();
+                }
             }
         }
 
@@ -196,6 +212,16 @@ namespace Actor.Player
         public void AddAmmo(int ammo)
         {
             this.ammo += ammo;
+        }
+
+        public void SetPointer(int playerIndex)
+        {
+            pointer = UIManager.Instance.GetPointer(playerIndex);
+        }
+
+        public void SetPosition(Vector3 pos)
+        {
+            transform.localPosition = pos;
         }
 
         private void ShowPointer()
