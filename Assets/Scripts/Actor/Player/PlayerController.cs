@@ -1,3 +1,4 @@
+using Actor.Spawner;
 using Actor.Weapon;
 using Unity.Netcode;
 using UnityEngine;
@@ -49,16 +50,12 @@ namespace Actor.Player
 
         private void OnEnable()
         {
-            inputHandler.interactAction.performed += Interact;
-
             Events.RoundEvents.OnRoundStarted += ShowPointer;
             Events.RoundEvents.OnRoundEnded += HidePointer;
         }
 
         private void OnDisable()
         {
-            inputHandler.interactAction.performed -= Interact;
-
             Events.RoundEvents.OnRoundStarted -= ShowPointer;
             Events.RoundEvents.OnRoundEnded -= HidePointer;
         }
@@ -85,6 +82,7 @@ namespace Actor.Player
         {
             CalculateVeocity();
             Shoot();
+            Interact();
 
             if (IsOwner)
             {
@@ -216,11 +214,18 @@ namespace Actor.Player
         }
         #endregion
 
-        private void Interact(InputAction.CallbackContext context)
+        private void Interact()
         {
-            if(PlayerType == Data.PlayerType.Supporter)
+            if(inputHandler.interactAction.triggered)
             {
-                PickUp();
+                if (PlayerType == Data.PlayerType.Shooter)
+                {
+                    ItemSpawner.Instance.SpawnItemServerRpc();
+                }
+                else if (PlayerType == Data.PlayerType.Supporter)
+                {
+                    PickUp();
+                }
             }
         }
 

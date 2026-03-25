@@ -2381,8 +2381,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1746002052}
-  - component: {fileID: 1746002051}
   - component: {fileID: 1746002050}
+  - component: {fileID: 1746002051}
   m_Layer: 0
   m_Name: ItemSpawner
   m_TagString: Untagged
@@ -2428,6 +2428,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Actor.Spawner.ItemSpawner
   ShowTopMostFoldoutHeaderGroup: 1
+  bulletBoxPrefab: {fileID: 5347599410956521084, guid: 564646718bc331741beeddc74ffb8e88, type: 3}
 --- !u!4 &1746002052
 Transform:
   m_ObjectHideFlags: 0
@@ -2659,6 +2660,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &1938010820 stripped
+MeshFilter:
+  m_CorrespondingSourceObject: {fileID: 654684120276385697, guid: 13e6d1a421fee194693031416232eb81, type: 3}
+  m_PrefabInstance: {fileID: 3299236519965365898}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2034639275
 GameObject:
   m_ObjectHideFlags: 0
@@ -2929,6 +2935,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 783522702795995343, guid: 13e6d1a421fee194693031416232eb81, type: 3}
+      propertyPath: plane
+      value: 
+      objectReference: {fileID: 1938010820}
     - target: {fileID: 1023399932576532815, guid: 13e6d1a421fee194693031416232eb81, type: 3}
       propertyPath: m_IsActive
       value: 1

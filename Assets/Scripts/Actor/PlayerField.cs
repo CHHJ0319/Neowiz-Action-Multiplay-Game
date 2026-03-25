@@ -6,6 +6,8 @@ namespace Actor
     {
         public static PlayerField Instance;
 
+        public MeshFilter plane;
+
         public float hp;
 
         private float maxHP = 100;

@@ -1,8 +1,8 @@
-using UnityEngine;
+using Unity.Netcode;
 
 namespace Actor.Item
 {
-    public abstract class ItemBox : MonoBehaviour
+    public abstract class ItemBox : NetworkBehaviour
     {
     }
 }

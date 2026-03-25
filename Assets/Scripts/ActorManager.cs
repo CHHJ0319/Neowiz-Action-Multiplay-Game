@@ -1,5 +1,3 @@
-using Actor;
-using Actor.Player;
 using System.Collections;
 using Unity.Netcode;
 using UnityEngine;

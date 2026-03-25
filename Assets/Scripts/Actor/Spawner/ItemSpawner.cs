@@ -5,7 +5,41 @@ namespace Actor.Spawner
 {
     public class ItemSpawner : NetworkBehaviour
     {
-      
+        public static ItemSpawner Instance;
 
+        public GameObject bulletBoxPrefab;
+
+        private float _yOffset = 1.0f;
+
+        private void Awake()
+        {
+            Instance = this;
+        }
+
+        [Rpc(SendTo.Server)]
+        public void SpawnItemServerRpc(RpcParams rpcParams = default)
+        {
+            GameObject item = Instantiate(bulletBoxPrefab);
+            item.transform.localPosition = GetRandomPositionOnPlane();
+
+            NetworkObject nv = item.GetComponent<NetworkObject>();
+            nv.Spawn();
+        }
+
+        public Vector3 GetRandomPositionOnPlane()
+        {
+            MeshFilter targetPlane = PlayerField.Instance.plane;
+
+            if (targetPlane == null) return Vector3.zero;
+
+            Bounds bounds = targetPlane.sharedMesh.bounds;
+            float randomX = Random.Range(bounds.min.x, bounds.max.x);
+            float randomZ = Random.Range(bounds.min.z, bounds.max.z);
+
+            Vector3 localPos = new Vector3(randomX, bounds.center.y + _yOffset, randomZ);
+            Vector3 worldPos = targetPlane.transform.TransformPoint(localPos);
+
+            return worldPos;
+        }
     }
 }
