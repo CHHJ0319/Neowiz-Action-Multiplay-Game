@@ -1,10 +1,13 @@
+using Unity.Netcode;
 using UnityEngine;
 
 namespace Actor.Weapon
 {
-    public class Bullet : MonoBehaviour
+    public class NetworkBullet : NetworkBehaviour
     {
         public float lifeTime = 3f;
+
+        [SerializeField] private GameObject fakeBulletPrefab;
 
         [Header("Materials")]
         public Material typeRed;
@@ -22,9 +25,20 @@ namespace Actor.Weapon
             meshRenderer = GetComponent<MeshRenderer>();
         }
 
+        public override void OnNetworkSpawn()
+        {
+            if (!IsServer)
+            {
+                GameObject fake = Instantiate(fakeBulletPrefab, transform.position, transform.rotation);
+            }
+        }
+
         void Start()
         {
-            Destroy(gameObject, lifeTime);
+            if (IsServer)
+            {
+                Invoke(nameof(DespawnBullet), lifeTime);
+            }
         }
 
         private void OnTriggerEnter(Collider other)
@@ -33,7 +47,10 @@ namespace Actor.Weapon
             {
                 Enemy.EnemyController enemy = other.GetComponent<Enemy.EnemyController>();
                 enemy.TakeDamage(Type);
-                Destroy(gameObject);
+                if (IsServer)
+                {
+                    DespawnBullet();
+                }
             }
         }
 
@@ -52,6 +69,14 @@ namespace Actor.Weapon
                 case Data.ElementType.Blue:
                     meshRenderer.material = typeBlue;
                     break;
+            }
+        }
+
+        private void DespawnBullet()
+        {
+            if (IsSpawned)
+            {
+                GetComponent<NetworkObject>().Despawn();
             }
         }
     }

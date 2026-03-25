@@ -1,3 +1,4 @@
+using Actor.Weapon;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -12,7 +13,7 @@ namespace Actor.Player
         [SerializeField] private float rotationSpeed = 15f;
 
         [Header("Attack Settings")]
-        [SerializeField] private GameObject bulletPrefab;
+        [SerializeField] private GameObject networkBulletPrefab;
         [SerializeField] private Transform firePoint;
         [SerializeField] private float bulletSpeed = 20f;
 
@@ -33,6 +34,10 @@ namespace Actor.Player
 
         private Vector3 targetPosition;
         private GameObject targetItem;
+
+        private NetworkVariable<int> playerIndex = new NetworkVariable<int>(-1);
+        private NetworkVariable<Vector2> pointerPosition = new NetworkVariable<Vector2>(
+            default, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
 
         private void Awake()
         {
@@ -60,6 +65,8 @@ namespace Actor.Player
 
         public override void OnNetworkSpawn()
         {
+            SetPointer();
+
             if (IsOwner)
             {
                 inputHandler.SetPlayerInputEnabled(true);
@@ -68,8 +75,6 @@ namespace Actor.Player
             {
                 inputHandler.SetPlayerInputEnabled(false);
             }
-
-            //SetPointer(ActorManager.Instance.playerCount.Value);
         }
 
         public override void OnNetworkDespawn()
@@ -79,8 +84,20 @@ namespace Actor.Player
         private void Update()
         {
             CalculateVeocity();
-            MovePointer();
             Shoot();
+
+            if (IsOwner)
+            {
+                MovePointerLocal();
+                UpdatePointerServerRpc(inputHandler.mouseInput);
+            }
+            else
+            {
+                if (pointer != null)
+                {
+                    pointer.position = pointerPosition.Value;
+                }
+            }
         }
 
         private void FixedUpdate()
@@ -95,6 +112,11 @@ namespace Actor.Player
                 GameObject item = other.gameObject;
                 targetItem = item;
             }
+        }
+
+        public void Initialize(int idex)
+        {
+            playerIndex.Value = idex;
         }
 
         private void CalculateVeocity()
@@ -122,7 +144,7 @@ namespace Actor.Player
             {
                 if (PlayerType == Data.PlayerType.Shooter)
                 {
-                    ShootBullet();
+                    ShootBulletServerRPC();
                 }
                 else if (PlayerType == Data.PlayerType.Supporter)
                 {
@@ -131,11 +153,16 @@ namespace Actor.Player
             }
         }
 
-        private void ShootBullet()
+        [Rpc(SendTo.Server)]
+        private void ShootBulletServerRPC(RpcParams rpcParams = default)
         {
             if(ammo > 0)
             {
-                GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+                GameObject bullet = Instantiate(networkBulletPrefab, firePoint.position, firePoint.rotation);
+                NetworkObject netObj = bullet.GetComponent<NetworkObject>();
+                netObj.Spawn();
+
+                netObj.NetworkHide(rpcParams.Receive.SenderClientId);
 
                 Vector3 direction = (targetPosition - firePoint.position).normalized;
                 direction.y = 0;
@@ -174,17 +201,24 @@ namespace Actor.Player
         }
         #endregion
 
-        private void MovePointer()
+        #region Pointer
+        private void MovePointerLocal()
         {
+            if (pointer != null)
+            {
+                pointer.position = inputHandler.mouseInput;
+            }
+
             Vector3 screenPosition = new Vector3(inputHandler.mouseInput.x, inputHandler.mouseInput.y, distanceFromCamera);
             targetPosition = Camera.main.ScreenToWorldPoint(screenPosition);
-
-            Vector2 mousePosition = Mouse.current.position.ReadValue();
-            if(pointer != null)
-            {
-                pointer.position = mousePosition;
-            }
         }
+
+        [Rpc(SendTo.Server)]
+        private void UpdatePointerServerRpc(Vector2 pos)
+        {
+            pointerPosition.Value = pos;
+        }
+        #endregion
 
         private void Interact(InputAction.CallbackContext context)
         {
@@ -221,9 +255,9 @@ namespace Actor.Player
             this.ammo += ammo;
         }
 
-        public void SetPointer(int playerIndex)
+        private void SetPointer()
         {
-            pointer = UIManager.Instance.GetPointer(playerIndex);
+            pointer = UIManager.Instance.GetPointer(playerIndex.Value);
         }
 
         private void ShowPointer()

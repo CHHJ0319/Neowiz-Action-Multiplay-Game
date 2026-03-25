@@ -55,7 +55,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 1218838641
+  GlobalObjectIdHash: 2017984736
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -84,7 +84,7 @@ MonoBehaviour:
   walkSpeed: 5
   dashSpeed: 10
   rotationSpeed: 10
-  bulletPrefab: {fileID: 1250150633442540248, guid: 524ed342b22dc6045961e50ae8cea82a, type: 3}
+  networkBulletPrefab: {fileID: 1250150633442540248, guid: 9a32eed6fd297dc40a800b96609d601e, type: 3}
   firePoint: {fileID: 6694490532239637153}
   bulletSpeed: 20
   pointer: {fileID: 0}
