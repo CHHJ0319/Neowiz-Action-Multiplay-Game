@@ -16,9 +16,12 @@ namespace Actor.Weapon
 
         public Data.ElementType Type { get; private set; }
 
-        public bool isFake = false;
-
         private MeshRenderer meshRenderer;
+
+        private Bullet fakeBullet;
+
+        public NetworkVariable<Vector3> velocity = new NetworkVariable<Vector3>(
+            default, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
 
         private void Awake()
         {
@@ -27,9 +30,15 @@ namespace Actor.Weapon
 
         public override void OnNetworkSpawn()
         {
-            if (!IsServer)
+            if (IsServer)
+            {
+                Launch(velocity.Value);
+            }
+            else
             {
                 GameObject fake = Instantiate(fakeBulletPrefab, transform.position, transform.rotation);
+                fakeBullet = fake.GetComponent<Bullet>();
+                fakeBullet.Launch(velocity.Value);
             }
         }
 
@@ -70,6 +79,12 @@ namespace Actor.Weapon
                     meshRenderer.material = typeBlue;
                     break;
             }
+        }
+
+        private void Launch(Vector3 velocity)
+        {
+            GetComponent<Rigidbody>().linearVelocity = velocity;
+            transform.forward = velocity;
         }
 
         private void DespawnBullet()

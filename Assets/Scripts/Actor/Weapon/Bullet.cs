@@ -54,6 +54,12 @@ namespace Actor.Weapon
                     break;
             }
         }
+
+        public void Launch(Vector3 velocity)
+        {
+            GetComponent<Rigidbody>().linearVelocity = velocity;
+            transform.forward = velocity;
+        }
     }
 }
 

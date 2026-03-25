@@ -144,7 +144,13 @@ namespace Actor.Player
             {
                 if (PlayerType == Data.PlayerType.Shooter)
                 {
-                    ShootBulletServerRPC();
+                    Vector3 direction = (targetPosition - firePoint.position).normalized;
+                    direction.y = 0;
+                    direction = direction.normalized;
+
+                    Vector3 bulletVelocity = direction * bulletSpeed;
+
+                    ShootBulletServerRPC(bulletVelocity);
                 }
                 else if (PlayerType == Data.PlayerType.Supporter)
                 {
@@ -154,27 +160,17 @@ namespace Actor.Player
         }
 
         [Rpc(SendTo.Server)]
-        private void ShootBulletServerRPC(RpcParams rpcParams = default)
+        private void ShootBulletServerRPC(Vector3 velocity, RpcParams rpcParams = default)
         {
             if(ammo > 0)
             {
                 GameObject bullet = Instantiate(networkBulletPrefab, firePoint.position, firePoint.rotation);
+                
+                bullet.GetComponent<NetworkBullet>().velocity.Value = velocity;
+
                 NetworkObject netObj = bullet.GetComponent<NetworkObject>();
                 netObj.Spawn();
-
                 netObj.NetworkHide(rpcParams.Receive.SenderClientId);
-
-                Vector3 direction = (targetPosition - firePoint.position).normalized;
-                direction.y = 0;
-                direction = direction.normalized;
-
-                Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
-                if (bulletRb != null)
-                {
-                    bulletRb.linearVelocity = direction * bulletSpeed;
-                }
-
-                bullet.transform.forward = direction;
 
                 ammo--;
             }
