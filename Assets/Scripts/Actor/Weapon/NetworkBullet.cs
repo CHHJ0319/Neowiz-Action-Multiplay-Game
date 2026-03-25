@@ -36,6 +36,8 @@ namespace Actor.Weapon
             }
             else
             {
+                gameObject.SetActive(false);
+
                 GameObject fake = Instantiate(fakeBulletPrefab, transform.position, transform.rotation);
                 fakeBullet = fake.GetComponent<Bullet>();
                 fakeBullet.Launch(velocity.Value);

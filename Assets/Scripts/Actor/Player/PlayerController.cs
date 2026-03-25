@@ -148,7 +148,7 @@ namespace Actor.Player
 
                     Vector3 bulletVelocity = direction * bulletSpeed;
 
-                    ShootBulletServerRPC(bulletVelocity);
+                    ShootBulletServerRPC(bulletVelocity, firePoint.position, firePoint.rotation);
                 }
                 else if (PlayerType == Data.PlayerType.Supporter)
                 {
@@ -158,17 +158,15 @@ namespace Actor.Player
         }
 
         [Rpc(SendTo.Server)]
-        private void ShootBulletServerRPC(Vector3 velocity, RpcParams rpcParams = default)
+        private void ShootBulletServerRPC(Vector3 velocity, Vector3  spawnPosition, Quaternion spawnRotation, RpcParams rpcParams = default)
         {
             if(ammo > 0)
             {
-                GameObject bullet = Instantiate(networkBulletPrefab, firePoint.position, firePoint.rotation);
-                
+                GameObject bullet = Instantiate(networkBulletPrefab, spawnPosition, spawnRotation);
                 bullet.GetComponent<NetworkBullet>().velocity.Value = velocity;
 
                 NetworkObject netObj = bullet.GetComponent<NetworkObject>();
                 netObj.Spawn();
-                netObj.NetworkHide(rpcParams.Receive.SenderClientId);
 
                 ammo--;
             }
