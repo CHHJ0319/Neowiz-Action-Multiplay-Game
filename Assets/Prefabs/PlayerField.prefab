@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 654684120276385697}
   - component: {fileID: 5958474011474391822}
   - component: {fileID: 8060842547588211579}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -191,7 +191,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a42aa105fc461e4cab326623942528f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Actor.PlayerField
-  plane: {fileID: 1023399932576532815}
+  plane: {fileID: 654684120276385697}
   hp: 0
 --- !u!1 &3940050436464601537
 GameObject:

@@ -23,14 +23,6 @@ namespace Actor.Item
             }
         }
 
-        private void LateUpdate()
-        {
-            if (IsSpawned)
-            {
-                transform.rotation = Quaternion.identity;;
-            }
-        }
-
         private void AddAmmo(Actor.Player.PlayerController player)
         {
             player.AddAmmo(ammo);

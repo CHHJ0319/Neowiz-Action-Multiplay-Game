@@ -187,6 +187,7 @@ namespace Actor.Player
                 Rigidbody itemBoxRB = targetItem.GetComponent<Rigidbody>();
                 if (itemBoxRB != null)
                 {
+                    itemBoxRB.constraints = RigidbodyConstraints.None;
                     itemBoxRB.isKinematic = false;
                     itemBoxRB.linearVelocity = direction * bulletSpeed;
                 }
@@ -246,11 +247,11 @@ namespace Actor.Player
                 rb.isKinematic = true;
             }
 
-            Collider col = targetItem.GetComponent<Collider>();
-            if (col != null)
-            {
-                col.enabled = false;
-            }
+            //Collider col = targetItem.GetComponent<Collider>();
+            //if (col != null)
+            //{
+            //    col.enabled = false;
+            //}
         }
 
         public void AddAmmo(int ammo)
