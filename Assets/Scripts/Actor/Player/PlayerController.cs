@@ -2,7 +2,6 @@ using Actor.Spawner;
 using Actor.Weapon;
 using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace Actor.Player 
 {
@@ -28,7 +27,7 @@ namespace Actor.Player
         private Rigidbody rb;
         private PlayerInputHandler inputHandler;
 
-        public Data.PlayerType PlayerType { get; private set; } = Data.PlayerType.Shooter;
+        public Data.PlayerType PlayerType { get; private set; } = Data.PlayerType.Supporter;
         public int ammo;
 
         Vector3 velocity = new Vector3(0,0,0);
@@ -96,6 +95,11 @@ namespace Actor.Player
                     pointer.position = pointerPosition.Value;
                 }
             }
+
+            if(inputHandler.quickSlot1Action.triggered)
+            {
+                ItemSpawner.Instance.SpawnItemServerRpc();
+            }
         }
 
         private void FixedUpdate()
@@ -152,7 +156,7 @@ namespace Actor.Player
                 }
                 else if (PlayerType == Data.PlayerType.Supporter)
                 {
-                    ShootItem();
+                    ShootItemServerRPC();
                 }
             }
         }
@@ -172,23 +176,24 @@ namespace Actor.Player
             }
         }
 
-        private void ShootItem()
+        [Rpc(SendTo.Server)]
+        private void ShootItemServerRPC(RpcParams rpcParams = default)
         {
-            if(itemHolder.childCount > 0)
+            if(targetItem != null)
             {
-                GameObject itemBox = itemHolder.GetChild(0).gameObject;
-                itemBox.transform.SetParent(null);
+                targetItem.transform.SetParent(null);
 
                 Vector3 direction = (targetPosition - itemHolder.position).normalized;
 
-                Rigidbody itemBoxRB = itemBox.GetComponent<Rigidbody>();
+                targetItem.transform.forward = direction;
+                Rigidbody itemBoxRB = targetItem.GetComponent<Rigidbody>();
                 if (itemBoxRB != null)
                 {
                     itemBoxRB.isKinematic = false;
                     itemBoxRB.linearVelocity = direction * bulletSpeed;
                 }
 
-                itemBox.transform.forward = direction;
+                targetItem = null;
             }
         }
         #endregion
@@ -218,23 +223,24 @@ namespace Actor.Player
             {
                 if (PlayerType == Data.PlayerType.Shooter)
                 {
-                    ItemSpawner.Instance.SpawnItemServerRpc();
+                    
                 }
                 else if (PlayerType == Data.PlayerType.Supporter)
                 {
-                    PickUp();
+                    PickUpServerRpc();
                 }
             }
         }
 
-        private void PickUp()
+        [Rpc(SendTo.Server)]
+        private void PickUpServerRpc(RpcParams rpcParams = default)
         {
             if (targetItem == null) return;
 
-            targetItem.transform.SetParent(itemHolder);
-
-            targetItem.transform.localPosition = Vector3.zero;
-            targetItem.transform.localRotation = Quaternion.identity;
+            NetworkObject netObj = targetItem.GetComponent<NetworkObject>();
+            netObj.TrySetParent(transform, false);
+            netObj.transform.localPosition = itemHolder.localPosition;
+            netObj.transform.localRotation = Quaternion.Inverse(netObj.transform.rotation) * itemHolder.rotation;
 
             Rigidbody rb = targetItem.GetComponent<Rigidbody>();
             if (rb != null)

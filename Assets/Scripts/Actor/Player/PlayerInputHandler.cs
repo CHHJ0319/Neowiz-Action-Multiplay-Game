@@ -12,6 +12,7 @@ namespace Actor.Player
         private InputAction pointerAction;
         public InputAction attackAction;
         public InputAction interactAction;
+        public InputAction quickSlot1Action;
 
         public bool isDashPressed { get; private set; }
         public Vector2 mouseInput { get; private set; }
@@ -29,6 +30,7 @@ namespace Actor.Player
             pointerAction = actions["Pointer"];
             attackAction = actions["Attack"];
             interactAction = actions["Interact"];
+            quickSlot1Action = actions["QuickSlot1"];
         }
 
         private void OnEnable()
