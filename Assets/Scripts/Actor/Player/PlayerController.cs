@@ -142,32 +142,31 @@ namespace Actor.Player
         #region Shoot
         private void Shoot()
         {
-            if(inputHandler.attackAction.triggered)
+            Vector3 direction = (targetPosition - itemHolder.position).normalized;
+
+            if (inputHandler.attackAction.triggered)
             {
                 if (PlayerType == Data.PlayerType.Shooter)
                 {
-                    Vector3 direction = (targetPosition - firePoint.position).normalized;
                     direction.y = 0;
                     direction = direction.normalized;
 
-                    Vector3 bulletVelocity = direction * bulletSpeed;
-
-                    ShootBulletServerRPC(bulletVelocity, firePoint.position, firePoint.rotation);
+                    ShootBulletServerRPC(direction, firePoint.position, firePoint.rotation);
                 }
                 else if (PlayerType == Data.PlayerType.Supporter)
                 {
-                    ShootItemServerRPC();
+                    ShootItemServerRPC(direction);
                 }
             }
         }
 
         [Rpc(SendTo.Server)]
-        private void ShootBulletServerRPC(Vector3 velocity, Vector3  spawnPosition, Quaternion spawnRotation, RpcParams rpcParams = default)
+        private void ShootBulletServerRPC(Vector3 direction, Vector3  spawnPosition, Quaternion spawnRotation, RpcParams rpcParams = default)
         {
             if(ammo > 0)
             {
                 GameObject bullet = Instantiate(networkBulletPrefab, spawnPosition, spawnRotation);
-                bullet.GetComponent<NetworkBullet>().velocity.Value = velocity;
+                bullet.GetComponent<NetworkBullet>().velocity.Value = direction * bulletSpeed;
 
                 NetworkObject netObj = bullet.GetComponent<NetworkObject>();
                 netObj.Spawn();
@@ -177,13 +176,12 @@ namespace Actor.Player
         }
 
         [Rpc(SendTo.Server)]
-        private void ShootItemServerRPC(RpcParams rpcParams = default)
+        private void ShootItemServerRPC(Vector3 direction, RpcParams rpcParams = default)
         {
             if(targetItem != null)
             {
                 targetItem.transform.SetParent(null);
 
-                Vector3 direction = (targetPosition - itemHolder.position).normalized;
 
                 targetItem.transform.forward = direction;
                 Rigidbody itemBoxRB = targetItem.GetComponent<Rigidbody>();
