@@ -1,13 +1,12 @@
-using Actor;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace UI 
 {
-    public class NetworPanel : MonoBehaviour
+    public class NetworkPanel : MonoBehaviour
     {
-        public static NetworPanel Instance;
+        public static NetworkPanel Instance;
 
         [SerializeField] private TMP_InputField joinCodeInputField;
         [SerializeField] private Button accessButton;

@@ -18,6 +18,11 @@ public class RoundManager : MonoBehaviour
         }
     }
 
+    public void StartRound()
+    {
+        
+    }
+
     public void EndRound()
     {
 

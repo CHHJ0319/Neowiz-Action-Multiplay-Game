@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -8,7 +9,7 @@ public class ActorManager : NetworkBehaviour
 
     public GameObject[] playerPrefabs;
 
-    public NetworkVariable<int> playerCount = new NetworkVariable<int>();
+    private Dictionary<ulong, Actor.Player.PlayerController> players = new();
 
     private Vector3[] playerSpawnPositions =
     {
@@ -42,12 +43,12 @@ public class ActorManager : NetworkBehaviour
     public void SpawnPlayerServerRpc(ulong clientId)
     {
         GameObject player = Instantiate(playerPrefabs[0]);
-        player.transform.localPosition = playerSpawnPositions[playerCount.Value];
-        player.GetComponent<Actor.Player.PlayerController>().Initialize(playerCount.Value);
+        player.transform.localPosition = playerSpawnPositions[players.Count];
+        player.GetComponent<Actor.Player.PlayerController>().Initialize(players.Count);
 
         NetworkObject nv = player.GetComponent<NetworkObject>();
         nv.SpawnAsPlayerObject(clientId);
 
-        playerCount.Value++;
+        players.Add(clientId, player.GetComponent<Actor.Player.PlayerController>());
     }
 }
