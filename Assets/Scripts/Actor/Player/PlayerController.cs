@@ -10,7 +10,6 @@ namespace Actor.Player
         [Header("Movement Settings")]
         [SerializeField] private float walkSpeed = 5f;
         [SerializeField] private float dashSpeed = 10f;
-        [SerializeField] private float rotationSpeed = 15f;
 
         [Header("Attack Settings")]
         [SerializeField] private GameObject networkBulletPrefab;
@@ -19,7 +18,6 @@ namespace Actor.Player
 
         [Header("Pointer Settings")]
         [SerializeField] private RectTransform pointer;
-        [SerializeField] private float pointerSpeed = 10f;
         [SerializeField] private float distanceFromCamera = 10f;
 
         [SerializeField] private Transform itemHolder;
@@ -35,7 +33,6 @@ namespace Actor.Player
         private Vector3 targetPosition;
         private GameObject targetItem;
 
-        private NetworkVariable<int> playerIndex = new NetworkVariable<int>(-1);
         private NetworkVariable<Vector2> pointerPosition = new NetworkVariable<Vector2>(
             default, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
 
@@ -61,7 +58,7 @@ namespace Actor.Player
 
         public override void OnNetworkSpawn()
         {
-            SetPointer();
+            SetPointer((int)OwnerClientId);
 
             if (IsOwner)
             {
@@ -79,14 +76,18 @@ namespace Actor.Player
 
         private void Update()
         {
-            CalculateVeocity();
-            Shoot();
-            Interact();
-
             if (IsOwner)
             {
+                CalculateVeocity();
+                Shoot();
+                Interact();
                 MovePointerLocal();
                 UpdatePointerServerRpc(inputHandler.mouseInput);
+
+                if (inputHandler.quickSlot1Action.triggered)
+                {
+                    ItemSpawner.Instance.SpawnItemServerRpc();
+                }
             }
             else
             {
@@ -94,11 +95,6 @@ namespace Actor.Player
                 {
                     pointer.position = pointerPosition.Value;
                 }
-            }
-
-            if(inputHandler.quickSlot1Action.triggered)
-            {
-                ItemSpawner.Instance.SpawnItemServerRpc();
             }
         }
 
@@ -116,9 +112,8 @@ namespace Actor.Player
             }
         }
 
-        public void Initialize(int idex)
+        public void Initialize(int id)
         {
-            playerIndex.Value = idex;
         }
 
         private void CalculateVeocity()
@@ -166,10 +161,11 @@ namespace Actor.Player
             if(ammo > 0)
             {
                 GameObject bullet = Instantiate(networkBulletPrefab, spawnPosition, spawnRotation);
-                bullet.GetComponent<NetworkBullet>().velocity.Value = direction * bulletSpeed;
 
                 NetworkObject netObj = bullet.GetComponent<NetworkObject>();
                 netObj.Spawn();
+
+                bullet.GetComponent<NetworkBullet>().velocity.Value = direction * bulletSpeed;
 
                 ammo--;
             }
@@ -259,9 +255,9 @@ namespace Actor.Player
             this.ammo += ammo;
         }
 
-        private void SetPointer()
+        private void SetPointer(int id)
         {
-            pointer = UIManager.Instance.GetPointer(playerIndex.Value);
+            pointer = UIManager.Instance.GetPointer(id);
         }
 
         private void ShowPointer()

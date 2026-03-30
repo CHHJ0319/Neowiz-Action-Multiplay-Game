@@ -10,7 +10,7 @@ namespace Actor.Item
         [SerializeField] private float extraDistance = 0.5f;
 
         private Rigidbody rb;
-        private Collider collider;
+        private Collider _collider;
 
         public NetworkVariable<bool> IsGrounded = new NetworkVariable<bool>(
             false,
@@ -21,7 +21,7 @@ namespace Actor.Item
         private void Awake()
         {
             rb = GetComponent<Rigidbody>();
-            collider = GetComponent<Collider>();
+            _collider = GetComponent<Collider>();
         }
 
         public override void OnNetworkSpawn()
@@ -43,7 +43,7 @@ namespace Actor.Item
 
         private void CheckGroundStatus()
         {
-            float boxHalfHeight = collider.bounds.extents.y; ;
+            float boxHalfHeight = GetComponent<Collider>().bounds.extents.y; ;
             float rayLength = boxHalfHeight + extraDistance;
 
             RaycastHit hitInfo;
@@ -61,12 +61,12 @@ namespace Actor.Item
                         rb.linearVelocity = Vector3.zero;
                         rb.angularVelocity = Vector3.zero;
                         transform.position = new Vector3(transform.position.x, 0.5f, transform.position.z);
-                        collider.enabled = true;
+                        GetComponent<Collider>().enabled = true;
                         rb.constraints = RigidbodyConstraints.FreezeAll;
                     }
                     else
                     {
-                        collider.enabled = false;
+                        GetComponent<Collider>().enabled = false;
                         rb.constraints = RigidbodyConstraints.FreezeRotation;
                     }
                 }

@@ -44,7 +44,6 @@ public class ActorManager : NetworkBehaviour
     {
         GameObject player = Instantiate(playerPrefabs[0]);
         player.transform.localPosition = playerSpawnPositions[players.Count];
-        player.GetComponent<Actor.Player.PlayerController>().Initialize(players.Count);
 
         NetworkObject nv = player.GetComponent<NetworkObject>();
         nv.SpawnAsPlayerObject(clientId);

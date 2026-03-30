@@ -83,12 +83,10 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   walkSpeed: 5
   dashSpeed: 10
-  rotationSpeed: 10
   networkBulletPrefab: {fileID: 1250150633442540248, guid: 9a32eed6fd297dc40a800b96609d601e, type: 3}
   firePoint: {fileID: 6694490532239637153}
   bulletSpeed: 20
   pointer: {fileID: 0}
-  pointerSpeed: 10
   distanceFromCamera: 9
   itemHolder: {fileID: 3100335534239249294}
   ammo: 0
@@ -216,7 +214,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 298427653747277566}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 

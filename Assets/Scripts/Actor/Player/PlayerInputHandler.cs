@@ -50,6 +50,8 @@ namespace Actor.Player
 
         public void SetPlayerInputEnabled(bool isEnabled)
         {
+            playerInput.enabled = isEnabled;
+
             if (isEnabled)
             {
                 playerInput.actions.Enable();

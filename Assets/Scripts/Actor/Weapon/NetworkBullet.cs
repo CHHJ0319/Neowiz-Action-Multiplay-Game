@@ -30,18 +30,12 @@ namespace Actor.Weapon
 
         public override void OnNetworkSpawn()
         {
-            if (IsServer)
-            {
-                Launch(velocity.Value);
-            }
-            else
-            {
-                gameObject.SetActive(false);
+            velocity.OnValueChanged += Launch;
+        }
 
-                GameObject fake = Instantiate(fakeBulletPrefab, transform.position, transform.rotation);
-                fakeBullet = fake.GetComponent<Bullet>();
-                fakeBullet.Launch(velocity.Value);
-            }
+        public override void OnNetworkDespawn()
+        {
+            velocity.OnValueChanged -= Launch;
         }
 
         void Start()
@@ -83,10 +77,23 @@ namespace Actor.Weapon
             }
         }
 
-        private void Launch(Vector3 velocity)
+        private void Launch(Vector3 previousValue, Vector3 newValue)
         {
-            GetComponent<Rigidbody>().linearVelocity = velocity;
-            transform.forward = velocity;
+            if (IsServer)
+            {
+                GetComponent<Rigidbody>().linearVelocity = velocity.Value;
+                transform.forward = velocity.Value;
+            }
+            else
+            {
+                gameObject.SetActive(false);
+
+                GameObject fake = Instantiate(fakeBulletPrefab, transform.position, transform.rotation);
+                fakeBullet = fake.GetComponent<Bullet>();
+                fakeBullet.Launch(velocity.Value);
+            }
+
+            
         }
 
         private void DespawnBullet()
