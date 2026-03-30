@@ -13,10 +13,14 @@ public class ActorManager : NetworkBehaviour
 
     private Vector3[] playerSpawnPositions =
     {
-        new Vector3(-2f, 0f, -2f),
-        new Vector3(2f, 0f, -2f),
-        new Vector3(-2f, 0f, -4f),
-        new Vector3(2f, 0f, -4f),
+        //new Vector3(-2f, 0f, -2f),
+        //new Vector3(2f, 0f, -2f),
+        //new Vector3(-2f, 0f, -4f),
+        //new Vector3(2f, 0f, -4f),
+        new Vector3(-2f, 0f, -6f),
+        new Vector3(2f, 0f, -6f),
+        new Vector3(-2f, 0f, -8f),
+        new Vector3(2f, 0f, -8f),
     };
 
     private void Awake()

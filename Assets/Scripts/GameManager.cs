@@ -39,7 +39,7 @@ public class GameManager : NetworkBehaviour
 
     private void Initiailize()
     {
-        ClearEvents();
+        //ClearEvents();
 
         Util.NetworkService.InitializeUnityServicesAsync();
     }

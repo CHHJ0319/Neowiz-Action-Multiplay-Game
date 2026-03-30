@@ -25,7 +25,7 @@ namespace Actor.Player
         private Rigidbody rb;
         private PlayerInputHandler inputHandler;
 
-        public Data.PlayerType PlayerType { get; private set; } = Data.PlayerType.Supporter;
+        public Data.PlayerType PlayerType { get; private set; } = Data.PlayerType.Shooter;
         public int ammo;
 
         Vector3 velocity = new Vector3(0,0,0);
