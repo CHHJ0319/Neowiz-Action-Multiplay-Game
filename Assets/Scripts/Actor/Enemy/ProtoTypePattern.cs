@@ -9,12 +9,12 @@ namespace Actor.Enemy
 
         private void OnEnable()
         {
-            Events.RoundEvents.OnRoundStarted += StartPattern;
+            // Events.RoundEvents.OnRoundStarted += StartPattern;
         }
 
         private void OnDisable()
         {
-            Events.RoundEvents.OnRoundStarted -= StartPattern;
+            //Events.RoundEvents.OnRoundStarted -= StartPattern;
         }
 
         public void StartPattern()

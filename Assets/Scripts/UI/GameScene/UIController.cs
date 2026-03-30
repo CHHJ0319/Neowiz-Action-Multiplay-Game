@@ -49,7 +49,7 @@ namespace UI.GameScene
 
         private void OnRoundStartButtonClicked()
         {
-            Events.RoundEvents.StartRound();
+            RoundManager.Instance.StartRoundServerRpc();
             roundStartButton.gameObject.SetActive(false);
         }
 

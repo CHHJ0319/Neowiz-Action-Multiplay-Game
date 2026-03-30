@@ -16,7 +16,7 @@ namespace Actor.Item
             {
                 Actor.Player.PlayerController player = other.gameObject.GetComponent<Actor.Player.PlayerController>();
 
-                if(player.PlayerType == Data.PlayerType.Shooter)
+                if(player.PlayerType.Value.role == Data.PlayerRole.Shooter)
                 {
                     //AddAmmo(player);
                 }

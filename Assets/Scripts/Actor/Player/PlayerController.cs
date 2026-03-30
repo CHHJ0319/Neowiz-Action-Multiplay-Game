@@ -25,7 +25,9 @@ namespace Actor.Player
         private Rigidbody rb;
         private PlayerInputHandler inputHandler;
 
-        public Data.PlayerType PlayerType { get; private set; } = Data.PlayerType.Shooter;
+        public NetworkVariable<Data.PlayerType> PlayerType { get; private set; } 
+            = new NetworkVariable<Data.PlayerType>(
+                new Data.PlayerType { role = Data.PlayerRole.Shooter, color = Data.ElementType.Red });
         public int ammo;
 
         Vector3 velocity = new Vector3(0,0,0);
@@ -141,14 +143,14 @@ namespace Actor.Player
 
             if (inputHandler.attackAction.triggered)
             {
-                if (PlayerType == Data.PlayerType.Shooter)
+                if (PlayerType.Value.role == Data.PlayerRole.Shooter)
                 {
                     direction.y = 0;
                     direction = direction.normalized;
 
                     ShootBulletServerRPC(direction, firePoint.position, firePoint.rotation);
                 }
-                else if (PlayerType == Data.PlayerType.Supporter)
+                else if (PlayerType.Value.role == Data.PlayerRole.Supporter)
                 {
                     ShootItemServerRPC(direction);
                 }
@@ -165,7 +167,7 @@ namespace Actor.Player
                 NetworkObject netObj = bullet.GetComponent<NetworkObject>();
                 netObj.Spawn();
 
-                bullet.GetComponent<NetworkBullet>().velocity.Value = direction * bulletSpeed;
+                bullet.GetComponent<NetworkBullet>().Intialize(PlayerType.Value.color, direction * bulletSpeed);
 
                 ammo--;
             }
@@ -216,11 +218,11 @@ namespace Actor.Player
         {
             if(inputHandler.interactAction.triggered)
             {
-                if (PlayerType == Data.PlayerType.Shooter)
+                if (PlayerType.Value.role == Data.PlayerRole.Shooter)
                 {
                     
                 }
-                else if (PlayerType == Data.PlayerType.Supporter)
+                else if (PlayerType.Value.role == Data.PlayerRole.Supporter)
                 {
                     PickUpServerRpc();
                 }

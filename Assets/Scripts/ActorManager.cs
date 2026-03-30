@@ -1,3 +1,4 @@
+using Actor.Player;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
@@ -53,5 +54,21 @@ public class ActorManager : NetworkBehaviour
         nv.SpawnAsPlayerObject(clientId);
 
         players.Add(clientId, player.GetComponent<Actor.Player.PlayerController>());
+    }
+
+    public int GetPlayerCount()
+    {
+        return players.Count;
+    }
+
+    [Rpc(SendTo.Server)]
+    public void SetPlayersTypeServerRpc(Data.PlayerType[] types)
+    {
+        int index = 0;
+        foreach (PlayerController player in players.Values)
+        {
+            player.PlayerType.Value = types[index];
+            index++;
+        }
     }
 }

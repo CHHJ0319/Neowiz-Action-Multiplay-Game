@@ -17,7 +17,7 @@ namespace UI
         {
             if (pointers == null || pointers.childCount <= playerIndex) return null;
 
-            pointers.GetChild(playerIndex).gameObject.SetActive(true);
+            //pointers.GetChild(playerIndex).gameObject.SetActive(true);
             return pointers.GetChild(playerIndex) as RectTransform;
         }
     }

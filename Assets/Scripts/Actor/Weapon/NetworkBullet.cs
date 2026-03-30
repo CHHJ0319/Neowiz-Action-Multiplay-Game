@@ -14,7 +14,7 @@ namespace Actor.Weapon
         public Material typeGreen;
         public Material typeBlue;
 
-        public Data.ElementType Type { get; private set; }
+        public NetworkVariable<Data.ElementType> Type = new NetworkVariable<Data.ElementType>(Data.ElementType.Red);
 
         private MeshRenderer meshRenderer;
 
@@ -51,7 +51,7 @@ namespace Actor.Weapon
             if (other.CompareTag("Enemy"))
             {
                 Enemy.EnemyController enemy = other.GetComponent<Enemy.EnemyController>();
-                enemy.TakeDamage(Type);
+                enemy.TakeDamage(Type.Value);
                 if (IsServer)
                 {
                     DespawnBullet();
@@ -59,11 +59,10 @@ namespace Actor.Weapon
             }
         }
 
-        public void Intialize(Data.ElementType type)
+        public void Intialize(Data.ElementType type, Vector3 velocity)
         {
-            Type = type;
-
-            switch (Type)
+            Type.Value = type;
+            switch (Type.Value)
             {
                 case Data.ElementType.Red:
                     meshRenderer.material = typeRed;
@@ -75,6 +74,8 @@ namespace Actor.Weapon
                     meshRenderer.material = typeBlue;
                     break;
             }
+
+            this.velocity.Value = velocity;
         }
 
         private void Launch(Vector3 previousValue, Vector3 newValue)
@@ -90,6 +91,7 @@ namespace Actor.Weapon
 
                 GameObject fake = Instantiate(fakeBulletPrefab, transform.position, transform.rotation);
                 fakeBullet = fake.GetComponent<Bullet>();
+                fakeBullet.Intialize(Type.Value);
                 fakeBullet.Launch(velocity.Value);
             }
 
