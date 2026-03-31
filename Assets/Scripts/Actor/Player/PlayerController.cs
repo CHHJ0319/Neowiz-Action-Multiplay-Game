@@ -208,7 +208,7 @@ namespace Actor.Player
         }
 
         [Rpc(SendTo.Server)]
-        private void UpdatePointerServerRpc(Vector2 pos)
+        private void UpdatePointerServerRpc(Vector2 pos, RpcParams rpcParams = default)
         {
             pointerPosition.Value = pos;
         }

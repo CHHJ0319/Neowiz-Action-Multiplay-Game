@@ -45,7 +45,7 @@ public class ActorManager : NetworkBehaviour
     }
 
     [Rpc(SendTo.Server)]
-    public void SpawnPlayerServerRpc(ulong clientId)
+    public void SpawnPlayerServerRpc(ulong clientId, RpcParams rpcParams = default)
     {
         GameObject player = Instantiate(playerPrefabs[0]);
         player.transform.localPosition = playerSpawnPositions[players.Count];
@@ -62,7 +62,7 @@ public class ActorManager : NetworkBehaviour
     }
 
     [Rpc(SendTo.Server)]
-    public void SetPlayersTypeServerRpc(Data.PlayerType[] types)
+    public void SetPlayersTypeServerRpc(Data.PlayerType[] types, RpcParams rpcParams = default)
     {
         int index = 0;
         foreach (PlayerController player in players.Values)
