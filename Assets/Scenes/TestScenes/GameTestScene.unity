@@ -953,51 +953,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8758062085827940398, guid: 7bb437da41500ec4abe683deb410b75c, type: 3}
   m_PrefabInstance: {fileID: 3166432423007763165}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &875197784
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 875197785}
-  - component: {fileID: 875197786}
-  m_Layer: 0
-  m_Name: ProtoTypePattern
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &875197785
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 875197784}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &875197786
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 875197784}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26e1fd41b92a9e14aa3258e5b04844f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Actor.Enemy.ProtoTypePattern
-  spawner: {fileID: 1574359449}
 --- !u!1 &953782933
 GameObject:
   m_ObjectHideFlags: 0
@@ -2139,7 +2094,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 875197786}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Actor.Enemy.ProtoTypePattern, Assembly-CSharp
         m_MethodName: GameStart
         m_Mode: 2
@@ -2234,12 +2189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80a0bf87c8f5eb04a9643062426f8cff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Actor.Enemy.EnemySpawner
-  target: {fileID: 3299236519965365899}
   normalEnemyPrefab: {fileID: 1946403360690627630, guid: 53715b5a4522f4746ad84730f945206f, type: 3}
-  mainCam: {fileID: 1415176459}
-  fixedSpawnY: 0.5
-  offScreenOffset: 1.1
-  negativeOffset: -0.1
 --- !u!114 &1574359450
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3088,11 +3038,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 13e6d1a421fee194693031416232eb81, type: 3}
---- !u!4 &3299236519965365899 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4462046786315795412, guid: 13e6d1a421fee194693031416232eb81, type: 3}
-  m_PrefabInstance: {fileID: 3299236519965365898}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -3100,7 +3045,6 @@ SceneRoots:
   - {fileID: 1415176460}
   - {fileID: 1188731194}
   - {fileID: 1574359448}
-  - {fileID: 875197785}
   - {fileID: 3299236519965365898}
   - {fileID: 1199208347}
   - {fileID: 1884575644}

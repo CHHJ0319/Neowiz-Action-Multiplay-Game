@@ -59,14 +59,14 @@ public class GameManager : NetworkBehaviour
     {
         yield return StartCoroutine(Util.NetworkService.ConfigureTransportAndStartNgoAsHost());
 
-        yield return StartCoroutine(ActorManager.Instance.SpawnPlayer(NetworkManager.Singleton.LocalClientId));
+        //yield return StartCoroutine(ActorManager.Instance.SpawnPlayer(NetworkManager.Singleton.LocalClientId));
     }
 
     private IEnumerator StartClientSequence(string joinCode)
     {
         yield return StartCoroutine(Util.NetworkService.ConfigureTransportAndStartNgoAsClient(joinCode));
 
-        yield return StartCoroutine(ActorManager.Instance.SpawnPlayer(NetworkManager.Singleton.LocalClientId));
+        //yield return StartCoroutine(ActorManager.Instance.SpawnPlayer(NetworkManager.Singleton.LocalClientId));
     }
     #endregion
 
