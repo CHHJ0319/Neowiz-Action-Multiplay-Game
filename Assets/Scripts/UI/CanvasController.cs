@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace UI
@@ -7,6 +8,7 @@ namespace UI
         public static CanvasController Instance;
 
         public RectTransform pointers;
+        public RectTransform playerPanels;
 
         private void Awake()
         {
@@ -19,6 +21,14 @@ namespace UI
 
             //pointers.GetChild(playerIndex).gameObject.SetActive(true);
             return pointers.GetChild(playerIndex) as RectTransform;
+        }
+
+        public void SetPlayerPanel(int playerIndex, bool isOwner)
+        {
+            if (playerPanels == null || playerPanels.childCount <= 0) return;
+
+            UI.LobbyScene.PlayerPanel playerPanel = playerPanels.GetChild(playerIndex).gameObject.GetComponent<UI.LobbyScene.PlayerPanel>();
+            playerPanel.Initialize(isOwner);
         }
     }
 }

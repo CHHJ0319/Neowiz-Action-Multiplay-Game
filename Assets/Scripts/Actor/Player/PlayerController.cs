@@ -60,7 +60,8 @@ namespace Actor.Player
 
         public override void OnNetworkSpawn()
         {
-            SetPointer((int)OwnerClientId);
+            //SetPointer((int)OwnerClientId);
+            UIManager.Instance.SetPlayerPanel((int)OwnerClientId, IsOwner);
 
             if (IsOwner)
             {

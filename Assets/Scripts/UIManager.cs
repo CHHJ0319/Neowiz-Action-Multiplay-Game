@@ -1,3 +1,4 @@
+using UI.LobbyScene;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -22,5 +23,10 @@ public class UIManager : NetworkBehaviour
     public RectTransform GetPointer(int playerIndex)
     {
         return UI.CanvasController.Instance.GetPointer(playerIndex);
+    }
+
+    public void SetPlayerPanel(int playerIndex, bool isOwner)
+    {
+        UI.CanvasController.Instance.SetPlayerPanel(playerIndex, isOwner);
     }
 }
