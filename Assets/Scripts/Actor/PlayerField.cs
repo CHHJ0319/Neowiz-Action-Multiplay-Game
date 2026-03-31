@@ -7,6 +7,7 @@ namespace Actor
         public static PlayerField Instance;
 
         public MeshFilter plane;
+        public Transform core;
 
         public float hp;
 

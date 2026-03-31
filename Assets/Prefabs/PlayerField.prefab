@@ -192,6 +192,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Actor.PlayerField
   plane: {fileID: 654684120276385697}
+  core: {fileID: 4462046786315795412}
   hp: 0
 --- !u!1 &3940050436464601537
 GameObject:

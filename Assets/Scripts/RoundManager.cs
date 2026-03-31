@@ -1,10 +1,14 @@
-using System.Collections.Generic;
+using Actor;
+using System.Collections;
 using Unity.Netcode;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class RoundManager : NetworkBehaviour
 {
     public static RoundManager Instance { get; private set; }
+
+    private Actor.Enemy.EnemyPattern pattern = new Actor.Enemy.EnemyPattern();
 
     private void Awake()
     {
@@ -32,10 +36,43 @@ public class RoundManager : NetworkBehaviour
     public void StartRoundClientRpc()
     {
         Events.RoundEvents.StartRound();
+        StartPattern();
     }
 
     public void EndRound()
     {
 
+    }
+
+    private void StartPattern()
+    {
+        StartCoroutine(StartTutorialPattern());
+    }
+
+    private IEnumerator StartTutorialPattern()
+    {
+        Transform target = PlayerField.Instance.core;
+
+        StartCoroutine(pattern.SpawnGapWall(target, 8, 1));
+
+        yield return new WaitForSeconds(1.5f);
+
+        StartCoroutine(pattern.SpawnArrowheadAssault(target, 1));
+
+        yield return new WaitForSeconds(1.5f);
+
+        StartCoroutine(pattern.SpawnSweepingWave(8));
+
+        yield return new WaitForSeconds(1.5f);
+
+        StartCoroutine(pattern.SpawnPincerAttack(target, 3));
+
+        yield return new WaitForSeconds(1.5f);
+
+        StartCoroutine(pattern.SpawnMeteorRain(10));
+
+        yield return new WaitForSeconds(10.0f);
+
+        Events.RoundEvents.EndRound();
     }
 }
