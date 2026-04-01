@@ -4,22 +4,24 @@ using UnityEngine.UI;
 
 namespace UI.TitleScene
 {
-    public class CreateSessionPanel : MonoBehaviour
+    public class JoinSessionPanel : MonoBehaviour
     {
+        [SerializeField] private TMP_InputField joinCodeInputField;
         [SerializeField] private TMP_InputField passwordInputField;
-        [SerializeField] private Button creasteSessionButton;
+        [SerializeField] private Button joinSessionButton;
         [SerializeField] private Button closesButton;
 
         void Awake()
         {
-            creasteSessionButton.onClick.AddListener(() => OnCreateSessionButtonClicked());
+            joinSessionButton.onClick.AddListener(() => OnJoinSessionButtonClicked());
             closesButton.onClick.AddListener(() => SetVisible(false));
         }
 
-        private void OnCreateSessionButtonClicked()
+        private void OnJoinSessionButtonClicked()
         {
+            string joinCode = joinCodeInputField.text;
             string password = passwordInputField.text;
-            //Events.GameEvents.StartHost();
+            //Events.GameEvents.StartClient(joinCode);
 
             SetVisible(false);
         }

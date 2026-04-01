@@ -17,6 +17,7 @@ namespace UI.TitleScene
         [Header("Popups")]
         public RectTransform popupPanels;
         public GameObject createSessionPanel;
+        public GameObject joinSessionPanel;
 
         private bool isAnyPanelActive = false;
 
@@ -30,6 +31,11 @@ namespace UI.TitleScene
             if (createSessionButton != null)
             {
                 createSessionButton.onClick.AddListener(() => OnCreasteSessionButtonClicked());
+            }
+
+            if (joinSessionButton != null)
+            {
+                joinSessionButton.onClick.AddListener(() => OnJoinSessionButtonClicked());
             }
 
             if (quitGameButton != null)
@@ -69,6 +75,11 @@ namespace UI.TitleScene
         private void OnCreasteSessionButtonClicked()
         {
             if (createSessionPanel != null) createSessionPanel.SetActive(true);
+        }
+
+        private void OnJoinSessionButtonClicked()
+        {
+            if (joinSessionPanel != null) joinSessionPanel.SetActive(true);
         }
     }
 }
