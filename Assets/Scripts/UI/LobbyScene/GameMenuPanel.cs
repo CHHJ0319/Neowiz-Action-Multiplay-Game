@@ -1,19 +1,25 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace UI.LobbyScene
 {
     public class GameMenuPanel : MonoBehaviour
     {
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
-        {
+        public Button gameStartButton;
+        public Button gameCancelButton;
 
+        public void Initialize(bool isHost)
+        {
+            gameStartButton.onClick.AddListener(() => OnGameStartButtonClicked(isHost));
+            gameCancelButton.onClick.AddListener(() => OnGameCancelButtonClicked(isHost));
         }
 
-        // Update is called once per frame
-        void Update()
+        private void OnGameStartButtonClicked(bool isHost)
         {
+        }
 
+        private void OnGameCancelButtonClicked(bool isHost)
+        {
         }
     }
 }

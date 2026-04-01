@@ -12,12 +12,12 @@ namespace UI
         {
             if (closeButton != null)
             {
-                closeButton.onClick.AddListener(CloseResultPanel);
+                closeButton.onClick.AddListener(() => CloseResultPanel());
             }
         
             if (gameQuitButton != null)
             {
-                gameQuitButton.onClick.AddListener(Events.GameEvents.QuitGame);
+                gameQuitButton.onClick.AddListener(() => Events.GameEvents.QuitGame());
             }
         }
 

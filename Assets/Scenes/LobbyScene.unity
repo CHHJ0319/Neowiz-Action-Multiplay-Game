@@ -5890,6 +5890,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3c84f0b46e39a446b3f8bc402af7929, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UI.LobbyScene.GameMenuPanel
+  gameStartButton: {fileID: 217067213}
+  gameCancelButton: {fileID: 2027884073}
 --- !u!1 &1762932358
 GameObject:
   m_ObjectHideFlags: 0

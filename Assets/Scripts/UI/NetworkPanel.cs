@@ -16,7 +16,7 @@ namespace UI
         {
             Instance = this;
 
-            accessButton.onClick.AddListener(Access);
+            accessButton.onClick.AddListener(() => Access());
         }
 
         private void OnEnable()

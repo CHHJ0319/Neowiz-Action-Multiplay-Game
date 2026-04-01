@@ -14,7 +14,7 @@ namespace UI.GameScene
         {
             if (roundStartButton != null)
             {
-                roundStartButton.onClick.AddListener(OnRoundStartButtonClicked);
+                roundStartButton.onClick.AddListener(() => OnRoundStartButtonClicked());
             }
         }
 

@@ -16,8 +16,8 @@ namespace UI.LobbyScene
 
         void Awake()
         {
-            previousButton.onClick.AddListener(OnPreviousButtonClicked);
-            nextButton.onClick.AddListener(OnNextButtonClicked);
+            previousButton.onClick.AddListener(() => OnPreviousButtonClicked());
+            nextButton.onClick.AddListener(() => OnNextButtonClicked());
         }
 
         public override void OnNetworkSpawn()
