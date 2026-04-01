@@ -24,5 +24,15 @@ namespace Utils
                 SceneManager.LoadScene(sceneName);
             }
         }
+
+        public static string GetCurrentSceneName()
+        {
+            if (NetworkManager.Singleton != null && NetworkManager.Singleton.IsListening)
+            {
+                return SceneManager.GetActiveScene().name;
+            }
+
+            return SceneManager.GetActiveScene().name;
+        }
     }
 }

@@ -61,6 +61,8 @@ namespace Actor.Player
 
         public override void OnNetworkSpawn()
         {
+            Initialize(Utils.SceneNavigator.GetCurrentSceneName());
+
             if (IsServer)
             {
                 NetworkManager.SceneManager.OnLoadComplete += OnSceneLoaded;
@@ -123,7 +125,7 @@ namespace Actor.Player
             }
         }
 
-        public void Initialize(int id, string sceneName)
+        public void Initialize(string sceneName)
         {
             if(sceneName == Utils.SceneList.LobbyScene.ToString())
             {
@@ -289,7 +291,7 @@ namespace Actor.Player
 
         private void OnSceneLoaded(ulong clientId, string sceneName, LoadSceneMode loadMode)
         {
-            Initialize((int)clientId, sceneName);
+            Initialize(sceneName);
         }
     }
 }
