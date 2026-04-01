@@ -1,5 +1,5 @@
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace UI
 {
@@ -7,8 +7,11 @@ namespace UI
     {
         public static CanvasController Instance;
 
+        [Header ("StageScene")]
         public RectTransform pointers;
-        public RectTransform playerPanels;
+
+        [Header("LobbyScene")]
+        public RectTransform playersPanel;
 
         private void Awake()
         {
@@ -25,9 +28,9 @@ namespace UI
 
         public void SetPlayerPanel(int playerIndex, bool isOwner)
         {
-            if (playerPanels == null || playerPanels.childCount <= 0) return;
+            if (playersPanel == null || playersPanel.childCount <= 0) return;
 
-            UI.LobbyScene.PlayerPanel playerPanel = playerPanels.GetChild(playerIndex).gameObject.GetComponent<UI.LobbyScene.PlayerPanel>();
+            UI.LobbyScene.PlayerPanel playerPanel = playersPanel.GetChild(playerIndex).gameObject.GetComponent<UI.LobbyScene.PlayerPanel>();
             playerPanel.Initialize(isOwner);
         }
     }

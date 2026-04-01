@@ -1,4 +1,3 @@
-using UI.LobbyScene;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -28,5 +27,10 @@ public class UIManager : NetworkBehaviour
     public void SetPlayerPanel(int playerIndex, bool isOwner)
     {
         UI.CanvasController.Instance.SetPlayerPanel(playerIndex, isOwner);
+    }
+
+    public void SetLobbyUI(bool isHost)
+    {
+
     }
 }
