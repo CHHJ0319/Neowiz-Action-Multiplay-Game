@@ -10,7 +10,7 @@ using Unity.Services.Relay;
 using Unity.Services.Relay.Models;
 using UnityEngine;
 
-namespace Util
+namespace Utils
 {
     public static class NetworkService
     {
@@ -34,7 +34,7 @@ namespace Util
 
         public static IEnumerator ConfigureTransportAndStartNgoAsHost()
         {
-            var serverRelayUtilityTask = Util.NetworkService.AllocateRelayServerAndGetJoinCode(m_MaxConnections);
+            var serverRelayUtilityTask = Utils.NetworkService.AllocateRelayServerAndGetJoinCode(m_MaxConnections);
             while (!serverRelayUtilityTask.IsCompleted)
             {
                 yield return null;
@@ -55,7 +55,7 @@ namespace Util
 
         public static IEnumerator ConfigureTransportAndStartNgoAsClient(string relayJoinCode)
         {
-            var clientRelayUtilityTask = Util.NetworkService.JoinRelayServerFromJoinCode(relayJoinCode);
+            var clientRelayUtilityTask = Utils.NetworkService.JoinRelayServerFromJoinCode(relayJoinCode);
 
             while (!clientRelayUtilityTask.IsCompleted)
             {

@@ -1,19 +1,34 @@
 using UnityEngine;
+using UnityEngine.Diagnostics;
+using UnityEngine.UI;
 
 namespace UI.TitleScene
 {
     public class MainMenuPanel : MonoBehaviour
     {
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
-        {
+        [Header("Menu Buttons")]
+        public Button tutorialButton;
+        public Button createSessionButton;
+        public Button joinSessionButton;
+        public Button settingButton;
+        public Button quitGameButton;
 
+        private void Awake()
+        {
+            if (tutorialButton != null)
+            {
+                tutorialButton.onClick.AddListener(() => OnTutorialButtonClicked());
+            }
+
+            if (quitGameButton != null)
+            {
+                quitGameButton.onClick.AddListener(() => Events.GameEvents.QuitGame());
+            }
         }
 
-        // Update is called once per frame
-        void Update()
+        private void OnTutorialButtonClicked()
         {
-
+            Utils.SceneLoader.LoadSceneByName(Utils.SceneList.PrologueScene);
         }
     }
 }

@@ -32,7 +32,7 @@ namespace Actor.Enemy
                     float currentX = startX + (step * i);
 
                     Vector3 spawnPosition =
-                        Util.ScreenSpaceConverter.ViewportToWorldPoint(currentX, fixedSpawnY, offScreenOffset);
+                        Utils.ScreenSpaceConverter.ViewportToWorldPoint(currentX, fixedSpawnY, offScreenOffset);
                     Vector3 direction = Vector3.back;
 
                     Events.ActorEvents.SpawnNormalEnemy(spawnPosition, direction);
@@ -61,7 +61,7 @@ namespace Actor.Enemy
                     float currentY = topY + (Mathf.Abs(offset) * spacingY);
 
                     Vector3 spawnPosition =
-                        Util.ScreenSpaceConverter.ViewportToWorldPoint(currentX, fixedSpawnY, currentY);
+                        Utils.ScreenSpaceConverter.ViewportToWorldPoint(currentX, fixedSpawnY, currentY);
                     Vector3 direction = (target.localPosition - spawnPosition).normalized;
 
                     Events.ActorEvents.SpawnNormalEnemy(spawnPosition, direction);
@@ -84,7 +84,7 @@ namespace Actor.Enemy
                 float currentX = startX + (step * i);
 
                 Vector3 spawnPosition =
-                        Util.ScreenSpaceConverter.ViewportToWorldPoint(currentX, fixedSpawnY, offScreenOffset);
+                        Utils.ScreenSpaceConverter.ViewportToWorldPoint(currentX, fixedSpawnY, offScreenOffset);
                 Vector3 direction = Vector3.back;
 
                 Events.ActorEvents.SpawnNormalEnemy(spawnPosition, direction);
@@ -98,13 +98,13 @@ namespace Actor.Enemy
             for (int i = 0; i < pairs; i++)
             {
                 Vector3 leftPos =
-                        Util.ScreenSpaceConverter.ViewportToWorldPoint(0f, fixedSpawnY, offScreenOffset);
+                        Utils.ScreenSpaceConverter.ViewportToWorldPoint(0f, fixedSpawnY, offScreenOffset);
                 Vector3 leftDir = (target.localPosition - leftPos).normalized;
 
                 Events.ActorEvents.SpawnNormalEnemy(leftPos, leftDir);
 
                 Vector3 rightPos =
-                        Util.ScreenSpaceConverter.ViewportToWorldPoint(1f, fixedSpawnY, offScreenOffset);
+                        Utils.ScreenSpaceConverter.ViewportToWorldPoint(1f, fixedSpawnY, offScreenOffset);
                 Vector3 rightDir = (target.localPosition - rightPos).normalized;
 
                 Events.ActorEvents.SpawnNormalEnemy(rightPos, rightDir);
@@ -119,7 +119,7 @@ namespace Actor.Enemy
             {
                 float randomX = Random.Range(0f, 1f);
                 Vector3 spawnPosition =
-                        Util.ScreenSpaceConverter.ViewportToWorldPoint(randomX, fixedSpawnY, offScreenOffset);
+                        Utils.ScreenSpaceConverter.ViewportToWorldPoint(randomX, fixedSpawnY, offScreenOffset);
                 Vector3 direction = Vector3.back;
 
                 Events.ActorEvents.SpawnNormalEnemy(spawnPosition, direction);

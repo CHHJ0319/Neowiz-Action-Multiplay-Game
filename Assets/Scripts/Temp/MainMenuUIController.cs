@@ -79,24 +79,4 @@ public class MainMenuUIController : MonoBehaviour
         if (overlayBlocker != null) overlayBlocker.SetActive(false);
         if (popupSettings != null) popupSettings.SetActive(false);
     }
-
-    public void OpenTutorialScene()
-    {
-        Debug.Log("튜토리얼 씬으로 이동");
-        SceneManager.LoadScene("TutorialScene");
-    }
-
-    // =========================
-    // Quit Game
-    // =========================
-    public void QuitGame()
-    {
-        Debug.Log("게임 종료");
-
-        Application.Quit();
-
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#endif
-    }
 }

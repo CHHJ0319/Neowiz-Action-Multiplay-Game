@@ -1001,6 +1001,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b13ce100405003b4e807805b19a21dcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UI.TitleScene.MainMenuPanel
+  tutorialButton: {fileID: 1413244110}
+  createSessionButton: {fileID: 0}
+  joinSessionButton: {fileID: 0}
+  settingButton: {fileID: 0}
+  quitGameButton: {fileID: 1474324372}
 --- !u!1 &374638513
 GameObject:
   m_ObjectHideFlags: 0

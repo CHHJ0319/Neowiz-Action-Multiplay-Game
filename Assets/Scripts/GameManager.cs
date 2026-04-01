@@ -41,7 +41,7 @@ public class GameManager : NetworkBehaviour
     {
         //ClearEvents();
 
-        Util.NetworkService.InitializeUnityServicesAsync();
+        Utils.NetworkService.InitializeUnityServicesAsync();
     }
 
     #region Network Service
@@ -57,14 +57,14 @@ public class GameManager : NetworkBehaviour
 
     private IEnumerator StartHostSequence()
     {
-        yield return StartCoroutine(Util.NetworkService.ConfigureTransportAndStartNgoAsHost());
+        yield return StartCoroutine(Utils.NetworkService.ConfigureTransportAndStartNgoAsHost());
 
         yield return StartCoroutine(ActorManager.Instance.SpawnPlayer(NetworkManager.Singleton.LocalClientId));
     }
 
     private IEnumerator StartClientSequence(string joinCode)
     {
-        yield return StartCoroutine(Util.NetworkService.ConfigureTransportAndStartNgoAsClient(joinCode));
+        yield return StartCoroutine(Utils.NetworkService.ConfigureTransportAndStartNgoAsClient(joinCode));
 
         yield return StartCoroutine(ActorManager.Instance.SpawnPlayer(NetworkManager.Singleton.LocalClientId));
     }
