@@ -2,6 +2,7 @@ using System.Collections;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : NetworkBehaviour
 {
@@ -42,6 +43,11 @@ public class GameManager : NetworkBehaviour
         //ClearEvents();
 
         Utils.NetworkService.InitializeUnityServicesAsync();
+    }
+
+    public static void LoadTitleScene()
+    {
+        Utils.SceneLoader.LoadSceneByName(Utils.SceneList.TitleScene);
     }
 
     #region Network Service

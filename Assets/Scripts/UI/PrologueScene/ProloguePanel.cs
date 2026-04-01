@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PrologueScroller : MonoBehaviour
+public class ProloguePanel : MonoBehaviour
 {
     public RectTransform prologueText;
     public float scrollSpeed = 30f;
