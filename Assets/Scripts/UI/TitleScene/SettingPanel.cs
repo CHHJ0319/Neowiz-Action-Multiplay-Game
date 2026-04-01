@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using TMPro;
 
-public class SettingsController : MonoBehaviour
+public class SettingPanel : MonoBehaviour
 {
     [Header("Sliders")]
     public Slider bgmSlider;
@@ -12,11 +12,18 @@ public class SettingsController : MonoBehaviour
     public TextMeshProUGUI textBgm;
     public TextMeshProUGUI textSfx;
 
+    [SerializeField] private Button closesButton;
+
     private bool isBgmMuted;
     private bool isSfxMuted;
 
     private float lastBgmVolume = 1f;
     private float lastSfxVolume = 1f;
+
+    private void Awake()
+    {
+        closesButton.onClick.AddListener(() => SetVisible(false));
+    }
 
     private void Start()
     {
@@ -112,13 +119,6 @@ public class SettingsController : MonoBehaviour
     {
         float appliedBgm = isBgmMuted ? 0f : lastBgmVolume;
         float appliedSfx = isSfxMuted ? 0f : lastSfxVolume;
-
-        Debug.Log($"Applied BGM={appliedBgm}, SFX={appliedSfx}");
-
-        // 나중에 AudioMixer나 AudioSource 연결 위치
-        // 예:
-        // bgmAudioSource.volume = appliedBgm;
-        // sfxAudioSource.volume = appliedSfx;
     }
 
     private void UpdateMuteLabels()
@@ -132,5 +132,10 @@ public class SettingsController : MonoBehaviour
         {
             textSfx.text = isSfxMuted ? "SFX OFF" : "SFX";
         }
+    }
+
+    public void SetVisible(bool isVisible)
+    {
+        gameObject.SetActive(isVisible);
     }
 }

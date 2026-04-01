@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,6 +19,7 @@ namespace UI.TitleScene
         public RectTransform popupPanels;
         public GameObject createSessionPanel;
         public GameObject joinSessionPanel;
+        public GameObject settingPanel;
 
         private bool isAnyPanelActive = false;
 
@@ -36,6 +38,11 @@ namespace UI.TitleScene
             if (joinSessionButton != null)
             {
                 joinSessionButton.onClick.AddListener(() => OnJoinSessionButtonClicked());
+            }
+
+            if (settingButton != null)
+            {
+                settingButton.onClick.AddListener(() => OnSettingButtonClicked());
             }
 
             if (quitGameButton != null)
@@ -74,12 +81,17 @@ namespace UI.TitleScene
 
         private void OnCreasteSessionButtonClicked()
         {
-            if (createSessionPanel != null) createSessionPanel.SetActive(true);
+            if (createSessionPanel != null) createSessionPanel.GetComponent<CreateSessionPanel>().SetVisible(true);
         }
 
         private void OnJoinSessionButtonClicked()
         {
-            if (joinSessionPanel != null) joinSessionPanel.SetActive(true);
+            if (joinSessionPanel != null) joinSessionPanel.GetComponent<JoinSessionPanel>().SetVisible(true);
+        }
+
+        private void OnSettingButtonClicked()
+        {
+            if (settingPanel != null) settingPanel.GetComponent<SettingPanel>().SetVisible(true);
         }
     }
 }
