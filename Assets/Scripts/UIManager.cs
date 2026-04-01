@@ -1,5 +1,7 @@
+using UI;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UIManager : NetworkBehaviour
 {
@@ -19,6 +21,30 @@ public class UIManager : NetworkBehaviour
         }
     }
 
+    public override void OnNetworkSpawn()
+    {
+        if (IsServer)
+        {
+            NetworkManager.SceneManager.OnLoadComplete += OnSceneLoaded;
+        }
+    }
+
+    public override void OnNetworkDespawn()
+    {
+        if (IsServer)
+        {
+            NetworkManager.SceneManager.OnLoadComplete -= OnSceneLoaded;
+        }
+    }
+
+    public void Initialize(int id, string sceneName)
+    {
+        if (sceneName == Utils.SceneList.LobbyScene.ToString())
+        {
+            SetJoinCode();
+        }
+    }
+
     public RectTransform GetPointer(int playerIndex)
     {
         return UI.CanvasController.Instance.GetPointer(playerIndex);
@@ -32,5 +58,15 @@ public class UIManager : NetworkBehaviour
     public void SetLobbyUI(bool isHost)
     {
 
+    }
+
+    private void SetJoinCode()
+    {
+        UI.CanvasController.Instance.SetJoinCode();
+    }
+
+    private void OnSceneLoaded(ulong clientId, string sceneName, LoadSceneMode loadMode)
+    {
+        Initialize((int)clientId, sceneName);
     }
 }
