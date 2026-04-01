@@ -47,7 +47,7 @@ public class GameManager : NetworkBehaviour
 
     public static void LoadTitleScene()
     {
-        Utils.SceneLoader.LoadSceneByName(Utils.SceneList.TitleScene);
+        Utils.SceneNavigator.LoadSceneByName(Utils.SceneList.TitleScene);
     }
 
     #region Network Service
@@ -65,7 +65,15 @@ public class GameManager : NetworkBehaviour
     {
         yield return StartCoroutine(Utils.NetworkService.ConfigureTransportAndStartNgoAsHost());
 
+        if (!NetworkManager.Singleton.IsHost)
+        {
+            yield break;
+        }
+
         yield return StartCoroutine(ActorManager.Instance.SpawnPlayer(NetworkManager.Singleton.LocalClientId));
+        yield return new WaitForSeconds(0.1f);
+
+        Utils.SceneNavigator.LoadSceneByName(Utils.SceneList.LobbyScene);
     }
 
     private IEnumerator StartClientSequence(string joinCode)

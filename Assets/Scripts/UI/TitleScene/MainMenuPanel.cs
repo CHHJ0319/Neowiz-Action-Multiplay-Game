@@ -58,7 +58,7 @@ namespace UI.TitleScene
 
         private void OnTutorialButtonClicked()
         {
-            Utils.SceneLoader.LoadSceneByName(Utils.SceneList.PrologueScene);
+            Utils.SceneNavigator.LoadSceneByName(Utils.SceneList.PrologueScene);
         }
 
         private void UpdateOverlayBlocker()

@@ -2,6 +2,7 @@ using Actor.Spawner;
 using Actor.Weapon;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Actor.Player 
 {
@@ -60,8 +61,11 @@ namespace Actor.Player
 
         public override void OnNetworkSpawn()
         {
+            if (IsServer)
+            {
+                NetworkManager.SceneManager.OnLoadComplete += OnSceneLoaded;
+            }
             //SetPointer((int)OwnerClientId);
-            UIManager.Instance.SetPlayerPanel((int)OwnerClientId, IsOwner);
 
             if (IsOwner)
             {
@@ -75,6 +79,10 @@ namespace Actor.Player
 
         public override void OnNetworkDespawn()
         {
+            if (IsServer)
+            {
+                NetworkManager.SceneManager.OnLoadComplete -= OnSceneLoaded;
+            }
         }
 
         private void Update()
@@ -115,8 +123,12 @@ namespace Actor.Player
             }
         }
 
-        public void Initialize(int id)
+        public void Initialize(int id, string sceneName)
         {
+            if(sceneName == Utils.SceneList.LobbyScene.ToString())
+            {
+                UIManager.Instance.SetPlayerPanel((int)OwnerClientId, IsOwner);
+            }
         }
 
         private void CalculateVeocity()
@@ -213,8 +225,24 @@ namespace Actor.Player
         {
             pointerPosition.Value = pos;
         }
+
+        private void SetPointer(int id)
+        {
+            pointer = UIManager.Instance.GetPointer(id);
+        }
+
+        private void ShowPointer()
+        {
+            pointer.gameObject.SetActive(true);
+        }
+
+        private void HidePointer()
+        {
+            pointer.gameObject.SetActive(false);
+        }
         #endregion
 
+        #region Interact
         private void Interact()
         {
             if(inputHandler.interactAction.triggered)
@@ -252,25 +280,16 @@ namespace Actor.Player
             //    col.enabled = false;
             //}
         }
+        #endregion
 
         public void AddAmmo(int ammo)
         {
             this.ammo += ammo;
         }
 
-        private void SetPointer(int id)
+        private void OnSceneLoaded(ulong clientId, string sceneName, LoadSceneMode loadMode)
         {
-            pointer = UIManager.Instance.GetPointer(id);
-        }
-
-        private void ShowPointer()
-        {
-            pointer.gameObject.SetActive(true);
-        }
-
-        private void HidePointer()
-        {
-            pointer.gameObject.SetActive(false);
+            Initialize((int)clientId, sceneName);
         }
     }
 }

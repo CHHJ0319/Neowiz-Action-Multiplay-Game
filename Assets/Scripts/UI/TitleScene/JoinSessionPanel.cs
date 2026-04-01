@@ -21,7 +21,7 @@ namespace UI.TitleScene
         {
             string joinCode = joinCodeInputField.text;
             string password = passwordInputField.text;
-            //Events.GameEvents.StartClient(joinCode);
+            Events.GameEvents.StartClient(joinCode);
 
             SetVisible(false);
         }

@@ -19,7 +19,7 @@ namespace UI.TitleScene
         private void OnCreateSessionButtonClicked()
         {
             string password = passwordInputField.text;
-            //Events.GameEvents.StartHost();
+            Events.GameEvents.StartHost();
 
             SetVisible(false);
         }
