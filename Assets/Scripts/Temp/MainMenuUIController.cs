@@ -32,13 +32,7 @@ public class MainMenuUIController : MonoBehaviour
     // =========================
     // Create Session
     // =========================
-    public void OpenCreateSessionPopup()
-    {
-        CloseAllPopups();
 
-        if (overlayBlocker != null) overlayBlocker.SetActive(true);
-        if (popupCreateSession != null) popupCreateSession.SetActive(true);
-    }
 
     public void CloseCreateSessionPopup()
     {

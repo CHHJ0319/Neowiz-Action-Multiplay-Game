@@ -6,16 +6,12 @@ namespace UI
 {
     public class NetworkPanel : MonoBehaviour
     {
-        public static NetworkPanel Instance;
-
         [SerializeField] private TMP_InputField joinCodeInputField;
         [SerializeField] private Button accessButton;
         [SerializeField] private TextMeshProUGUI joinCode;
 
         void Awake()
         {
-            Instance = this;
-
             accessButton.onClick.AddListener(() => Access());
         }
 
