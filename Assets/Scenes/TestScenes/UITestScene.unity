@@ -119,6 +119,17 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &323569901 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5509752351231601177, guid: 923d55c1e3caf1e4f97e79273d99ccae, type: 3}
+  m_PrefabInstance: {fileID: 948132389}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1 &361100035
 GameObject:
   m_ObjectHideFlags: 0
@@ -470,6 +481,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1096729352}
     m_Modifications:
+    - target: {fileID: 1149562065893939630, guid: 923d55c1e3caf1e4f97e79273d99ccae, type: 3}
+      propertyPath: mvpNameText
+      value: 
+      objectReference: {fileID: 323569901}
+    - target: {fileID: 2537271511331120919, guid: 923d55c1e3caf1e4f97e79273d99ccae, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4677137351615212736, guid: 923d55c1e3caf1e4f97e79273d99ccae, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5510575575690215092, guid: 923d55c1e3caf1e4f97e79273d99ccae, type: 3}
+      propertyPath: m_Name
+      value: MVPNameText
+      objectReference: {fileID: 0}
+    - target: {fileID: 6371457264414987173, guid: 923d55c1e3caf1e4f97e79273d99ccae, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6414553932592824047, guid: 923d55c1e3caf1e4f97e79273d99ccae, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6975568848186027638, guid: 923d55c1e3caf1e4f97e79273d99ccae, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
