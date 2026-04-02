@@ -3,6 +3,7 @@ using Actor.Weapon;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static UnityEditor.Progress;
 
 namespace Actor.Player 
 {
@@ -27,14 +28,16 @@ namespace Actor.Player
         private PlayerInputHandler inputHandler;
 
         public NetworkVariable<Data.PlayerType> PlayerType { get; private set; } 
+            //= new NetworkVariable<Data.PlayerType>(
+            //    new Data.PlayerType { role = Data.PlayerRole.Shooter, color = Data.ElementType.Red });
             = new NetworkVariable<Data.PlayerType>(
-                new Data.PlayerType { role = Data.PlayerRole.Shooter, color = Data.ElementType.Red });
+                new Data.PlayerType { role = Data.PlayerRole.Supporter, color = Data.ElementType.Red });
         public int ammo;
 
         Vector3 velocity = new Vector3(0,0,0);
 
         private Vector3 targetPosition;
-        private GameObject targetItem;
+        public GameObject targetItem;
 
         private NetworkVariable<Vector2> pointerPosition = new NetworkVariable<Vector2>(
             default, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
@@ -119,6 +122,11 @@ namespace Actor.Player
             }
         }
 
+        private void OnTriggerExit(Collider other)
+        {
+            targetItem = null;
+        }
+
         public void Initialize(string sceneName)
         {
             if(sceneName == Utils.SceneList.LobbyScene.ToString())
@@ -194,7 +202,6 @@ namespace Actor.Player
             {
                 targetItem.transform.SetParent(null);
 
-
                 targetItem.transform.forward = direction;
                 Rigidbody itemBoxRB = targetItem.GetComponent<Rigidbody>();
                 if (itemBoxRB != null)
@@ -203,8 +210,6 @@ namespace Actor.Player
                     itemBoxRB.isKinematic = false;
                     itemBoxRB.linearVelocity = direction * bulletSpeed;
                 }
-
-                targetItem = null;
             }
         }
         #endregion
@@ -260,7 +265,7 @@ namespace Actor.Player
             if (targetItem == null) return;
 
             NetworkObject netObj = targetItem.GetComponent<NetworkObject>();
-            netObj.TrySetParent(transform, false);
+            netObj.TrySetParent(transform, true);
             netObj.transform.localPosition = itemHolder.localPosition;
             netObj.transform.localRotation = Quaternion.Inverse(netObj.transform.rotation) * itemHolder.rotation;
 
