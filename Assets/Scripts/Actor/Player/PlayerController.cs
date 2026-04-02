@@ -1,9 +1,9 @@
+using Actor.Item;
 using Actor.Spawner;
 using Actor.Weapon;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using static UnityEditor.Progress;
 
 namespace Actor.Player 
 {
@@ -17,6 +17,7 @@ namespace Actor.Player
         [SerializeField] private GameObject networkBulletPrefab;
         [SerializeField] private Transform firePoint;
         [SerializeField] private float bulletSpeed = 20f;
+        [SerializeField] private float throwForce = 10f;
 
         [Header("Pointer Settings")]
         [SerializeField] private RectTransform pointer;
@@ -201,14 +202,17 @@ namespace Actor.Player
             if(targetItem != null)
             {
                 targetItem.transform.SetParent(null);
-
                 targetItem.transform.forward = direction;
+
                 Rigidbody itemBoxRB = targetItem.GetComponent<Rigidbody>();
                 if (itemBoxRB != null)
                 {
-                    itemBoxRB.constraints = RigidbodyConstraints.None;
                     itemBoxRB.isKinematic = false;
-                    itemBoxRB.linearVelocity = direction * bulletSpeed;
+
+                    itemBoxRB.constraints = RigidbodyConstraints.None;
+                    itemBoxRB.constraints = RigidbodyConstraints.FreezeRotation;
+
+                    itemBoxRB.linearVelocity = direction * throwForce;
                 }
             }
         }
@@ -268,17 +272,16 @@ namespace Actor.Player
         private void PickUpServerRpc(RpcParams rpcParams = default)
         {
             if (targetItem == null) return;
+            Rigidbody itemBoxRB = targetItem.GetComponent<Rigidbody>();
+            if (itemBoxRB != null)
+            {
+                itemBoxRB.isKinematic = true;
+            }
 
             NetworkObject netObj = targetItem.GetComponent<NetworkObject>();
             netObj.TrySetParent(transform, true);
             netObj.transform.localPosition = itemHolder.localPosition;
-            netObj.transform.localRotation = Quaternion.Inverse(netObj.transform.rotation) * itemHolder.rotation;
-
-            Rigidbody rb = targetItem.GetComponent<Rigidbody>();
-            if (rb != null)
-            {
-                rb.isKinematic = true;
-            }
+            netObj.transform.localRotation = Quaternion.identity;
 
             //Collider col = targetItem.GetComponent<Collider>();
             //if (col != null)
