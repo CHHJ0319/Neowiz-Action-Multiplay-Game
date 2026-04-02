@@ -28,10 +28,26 @@ namespace UI.LobbyScene
 
         private void OnGameStartButtonClicked(bool isHost)
         {
+            if(isHost)
+            {
+
+            }
+            else
+            {
+                Events.GameEvents.ReadyGame();
+            }
         }
 
         private void OnGameCancelButtonClicked(bool isHost)
         {
+            if (isHost)
+            {
+
+            }
+            else
+            {
+
+            }
         }
     }
 }

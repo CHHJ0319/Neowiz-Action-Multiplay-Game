@@ -7,12 +7,14 @@ namespace Events
         public static event Action OnQuitGame;
         public static event Action OnStartHost;
         public static event Action<string> OnStartClient;
+        public static event Action OnReadyGame;
         
         public static void Clear()
         {
             OnQuitGame = null;
             OnStartHost = null;
             OnStartClient = null;
+            OnReadyGame = null;
         } 
 
         public static void StartHost()
@@ -28,6 +30,11 @@ namespace Events
         public static void QuitGame()
         {
             OnQuitGame?.Invoke();
+        }
+
+        public static void ReadyGame()
+        {
+            OnReadyGame?.Invoke();
         }
     }
 }

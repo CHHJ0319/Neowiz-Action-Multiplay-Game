@@ -14,6 +14,8 @@ namespace UI.LobbyScene
         public Image readyIcon;
 
         private NetworkVariable<int> currentIndex = new NetworkVariable<int>(0);
+        private NetworkVariable<bool> isReady = new NetworkVariable<bool>();
+
 
         void Awake()
         {
@@ -24,11 +26,15 @@ namespace UI.LobbyScene
         public override void OnNetworkSpawn()
         {
             currentIndex.OnValueChanged += RefreshDisplay;
+            isReady.OnValueChanged += UpdateReadyIcon;
         }
 
         public override void OnNetworkDespawn()
         {
+            Events.GameEvents.OnReadyGame -= UpdateReadyState;
+
             currentIndex.OnValueChanged -= RefreshDisplay;
+            isReady.OnValueChanged -= UpdateReadyIcon;
         }
 
         public void Initialize(bool isOwner)
@@ -39,6 +45,8 @@ namespace UI.LobbyScene
             {
                 previousButton.gameObject.SetActive(true);
                 nextButton.gameObject.SetActive(true);
+
+                Events.GameEvents.OnReadyGame += UpdateReadyState;
             }
         }
 
@@ -85,6 +93,25 @@ namespace UI.LobbyScene
             {
                 currentIndex.Value = nextIndex % childCount;
             }
+        }
+
+        private void UpdateReadyState()
+        {
+            UpdateReadyStateServerRpc();
+        }
+
+        [Rpc(SendTo.Server)]
+        private void UpdateReadyStateServerRpc(RpcParams rpcParams = default)
+        {
+            isReady.Value = !isReady.Value;
+        }
+
+        private void UpdateReadyIcon(bool previousValue, bool newValue)
+        {
+            if (readyIcon == null) return;
+
+            bool currentState = readyIcon.gameObject.activeSelf;
+            readyIcon.gameObject.SetActive(!currentState);
         }
     }
 

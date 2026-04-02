@@ -91,7 +91,7 @@ namespace Actor.Player
         {
             if (IsOwner)
             {
-                if(Utils.SceneNavigator.GetCurrentSceneName() == Utils.SceneList.LobbyScene.ToString())
+                if(Utils.SceneNavigator.GetCurrentSceneName() != Utils.SceneList.LobbyScene.ToString())
                 {
                     CalculateVeocity();
                     Shoot();
