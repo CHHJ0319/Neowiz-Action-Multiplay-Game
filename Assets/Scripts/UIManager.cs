@@ -22,18 +22,12 @@ public class UIManager : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-        if (IsServer)
-        {
-            NetworkManager.SceneManager.OnLoadComplete += OnSceneLoaded;
-        }
+        NetworkManager.SceneManager.OnLoadComplete += OnSceneLoaded;
     }
 
     public override void OnNetworkDespawn()
     {
-        if (IsServer)
-        {
-            NetworkManager.SceneManager.OnLoadComplete -= OnSceneLoaded;
-        }
+        NetworkManager.SceneManager.OnLoadComplete -= OnSceneLoaded;
     }
 
     public void Initialize(int id, string sceneName)
@@ -69,8 +63,20 @@ public class UIManager : NetworkBehaviour
         {
             UI.CanvasController.Instance.ShowRoundStartButton();
         }
-        UI.CanvasController.Instance.ShowResultPanel();
+        UI.CanvasController.Instance.SetResultPanelVisible(true);
         UI.CanvasController.Instance.HidePointers();
+    }
+
+    [Rpc(SendTo.Server)]
+    public void CloseResultPanelServerRpc(RpcParams rpcParams = default)
+    { 
+        CloseResultPanelClientRpc();
+    }
+
+    [Rpc(SendTo.Everyone)]
+    public void CloseResultPanelClientRpc()
+    {
+        UI.CanvasController.Instance.SetResultPanelVisible(false);
     }
 
     private void OnSceneLoaded(ulong clientId, string sceneName, LoadSceneMode loadMode)

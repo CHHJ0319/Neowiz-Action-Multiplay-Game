@@ -1895,7 +1895,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 13}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 519.8894, y: 616.35}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1149562065893939630
@@ -1914,6 +1914,8 @@ MonoBehaviour:
   defeatImage: {fileID: 4722247894044451636}
   starRow: {fileID: 1073175678942794483}
   mvpNameText: {fileID: 5509752351231601177}
+  menuRow: {fileID: 8273607299973883617}
+  nextStageButton: {fileID: 3338174709172825371}
 --- !u!222 &574351655117587307
 CanvasRenderer:
   m_ObjectHideFlags: 0

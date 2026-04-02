@@ -12,7 +12,7 @@ namespace UI
         public RectTransform pointers;
         public Button roundStartButton;
         public Image barricadeHPBar;
-        public GameObject resultPanel;
+        public UI.ResultPanel resultPanel;
 
         [Header("LobbyScene")]
         public RectTransform playerPanels;
@@ -96,6 +96,8 @@ namespace UI
                     roundStartButton.onClick.AddListener(() => OnRoundStartButtonClicked());
                 }
             }
+
+            resultPanel.Initialize(isHost);
         }
 
         public void HidePointers()
@@ -111,9 +113,9 @@ namespace UI
             roundStartButton.gameObject.SetActive(true);
         }
 
-        public void ShowResultPanel()
+        public void SetResultPanelVisible(bool visivle)
         {
-            resultPanel.SetActive(true);
+            resultPanel.gameObject.SetActive(visivle);
         }
 
         private void OnRoundStartButtonClicked()
