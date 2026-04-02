@@ -50,24 +50,18 @@ namespace Actor.Player
         private void OnEnable()
         {
             Events.RoundEvents.OnRoundStarted += ShowPointer;
-            Events.RoundEvents.OnRoundEnded += HidePointer;
         }
 
         private void OnDisable()
         {
             Events.RoundEvents.OnRoundStarted -= ShowPointer;
-            Events.RoundEvents.OnRoundEnded -= HidePointer;
         }
 
         public override void OnNetworkSpawn()
         {
             Initialize(Utils.SceneNavigator.GetCurrentSceneName());
 
-            if (IsServer)
-            {
-                NetworkManager.SceneManager.OnLoadComplete += OnSceneLoaded;
-            }
-            //SetPointer((int)OwnerClientId);
+            NetworkManager.SceneManager.OnLoadComplete += OnSceneLoaded;
 
             if (IsOwner)
             {
@@ -81,10 +75,7 @@ namespace Actor.Player
 
         public override void OnNetworkDespawn()
         {
-            if (IsServer)
-            {
-                NetworkManager.SceneManager.OnLoadComplete -= OnSceneLoaded;
-            }
+            NetworkManager.SceneManager.OnLoadComplete -= OnSceneLoaded;
         }
 
         private void Update()
@@ -133,6 +124,11 @@ namespace Actor.Player
             if(sceneName == Utils.SceneList.LobbyScene.ToString())
             {
                 UIManager.Instance.SetPlayerPanel((int)OwnerClientId, IsOwner);
+            }
+            else if (sceneName == Utils.SceneList.TutorialScene.ToString())
+            {
+                SetPointer((int)OwnerClientId);
+                rb.useGravity = true;
             }
         }
 
@@ -239,11 +235,6 @@ namespace Actor.Player
         private void ShowPointer()
         {
             pointer.gameObject.SetActive(true);
-        }
-
-        private void HidePointer()
-        {
-            pointer.gameObject.SetActive(false);
         }
         #endregion
 

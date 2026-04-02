@@ -42,6 +42,10 @@ public class UIManager : NetworkBehaviour
         {
             UI.CanvasController.Instance.SetLobbySceneUI(IsHost);
         }
+        else if (sceneName == Utils.SceneList.TutorialScene.ToString())
+        {
+            UI.CanvasController.Instance.SetStageSceneSceneUI(IsHost);
+        }
     }
 
     public RectTransform GetPointer(int playerIndex)
@@ -57,6 +61,16 @@ public class UIManager : NetworkBehaviour
     public int GetReadyPlayerCount()
     {
         return UI.CanvasController.Instance.GetReadyPlayerCount();
+    }
+
+    public void EndRound()
+    {
+        if(IsHost)
+        {
+            UI.CanvasController.Instance.ShowRoundStartButton();
+        }
+        UI.CanvasController.Instance.ShowResultPanel();
+        UI.CanvasController.Instance.HidePointers();
     }
 
     private void OnSceneLoaded(ulong clientId, string sceneName, LoadSceneMode loadMode)

@@ -1913,7 +1913,7 @@ MonoBehaviour:
   victoryImage: {fileID: 8316643723917336444}
   defeatImage: {fileID: 4722247894044451636}
   starRow: {fileID: 1073175678942794483}
-  a: 0
+  mvpNameText: {fileID: 5509752351231601177}
 --- !u!222 &574351655117587307
 CanvasRenderer:
   m_ObjectHideFlags: 0

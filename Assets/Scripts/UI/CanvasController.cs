@@ -1,6 +1,6 @@
 using TMPro;
-using UI.LobbyScene;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace UI
 {
@@ -10,6 +10,9 @@ namespace UI
 
         [Header ("StageScene")]
         public RectTransform pointers;
+        public Button roundStartButton;
+        public Image barricadeHPBar;
+        public GameObject resultPanel;
 
         [Header("LobbyScene")]
         public RectTransform playerPanels;
@@ -19,6 +22,16 @@ namespace UI
         private void Awake()
         {
             Instance = this;
+        }
+
+        private void OnEnable()
+        {
+            Events.PlayerFieldEvents.OnHPChanged += UpdateBarricadeHPBar;
+        }
+
+        private void OnDisable()
+        {
+            Events.PlayerFieldEvents.OnHPChanged -= UpdateBarricadeHPBar;
         }
 
         public RectTransform GetPointer(int playerIndex) 
@@ -70,6 +83,52 @@ namespace UI
 
             return readyCount;
         }
+        #endregion
+
+        #region StageScene
+        public void SetStageSceneSceneUI(bool isHost)
+        {
+            if(isHost)
+            {
+                if (roundStartButton != null)
+                {
+                    roundStartButton.gameObject.SetActive(true);
+                    roundStartButton.onClick.AddListener(() => OnRoundStartButtonClicked());
+                }
+            }
+        }
+
+        public void HidePointers()
+        {
+            foreach(RectTransform pointer in pointers)
+            {
+                pointer.gameObject.SetActive(false);
+            }
+        }
+
+        public void ShowRoundStartButton()
+        {
+            roundStartButton.gameObject.SetActive(true);
+        }
+
+        public void ShowResultPanel()
+        {
+            resultPanel.SetActive(true);
+        }
+
+        private void OnRoundStartButtonClicked()
+        {
+            RoundManager.Instance.StartRoundServerRpc();
+            roundStartButton.gameObject.SetActive(false);
+        }
+
+        private void UpdateBarricadeHPBar(float hpRate)
+        {
+            float currentHPRate = hpRate;
+            currentHPRate = Mathf.Clamp(hpRate, 0f, 1f);
+
+            barricadeHPBar.fillAmount = currentHPRate;
+        }  
         #endregion
     }
 }

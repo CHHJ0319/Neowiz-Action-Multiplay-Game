@@ -49,7 +49,7 @@ namespace UI.LobbyScene
         {
             if(isHost)
             {
-
+                Utils.SceneNavigator.LoadSceneByName(Utils.SceneList.TutorialScene);
             }
             else
             {

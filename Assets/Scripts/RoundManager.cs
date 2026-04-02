@@ -2,7 +2,6 @@ using Actor;
 using System.Collections;
 using Unity.Netcode;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class RoundManager : NetworkBehaviour
 {
@@ -16,7 +15,7 @@ public class RoundManager : NetworkBehaviour
         {
             Instance = this;
 
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
         }
         else if (Instance != this)
         {
@@ -74,5 +73,6 @@ public class RoundManager : NetworkBehaviour
         yield return new WaitForSeconds(10.0f);
 
         Events.RoundEvents.EndRound();
+        UIManager.Instance.EndRound();
     }
 }

@@ -1,17 +1,28 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ResultPanel : MonoBehaviour
 {
+    [Header("TitleImage")]
     public GameObject victoryImage;
     public GameObject defeatImage;
 
+    [Header("")]
     public Transform starRow;
     public TextMeshProUGUI mvpNameText;
+
+    [Header("Buttons")]
+    public Button nextStageButton;
 
     void Awake()
     {
         SetTitleImage(true);
+
+        if(nextStageButton != null)
+        {
+            nextStageButton.onClick.AddListener(() => OnNextStageButtonClicked());
+        }
     }
 
     private void Update()
@@ -50,5 +61,10 @@ public class ResultPanel : MonoBehaviour
         {
             mvpNameText.text = $"MVP: {playerrName}";
         }
+    }
+
+    private void OnNextStageButtonClicked()
+    {
+        gameObject.SetActive(false);
     }
 }

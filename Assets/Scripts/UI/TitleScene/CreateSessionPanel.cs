@@ -18,7 +18,7 @@ namespace UI.TitleScene
 
         private void OnCreateSessionButtonClicked()
         {
-            string password = passwordInputField.text;
+            //string password = passwordInputField.text;
             Events.GameEvents.StartHost();
 
             SetVisible(false);

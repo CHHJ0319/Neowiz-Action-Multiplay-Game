@@ -20,7 +20,7 @@ namespace UI.TitleScene
         private void OnJoinSessionButtonClicked()
         {
             string joinCode = joinCodeInputField.text;
-            string password = passwordInputField.text;
+            //string password = passwordInputField.text;
             Events.GameEvents.StartClient(joinCode);
 
             SetVisible(false);
