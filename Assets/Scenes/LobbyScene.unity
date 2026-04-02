@@ -1569,6 +1569,11 @@ MonoBehaviour:
   previousButton: {fileID: 1947676241}
   nextButton: {fileID: 700512422}
   readyIcon: {fileID: 1432512282}
+  isReady:
+    UpdateTraits:
+      MinSecondsBetweenUpdates: 0
+      MaxSecondsBetweenUpdates: 0
+    m_InternalValue: 0
 --- !u!114 &452045267
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1769,6 +1774,11 @@ MonoBehaviour:
   previousButton: {fileID: 330951961}
   nextButton: {fileID: 1935027904}
   readyIcon: {fileID: 2003866673}
+  isReady:
+    UpdateTraits:
+      MinSecondsBetweenUpdates: 0
+      MaxSecondsBetweenUpdates: 0
+    m_InternalValue: 0
 --- !u!114 &693522650
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2370,6 +2380,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 738005371}
   m_CullTransparentMesh: 1
+--- !u!1 &785089272
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 785089274}
+  - component: {fileID: 785089273}
+  m_Layer: 0
+  m_Name: SessionManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &785089273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 785089272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be6050ff239c88d459a4b383daacd60a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SessionMAnager
+--- !u!4 &785089274
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 785089272}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 499.6596, y: 0, z: 4535.703}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &830607873
 GameObject:
   m_ObjectHideFlags: 0
@@ -4871,7 +4925,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UI.CanvasController
   pointers: {fileID: 0}
-  playersPanel: {fileID: 1404491815}
+  playerPanels: {fileID: 1404491815}
   joinCode: {fileID: 1079919224}
   gameMenuPanel: {fileID: 1667322708}
 --- !u!1 &1404491814
@@ -5845,6 +5899,11 @@ MonoBehaviour:
   previousButton: {fileID: 2014564115}
   nextButton: {fileID: 1489580238}
   readyIcon: {fileID: 145198346}
+  isReady:
+    UpdateTraits:
+      MinSecondsBetweenUpdates: 0
+      MaxSecondsBetweenUpdates: 0
+    m_InternalValue: 0
 --- !u!1 &1667322705
 GameObject:
   m_ObjectHideFlags: 0
@@ -6389,6 +6448,11 @@ MonoBehaviour:
   previousButton: {fileID: 1491744247}
   nextButton: {fileID: 955417275}
   readyIcon: {fileID: 1086055714}
+  isReady:
+    UpdateTraits:
+      MinSecondsBetweenUpdates: 0
+      MaxSecondsBetweenUpdates: 0
+    m_InternalValue: 0
 --- !u!114 &1771211283
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7809,3 +7873,4 @@ SceneRoots:
   - {fileID: 134539366}
   - {fileID: 719161256}
   - {fileID: 50570669}
+  - {fileID: 785089274}

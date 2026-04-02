@@ -1,4 +1,3 @@
-using UI;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -53,6 +52,11 @@ public class UIManager : NetworkBehaviour
     public void SetPlayerPanel(int playerIndex, bool isOwner)
     {
         UI.CanvasController.Instance.SetPlayerPanel(playerIndex, isOwner);
+    }
+
+    public int GetReadyPlayerCount()
+    {
+        return UI.CanvasController.Instance.GetReadyPlayerCount();
     }
 
     private void OnSceneLoaded(ulong clientId, string sceneName, LoadSceneMode loadMode)

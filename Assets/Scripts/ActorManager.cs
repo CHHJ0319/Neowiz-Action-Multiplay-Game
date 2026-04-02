@@ -11,6 +11,7 @@ public class ActorManager : NetworkBehaviour
     public GameObject[] playerPrefabs;
 
     private Dictionary<ulong, Actor.Player.PlayerController> players = new();
+    private int readyCount = 0;
 
     private Vector3[] playerSpawnPositions =
     {

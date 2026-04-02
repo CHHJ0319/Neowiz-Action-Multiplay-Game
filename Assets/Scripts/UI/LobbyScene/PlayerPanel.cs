@@ -13,9 +13,9 @@ namespace UI.LobbyScene
         public Button nextButton;
         public Image readyIcon;
 
-        private NetworkVariable<int> currentIndex = new NetworkVariable<int>(0);
-        private NetworkVariable<bool> isReady = new NetworkVariable<bool>();
+        public NetworkVariable<bool> isReady = new NetworkVariable<bool>();
 
+        private NetworkVariable<int> currentIndex = new NetworkVariable<int>(0);
 
         void Awake()
         {

@@ -1,6 +1,8 @@
 using TMPro;
+using UI.LobbyScene;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.Rendering.DebugUI;
 
 namespace UI
 {
@@ -12,7 +14,7 @@ namespace UI
         public RectTransform pointers;
 
         [Header("LobbyScene")]
-        public RectTransform playersPanel;
+        public RectTransform playerPanels;
         public TextMeshProUGUI joinCode;
         public UI.LobbyScene.GameMenuPanel gameMenuPanel;
 
@@ -41,9 +43,9 @@ namespace UI
 
         public void SetPlayerPanel(int playerIndex, bool isOwner)
         {
-            if (playersPanel == null || playersPanel.childCount <= 0) return;
+            if (playerPanels == null || playerPanels.childCount <= 0) return;
 
-            UI.LobbyScene.PlayerPanel playerPanel = playersPanel.GetChild(playerIndex).gameObject.GetComponent<UI.LobbyScene.PlayerPanel>();
+            UI.LobbyScene.PlayerPanel playerPanel = playerPanels.GetChild(playerIndex).gameObject.GetComponent<UI.LobbyScene.PlayerPanel>();
             playerPanel.Initialize(isOwner);
         }
 
@@ -54,6 +56,20 @@ namespace UI
                 joinCode.gameObject.SetActive(true);
                 joinCode.text = Utils.NetworkService.JoinCode;
             }
+        }
+
+        public int GetReadyPlayerCount()
+        {
+            int readyCount = 0;
+            foreach (PlayerPanel panel in playerPanels)
+            {
+                if(panel.isReady.Value)
+                {
+                    readyCount++;
+                }
+            }
+
+            return readyCount;
         }
         #endregion
     }
