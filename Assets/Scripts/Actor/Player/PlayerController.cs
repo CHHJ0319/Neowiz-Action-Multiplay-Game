@@ -27,7 +27,7 @@ namespace Actor.Player
         private Rigidbody rb;
         private PlayerInputHandler inputHandler;
 
-        public NetworkVariable<Data.PlayerType> PlayerType { get; private set; } 
+        public NetworkVariable<Data.PlayerType> PlayerType { get; private set; }
             //= new NetworkVariable<Data.PlayerType>(
             //    new Data.PlayerType { role = Data.PlayerRole.Shooter, color = Data.ElementType.Red });
             = new NetworkVariable<Data.PlayerType>(
@@ -217,13 +217,18 @@ namespace Actor.Player
         #region Pointer
         private void MovePointerLocal()
         {
-            if (pointer != null)
-            {
-                pointer.position = inputHandler.mouseInput;
-            }
+            Ray ray = Camera.main.ScreenPointToRay(inputHandler.mouseInput);
+            Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
 
-            Vector3 screenPosition = new Vector3(inputHandler.mouseInput.x, inputHandler.mouseInput.y, distanceFromCamera);
-            targetPosition = Camera.main.ScreenToWorldPoint(screenPosition);
+            if (groundPlane.Raycast(ray, out float enter))
+            {
+                targetPosition = ray.GetPoint(enter);
+
+                if (pointer != null)
+                {
+                    pointer.position = Camera.main.WorldToScreenPoint(targetPosition);
+                }
+            }
         }
 
         [Rpc(SendTo.Server)]
