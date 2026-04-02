@@ -11,6 +11,7 @@ namespace UI.LobbyScene
         public TextMeshProUGUI playeyName;
         public Button previousButton;
         public Button nextButton;
+        public Image readyIcon;
 
         private NetworkVariable<int> currentIndex = new NetworkVariable<int>(0);
 

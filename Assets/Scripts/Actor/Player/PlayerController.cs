@@ -91,15 +91,18 @@ namespace Actor.Player
         {
             if (IsOwner)
             {
-                CalculateVeocity();
-                Shoot();
-                Interact();
-                MovePointerLocal();
-                UpdatePointerServerRpc(inputHandler.mouseInput);
-
-                if (inputHandler.quickSlot1Action.triggered)
+                if(Utils.SceneNavigator.GetCurrentSceneName() == Utils.SceneList.LobbyScene.ToString())
                 {
-                    ItemSpawner.Instance.SpawnItemServerRpc();
+                    CalculateVeocity();
+                    Shoot();
+                    Interact();
+                    MovePointerLocal();
+                    UpdatePointerServerRpc(inputHandler.mouseInput);
+
+                    if (inputHandler.quickSlot1Action.triggered)
+                    {
+                        ItemSpawner.Instance.SpawnItemServerRpc();
+                    }
                 }
             }
             else

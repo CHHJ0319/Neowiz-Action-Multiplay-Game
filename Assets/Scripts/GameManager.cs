@@ -71,7 +71,8 @@ public class GameManager : NetworkBehaviour
         yield return StartCoroutine(ActorManager.Instance.SpawnPlayer(NetworkManager.Singleton.LocalClientId));
         yield return new WaitForSeconds(0.1f);
 
-        Utils.SceneNavigator.LoadSceneByName(Utils.SceneList.LobbyScene);
+        UIManager.Instance.Initialize((int)NetworkManager.Singleton.LocalClientId, Utils.SceneNavigator.GetCurrentSceneName());
+        //Utils.SceneNavigator.LoadSceneByName(Utils.SceneList.LobbyScene);
     }
 
     private IEnumerator StartClientSequence(string joinCode)
@@ -79,6 +80,8 @@ public class GameManager : NetworkBehaviour
         yield return StartCoroutine(Utils.NetworkService.ConfigureTransportAndStartNgoAsClient(joinCode));
 
         yield return StartCoroutine(ActorManager.Instance.SpawnPlayer(NetworkManager.Singleton.LocalClientId));
+    
+        UIManager.Instance.Initialize((int)NetworkManager.Singleton.LocalClientId, Utils.SceneNavigator.GetCurrentSceneName());
     }
     #endregion
 

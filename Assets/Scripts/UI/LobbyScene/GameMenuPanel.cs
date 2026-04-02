@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +11,17 @@ namespace UI.LobbyScene
 
         public void Initialize(bool isHost)
         {
+            TMP_Text buttonTitle = gameStartButton.GetComponentInChildren<TMP_Text>();
+            if (isHost)
+            {
+                buttonTitle.text = "Start";
+                gameStartButton.interactable = false;
+            }
+            else
+            {
+                buttonTitle.text = "Ready";
+            }
+
             gameStartButton.onClick.AddListener(() => OnGameStartButtonClicked(isHost));
             gameCancelButton.onClick.AddListener(() => OnGameCancelButtonClicked(isHost));
         }

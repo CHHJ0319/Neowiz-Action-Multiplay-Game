@@ -135,7 +135,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &47838932
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -943,6 +943,81 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 139528570}
   m_CullTransparentMesh: 1
+--- !u!1 &145198344
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 145198345}
+  - component: {fileID: 145198347}
+  - component: {fileID: 145198346}
+  m_Layer: 5
+  m_Name: ReadyIcon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &145198345
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 145198344}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1666507529}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 89.8, y: 86}
+  m_SizeDelta: {x: 70, y: 70}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &145198346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 145198344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.15632069, g: 1, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &145198347
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 145198344}
+  m_CullTransparentMesh: 1
 --- !u!1 &203557771
 GameObject:
   m_ObjectHideFlags: 0
@@ -1000,7 +1075,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Game Cancel
+  m_text: EXIT
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2697,6 +2772,7 @@ MonoBehaviour:
   playeyName: {fileID: 1130451567}
   previousButton: {fileID: 1508687858}
   nextButton: {fileID: 1137706907}
+  readyIcon: {fileID: 0}
 --- !u!114 &839094303
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3474,7 +3550,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1079919223
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4104,14 +4180,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.39215687}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 6f1789964cb740b439d3ba1fddbdcd08, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4659,6 +4735,7 @@ MonoBehaviour:
   playeyName: {fileID: 1406303405}
   previousButton: {fileID: 279801184}
   nextButton: {fileID: 2008768340}
+  readyIcon: {fileID: 0}
 --- !u!114 &1316523662
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4846,6 +4923,7 @@ MonoBehaviour:
   pointers: {fileID: 0}
   playersPanel: {fileID: 1404491815}
   joinCode: {fileID: 1079919224}
+  gameMenuPanel: {fileID: 1667322708}
 --- !u!1 &1404491814
 GameObject:
   m_ObjectHideFlags: 0
@@ -5838,10 +5916,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1666507529}
-  - component: {fileID: 1666507531}
-  - component: {fileID: 1666507530}
   - component: {fileID: 1666507532}
   - component: {fileID: 1666507533}
+  - component: {fileID: 1666507531}
+  - component: {fileID: 1666507530}
   m_Layer: 5
   m_Name: Player1Panel
   m_TagString: Untagged
@@ -5865,6 +5943,7 @@ RectTransform:
   - {fileID: 1814099508}
   - {fileID: 2014564114}
   - {fileID: 1489580237}
+  - {fileID: 145198345}
   m_Father: {fileID: 1404491815}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -5952,6 +6031,7 @@ MonoBehaviour:
   playeyName: {fileID: 1278564182}
   previousButton: {fileID: 2014564115}
   nextButton: {fileID: 1489580238}
+  readyIcon: {fileID: 145198346}
 --- !u!1 &1667322705
 GameObject:
   m_ObjectHideFlags: 0
@@ -6456,6 +6536,7 @@ MonoBehaviour:
   playeyName: {fileID: 804396834}
   previousButton: {fileID: 1306159911}
   nextButton: {fileID: 110067383}
+  readyIcon: {fileID: 0}
 --- !u!114 &1966937060
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7222,7 +7303,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Game Start
+  m_text: Start
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

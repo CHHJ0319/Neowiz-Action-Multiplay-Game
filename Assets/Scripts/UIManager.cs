@@ -41,7 +41,7 @@ public class UIManager : NetworkBehaviour
     {
         if (sceneName == Utils.SceneList.LobbyScene.ToString())
         {
-            SetJoinCode();
+            UI.CanvasController.Instance.SetLobbySceneUI(IsHost);
         }
     }
 
@@ -53,16 +53,6 @@ public class UIManager : NetworkBehaviour
     public void SetPlayerPanel(int playerIndex, bool isOwner)
     {
         UI.CanvasController.Instance.SetPlayerPanel(playerIndex, isOwner);
-    }
-
-    public void SetLobbyUI(bool isHost)
-    {
-
-    }
-
-    private void SetJoinCode()
-    {
-        UI.CanvasController.Instance.SetJoinCode();
     }
 
     private void OnSceneLoaded(ulong clientId, string sceneName, LoadSceneMode loadMode)
