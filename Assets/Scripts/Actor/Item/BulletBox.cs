@@ -1,3 +1,4 @@
+using Unity.Netcode;
 using UnityEngine;
 
 namespace Actor.Item
@@ -8,19 +9,11 @@ namespace Actor.Item
 
         private bool isCollected = false;
 
-        private void OnTriggerEnter(Collider other)
+        public override void Use(Actor.Player.PlayerController player)
         {
             if (isCollected) return;
 
-            if (other.CompareTag("Player"))
-            {
-                Actor.Player.PlayerController player = other.gameObject.GetComponent<Actor.Player.PlayerController>();
-
-                if(player.PlayerType.Value.role == Data.PlayerRole.Shooter)
-                {
-                    //AddAmmo(player);
-                }
-            }
+            AddAmmo(player);
         }
 
         private void AddAmmo(Actor.Player.PlayerController player)
@@ -28,7 +21,10 @@ namespace Actor.Item
             player.AddAmmo(ammo);
 
             isCollected = true;
-            Destroy(gameObject);
+            if (IsServer)
+            {
+                GetComponent<NetworkObject>().Despawn();
+            }
         }
     }
 }
