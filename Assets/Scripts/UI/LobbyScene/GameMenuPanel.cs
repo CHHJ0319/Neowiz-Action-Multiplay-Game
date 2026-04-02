@@ -9,6 +9,23 @@ namespace UI.LobbyScene
         public Button gameStartButton;
         public Button gameCancelButton;
 
+        private bool _isHost = false;
+
+        private void Update()
+        {
+            if(_isHost)
+            {
+                if(SessionManager.Instance.IsAllPlayersReady())
+                {
+                    gameStartButton.interactable = true;
+                }
+                else
+                {
+                    gameStartButton.interactable = false;
+                }
+            }
+        }
+
         public void Initialize(bool isHost)
         {
             TMP_Text buttonTitle = gameStartButton.GetComponentInChildren<TMP_Text>();
@@ -16,6 +33,8 @@ namespace UI.LobbyScene
             {
                 buttonTitle.text = "Start";
                 gameStartButton.interactable = false;
+
+                _isHost = isHost; 
             }
             else
             {

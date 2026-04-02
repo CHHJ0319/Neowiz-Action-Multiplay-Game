@@ -1,8 +1,6 @@
 using TMPro;
 using UI.LobbyScene;
 using UnityEngine;
-using UnityEngine.UI;
-using static UnityEngine.Rendering.DebugUI;
 
 namespace UI
 {
@@ -61,9 +59,10 @@ namespace UI
         public int GetReadyPlayerCount()
         {
             int readyCount = 0;
-            foreach (PlayerPanel panel in playerPanels)
+            foreach (RectTransform child in playerPanels)
             {
-                if(panel.isReady.Value)
+                UI.LobbyScene.PlayerPanel panel = child.GetComponent<UI.LobbyScene.PlayerPanel>();
+                if (panel.isReady.Value)
                 {
                     readyCount++;
                 }

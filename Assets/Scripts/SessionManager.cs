@@ -1,16 +1,35 @@
 using UnityEngine;
 
-public class SessionMAnager : MonoBehaviour
+public class SessionManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public static SessionManager Instance { get; private set; }
+
+    private void Awake()
     {
-        
+        if (Instance == null)
+        {
+            Instance = this;
+
+            DontDestroyOnLoad(gameObject);
+        }
+        else if (Instance != this)
+        {
+            Destroy(gameObject);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public bool IsAllPlayersReady()
     {
-        
+        int playerCount = ActorManager.Instance.GetPlayerCount();
+        int readyCount = UIManager.Instance.GetReadyPlayerCount();
+
+        if(playerCount > 1 && playerCount - 1 == readyCount)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }
