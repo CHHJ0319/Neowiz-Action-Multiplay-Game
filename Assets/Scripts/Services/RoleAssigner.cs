@@ -6,11 +6,11 @@ namespace Services
 {
     public static class RoleAssigner
     {
-        public static Data.PlayerType[] AssignRandomRoles(int playerCount)
+        public static Data.PlayerInfo[] AssignRandomRoles(int playerCount)
         {
             if (playerCount <= 0)
             {
-                return new Data.PlayerType[0];
+                return new Data.PlayerInfo[0];
             }
 
             List<int> roles = Enumerable.Range(0, playerCount).ToList();
@@ -32,16 +32,16 @@ namespace Services
             }
 
             int colorIndex = 0;
-            Data.PlayerType[] types = new Data.PlayerType[playerCount];
+            Data.PlayerInfo[] types = new Data.PlayerInfo[playerCount];
             for(int i = 0; i < playerCount; i++)
             {
                 if(roles[i] == 0)
                 {
-                    types[i] = (new Data.PlayerType { role = Data.PlayerRole.Supporter });
+                    types[i] = (new Data.PlayerInfo { role = Data.PlayerRole.Supporter });
                 }
                 else
                 {
-                    types[i] = (new Data.PlayerType { role = Data.PlayerRole.Shooter, color = (Data.ElementType)colors[colorIndex] });
+                    types[i] = (new Data.PlayerInfo { role = Data.PlayerRole.Shooter, color = (Data.ElementType)colors[colorIndex] });
                     colorIndex++;
                 }
             }

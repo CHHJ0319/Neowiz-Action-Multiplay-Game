@@ -28,13 +28,13 @@ namespace Actor.Player
         private Rigidbody rb;
         private PlayerInputHandler inputHandler;
 
-        public NetworkVariable<Data.PlayerType> PlayerType { get; private set; }
-            = new NetworkVariable<Data.PlayerType>(
-                new Data.PlayerType { role = Data.PlayerRole.Shooter, color = Data.ElementType.Red });
-            //= new NetworkVariable<Data.PlayerType>(
-            //    new Data.PlayerType { role = Data.PlayerRole.Supporter, color = Data.ElementType.Red });
-        private Data.CharacterType character = Data.CharacterType.one;
-        private string playerName = "01";
+        public NetworkVariable<Data.PlayerInfo> PlayerType { get; private set; }
+            = new NetworkVariable<Data.PlayerInfo>( new Data.PlayerInfo { 
+                playerName = "Player",
+                character = Data.CharacterType.One, 
+                role = Data.PlayerRole.Shooter, 
+                color = Data.ElementType.Red
+            });  
 
         public int ammo;
         Vector3 velocity = new Vector3(0,0,0);
@@ -131,7 +131,13 @@ namespace Actor.Player
 
         public void Initialize(string sceneName)
         {
-            if(sceneName == Utils.SceneList.LobbyScene.ToString())
+            PlayerType = new NetworkVariable<Data.PlayerInfo>( new Data.PlayerInfo { 
+                playerName = "Player1",
+                character = Data.CharacterType.One, 
+                role = Data.PlayerRole.Shooter, 
+                color = Data.ElementType.Red });
+           
+            if (sceneName == Utils.SceneList.LobbyScene.ToString())
             {
                 UIManager.Instance.SetPlayerPanel((int)OwnerClientId, IsOwner);
             }

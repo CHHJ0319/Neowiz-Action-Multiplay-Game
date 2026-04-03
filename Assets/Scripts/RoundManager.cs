@@ -26,7 +26,7 @@ public class RoundManager : NetworkBehaviour
     [Rpc(SendTo.Server)]
     public void StartRoundServerRpc(RpcParams rpcParams = default)
     {
-        Data.PlayerType[] types = Services.RoleAssigner.AssignRandomRoles(ActorManager.Instance.GetPlayerCount());
+        Data.PlayerInfo[] types = Services.RoleAssigner.AssignRandomRoles(ActorManager.Instance.GetPlayerCount());
         ActorManager.Instance.SetPlayersTypeServerRpc(types);
         StartRoundClientRpc();
     }

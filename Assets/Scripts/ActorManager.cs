@@ -62,7 +62,7 @@ public class ActorManager : NetworkBehaviour
     }
 
     [Rpc(SendTo.Server)]
-    public void SetPlayersTypeServerRpc(Data.PlayerType[] types, RpcParams rpcParams = default)
+    public void SetPlayersTypeServerRpc(Data.PlayerInfo[] types, RpcParams rpcParams = default)
     {
         int index = 0;
         foreach (PlayerController player in players.Values)

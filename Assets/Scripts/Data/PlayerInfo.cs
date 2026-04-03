@@ -3,13 +3,17 @@ using Unity.Netcode;
 namespace Data
 {
     [System.Serializable]
-    public struct PlayerType : INetworkSerializable
+    public struct PlayerInfo : INetworkSerializable
     {
+        public string playerName;
+        public Data.CharacterType character;
         public PlayerRole role;
         public ElementType color;
 
         public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
         {
+            serializer.SerializeValue(ref playerName);
+            serializer.SerializeValue(ref character);
             serializer.SerializeValue(ref role);
             serializer.SerializeValue(ref color);
         }
@@ -19,4 +23,9 @@ namespace Data
     {
         Shooter, Supporter
     }
+    public enum CharacterType
+    {
+        One, Two, Three, Four
+    }
+
 }
