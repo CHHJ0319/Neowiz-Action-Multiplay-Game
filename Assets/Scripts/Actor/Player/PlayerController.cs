@@ -27,6 +27,7 @@ namespace Actor.Player
 
         private Rigidbody rb;
         private PlayerInputHandler inputHandler;
+        private PlayerAudioHandler audioHandler;
 
         public NetworkVariable<Data.PlayerInfo> PlayerInfo { get; private set; }
             = new NetworkVariable<Data.PlayerInfo>( new Data.PlayerInfo { 
@@ -48,6 +49,7 @@ namespace Actor.Player
         {
             rb = GetComponent<Rigidbody>();
             inputHandler = GetComponent<PlayerInputHandler>();
+            audioHandler = GetComponent<PlayerAudioHandler>();
 
             ammo = 100;
         }
@@ -163,7 +165,11 @@ namespace Actor.Player
 
         private void CalculateVeocity()
         {
-            Vector3 moveDirection = new Vector3(inputHandler.horizontal, 0, inputHandler.vertical);
+            if(inputHandler.dashAction.triggered)
+            {
+                audioHandler.PlayDashSound();
+            }
+                Vector3 moveDirection = new Vector3(inputHandler.horizontal, 0, inputHandler.vertical);
             float currentSpeed = inputHandler.isDashPressed ? dashSpeed : walkSpeed;
             velocity = moveDirection * currentSpeed;
         }
@@ -212,6 +218,7 @@ namespace Actor.Player
 
                 bullet.GetComponent<NetworkBullet>().Intialize(PlayerInfo.Value.color, direction * bulletSpeed);
 
+                audioHandler.PlayAttackSound();
                 ammo--;
             }
         }
@@ -221,6 +228,8 @@ namespace Actor.Player
         {
             if(targetItem != null)
             {
+                audioHandler.PlayAttackSound();
+
                 targetItem.transform.SetParent(null);
                 targetItem.transform.forward = direction;
 

@@ -16,12 +16,12 @@ namespace Actor.Player
             _audioSource = GetComponent<AudioSource>();
         }
 
-        private void PlayDashSound()
+        public void PlayDashSound()
         {
             PlaySFX(dashSound);
         }
 
-        private void PlayAttackSound()
+        public void PlayAttackSound()
         {
             PlaySFX(throwSound);
         }

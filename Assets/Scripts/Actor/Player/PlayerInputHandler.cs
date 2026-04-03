@@ -8,7 +8,7 @@ namespace Actor.Player
         private PlayerInput playerInput;
 
         private InputAction moveAction;
-        private InputAction dashAction;
+        public InputAction dashAction;
         private InputAction pointerAction;
         public InputAction attackAction;
         public InputAction interactAction;
