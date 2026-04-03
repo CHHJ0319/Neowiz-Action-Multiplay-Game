@@ -29,14 +29,15 @@ namespace Actor.Player
         private PlayerInputHandler inputHandler;
 
         public NetworkVariable<Data.PlayerType> PlayerType { get; private set; }
-            //= new NetworkVariable<Data.PlayerType>(
-            //    new Data.PlayerType { role = Data.PlayerRole.Shooter, color = Data.ElementType.Red });
             = new NetworkVariable<Data.PlayerType>(
-                new Data.PlayerType { role = Data.PlayerRole.Supporter, color = Data.ElementType.Red });
+                new Data.PlayerType { role = Data.PlayerRole.Shooter, color = Data.ElementType.Red });
+            //= new NetworkVariable<Data.PlayerType>(
+            //    new Data.PlayerType { role = Data.PlayerRole.Supporter, color = Data.ElementType.Red });
+        private Data.CharacterType character = Data.CharacterType.one;
+        private string playerName = "01";
+
         public int ammo;
-
         Vector3 velocity = new Vector3(0,0,0);
-
         private Vector3 targetPosition;
         public GameObject targetItem;
 
