@@ -23,7 +23,7 @@ namespace Actor.Item
             else if (other.CompareTag("Player") && !IsGrounded)
             {
                 Actor.Player.PlayerController player = other.gameObject.GetComponent<Actor.Player.PlayerController>();
-                if(player.PlayerType.Value.role == Data.PlayerRole.Shooter)
+                if(player.PlayerInfo.Value.role == Data.PlayerRole.Shooter)
                 {
                     Use(player);
                 }

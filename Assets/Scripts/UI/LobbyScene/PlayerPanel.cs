@@ -8,7 +8,7 @@ namespace UI.LobbyScene
     public class PlayerPanel : NetworkBehaviour
     {
         public GameObject characterImages;
-        public TextMeshProUGUI playeyName;
+        public TextMeshProUGUI playeyNameText;
         public Button previousButton;
         public Button nextButton;
         public Image readyIcon;
@@ -37,9 +37,11 @@ namespace UI.LobbyScene
             isReady.OnValueChanged -= UpdateReadyIcon;
         }
 
-        public void Initialize(bool isOwner)
+        public void Initialize(string playerName, bool isOwner)
         {
             ShowCharacterImage();
+
+            playeyNameText.text = playerName;
 
             if(isOwner)
             {

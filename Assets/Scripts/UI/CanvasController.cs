@@ -54,12 +54,12 @@ namespace UI
             gameMenuPanel.Initialize(isHost);
         }
 
-        private void SetPlayerPanel(int playerIndex, bool isOwner)
+        private void SetPlayerPanel(string playerName, int playerIndex, bool isOwner)
         {
             if (playerPanels == null || playerPanels.childCount <= 0) return;
 
             UI.LobbyScene.PlayerPanel playerPanel = playerPanels.GetChild(playerIndex).gameObject.GetComponent<UI.LobbyScene.PlayerPanel>();
-            playerPanel.Initialize(isOwner);
+            playerPanel.Initialize(playerName, isOwner);
         }
 
         private void SetJoinCode()

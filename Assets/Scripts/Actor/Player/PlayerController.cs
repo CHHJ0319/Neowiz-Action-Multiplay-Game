@@ -28,7 +28,7 @@ namespace Actor.Player
         private Rigidbody rb;
         private PlayerInputHandler inputHandler;
 
-        public NetworkVariable<Data.PlayerInfo> PlayerType { get; private set; }
+        public NetworkVariable<Data.PlayerInfo> PlayerInfo { get; private set; }
             = new NetworkVariable<Data.PlayerInfo>( new Data.PlayerInfo { 
                 playerName = "Player",
                 character = Data.CharacterType.One, 
@@ -64,6 +64,7 @@ namespace Actor.Player
 
         public override void OnNetworkSpawn()
         {
+            SetPlayerName();
             Initialize(Utils.SceneNavigator.GetCurrentSceneName());
 
             NetworkManager.SceneManager.OnLoadComplete += OnSceneLoaded;
@@ -129,17 +130,12 @@ namespace Actor.Player
             targetItem = null;
         }
 
+        #region Initailize
         public void Initialize(string sceneName)
-        {
-            PlayerType = new NetworkVariable<Data.PlayerInfo>( new Data.PlayerInfo { 
-                playerName = "Player1",
-                character = Data.CharacterType.One, 
-                role = Data.PlayerRole.Shooter, 
-                color = Data.ElementType.Red });
-           
+        {       
             if (sceneName == Utils.SceneList.LobbyScene.ToString())
             {
-                Events.PlayerEvents.InitializePlayerInLobbyScene((int)OwnerClientId, IsOwner);
+                Events.PlayerEvents.InitializePlayerInLobbyScene(PlayerInfo.Value.playerName, (int)OwnerClientId, IsOwner);
             }
             else if (sceneName == Utils.SceneList.TutorialScene.ToString())
             {
@@ -147,6 +143,15 @@ namespace Actor.Player
                 rb.useGravity = true;
             }
         }
+
+        private void SetPlayerName()
+        {
+            var currentInfo = PlayerInfo.Value;
+            currentInfo.playerName = "Player" + (OwnerClientId + 1);
+
+            PlayerInfo.Value = currentInfo;
+        }
+        #endregion
 
         private void CalculateVeocity()
         {
@@ -173,14 +178,14 @@ namespace Actor.Player
 
             if (inputHandler.attackAction.triggered)
             {
-                if (PlayerType.Value.role == Data.PlayerRole.Shooter)
+                if (PlayerInfo.Value.role == Data.PlayerRole.Shooter)
                 {
                     direction.y = 0;
                     direction = direction.normalized;
 
                     ShootBulletServerRPC(direction, firePoint.position, firePoint.rotation);
                 }
-                else if (PlayerType.Value.role == Data.PlayerRole.Supporter)
+                else if (PlayerInfo.Value.role == Data.PlayerRole.Supporter)
                 {
                     ShootItemServerRPC(direction);
                 }
@@ -197,7 +202,7 @@ namespace Actor.Player
                 NetworkObject netObj = bullet.GetComponent<NetworkObject>();
                 netObj.Spawn();
 
-                bullet.GetComponent<NetworkBullet>().Intialize(PlayerType.Value.color, direction * bulletSpeed);
+                bullet.GetComponent<NetworkBullet>().Intialize(PlayerInfo.Value.color, direction * bulletSpeed);
 
                 ammo--;
             }
@@ -264,11 +269,11 @@ namespace Actor.Player
         {
             if(inputHandler.interactAction.triggered)
             {
-                if (PlayerType.Value.role == Data.PlayerRole.Shooter)
+                if (PlayerInfo.Value.role == Data.PlayerRole.Shooter)
                 {
                     
                 }
-                else if (PlayerType.Value.role == Data.PlayerRole.Supporter)
+                else if (PlayerInfo.Value.role == Data.PlayerRole.Supporter)
                 {
                     PickUpServerRpc();
                 }

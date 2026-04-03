@@ -67,7 +67,7 @@ public class ActorManager : NetworkBehaviour
         int index = 0;
         foreach (PlayerController player in players.Values)
         {
-            player.PlayerType.Value = types[index];
+            player.PlayerInfo.Value = types[index];
             index++;
         }
     }
