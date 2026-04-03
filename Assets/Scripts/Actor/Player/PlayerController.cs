@@ -139,7 +139,7 @@ namespace Actor.Player
            
             if (sceneName == Utils.SceneList.LobbyScene.ToString())
             {
-                UIManager.Instance.SetPlayerPanel((int)OwnerClientId, IsOwner);
+                Events.PlayerEvents.InitializePlayerInLobbyScene((int)OwnerClientId, IsOwner);
             }
             else if (sceneName == Utils.SceneList.TutorialScene.ToString())
             {

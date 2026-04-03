@@ -27,11 +27,13 @@ namespace UI
         private void OnEnable()
         {
             Events.PlayerFieldEvents.OnHPChanged += UpdateBarricadeHPBar;
+            Events.PlayerEvents.OnPlayerLobbySceneInitialized += SetPlayerPanel;
         }
 
         private void OnDisable()
         {
             Events.PlayerFieldEvents.OnHPChanged -= UpdateBarricadeHPBar;
+            Events.PlayerEvents.OnPlayerLobbySceneInitialized -= SetPlayerPanel;
         }
 
         public RectTransform GetPointer(int playerIndex) 
@@ -52,7 +54,7 @@ namespace UI
             gameMenuPanel.Initialize(isHost);
         }
 
-        public void SetPlayerPanel(int playerIndex, bool isOwner)
+        private void SetPlayerPanel(int playerIndex, bool isOwner)
         {
             if (playerPanels == null || playerPanels.childCount <= 0) return;
 

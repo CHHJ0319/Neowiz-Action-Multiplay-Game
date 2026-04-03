@@ -47,11 +47,6 @@ public class UIManager : NetworkBehaviour
         return UI.CanvasController.Instance.GetPointer(playerIndex);
     }
 
-    public void SetPlayerPanel(int playerIndex, bool isOwner)
-    {
-        UI.CanvasController.Instance.SetPlayerPanel(playerIndex, isOwner);
-    }
-
     public int GetReadyPlayerCount()
     {
         return UI.CanvasController.Instance.GetReadyPlayerCount();
