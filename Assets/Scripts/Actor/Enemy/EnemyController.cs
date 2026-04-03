@@ -46,7 +46,7 @@ namespace Actor.Enemy
             }
             else if (other.CompareTag("Barricade"))
             {
-                Events.PlayerFieldEvents.HandleEnemyCollision(damage);
+                Events.ActorEvents.HandleEnemyPlayerFieldCollision(damage);
                 Destroy(gameObject);
             }
         }

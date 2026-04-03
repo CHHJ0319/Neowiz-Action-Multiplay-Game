@@ -26,13 +26,13 @@ namespace UI
 
         private void OnEnable()
         {
-            Events.PlayerFieldEvents.OnHPChanged += UpdateBarricadeHPBar;
+            Events.ActorEvents.OnPlayerFieldHPChanged += UpdateBarricadeHPBar;
             Events.PlayerEvents.OnPlayerLobbySceneInitialized += SetPlayerPanel;
         }
 
         private void OnDisable()
         {
-            Events.PlayerFieldEvents.OnHPChanged -= UpdateBarricadeHPBar;
+            Events.ActorEvents.OnPlayerFieldHPChanged -= UpdateBarricadeHPBar;
             Events.PlayerEvents.OnPlayerLobbySceneInitialized -= SetPlayerPanel;
         }
 

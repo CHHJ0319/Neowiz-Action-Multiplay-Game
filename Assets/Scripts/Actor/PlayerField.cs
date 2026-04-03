@@ -18,24 +18,24 @@ namespace Actor
             Instance = this;
 
             hp = maxHP;
-            Events.PlayerFieldEvents.UpdateHPBar(hp/maxHP);
+            Events.ActorEvents.UpdatePlayerFieldHPBar(hp/maxHP);
         }
 
         private void OnEnable()
         {
-            Events.PlayerFieldEvents.OnEnemyCollided += TakeDamage;
+            Events.ActorEvents.OnEnemyEnteredPlayerField += TakeDamage;
         }
 
         private void OnDisable()
         {
-            Events.PlayerFieldEvents.OnEnemyCollided -= TakeDamage;
+            Events.ActorEvents.OnEnemyEnteredPlayerField -= TakeDamage;
         }
 
         private void TakeDamage(float damage)
         {
             hp -= damage;
 
-            Events.PlayerFieldEvents.UpdateHPBar(hp/maxHP);
+            Events.ActorEvents.UpdatePlayerFieldHPBar(hp/maxHP);
 
             if(hp <= 0)
             {
