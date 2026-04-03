@@ -21,7 +21,7 @@ namespace Actor.Player
 
         [Header("Pointer Settings")]
         [SerializeField] private RectTransform pointer;
-        [SerializeField] private float distanceFromCamera = 10f;
+        //[SerializeField] private float distanceFromCamera = 10f;
 
         [SerializeField] private Transform itemHolder;
 

@@ -12,7 +12,7 @@ namespace UI
         public RectTransform pointers;
         public Button roundStartButton;
         public Image barricadeHPBar;
-        public UI.ResultPanel resultPanel;
+        public UI.StageScene.ResultPanel resultPanel;
 
         [Header("LobbyScene")]
         public RectTransform playerPanels;

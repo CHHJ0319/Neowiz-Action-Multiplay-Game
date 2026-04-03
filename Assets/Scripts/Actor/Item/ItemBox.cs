@@ -5,10 +5,6 @@ namespace Actor.Item
 {
     public abstract class ItemBox : NetworkBehaviour
     {
-        [Header("Ground Check Settings")]
-        [SerializeField] private LayerMask groundLayer;
-        [SerializeField] private float extraDistance = 0.5f;
-
         private Rigidbody rb;
 
         public bool IsGrounded = false;
