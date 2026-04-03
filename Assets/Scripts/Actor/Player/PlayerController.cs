@@ -151,6 +151,14 @@ namespace Actor.Player
 
             PlayerInfo.Value = currentInfo;
         }
+
+        public void SetChareacter(int index)
+        {
+            var currentInfo = PlayerInfo.Value;
+            currentInfo.character = (Data.CharacterType)index;
+
+            PlayerInfo.Value = currentInfo;
+        }
         #endregion
 
         private void CalculateVeocity()

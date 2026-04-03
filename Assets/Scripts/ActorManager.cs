@@ -1,6 +1,7 @@
 using Actor.Player;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -69,6 +70,20 @@ public class ActorManager : NetworkBehaviour
         {
             player.PlayerInfo.Value = types[index];
             index++;
+        }
+    }
+
+    [Rpc(SendTo.Server)]
+    public void SetPlayersCharacterServerRpc(RpcParams rpcParams = default)
+    {
+        RectTransform playerPlanels = UIManager.Instance.GetPlayerPanels();
+        for (int i = 0; i< players.Count; i++)
+        {
+            UI.LobbyScene.PlayerPanel panel = playerPlanels.GetChild(i).GetComponent<UI.LobbyScene.PlayerPanel>();
+            int characterIndex = panel.GetCharacterIndex();
+
+            ulong key = (ulong)i;
+            players[key].SetChareacter(characterIndex);
         }
     }
 }

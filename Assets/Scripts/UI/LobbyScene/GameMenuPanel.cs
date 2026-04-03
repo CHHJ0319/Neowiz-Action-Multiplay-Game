@@ -49,6 +49,7 @@ namespace UI.LobbyScene
         {
             if(isHost)
             {
+                ActorManager.Instance.SetPlayersCharacterServerRpc();
                 Utils.SceneNavigator.LoadSceneByName(Utils.SceneList.TutorialScene);
             }
             else

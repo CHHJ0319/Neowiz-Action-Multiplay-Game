@@ -54,6 +54,11 @@ namespace UI
             gameMenuPanel.Initialize(isHost);
         }
 
+        public RectTransform GetPlayerPanels()
+        {
+            return playerPanels;
+        }
+
         private void SetPlayerPanel(string playerName, int playerIndex, bool isOwner)
         {
             if (playerPanels == null || playerPanels.childCount <= 0) return;

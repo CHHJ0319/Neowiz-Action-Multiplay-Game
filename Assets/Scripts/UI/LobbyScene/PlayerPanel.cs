@@ -7,7 +7,7 @@ namespace UI.LobbyScene
 {
     public class PlayerPanel : NetworkBehaviour
     {
-        public GameObject characterImages;
+        public Transform characterImages;
         public TextMeshProUGUI playeyNameText;
         public Button previousButton;
         public Button nextButton;
@@ -52,10 +52,14 @@ namespace UI.LobbyScene
             }
         }
 
+        public int GetCharacterIndex() 
+        {
+            return currentIndex.Value;
+        }
 
         private void ShowCharacterImage()
         {
-            characterImages.SetActive(true);
+            characterImages.gameObject.SetActive(true);
         }
 
         private void OnPreviousButtonClicked()
@@ -70,12 +74,12 @@ namespace UI.LobbyScene
 
         private void RefreshDisplay(int previousValue, int newValue)
         {
-            int childCount = characterImages.transform.childCount;
+            int childCount = characterImages.childCount;
 
             for (int i = 0; i < childCount; i++)
             {
                 bool isActive = (i == currentIndex.Value);
-                characterImages.transform.GetChild(i).gameObject.SetActive(isActive);
+                characterImages.GetChild(i).gameObject.SetActive(isActive);
             }
         }
 

@@ -62,12 +62,6 @@ public class UIManager : NetworkBehaviour
         UI.CanvasController.Instance.HidePointers();
     }
 
-    [Rpc(SendTo.Server)]
-    public void CloseResultPanelServerRpc(RpcParams rpcParams = default)
-    { 
-        CloseResultPanelClientRpc();
-    }
-
     [Rpc(SendTo.Everyone)]
     public void CloseResultPanelClientRpc()
     {
@@ -77,5 +71,10 @@ public class UIManager : NetworkBehaviour
     private void OnSceneLoaded(ulong clientId, string sceneName, LoadSceneMode loadMode)
     {
         Initialize((int)clientId, sceneName);
+    }
+
+    public RectTransform GetPlayerPanels()
+    {
+        return UI.CanvasController.Instance.GetPlayerPanels();
     }
 }
