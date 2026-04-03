@@ -105,6 +105,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acb9b17f7fb0a124eb1a31e9a7a27b29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInputHandler
+  dashAction:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 037f66d0-552f-4310-b261-ad118951683c
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
   attackAction:
     m_Name: Attack
     m_Type: 0
