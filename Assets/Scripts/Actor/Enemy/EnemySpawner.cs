@@ -1,3 +1,5 @@
+using Actor.Weapon;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace Actor.Enemy
@@ -52,24 +54,36 @@ namespace Actor.Enemy
         private void SpawnNormalEnemy(Vector3 spawnPosition, Vector3 direction, Data.ElementType type)
         {
             GameObject enemy = Instantiate(normalEnemyPrefab, spawnPosition, Quaternion.LookRotation(direction));
-            enemy.GetComponent<Actor.Enemy.EnemyController>().SetType(type);
-            enemy.GetComponent<Actor.Enemy.EnemyController>().Launch(direction);
+
+            NetworkObject netObj = enemy.GetComponent<NetworkObject>();
+            netObj.Spawn();
+
+            enemy.GetComponent<Actor.Enemy.EnemyController>().SetTypeServerRPC(type);
+            enemy.GetComponent<Actor.Enemy.EnemyController>().LaunchClientRpc(direction);
         }
 
         private void SpawnMultiLivesEnemy(Vector3 spawnPosition, Vector3 direction, Data.ElementType type)
         {
 
             GameObject enemy = Instantiate(normalEnemyPrefab, spawnPosition, Quaternion.LookRotation(direction));
+
+            NetworkObject netObj = enemy.GetComponent<NetworkObject>();
+            netObj.Spawn();
+
             enemy.GetComponent<Actor.Enemy.EnemyController>().SetType(type);
             enemy.GetComponent<Actor.Enemy.EnemyController>().SetMultipleLives();
-            enemy.GetComponent<Actor.Enemy.EnemyController>().Launch(direction);
+            enemy.GetComponent<Actor.Enemy.EnemyController>().LaunchClientRpc(direction);
         }
 
         private void SpawnMultiTypeEnemy(Vector3 spawnPosition, Vector3 direction, Data.ElementType[] types)
         {
             GameObject enemy = Instantiate(normalEnemyPrefab, spawnPosition, Quaternion.LookRotation(direction));
+
+            NetworkObject netObj = enemy.GetComponent<NetworkObject>();
+            netObj.Spawn();
+
             enemy.GetComponent<Actor.Enemy.EnemyController>().SetMultiType(types);
-            enemy.GetComponent<Actor.Enemy.EnemyController>().Launch(direction);
+            enemy.GetComponent<Actor.Enemy.EnemyController>().LaunchClientRpc(direction);
         }
         #endregion
 

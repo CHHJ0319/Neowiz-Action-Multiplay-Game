@@ -1,6 +1,4 @@
-using Actor.Player;
 using UnityEngine;
-using static UnityEditor.Searcher.SearcherWindow.Alignment;
 
 namespace Actor.Player
 {

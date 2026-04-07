@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using TMPro;
+using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
 
 namespace Actor.Enemy
 {
-    public class EnemyController : MonoBehaviour
+    public class EnemyController : NetworkBehaviour
     {
         public MeshRenderer ringTarget;
 
@@ -26,7 +26,7 @@ namespace Actor.Enemy
         public TextMeshPro hpBlueText;
         private int totalHP;
 
-        public List<Data.ElementType> Types = new List<Data.ElementType>();
+        public NetworkList<Data.NetworkElementType> Types = new NetworkList<Data.NetworkElementType>();
 
         private Rigidbody rb;
 
@@ -36,6 +36,21 @@ namespace Actor.Enemy
 
             CalculateTotalHP();
             UpdateHPTexts();
+        }
+
+        public override void OnNetworkSpawn()
+        {
+            Types.OnListChanged += OnTypesChanged;
+
+            if (Types.Count > 0)
+            {
+                UpdateVisuals(Types[Types.Count - 1]);
+            }
+        }
+
+        public override void OnNetworkDespawn()
+        {
+            Types.OnListChanged -= OnTypesChanged;
         }
 
         private void OnTriggerEnter(Collider other)
@@ -50,6 +65,12 @@ namespace Actor.Enemy
             }
         }
 
+        [Rpc(SendTo.Server)]
+        public void SetTypeServerRPC(Data.ElementType type, RpcParams rpcParams = default)
+        {
+            SetType(type);
+        }
+
         public void SetType(Data.ElementType type)
         {
             if(type == Data.ElementType.Random)
@@ -61,8 +82,22 @@ namespace Actor.Enemy
                 Types.Add(type);
             }
 
-            SetRingTarget(Types[^1]);
-            SetHPtexts(Types[^1]);
+            //SetRingTarget(Types[^1]);
+            //SetHPtexts(Types[^1]);
+        }
+
+        private void OnTypesChanged(NetworkListEvent<Data.NetworkElementType> changeEvent)
+        {
+            if (changeEvent.Type == NetworkListEvent<Data.NetworkElementType>.EventType.Add)
+            {
+                UpdateVisuals(changeEvent.Value);
+            }
+        }
+
+        private void UpdateVisuals(Data.ElementType type)
+        {
+            SetRingTarget(type);
+            SetHPtexts(type);
         }
 
         private void SetHealthByType(Data.ElementType type, int amount)
@@ -142,6 +177,12 @@ namespace Actor.Enemy
             {
                 DestroySelf();
             }
+        }
+
+        [Rpc(SendTo.Everyone)]
+        public void LaunchClientRpc(Vector3 direction)
+        {
+            Launch(direction);
         }
 
         public void Launch(Vector3 direction)

@@ -138,6 +138,8 @@ namespace UI
 
         private void UpdateBarricadeHPBar(float hpRate)
         {
+            if (barricadeHPBar == null) return;
+
             float currentHPRate = hpRate;
             currentHPRate = Mathf.Clamp(hpRate, 0f, 1f);
 

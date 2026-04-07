@@ -190,6 +190,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4245668113022654636}
+  - component: {fileID: -2609306368084674977}
   - component: {fileID: 9040786727945236021}
   - component: {fileID: 7355710978905667135}
   - component: {fileID: 554329534914315587}
@@ -219,6 +220,31 @@ Transform:
   - {fileID: 8569455478262777425}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-2609306368084674977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1946403360690627630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
+  GlobalObjectIdHash: 3759375679
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  DeferredDespawnTick: 0
+  Ownership: 1
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+  SyncOwnerTransformWhenParented: 1
+  AllowOwnerToParent: 0
 --- !u!114 &9040786727945236021
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -231,6 +257,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d3306fcf9a3e564180e7ba8dd5779b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Actor.EnemyController
+  ShowTopMostFoldoutHeaderGroup: 1
   ringTarget: {fileID: 6390586324230055802}
   damage: 10
   speed: 5
