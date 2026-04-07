@@ -27,9 +27,8 @@ public class RoundManager : NetworkBehaviour
     [Rpc(SendTo.Server)]
     public void StartRoundServerRpc(RpcParams rpcParams = default)
     {
-        List<int> roles = Services.RoleAssigner.AssignRandomRoles(ActorManager.Instance.GetPlayerCount());
-        List<int> colors = Services.RoleAssigner.AssignRandomColors(ActorManager.Instance.GetPlayerCount());
-        ActorManager.Instance.SetPlayersRoleServerRpc(roles.ToArray(), colors.ToArray());
+        
+        ActorManager.Instance.SetPlayersRoleServerRpc();
         StartRoundClientRpc();
     }
 

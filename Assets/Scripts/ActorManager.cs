@@ -64,8 +64,11 @@ public class ActorManager : NetworkBehaviour
     }
 
     [Rpc(SendTo.Server)]
-    public void SetPlayersRoleServerRpc(int[] roles, int[] colors, RpcParams rpcParams = default)
+    public void SetPlayersRoleServerRpc(RpcParams rpcParams = default)
     {
+        int[] roles = Services.RoleAssigner.AssignRandomRoles(ActorManager.Instance.GetPlayerCount()).ToArray();
+        int[] colors = Services.RoleAssigner.AssignRandomColors(ActorManager.Instance.GetPlayerCount()).ToArray();
+
         int index = 0;
         int colorIndex = 0;
         Data.PlayerRole role;
