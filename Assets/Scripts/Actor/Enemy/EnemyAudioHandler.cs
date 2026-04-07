@@ -7,8 +7,8 @@ namespace Actor.Enemy
         private AudioSource _audioSource;
 
         [Header("Audio Clips")]
-        public AudioClip crySound;  
-        public AudioClip deathSound; 
+        public AudioClip crySound;
+        public AudioClip deathSound;
 
         private void Awake()
         {

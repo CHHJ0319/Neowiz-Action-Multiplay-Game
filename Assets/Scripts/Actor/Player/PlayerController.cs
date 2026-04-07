@@ -29,8 +29,9 @@ namespace Actor.Player
         private Rigidbody rb;
         private PlayerInputHandler inputHandler;
         private PlayerAudioHandler audioHandler;
+        private PlayerAnimationHandler animationHandler;
 
-        public NetworkVariable<Data.PlayerInfo> PlayerInfo { get; private set; }
+       public NetworkVariable<Data.PlayerInfo> PlayerInfo { get; private set; }
             = new NetworkVariable<Data.PlayerInfo>( new Data.PlayerInfo { 
                 playerName = "Player",
                 character = Data.CharacterType.One, 
@@ -51,6 +52,7 @@ namespace Actor.Player
             rb = GetComponent<Rigidbody>();
             inputHandler = GetComponent<PlayerInputHandler>();
             audioHandler = GetComponent<PlayerAudioHandler>();
+            animationHandler = GetComponent<PlayerAnimationHandler>();
 
             ammo = 100;
         }
@@ -192,6 +194,7 @@ namespace Actor.Player
 
         private void ApplyMovement()
         {
+            animationHandler.PlayMovement(inputHandler.horizontal, inputHandler.vertical);
             rb.linearVelocity = new Vector3(velocity.x, rb.linearVelocity.y, velocity.z);
 
             //if (moveDirection.magnitude > 0.1f)
@@ -235,6 +238,7 @@ namespace Actor.Player
                 bullet.GetComponent<NetworkBullet>().Intialize(PlayerInfo.Value.color, direction * bulletSpeed);
 
                 audioHandler.PlayAttackSound();
+                animationHandler.PlayAttack();
                 ammo--;
             }
         }

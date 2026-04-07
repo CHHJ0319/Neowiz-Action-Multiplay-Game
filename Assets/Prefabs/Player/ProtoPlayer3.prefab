@@ -50,7 +50,7 @@ GameObject:
   - component: {fileID: 1648465117664963859}
   - component: {fileID: 636168752373950485}
   - component: {fileID: -2162922536168923710}
-  - component: {fileID: 7030132701278714606}
+  - component: {fileID: -2501706431827419308}
   m_Layer: 0
   m_Name: ProtoPlayer3
   m_TagString: Player
@@ -430,28 +430,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!95 &7030132701278714606
-Animator:
-  serializedVersion: 7
+--- !u!114 &-2501706431827419308
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 298427653747277566}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 9f1189b5c9065a24e90a94054cebdc9d, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 439e2b248f264b042af0777e42a3b2d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Actor.Player.PlayerAnimationHandler
+  animator: {fileID: 7765635287030016166}
 --- !u!1 &321774698310171854
 GameObject:
   m_ObjectHideFlags: 0
@@ -979,6 +970,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9078765874273016988}
+  - component: {fileID: 7765635287030016166}
   m_Layer: 0
   m_Name: CharacterMesh
   m_TagString: Untagged
@@ -1003,3 +995,25 @@ Transform:
   - {fileID: 4026033308025255113}
   m_Father: {fileID: 1200556822224926997}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &7765635287030016166
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9189195941149163321}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9f1189b5c9065a24e90a94054cebdc9d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
