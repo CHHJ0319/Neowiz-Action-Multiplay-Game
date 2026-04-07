@@ -6,6 +6,8 @@ public class GameManager : NetworkBehaviour
 {
     public static GameManager Instance { get; private set; }
 
+    public bool isTest = false;
+
     private void Awake()
     {
         if (Instance == null)
@@ -72,7 +74,13 @@ public class GameManager : NetworkBehaviour
         yield return new WaitForSeconds(0.1f);
 
         //UIManager.Instance.Initialize((int)NetworkManager.Singleton.LocalClientId, Utils.SceneNavigator.GetCurrentSceneName());
-        Utils.SceneNavigator.LoadSceneByName(Utils.SceneList.LobbyScene);
+        if (isTest)
+        {
+        }
+        else
+        {
+            Utils.SceneNavigator.LoadSceneByName(Utils.SceneList.LobbyScene);
+        }
     }
 
     private IEnumerator StartClientSequence(string joinCode)

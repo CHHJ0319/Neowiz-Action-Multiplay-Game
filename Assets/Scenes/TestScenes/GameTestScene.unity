@@ -317,8 +317,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 199736251}
-  - component: {fileID: 199736250}
   - component: {fileID: 199736252}
+  - component: {fileID: 199736250}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -339,6 +339,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   ShowTopMostFoldoutHeaderGroup: 1
+  isTest: 1
 --- !u!4 &199736251
 Transform:
   m_ObjectHideFlags: 0
@@ -953,16 +954,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1046765006}
   m_CullTransparentMesh: 1
---- !u!1 &1097423826 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7774697937333864266, guid: 923d55c1e3caf1e4f97e79273d99ccae, type: 3}
-  m_PrefabInstance: {fileID: 3478120836328863879}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1097423827 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6975568848186027638, guid: 923d55c1e3caf1e4f97e79273d99ccae, type: 3}
   m_PrefabInstance: {fileID: 3478120836328863879}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1097423830 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1149562065893939630, guid: 923d55c1e3caf1e4f97e79273d99ccae, type: 3}
+  m_PrefabInstance: {fileID: 3478120836328863879}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c49937d8bb3bdb4b898290adcefca3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ResultPanel
 --- !u!1 &1188731192
 GameObject:
   m_ObjectHideFlags: 0
@@ -1210,7 +1217,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UI.CanvasController
   pointers: {fileID: 845843760}
+  roundStartButton: {fileID: 0}
+  barricadeHPBar: {fileID: 0}
+  resultPanel: {fileID: 1097423830}
+  playerStatusPanel: {fileID: 0}
   playerPanels: {fileID: 0}
+  joinCode: {fileID: 0}
+  gameMenuPanel: {fileID: 0}
 --- !u!1 &1217945855
 GameObject:
   m_ObjectHideFlags: 0
@@ -1301,7 +1314,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1223166003
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2368,53 +2381,6 @@ MeshFilter:
   m_CorrespondingSourceObject: {fileID: 654684120276385697, guid: 13e6d1a421fee194693031416232eb81, type: 3}
   m_PrefabInstance: {fileID: 3299236519965365898}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &2034639275
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2034639276}
-  - component: {fileID: 2034639277}
-  m_Layer: 0
-  m_Name: UIController
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2034639276
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2034639275}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1387.0663, y: 540, z: -7.81775}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2034639277
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2034639275}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ce35ff2146a2d54bb3ac7768cf41324, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UI.GameScene.UIController
-  barricadeHPBar: {fileID: 1223166004}
-  resultPanel: {fileID: 1097423826}
-  roundStartButton: {fileID: 0}
 --- !u!1 &2068655316
 GameObject:
   m_ObjectHideFlags: 0
@@ -2826,7 +2792,6 @@ SceneRoots:
   - {fileID: 3299236519965365898}
   - {fileID: 1199208347}
   - {fileID: 1884575644}
-  - {fileID: 2034639276}
   - {fileID: 1746002052}
   - {fileID: 452639192}
   - {fileID: 199736251}
