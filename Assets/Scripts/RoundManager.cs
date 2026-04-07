@@ -16,7 +16,6 @@ public class RoundManager : NetworkBehaviour
         {
             Instance = this;
 
-            //DontDestroyOnLoad(gameObject);
         }
         else if (Instance != this)
         {
@@ -27,7 +26,6 @@ public class RoundManager : NetworkBehaviour
     [Rpc(SendTo.Server)]
     public void StartRoundServerRpc(RpcParams rpcParams = default)
     {
-        
         ActorManager.Instance.SetPlayersRoleServerRpc();
         StartRoundClientRpc();
     }
@@ -35,7 +33,7 @@ public class RoundManager : NetworkBehaviour
     [Rpc(SendTo.Everyone)]
     public void StartRoundClientRpc()
     {
-        Events.RoundEvents.StartRound();
+        //Events.RoundEvents.StartRound();
         StartPattern();
     }
 
@@ -53,27 +51,33 @@ public class RoundManager : NetworkBehaviour
     {
         Transform target = PlayerField.Instance.core;
 
-        StartCoroutine(pattern.SpawnGapWall(target, 8, 1));
+        Vector3 spawnPosition =
+                        Utils.ScreenSpaceConverter.ViewportToWorldPoint(0, 0.5f, 1.1f);
+        Vector3 direction = (target.position - spawnPosition).normalized;
+
+        Events.ActorEvents.SpawnNormalEnemy(spawnPosition, direction, Data.ElementType.Random);
+
+        //StartCoroutine(pattern.SpawnGapWall(target, 8, 1));
 
         yield return new WaitForSeconds(1.5f);
 
-        StartCoroutine(pattern.SpawnArrowheadAssault(target, 1));
+        //StartCoroutine(pattern.SpawnArrowheadAssault(target, 1));
 
-        yield return new WaitForSeconds(1.5f);
+        //yield return new WaitForSeconds(1.5f);
 
-        StartCoroutine(pattern.SpawnSweepingWave(8));
+        //StartCoroutine(pattern.SpawnSweepingWave(8));
 
-        yield return new WaitForSeconds(1.5f);
+        //yield return new WaitForSeconds(1.5f);
 
-        StartCoroutine(pattern.SpawnPincerAttack(target, 3));
+        //StartCoroutine(pattern.SpawnPincerAttack(target, 3));
 
-        yield return new WaitForSeconds(1.5f);
+        //yield return new WaitForSeconds(1.5f);
 
-        StartCoroutine(pattern.SpawnMeteorRain(10));
+        //StartCoroutine(pattern.SpawnMeteorRain(10));
 
-        yield return new WaitForSeconds(10.0f);
+        //yield return new WaitForSeconds(10.0f);
 
-        Events.RoundEvents.EndRound();
-        UIManager.Instance.EndRound();
+        //Events.RoundEvents.EndRound();
+        //UIManager.Instance.EndRound();
     }
 }

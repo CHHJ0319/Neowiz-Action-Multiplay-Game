@@ -23,6 +23,8 @@ namespace UI
         private void Awake()
         {
             Instance = this;
+
+            roundStartButton.onClick.AddListener(() => OnRoundStartButtonClicked());
         }
 
         private void OnEnable()
@@ -131,7 +133,7 @@ namespace UI
         private void OnRoundStartButtonClicked()
         {
             RoundManager.Instance.StartRoundServerRpc();
-            roundStartButton.gameObject.SetActive(false);
+            //roundStartButton.gameObject.SetActive(false);
         }
 
         private void UpdateBarricadeHPBar(float hpRate)

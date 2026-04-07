@@ -1,8 +1,6 @@
 using Actor.Player;
 using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -13,6 +11,7 @@ public class ActorManager : NetworkBehaviour
     public GameObject[] playerPrefabs;
 
     private Dictionary<ulong, Actor.Player.PlayerController> players = new();
+    private Dictionary<int, Actor.Enemy.EnemyController> enemies = new();
 
     private Vector3[] playerSpawnPositions =
     {

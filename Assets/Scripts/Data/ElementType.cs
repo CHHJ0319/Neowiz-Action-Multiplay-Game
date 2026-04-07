@@ -2,7 +2,7 @@ namespace Data
 {
     public enum ElementType
     {
-        Red, Green, Blue
+        Red, Green, Blue, Random
     }
 }
 

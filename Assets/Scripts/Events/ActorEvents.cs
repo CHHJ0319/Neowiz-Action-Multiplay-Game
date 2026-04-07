@@ -5,9 +5,9 @@ namespace Events
 {
     public static class ActorEvents
     {
-        public static event Action<Vector3, Vector3> OnSpawnNormalRequested;
-        public static event Action<Vector3, Vector3> OnSpawnMultiLivesRequested;
-        public static event Action<Vector3, Vector3> OnSpawnMultiTypeRequested;
+        public static event Action<Vector3, Vector3, Data.ElementType> OnSpawnNormalRequested;
+        public static event Action<Vector3, Vector3, Data.ElementType> OnSpawnMultiLivesRequested;
+        public static event Action<Vector3, Vector3, Data.ElementType[]> OnSpawnMultiTypeRequested;
 
         public static event Action<float> OnPlayerFieldHPChanged;
         public static event Action<float> OnEnemyEnteredPlayerField;
@@ -22,17 +22,17 @@ namespace Events
             OnEnemyEnteredPlayerField = null;
         }
 
-        public static void SpawnNormalEnemy(Vector3 spawnPosition, Vector3 direction)
+        public static void SpawnNormalEnemy(Vector3 spawnPosition, Vector3 direction, Data.ElementType type)
         {
-            OnSpawnNormalRequested?.Invoke(spawnPosition, direction);
+            OnSpawnNormalRequested?.Invoke(spawnPosition, direction, type);
         }
-        public static void SpawnMultiLivesEnemy(Vector3 spawnPosition, Vector3 direction)
+        public static void SpawnMultiLivesEnemy(Vector3 spawnPosition, Vector3 direction, Data.ElementType type)
         {
-            OnSpawnMultiLivesRequested?.Invoke(spawnPosition, direction);
+            OnSpawnMultiLivesRequested?.Invoke(spawnPosition, direction, type);
         }
-        public static void SpawnMultiTypeEnemy(Vector3 spawnPosition, Vector3 direction)
+        public static void SpawnMultiTypeEnemy(Vector3 spawnPosition, Vector3 direction, Data.ElementType[] types)
         {
-            OnSpawnMultiTypeRequested?.Invoke(spawnPosition, direction);
+            OnSpawnMultiTypeRequested?.Invoke(spawnPosition, direction, types);
         }
 
         public static void UpdatePlayerFieldHPBar(float hpRate)

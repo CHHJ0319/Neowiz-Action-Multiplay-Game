@@ -37,36 +37,38 @@ namespace Actor.Enemy
 
             if (randomRate < normalEnemySpawnRate)
             {
-                SpawnNormalEnemy(spawnPosition, direction);
+                SpawnNormalEnemy(spawnPosition, direction, Data.ElementType.Random);
             }
             else if (randomRate < multiLivesEnemySpawnRate)
             {
-                SpawnMultiLivesEnemy(spawnPosition, direction);
+                SpawnMultiLivesEnemy(spawnPosition, direction, Data.ElementType.Random);
             }
             else if (randomRate < multiTypeEnemySpawnRate)
             {
-                SpawnMultiTypeEnemy(spawnPosition, direction);
+                SpawnMultiTypeEnemy(spawnPosition, direction, System.Array.Empty<Data.ElementType>());
             }
         }
 
-        public void SpawnNormalEnemy(Vector3 spawnPosition, Vector3 direction)
+        private void SpawnNormalEnemy(Vector3 spawnPosition, Vector3 direction, Data.ElementType type)
         {
             GameObject enemy = Instantiate(normalEnemyPrefab, spawnPosition, Quaternion.LookRotation(direction));
+            enemy.GetComponent<Actor.Enemy.EnemyController>().SetType(type);
             enemy.GetComponent<Actor.Enemy.EnemyController>().Launch(direction);
         }
 
-        public void SpawnMultiLivesEnemy(Vector3 spawnPosition, Vector3 direction)
+        private void SpawnMultiLivesEnemy(Vector3 spawnPosition, Vector3 direction, Data.ElementType type)
         {
 
             GameObject enemy = Instantiate(normalEnemyPrefab, spawnPosition, Quaternion.LookRotation(direction));
+            enemy.GetComponent<Actor.Enemy.EnemyController>().SetType(type);
             enemy.GetComponent<Actor.Enemy.EnemyController>().SetMultipleLives();
             enemy.GetComponent<Actor.Enemy.EnemyController>().Launch(direction);
         }
 
-        public void SpawnMultiTypeEnemy(Vector3 spawnPosition, Vector3 direction)
+        private void SpawnMultiTypeEnemy(Vector3 spawnPosition, Vector3 direction, Data.ElementType[] types)
         {
             GameObject enemy = Instantiate(normalEnemyPrefab, spawnPosition, Quaternion.LookRotation(direction));
-            enemy.GetComponent<Actor.Enemy.EnemyController>().SetMultiType();
+            enemy.GetComponent<Actor.Enemy.EnemyController>().SetMultiType(types);
             enemy.GetComponent<Actor.Enemy.EnemyController>().Launch(direction);
         }
         #endregion

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 namespace Actor.Enemy
 {
@@ -33,8 +34,6 @@ namespace Actor.Enemy
         {
             rb = GetComponent<Rigidbody>();
 
-            SetType();
-
             CalculateTotalHP();
             UpdateHPTexts();
         }
@@ -51,13 +50,19 @@ namespace Actor.Enemy
             }
         }
 
-        private void SetType()
+        public void SetType(Data.ElementType type)
         {
-            Data.ElementType type = GetRandomElementType();
-            Types.Add(type);
+            if(type == Data.ElementType.Random)
+            {
+                Types.Add(GetRandomElementType());
+            }
+            else
+            {
+                Types.Add(type);
+            }
 
-            SetRingTarget(type);
-            SetHPtexts(type);
+            SetRingTarget(Types[^1]);
+            SetHPtexts(Types[^1]);
         }
 
         private void SetHealthByType(Data.ElementType type, int amount)
@@ -89,19 +94,22 @@ namespace Actor.Enemy
             UpdateHPTexts();
         }
 
-        public void SetMultiType()
+        public void SetMultiType(Data.ElementType[] types)
         {
-            int targetTypeCount = UnityEngine.Random.Range(2, 4);
-
-            while (Types.Count < targetTypeCount)
+            if(types.Length < 2)
             {
-                Data.ElementType newType = GetRandomElementType();
-
-                if (!Types.Contains(newType))
+                SetRandomMultiType();
+            }
+            else
+            {
+                foreach(var type in types)
                 {
-                    Types.Add(newType);
-                    SetRingTarget(newType);
-                    SetHPtexts(newType);
+                    if (!Types.Contains(type))
+                    {
+                        Types.Add(type);
+                        SetRingTarget(type);
+                        SetHPtexts(type);
+                    }
                 }
             }
 
@@ -220,6 +228,23 @@ namespace Actor.Enemy
             if (randomIndex == 0) return Data.ElementType.Red;
             else if (randomIndex == 1) return Data.ElementType.Green;
             else return Data.ElementType.Blue;
+        }
+
+        private void SetRandomMultiType()
+        {
+            int targetTypeCount = UnityEngine.Random.Range(2, 4);
+
+            while (Types.Count < targetTypeCount)
+            {
+                Data.ElementType newType = GetRandomElementType();
+
+                if (!Types.Contains(newType))
+                {
+                    Types.Add(newType);
+                    SetRingTarget(newType);
+                    SetHPtexts(newType);
+                }
+            }
         }
     }
 }
