@@ -1,7 +1,3 @@
-using Actor.Item;
-using Actor.Spawner;
-using Actor.Weapon;
-using System;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -103,7 +99,7 @@ namespace Actor.Player
 
                     if (inputHandler.quickSlot1Action.triggered)
                     {
-                        ItemSpawner.Instance.SpawnItemServerRpc();
+                        Actor.Spawner.ItemSpawner.Instance.SpawnItemServerRpc();
                     }
                 }
             }
@@ -235,7 +231,7 @@ namespace Actor.Player
                 NetworkObject netObj = bullet.GetComponent<NetworkObject>();
                 netObj.Spawn();
 
-                bullet.GetComponent<NetworkBullet>().Intialize(PlayerInfo.Value.color, direction * bulletSpeed);
+                bullet.GetComponent<Actor.Weapon.NetworkBullet>().Intialize(PlayerInfo.Value.color, direction * bulletSpeed);
 
                 audioHandler.PlayAttackSound();
                 animationHandler.PlayAttack();

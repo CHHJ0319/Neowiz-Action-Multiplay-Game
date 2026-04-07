@@ -61,7 +61,7 @@ namespace Actor.Enemy
             else if (other.CompareTag("Barricade"))
             {
                 Events.ActorEvents.HandleEnemyPlayerFieldCollision(damage);
-                Destroy(gameObject);
+                DespawnSelfServerRPC();
             }
         }
 
@@ -175,7 +175,7 @@ namespace Actor.Enemy
 
             if (totalHP <= 0)
             {
-                DestroySelf();
+                DespawnSelfServerRPC();
             }
         }
 
@@ -193,9 +193,15 @@ namespace Actor.Enemy
             }
         }
 
-        private void DestroySelf()
+        [Rpc(SendTo.Server)]
+        public void DespawnSelfServerRPC(RpcParams rpcParams = default)
         {
-            Destroy(gameObject);
+            DespawnSelf();
+        }
+
+        private void DespawnSelf()
+        {
+            GetComponent<NetworkObject>().Despawn();
         }
 
         #region HPText

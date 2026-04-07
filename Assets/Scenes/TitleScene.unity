@@ -6455,6 +6455,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   ShowTopMostFoldoutHeaderGroup: 1
+  isTest: 0
 --- !u!114 &1583652027
 MonoBehaviour:
   m_ObjectHideFlags: 0
