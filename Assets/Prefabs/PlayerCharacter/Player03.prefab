@@ -61,7 +61,8 @@ PrefabInstance:
       value: Player03
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: -1562998044155885831, guid: b6150e33dbe87974b811ea6556aa0e43, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b6150e33dbe87974b811ea6556aa0e43, type: 3}
