@@ -15,6 +15,8 @@ namespace Actor.Player
         [SerializeField] private Transform firePoint;
         [SerializeField] private float bulletSpeed = 20f;
         [SerializeField] private float throwForce = 10f;
+        [SerializeField] private float attackCooldown = 0.5f;
+
 
         [Header("Pointer Settings")]
         [SerializeField] private RectTransform pointer;
@@ -26,8 +28,9 @@ namespace Actor.Player
         private PlayerInputHandler inputHandler;
         private PlayerAudioHandler audioHandler;
         private PlayerAnimationHandler animationHandler;
+        private float lastAttackTime;
 
-       public NetworkVariable<Data.PlayerInfo> PlayerInfo { get; private set; }
+        public NetworkVariable<Data.PlayerInfo> PlayerInfo { get; private set; }
             = new NetworkVariable<Data.PlayerInfo>( new Data.PlayerInfo { 
                 playerName = "Player",
                 character = Data.CharacterType.One, 
@@ -219,12 +222,15 @@ namespace Actor.Player
                     ShootItemServerRPC(direction);
                 }
             }
+
         }
 
         [Rpc(SendTo.Server)]
         private void ShootBulletServerRPC(Vector3 direction, Vector3  spawnPosition, Quaternion spawnRotation, RpcParams rpcParams = default)
         {
-            if(ammo > 0)
+            if (Time.time - lastAttackTime < attackCooldown) return;
+
+            if (ammo > 0)
             {
                 GameObject bullet = Instantiate(networkBulletPrefab, spawnPosition, spawnRotation);
 
@@ -236,6 +242,8 @@ namespace Actor.Player
                 audioHandler.PlayAttackSound();
                 animationHandler.PlayAttack();
                 ammo--;
+
+                lastAttackTime = Time.time;
             }
         }
 

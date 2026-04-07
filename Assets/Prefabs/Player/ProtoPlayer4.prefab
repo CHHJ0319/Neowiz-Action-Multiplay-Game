@@ -41,7 +41,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9078765874273016988}
-  - {fileID: 6694490532239637153}
   - {fileID: 3100335534239249294}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -89,6 +88,7 @@ MonoBehaviour:
   firePoint: {fileID: 6694490532239637153}
   bulletSpeed: 20
   throwForce: 10
+  attackCooldown: 0.5
   pointer: {fileID: 0}
   itemHolder: {fileID: 3100335534239249294}
   ammo: 0
@@ -161,7 +161,7 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: -0.2, z: 0}
 --- !u!114 &219747594253161004
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -214,7 +214,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
@@ -285,9 +285,9 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.55
-  m_Height: 1.5
+  m_Height: 1.1
   m_Direction: 1
-  m_Center: {x: 0, y: 0.2, z: 0}
+  m_Center: {x: 0, y: -0.2, z: 0}
 --- !u!114 &636168752373950485
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -539,7 +539,8 @@ Transform:
   m_LocalPosition: {x: -0.0000000015447532, y: 0.070816465, z: 1.7763568e-15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 6694490532239637153}
   m_Father: {fileID: 8529892738883246144}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3884771994293311618
@@ -629,12 +630,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4194596626924937408}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0.00000054088696, y: -0.0000005858398, z: 0.7071068, w: 0.7071067}
+  m_LocalPosition: {x: 0.004, y: 0.12, z: 0}
+  m_LocalScale: {x: 0.7000003, y: 0.70000005, z: 0.70000005}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1200556822224926997}
+  m_Father: {fileID: 9026683783023787299}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4688474715585521473
 GameObject:
@@ -1007,7 +1008,7 @@ Animator:
   m_GameObject: {fileID: 9189195941149163321}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: aecdb1ab931bda2428fd24231ad987dd, type: 2}
+  m_Controller: {fileID: 9100000, guid: 2ac2cc2db0f41e346bde777541a4b9ac, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
