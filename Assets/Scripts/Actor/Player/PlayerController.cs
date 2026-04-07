@@ -1,6 +1,7 @@
 using Actor.Item;
 using Actor.Spawner;
 using Actor.Weapon;
+using System;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -137,10 +138,14 @@ namespace Actor.Player
         {       
             if (sceneName == Utils.SceneList.LobbyScene.ToString())
             {
-                Events.PlayerEvents.InitializePlayerInLobbyScene(PlayerInfo.Value.playerName, (int)OwnerClientId, IsOwner);
+                Events.PlayerEvents.InitializeInLobbyScene(PlayerInfo.Value.playerName, (int)OwnerClientId, IsOwner);
             }
             else if (sceneName == Utils.SceneList.TutorialScene.ToString())
             {
+                if(IsOwner)
+                {
+                    Events.PlayerEvents.InitializeInStageScene(PlayerInfo.Value);
+                }
                 SetPointer((int)OwnerClientId);
                 rb.useGravity = true;
             }
@@ -160,6 +165,17 @@ namespace Actor.Player
             currentInfo.character = (Data.CharacterType)index;
 
             PlayerInfo.Value = currentInfo;
+        }
+
+        public void SetRole(Data.PlayerRole role, Data.ElementType color)
+        {
+            var currentInfo = PlayerInfo.Value;
+            currentInfo.role = role;
+            currentInfo.color = color;
+
+            PlayerInfo.Value = currentInfo;
+
+            Events.PlayerEvents.AssignPlayerRole(PlayerInfo.Value);
         }
         #endregion
 

@@ -4,29 +4,36 @@ namespace Events
 {
     public static class PlayerEvents
     {
-        public static event Action OnPlayerSpawned;
-        public static event Action<string, int, bool> OnPlayerLobbySceneInitialized;
-        public static event Action OnPlayerStageSceneInitialized;
+        public static event Action OnSpawned;
+        public static event Action<string, int, bool> OnLobbySceneInitialized;
+        public static event Action<Data.PlayerInfo> OnStageSceneInitialized;
+        public static event Action<Data.PlayerInfo> OnRoleAssigned;
         public static void Clear()
         {
-            OnPlayerSpawned = null;
-            OnPlayerLobbySceneInitialized = null;
-            OnPlayerStageSceneInitialized = null;
+            OnSpawned = null;
+            OnLobbySceneInitialized = null;
+            OnStageSceneInitialized = null;
+            OnRoleAssigned = null;
         }
 
         public static void SetPlayer()
         {
-            OnPlayerSpawned?.Invoke();
+            OnSpawned?.Invoke();
         }
 
-        public static void InitializePlayerInLobbyScene(string playerName, int playerIndex, bool isOwner)
+        public static void InitializeInLobbyScene(string playerName, int playerIndex, bool isOwner)
         {
-            OnPlayerLobbySceneInitialized?.Invoke(playerName, playerIndex, isOwner);
+            OnLobbySceneInitialized?.Invoke(playerName, playerIndex, isOwner);
         }
 
-        public static void InitializePlayerInStageScene()
+        public static void InitializeInStageScene(Data.PlayerInfo info)
         {
-            OnPlayerStageSceneInitialized?.Invoke();
+            OnStageSceneInitialized?.Invoke(info);
+        }
+
+        public static void AssignPlayerRole(Data.PlayerInfo info)
+        {
+            OnRoleAssigned?.Invoke(info);
         }
     }
 }

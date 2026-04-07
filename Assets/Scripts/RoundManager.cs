@@ -1,5 +1,6 @@
 using Actor;
 using System.Collections;
+using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -26,8 +27,9 @@ public class RoundManager : NetworkBehaviour
     [Rpc(SendTo.Server)]
     public void StartRoundServerRpc(RpcParams rpcParams = default)
     {
-        Data.PlayerInfo[] types = Services.RoleAssigner.AssignRandomRoles(ActorManager.Instance.GetPlayerCount());
-        ActorManager.Instance.SetPlayersTypeServerRpc(types);
+        List<int> roles = Services.RoleAssigner.AssignRandomRoles(ActorManager.Instance.GetPlayerCount());
+        List<int> colors = Services.RoleAssigner.AssignRandomColors(ActorManager.Instance.GetPlayerCount());
+        ActorManager.Instance.SetPlayersRoleServerRpc(roles.ToArray(), colors.ToArray());
         StartRoundClientRpc();
     }
 

@@ -1,6 +1,7 @@
 using Actor.Player;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using Unity.Netcode;
 using UnityEngine;
@@ -63,12 +64,26 @@ public class ActorManager : NetworkBehaviour
     }
 
     [Rpc(SendTo.Server)]
-    public void SetPlayersTypeServerRpc(Data.PlayerInfo[] types, RpcParams rpcParams = default)
+    public void SetPlayersRoleServerRpc(int[] roles, int[] colors, RpcParams rpcParams = default)
     {
         int index = 0;
+        int colorIndex = 0;
+        Data.PlayerRole role;
+        Data.ElementType color = Data.ElementType.Red;
         foreach (PlayerController player in players.Values)
         {
-            player.PlayerInfo.Value = types[index];
+            if (roles[index] == 0)
+            {
+                role = Data.PlayerRole.Supporter;
+            }
+            else
+            {
+                role = Data.PlayerRole.Shooter;
+                color = (Data.ElementType)colors[colorIndex];
+                colorIndex++;
+            }
+
+            player.SetRole(role, color);
             index++;
         }
     }

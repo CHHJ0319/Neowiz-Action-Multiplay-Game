@@ -7,8 +7,8 @@ namespace Data
     {
         public string playerName;
         public Data.CharacterType character;
-        public PlayerRole role;
-        public ElementType color;
+        public Data.PlayerRole role;
+        public Data.ElementType color;
 
         public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
         {
@@ -23,9 +23,9 @@ namespace Data
     {
         Shooter, Supporter
     }
+
     public enum CharacterType
     {
         One, Two, Three, Four
     }
-
 }

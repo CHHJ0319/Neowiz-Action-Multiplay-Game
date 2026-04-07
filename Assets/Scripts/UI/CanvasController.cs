@@ -13,6 +13,7 @@ namespace UI
         public Button roundStartButton;
         public Image barricadeHPBar;
         public UI.StageScene.ResultPanel resultPanel;
+        public UI.StageScene.PlayerStatusPanel playerStatusPanel;
 
         [Header("LobbyScene")]
         public RectTransform playerPanels;
@@ -27,13 +28,15 @@ namespace UI
         private void OnEnable()
         {
             Events.ActorEvents.OnPlayerFieldHPChanged += UpdateBarricadeHPBar;
-            Events.PlayerEvents.OnPlayerLobbySceneInitialized += SetPlayerPanel;
+            Events.PlayerEvents.OnLobbySceneInitialized += SetPlayerPanel;
+            Events.PlayerEvents.OnStageSceneInitialized += SetPlayerStatusPanel;
         }
 
         private void OnDisable()
         {
             Events.ActorEvents.OnPlayerFieldHPChanged -= UpdateBarricadeHPBar;
-            Events.PlayerEvents.OnPlayerLobbySceneInitialized -= SetPlayerPanel;
+            Events.PlayerEvents.OnLobbySceneInitialized -= SetPlayerPanel;
+            Events.PlayerEvents.OnStageSceneInitialized -= SetPlayerStatusPanel;
         }
 
         public RectTransform GetPointer(int playerIndex) 
@@ -138,6 +141,12 @@ namespace UI
 
             barricadeHPBar.fillAmount = currentHPRate;
         }  
+
+        private void SetPlayerStatusPanel(Data.PlayerInfo info)
+        {
+
+            playerStatusPanel.Initialize(info);
+        }
         #endregion
     }
 }

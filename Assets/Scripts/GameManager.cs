@@ -72,7 +72,7 @@ public class GameManager : NetworkBehaviour
         yield return new WaitForSeconds(0.1f);
 
         //UIManager.Instance.Initialize((int)NetworkManager.Singleton.LocalClientId, Utils.SceneNavigator.GetCurrentSceneName());
-        //Utils.SceneNavigator.LoadSceneByName(Utils.SceneList.LobbyScene);
+        Utils.SceneNavigator.LoadSceneByName(Utils.SceneList.LobbyScene);
     }
 
     private IEnumerator StartClientSequence(string joinCode)
