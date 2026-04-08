@@ -13,6 +13,7 @@ namespace Actor.Weapon
         public Material typeRed;
         public Material typeGreen;
         public Material typeBlue;
+        public Material typeOrange;
 
         public NetworkVariable<Data.ElementType> Type = new NetworkVariable<Data.ElementType>(Data.ElementType.Red);
 
@@ -59,21 +60,10 @@ namespace Actor.Weapon
             }
         }
 
-        public void Intialize(Data.ElementType type, Vector3 velocity)
+        public void Initialize(Data.ElementType type, Vector3 velocity)
         {
+
             Type.Value = type;
-            switch (Type.Value)
-            {
-                case Data.ElementType.Red:
-                    meshRenderer.material = typeRed;
-                    break;
-                case Data.ElementType.Green:
-                    meshRenderer.material = typeGreen;
-                    break;
-                case Data.ElementType.Blue:
-                    meshRenderer.material = typeBlue;
-                    break;
-            }
 
             this.velocity.Value = velocity;
         }

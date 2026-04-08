@@ -84,7 +84,9 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   walkSpeed: 5
   dashSpeed: 10
-  networkBulletPrefab: {fileID: 1250150633442540248, guid: 9a32eed6fd297dc40a800b96609d601e, type: 3}
+  greenBulletPrefab: {fileID: 1250150633442540248, guid: 2e8e4689363f56b429d84edb33fdea81, type: 3}
+  redBulletPrefab: {fileID: 1250150633442540248, guid: 42a7c53393516c74d9339a836654231e, type: 3}
+  blueBulletPrefab: {fileID: 1250150633442540248, guid: 55804be15e6b3674996807f7b5f9d82b, type: 3}
   firePoint: {fileID: 6694490532239637153}
   bulletSpeed: 20
   throwForce: 10

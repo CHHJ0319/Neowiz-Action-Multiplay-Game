@@ -1,4 +1,5 @@
 using Unity.Netcode;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,11 +12,16 @@ namespace Actor.Player
         [SerializeField] private float dashSpeed = 10f;
 
         [Header("Attack Settings")]
-        [SerializeField] private GameObject networkBulletPrefab;
+        public GameObject greenBulletPrefab;
+        public GameObject redBulletPrefab;
+        public GameObject blueBulletPrefab;
         [SerializeField] private Transform firePoint;
         [SerializeField] private float bulletSpeed = 20f;
         [SerializeField] private float throwForce = 10f;
         [SerializeField] private float attackCooldown = 0.5f;
+        
+
+        
 
 
         [Header("Pointer Settings")]
@@ -35,7 +41,7 @@ namespace Actor.Player
                 playerName = "Player",
                 character = Data.CharacterType.One, 
                 role = Data.PlayerRole.Shooter, 
-                color = Data.ElementType.Red
+                color = Data.ElementType.Green
             });  
 
         public int ammo;
@@ -232,12 +238,24 @@ namespace Actor.Player
 
             if (ammo > 0)
             {
-                GameObject bullet = Instantiate(networkBulletPrefab, spawnPosition, spawnRotation);
+                GameObject bullet = null;
+                switch (PlayerInfo.Value.color)
+                {
+                    case Data.ElementType.Red: 
+                        bullet = Instantiate(redBulletPrefab, spawnPosition, spawnRotation); 
+                        break;
+                    case Data.ElementType.Green:
+                        bullet = Instantiate(greenBulletPrefab, spawnPosition, spawnRotation);
+                        break;
+                    case Data.ElementType.Blue:
+                        bullet = Instantiate(blueBulletPrefab, spawnPosition, spawnRotation);
+                        break;
+                }
 
                 NetworkObject netObj = bullet.GetComponent<NetworkObject>();
                 netObj.Spawn();
 
-                bullet.GetComponent<Actor.Weapon.NetworkBullet>().Intialize(PlayerInfo.Value.color, direction * bulletSpeed);
+                bullet.GetComponent<Actor.Weapon.NetworkBullet>().Initialize(PlayerInfo.Value.color, direction * bulletSpeed);
 
                 audioHandler.PlayAttackSound();
                 animationHandler.PlayAttack();
