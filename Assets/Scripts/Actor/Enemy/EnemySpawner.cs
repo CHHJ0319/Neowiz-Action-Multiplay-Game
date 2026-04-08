@@ -43,11 +43,11 @@ namespace Actor.Enemy
             }
             else if (randomRate < multiLivesEnemySpawnRate)
             {
-                SpawnMultiLivesEnemy(spawnPosition, direction, Data.ElementType.Random);
+                SpawnMultiLivesEnemy(spawnPosition, direction, Data.ElementType.Random, 3);
             }
             else if (randomRate < multiTypeEnemySpawnRate)
             {
-                SpawnMultiTypeEnemy(spawnPosition, direction, System.Array.Empty<Data.ElementType>());
+                SpawnMultiTypeEnemy(spawnPosition, direction, Data.ElementType.Random);
             }
         }
 
@@ -62,7 +62,7 @@ namespace Actor.Enemy
             enemy.GetComponent<Actor.Enemy.EnemyController>().LaunchClientRpc(direction);
         }
 
-        private void SpawnMultiLivesEnemy(Vector3 spawnPosition, Vector3 direction, Data.ElementType type)
+        private void SpawnMultiLivesEnemy(Vector3 spawnPosition, Vector3 direction, Data.ElementType type, int lives)
         {
 
             GameObject enemy = Instantiate(normalEnemyPrefab, spawnPosition, Quaternion.LookRotation(direction));
@@ -71,18 +71,18 @@ namespace Actor.Enemy
             netObj.Spawn();
 
             enemy.GetComponent<Actor.Enemy.EnemyController>().SetType(type);
-            enemy.GetComponent<Actor.Enemy.EnemyController>().SetMultipleLives();
+            enemy.GetComponent<Actor.Enemy.EnemyController>().SetHP(lives);
             enemy.GetComponent<Actor.Enemy.EnemyController>().LaunchClientRpc(direction);
         }
 
-        private void SpawnMultiTypeEnemy(Vector3 spawnPosition, Vector3 direction, Data.ElementType[] types)
+        private void SpawnMultiTypeEnemy(Vector3 spawnPosition, Vector3 direction, Data.ElementType type)
         {
             GameObject enemy = Instantiate(normalEnemyPrefab, spawnPosition, Quaternion.LookRotation(direction));
 
             NetworkObject netObj = enemy.GetComponent<NetworkObject>();
             netObj.Spawn();
 
-            enemy.GetComponent<Actor.Enemy.EnemyController>().SetMultiType(types);
+            enemy.GetComponent<Actor.Enemy.EnemyController>().SetMultiType(type);
             enemy.GetComponent<Actor.Enemy.EnemyController>().LaunchClientRpc(direction);
         }
         #endregion

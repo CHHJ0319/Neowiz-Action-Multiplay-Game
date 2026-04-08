@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 3759375679
+  GlobalObjectIdHash: 2455528070
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -76,19 +76,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Actor.EnemyController
   ShowTopMostFoldoutHeaderGroup: 1
-  ringTarget: {fileID: 0}
+  elementIcon: {fileID: 8851243485089332874}
   damage: 10
   speed: 5
-  typeRed: {fileID: 2100000, guid: 8b9ad7e2b932c0a49bbae2d7796aaffb, type: 2}
-  typeGreen: {fileID: 2100000, guid: 846fae12fb4382f48a5657b134f93620, type: 2}
-  typeBlue: {fileID: 2100000, guid: 51b12f8ffbbdd5743b96f985517b1676, type: 2}
-  hpRed: 1
-  hpGreen: 1
-  hpBlue: 1
-  hpRedText: {fileID: 0}
-  hpGreenText: {fileID: 0}
-  hpBlueText: {fileID: 0}
-  Types:
+  typeMaterials:
+  - {fileID: 2100000, guid: a6c395bbb44583642ac330b5d232be1b, type: 2}
+  - {fileID: 2100000, guid: f77795e0f60b9794685406cbea46bc70, type: 2}
+  - {fileID: 2100000, guid: 9327896b6696dac42928c2ef92ce8fe6, type: 2}
+  - {fileID: 2100000, guid: 16a90b65b4bb4594b996be3c9a3e900e, type: 2}
+  - {fileID: 2100000, guid: 649260e9da7aafe4f913d72ceab40346, type: 2}
+  - {fileID: 2100000, guid: 21cfeec3d1bfb0947b2de2ef2e4458b5, type: 2}
+  Type:
     UpdateTraits:
       MinSecondsBetweenUpdates: 0
       MaxSecondsBetweenUpdates: 0
@@ -212,7 +210,7 @@ GameObject:
   - component: {fileID: 8851243485089332874}
   - component: {fileID: 5641477124427290848}
   m_Layer: 0
-  m_Name: Sphere
+  m_Name: ElementIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

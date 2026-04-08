@@ -1,64 +1,44 @@
 using System.Collections.Generic;
 using TMPro;
 using Unity.Netcode;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Actor.Enemy
 {
     public class EnemyController : NetworkBehaviour
     {
-        public MeshRenderer ringTarget;
+        public MeshRenderer elementIcon;
 
         public float damage = 10;
         public float speed = 5;
 
-        [Header("Type Materials")]
-        public Material typeRed;
-        public Material typeGreen;
-        public Material typeBlue;
+        public Material[] typeMaterials;
 
-        [Header("HP")]
-        public int hpRed = 1;
-        public int hpGreen = 1;
-        public int hpBlue = 1;
-        public TextMeshPro hpRedText;
-        public TextMeshPro hpGreenText;
-        public TextMeshPro hpBlueText;
-        private int totalHP;
+        private int hp;
 
-        public NetworkList<Data.NetworkElementType> Types = new NetworkList<Data.NetworkElementType>();
+        public NetworkVariable<Data.NetworkElementType> Type = new NetworkVariable<Data.NetworkElementType>();
 
         private Rigidbody rb;
 
         private void Awake()
         {
             rb = GetComponent<Rigidbody>();
-
-            CalculateTotalHP();
-            UpdateHPTexts();
         }
 
         public override void OnNetworkSpawn()
         {
-            Types.OnListChanged += OnTypesChanged;
-
-            if (Types.Count > 0)
-            {
-                UpdateVisuals(Types[Types.Count - 1]);
-            }
+            Type.OnValueChanged += OnTypeChanged;
         }
 
         public override void OnNetworkDespawn()
         {
-            Types.OnListChanged -= OnTypesChanged;
+            Type.OnValueChanged -= OnTypeChanged;
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Player"))
-            {
-            }
-            else if (other.CompareTag("Barricade"))
+            if (other.CompareTag("Barricade"))
             {
                 Events.ActorEvents.HandleEnemyPlayerFieldCollision(damage);
                 DespawnSelfServerRPC();
@@ -75,105 +55,72 @@ namespace Actor.Enemy
         {
             if(type == Data.ElementType.Random)
             {
-                Types.Add(GetRandomElementType());
+                SetRandomElementType();
             }
             else
             {
-                Types.Add(type);
+                Type.Value = type;
             }
-
-            //SetRingTarget(Types[^1]);
-            //SetHPtexts(Types[^1]);
         }
 
-        private void OnTypesChanged(NetworkListEvent<Data.NetworkElementType> changeEvent)
+        private void OnTypeChanged(Data.NetworkElementType previousValue, Data.NetworkElementType newValue)
         {
-            if (changeEvent.Type == NetworkListEvent<Data.NetworkElementType>.EventType.Add)
+            SetElemetIcon();
+        }
+
+        private void SetElemetIcon()
+        {
+            if (elementIcon != null)
             {
-                UpdateVisuals(changeEvent.Value);
+                switch ((Data.ElementType)Type.Value)
+                {
+                    case Data.ElementType.Red:
+                        elementIcon.material = typeMaterials[0];
+                        break;
+                    case Data.ElementType.Green:
+                        elementIcon.material = typeMaterials[1];
+                        break;
+                    case Data.ElementType.Blue:
+                        elementIcon.material = typeMaterials[2];
+                        break;
+                    case Data.ElementType.Yellow:
+                        elementIcon.material = typeMaterials[0];
+                        break;
+                    case Data.ElementType.Magenta:
+                        elementIcon.material = typeMaterials[1];
+                        break;
+                    case Data.ElementType.Cyan:
+                        elementIcon.material = typeMaterials[2];
+                        break;
+                }
             }
         }
 
-        private void UpdateVisuals(Data.ElementType type)
+        public void SetHP(int lives)
         {
-            SetRingTarget(type);
-            SetHPtexts(type);
+            this.hp = lives;
         }
 
-        private void SetHealthByType(Data.ElementType type, int amount)
+        public void SetMultiType(Data.ElementType type)
         {
-            switch (type)
-            {
-                case Data.ElementType.Red:
-                    hpRed = amount;
-                    break;
-
-                case Data.ElementType.Green:
-                    hpGreen = amount;
-                    break;
-
-                case Data.ElementType.Blue:
-                    hpBlue = amount;
-                    break;
-            }
-        }
-
-        public void SetMultipleLives()
-        {
-            foreach (Data.ElementType myType in Types)
-            {
-                SetHealthByType(myType, 3);
-            }
-
-            CalculateTotalHP();
-            UpdateHPTexts();
-        }
-
-        public void SetMultiType(Data.ElementType[] types)
-        {
-            if(types.Length < 2)
+            if (type == Data.ElementType.Random)
             {
                 SetRandomMultiType();
             }
             else
             {
-                foreach(var type in types)
-                {
-                    if (!Types.Contains(type))
-                    {
-                        Types.Add(type);
-                        SetRingTarget(type);
-                        SetHPtexts(type);
-                    }
-                }
+                Type.Value = type;
             }
-
-            CalculateTotalHP();
-            UpdateHPTexts();
         }
 
-        public void TakeDamage(Data.ElementType type)
+        public void TakeDamage(Data.ElementType bulletType)
         {
-            if (Types.Contains(type))
+            if(Type.Value == bulletType)
             {
-                switch (type)
-                {
-                    case Data.ElementType.Red:
-                        if (hpRed > 0) hpRed--;
-                        break;
-                    case Data.ElementType.Green:
-                        if (hpGreen > 0) hpGreen--;
-                        break;
-                    case Data.ElementType.Blue:
-                        if (hpBlue > 0) hpBlue--;
-                        break;
-                }
-
-                CalculateTotalHP();
-                UpdateHPTexts();
+                hp--;
             }
 
-            if (totalHP <= 0)
+            if (hp <= 0)
             {
                 DespawnSelfServerRPC();
             }
@@ -204,94 +151,18 @@ namespace Actor.Enemy
             GetComponent<NetworkObject>().Despawn();
         }
 
-        #region HPText
-        private void SetHPtexts(Data.ElementType type)
-        {
-            if (type == Data.ElementType.Red)
-            {
-                hpRedText.gameObject.SetActive(true);
-            }
-            if (type == Data.ElementType.Green)
-            {
-                hpGreenText.gameObject.SetActive(true);
-            }
-            if (type == Data.ElementType.Blue)
-            {
-                hpBlueText.gameObject.SetActive(true);
-            }
-        }
-
-        private void UpdateHPTexts()
-        {
-            hpRedText.text = "" + hpRed;
-            hpGreenText.text = "" + hpGreen;
-            hpBlueText.text = "" + hpBlue;
-        }
-        #endregion
-
-        private void SetRingTarget(Data.ElementType type)
-        {
-            if (ringTarget != null)
-            {
-                switch (type)
-                {
-                    case Data.ElementType.Red:
-                        ringTarget.material = typeRed;
-                        break;
-                    case Data.ElementType.Green:
-                        ringTarget.material = typeGreen;
-                        break;
-                    case Data.ElementType.Blue:
-                        ringTarget.material = typeBlue;
-                        break;
-                }
-            }
-        }
-
-        private void CalculateTotalHP()
-        {
-            totalHP = 0;
-
-            if (Types.Contains(Data.ElementType.Red))
-            {
-                totalHP += hpRed;
-            }
-
-            if (Types.Contains(Data.ElementType.Green))
-            {
-                totalHP += hpGreen;
-            }
-
-            if (Types.Contains(Data.ElementType.Blue))
-            {
-                totalHP += hpBlue;
-            }
-        }
-
-        private Data.ElementType GetRandomElementType()
+        private void SetRandomElementType()
         {
             int randomIndex = UnityEngine.Random.Range(0, 3);
 
-            if (randomIndex == 0) return Data.ElementType.Red;
-            else if (randomIndex == 1) return Data.ElementType.Green;
-            else return Data.ElementType.Blue;
+            Type.Value = (Data.ElementType) randomIndex;
         }
 
         private void SetRandomMultiType()
         {
-            int targetTypeCount = UnityEngine.Random.Range(2, 4);
+            int randomIndex = UnityEngine.Random.Range(3, 6);
 
-            while (Types.Count < targetTypeCount)
-            {
-                Data.ElementType newType = GetRandomElementType();
-
-                if (!Types.Contains(newType))
-                {
-                    Types.Add(newType);
-                    SetRingTarget(newType);
-                    SetHPtexts(newType);
-                }
-            }
+            Type.Value = (Data.ElementType) randomIndex;
         }
     }
 }
