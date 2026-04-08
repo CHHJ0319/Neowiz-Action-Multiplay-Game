@@ -1,4 +1,3 @@
-using Actor.Weapon;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -6,6 +5,8 @@ namespace Actor.Enemy
 {
     public class EnemySpawner : MonoBehaviour
     {
+        public static EnemySpawner Instance;
+
         [Header("Enemy Prepabs")]
         public GameObject normalEnemyPrefab;
 
@@ -13,23 +14,36 @@ namespace Actor.Enemy
         private float multiLivesEnemySpawnRate = 90f;
         private float multiTypeEnemySpawnRate = 100f;
 
+        public float spawnWidth = 18f;
+        private static float fixedSpawnY = 0.5f;
+
         void Awake()
         {
-
+            Instance = this;
         }
 
-        private void OnEnable()
+        public void SpawnEnemyRow(int enemiesPerWave, bool isTargeting)
         {
-            Events.ActorEvents.OnSpawnNormalRequested += SpawnNormalEnemy;
-            Events.ActorEvents.OnSpawnMultiLivesRequested += SpawnMultiLivesEnemy;
-            Events.ActorEvents.OnSpawnMultiTypeRequested += SpawnMultiTypeEnemy;
-        }
+            Transform target = PlayerField.Instance.core;
 
-        private void OnDisable()
-        {
-            Events.ActorEvents.OnSpawnNormalRequested -= SpawnNormalEnemy;
-            Events.ActorEvents.OnSpawnMultiLivesRequested -= SpawnMultiLivesEnemy;
-            Events.ActorEvents.OnSpawnMultiTypeRequested -= SpawnMultiTypeEnemy;
+            float halfWidth = spawnWidth / 2f;
+            Vector3 leftPos = transform.position + Vector3.left * halfWidth;
+            float step = (enemiesPerWave > 1) ? spawnWidth / (enemiesPerWave - 1) : 0;
+
+            for (int i = 0; i < enemiesPerWave; i++)
+            {
+                Vector3 spawnPosition = leftPos + (Vector3.right * step * i);
+                spawnPosition.y = fixedSpawnY;
+
+                Vector3 direction = Vector3.back;
+                if (isTargeting)
+                {
+                    direction = (target.position - spawnPosition).normalized;
+
+                }
+
+                SpawnNormalEnemy(spawnPosition, direction, Data.ElementType.Random);
+            }
         }
 
         #region Spawn Enemy

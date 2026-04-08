@@ -103,4 +103,10 @@ public class ActorManager : NetworkBehaviour
             players[key].SetChareacter(characterIndex);
         }
     }
+
+    public IEnumerator SpawnEnemyRow(int enemiesPerWave, bool isTargeting)
+    {
+        Actor.Enemy.EnemySpawner.Instance.SpawnEnemyRow(enemiesPerWave, isTargeting);
+        yield return null;
+    }
 }
