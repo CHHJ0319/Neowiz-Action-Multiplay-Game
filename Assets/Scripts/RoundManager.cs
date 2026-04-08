@@ -28,14 +28,14 @@ public class RoundManager : NetworkBehaviour
     {
         ActorManager.Instance.SetPlayersRoleServerRpc();
         //StartRoundClientRpc();
-        StartPattern();
+        StartPhases();
     }
 
     [Rpc(SendTo.Everyone)]
     public void StartRoundClientRpc()
     {
         //Events.RoundEvents.StartRound();
-        StartPattern();
+        StartPhases();
     }
 
     public void EndRound()
@@ -43,42 +43,28 @@ public class RoundManager : NetworkBehaviour
 
     }
 
-    private void StartPattern()
+    private void StartPhases()
     {
-        StartCoroutine(StartTutorialPattern());
+        StartCoroutine(StartWave1());
+
+        //Events.RoundEvents.EndRound();
+        //UIManager.Instance.EndRound();
     }
 
-    private IEnumerator StartTutorialPattern()
+    private IEnumerator StartWave1()
     {
         Transform target = PlayerField.Instance.core;
 
-        //Vector3 spawnPosition =
-        //                Utils.ScreenSpaceConverter.ViewportToWorldPoint(0, 0.5f, 1.1f);
-        //Vector3 direction = (target.position - spawnPosition).normalized;
+        yield return StartCoroutine(pattern.SpawnEnemyRow(target, 6, false));
+        yield return new WaitForSeconds(0.5f);
+        yield return StartCoroutine(pattern.SpawnEnemyRow(target, 5, false));
 
-        //Events.ActorEvents.SpawnNormalEnemy(spawnPosition, direction, Data.ElementType.Random);
+        yield return new WaitForSeconds(1.0f);
 
-        StartCoroutine(pattern.SpawnGapWall(target, 8, 1));
+        yield return StartCoroutine(pattern.SpawnEnemyRow(target, 6, true));
+        yield return new WaitForSeconds(0.5f);
+        yield return StartCoroutine(pattern.SpawnEnemyRow(target, 5, true));
 
-        yield return new WaitForSeconds(1.5f);
-
-        StartCoroutine(pattern.SpawnArrowheadAssault(target, 1));
-
-        yield return new WaitForSeconds(1.5f);
-
-        StartCoroutine(pattern.SpawnSweepingWave(8));
-
-        yield return new WaitForSeconds(1.5f);
-
-        StartCoroutine(pattern.SpawnPincerAttack(target, 3));
-
-        yield return new WaitForSeconds(1.5f);
-
-        StartCoroutine(pattern.SpawnMeteorRain(10));
-
-        yield return new WaitForSeconds(10.0f);
-
-        Events.RoundEvents.EndRound();
-        UIManager.Instance.EndRound();
+        //yield return new WaitForSeconds(8.0f);
     }
 }

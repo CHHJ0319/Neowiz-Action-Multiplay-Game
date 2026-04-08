@@ -23,6 +23,8 @@ namespace UI
         private void Awake()
         {
             Instance = this;
+
+            roundStartButton.onClick.AddListener(() => OnRoundStartButtonClicked());
         }
 
         private void OnEnable()

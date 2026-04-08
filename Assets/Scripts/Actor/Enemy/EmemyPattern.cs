@@ -8,6 +8,33 @@ namespace Actor.Enemy
         private static float fixedSpawnY = 0.5f;
         private static float offScreenOffset = 1.1f;
 
+        public IEnumerator SpawnEnemyRow(Transform target, int enemiesPerWave, bool isTargeting)
+        {
+            float startX = 0.1f;
+            float endX = 0.9f;
+            float step = (endX - startX) / (enemiesPerWave - 1);
+
+            for (int i = 0; i < enemiesPerWave; i++)
+            {
+
+                float currentX = startX + (step * i);
+
+                Vector3 spawnPosition =
+                    Utils.ScreenSpaceConverter.ViewportToWorldPoint(currentX, fixedSpawnY, offScreenOffset);
+                Vector3 direction = Vector3.back;
+
+                if (isTargeting)
+                {
+                    direction = (target.position - spawnPosition).normalized;
+
+                }
+
+                Events.ActorEvents.SpawnNormalEnemy(spawnPosition, direction, Data.ElementType.Random);
+            }
+
+            yield return null;
+        }
+
         public IEnumerator SpawnGapWall(Transform target, int enemiesPerWave, int waves)
         {
             float startX = 0f;
