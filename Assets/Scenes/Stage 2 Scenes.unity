@@ -24767,6 +24767,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 783522702795995343, guid: 13e6d1a421fee194693031416232eb81, type: 3}
+      propertyPath: hitSounds.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 783522702795995343, guid: 13e6d1a421fee194693031416232eb81, type: 3}
+      propertyPath: 'hitSounds.Array.data[0]'
+      value: 
+      objectReference: {fileID: 8300000, guid: ddec4acb1b8ae104fbaa93783950305b, type: 3}
+    - target: {fileID: 783522702795995343, guid: 13e6d1a421fee194693031416232eb81, type: 3}
+      propertyPath: 'hitSounds.Array.data[1]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 480ea91d879515a4fa846d35a05a38b2, type: 3}
+    - target: {fileID: 783522702795995343, guid: 13e6d1a421fee194693031416232eb81, type: 3}
+      propertyPath: 'hitSounds.Array.data[2]'
+      value: 
+      objectReference: {fileID: 8300000, guid: ecab9ab75e334d64cbd2a7a409fa08f2, type: 3}
+    - target: {fileID: 783522702795995343, guid: 13e6d1a421fee194693031416232eb81, type: 3}
+      propertyPath: 'hitSounds.Array.data[3]'
+      value: 
+      objectReference: {fileID: 8300000, guid: dfbbba7e467a59340a1c15003ea6e5cc, type: 3}
+    - target: {fileID: 783522702795995343, guid: 13e6d1a421fee194693031416232eb81, type: 3}
+      propertyPath: 'hitSounds.Array.data[4]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 7a020302f4c95d94f8532458bea03dc6, type: 3}
     - target: {fileID: 3788517055463388056, guid: 13e6d1a421fee194693031416232eb81, type: 3}
       propertyPath: m_Name
       value: PlayerField
