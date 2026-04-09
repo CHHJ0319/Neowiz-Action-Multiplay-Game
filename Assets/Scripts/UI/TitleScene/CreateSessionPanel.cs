@@ -1,3 +1,4 @@
+
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,7 +14,7 @@ namespace UI.TitleScene
         void Awake()
         {
             creasteSessionButton.onClick.AddListener(() => OnCreateSessionButtonClicked());
-            closesButton.onClick.AddListener(() => SetVisible(false));
+            closesButton.onClick.AddListener(() => OnCloseButtonClicked());
         }
 
         private void OnCreateSessionButtonClicked()
@@ -21,6 +22,11 @@ namespace UI.TitleScene
             //string password = passwordInputField.text;
             Events.GameEvents.StartHost();
 
+            SetVisible(false);
+        }
+
+        private void OnCloseButtonClicked()
+        {
             SetVisible(false);
         }
 
