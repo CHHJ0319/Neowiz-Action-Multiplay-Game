@@ -8,6 +8,7 @@ namespace UI.LobbyScene
     {
         public TextMeshProUGUI joinCode;
         public Button copyJoinCodeButton;
+        public AudioClip clickSound;
 
         private void Awake()
         {
@@ -25,10 +26,20 @@ namespace UI.LobbyScene
 
         private void OnCopyJoinCodeButtonClicked()
         {
+            PlayClickSound();
             if (joinCode != null)
             {
                 GUIUtility.systemCopyBuffer = joinCode.text;
 
+            }
+        }
+
+        private void PlayClickSound()
+        {
+            if (clickSound != null)
+            {
+                Vector3 cameraPos = Camera.main.transform.position;
+                AudioSource.PlayClipAtPoint(clickSound, cameraPos);
             }
         }
     }
