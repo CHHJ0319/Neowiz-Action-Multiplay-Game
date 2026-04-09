@@ -2468,8 +2468,7 @@ MonoBehaviour:
   bgmSource: {fileID: 715384105}
   buttonSource: {fileID: 1070391241}
   bgmTracks:
-  - {fileID: 8300000, guid: 904112bf36fa9f24b9109d4aa744236b, type: 3}
-  - {fileID: 0}
+  - {fileID: 8300000, guid: 36940054faefa8e43a4adf5b4934d59c, type: 3}
   buttons: {fileID: 349241547}
 --- !u!4 &550233186
 Transform:
