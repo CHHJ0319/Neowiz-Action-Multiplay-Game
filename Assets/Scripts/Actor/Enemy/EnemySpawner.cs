@@ -22,15 +22,15 @@ namespace Actor.Enemy
             Instance = this;
         }
 
-        public void SpawnEnemyRow(int enemiesPerWave, bool isTargeting)
+        public void SpawnEnemyRow(Data.EnemyInfo[] enemyInfos, bool isTargeting)
         {
             Transform target = PlayerField.Instance.core;
 
             float halfWidth = spawnWidth / 2f;
             Vector3 leftPos = transform.position + Vector3.left * halfWidth;
-            float step = (enemiesPerWave > 1) ? spawnWidth / (enemiesPerWave - 1) : 0;
+            float step = (enemyInfos.Length > 1) ? spawnWidth / (enemyInfos.Length - 1) : 0;
 
-            for (int i = 0; i < enemiesPerWave; i++)
+            for (int i = 0; i < enemyInfos.Length; i++)
             {
                 Vector3 spawnPosition = leftPos + (Vector3.right * step * i);
                 spawnPosition.y = fixedSpawnY;
@@ -42,7 +42,7 @@ namespace Actor.Enemy
 
                 }
 
-                SpawnNormalEnemy(spawnPosition, direction, Data.ElementType.Random);
+                SpawnEnemy(spawnPosition, direction, enemyInfos[i]);
             }
         }
 
@@ -51,56 +51,38 @@ namespace Actor.Enemy
         {
             float randomRate = Random.Range(0f, 100f);
 
-            if (randomRate < normalEnemySpawnRate)
-            {
-                SpawnNormalEnemy(spawnPosition, direction, Data.ElementType.Random);
-            }
-            else if (randomRate < multiLivesEnemySpawnRate)
-            {
-                SpawnMultiLivesEnemy(spawnPosition, direction, Data.ElementType.Random, 3);
-            }
-            else if (randomRate < multiTypeEnemySpawnRate)
-            {
-                SpawnMultiTypeEnemy(spawnPosition, direction, Data.ElementType.Random);
-            }
+            //if (randomRate < normalEnemySpawnRate)
+            //{
+            //    SpawnNormalEnemy(spawnPosition, direction, Data.ElementType.Random);
+            //}
+            //else if (randomRate < multiLivesEnemySpawnRate)
+            //{
+            //    SpawnMultiLivesEnemy(spawnPosition, direction, Data.ElementType.Random, 3);
+            //}
+            //else if (randomRate < multiTypeEnemySpawnRate)
+            //{
+            //    SpawnMultiTypeEnemy(spawnPosition, direction, Data.ElementType.Random);
+            //}
         }
 
-        private void SpawnNormalEnemy(Vector3 spawnPosition, Vector3 direction, Data.ElementType type)
+        private void SpawnEnemy(Vector3 spawnPosition, Vector3 direction, Data.EnemyInfo info)
         {
             GameObject enemy = Instantiate(normalEnemyPrefab, spawnPosition, Quaternion.LookRotation(direction));
 
             NetworkObject netObj = enemy.GetComponent<NetworkObject>();
             netObj.Spawn();
 
-            enemy.GetComponent<Actor.Enemy.EnemyController>().SetTypeServerRPC(type);
-            enemy.GetComponent<Actor.Enemy.EnemyController>().LaunchClientRpc(direction);
-        }
-
-        private void SpawnMultiLivesEnemy(Vector3 spawnPosition, Vector3 direction, Data.ElementType type, int lives)
-        {
-
-            GameObject enemy = Instantiate(normalEnemyPrefab, spawnPosition, Quaternion.LookRotation(direction));
-
-            NetworkObject netObj = enemy.GetComponent<NetworkObject>();
-            netObj.Spawn();
-
-            enemy.GetComponent<Actor.Enemy.EnemyController>().SetType(type);
-            enemy.GetComponent<Actor.Enemy.EnemyController>().SetHP(lives);
-            enemy.GetComponent<Actor.Enemy.EnemyController>().LaunchClientRpc(direction);
-        }
-
-        private void SpawnMultiTypeEnemy(Vector3 spawnPosition, Vector3 direction, Data.ElementType type)
-        {
-            GameObject enemy = Instantiate(normalEnemyPrefab, spawnPosition, Quaternion.LookRotation(direction));
-
-            NetworkObject netObj = enemy.GetComponent<NetworkObject>();
-            netObj.Spawn();
-
-            enemy.GetComponent<Actor.Enemy.EnemyController>().SetMultiType(type);
+            if (info.type == Data.EnemyType.Single)
+            {
+                enemy.GetComponent<Actor.Enemy.EnemyController>().SetTypeServerRPC(Data.ElementType.Random);
+            }
+            else
+            {
+                enemy.GetComponent<Actor.Enemy.EnemyController>().SetMultiType(Data.ElementType.Random);
+            }
+            enemy.GetComponent<Actor.Enemy.EnemyController>().SetHP(info.lives);
             enemy.GetComponent<Actor.Enemy.EnemyController>().LaunchClientRpc(direction);
         }
         #endregion
-
-        
     }
 }

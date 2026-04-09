@@ -1,5 +1,8 @@
+using System;
+
 namespace Data
 {
+    [Serializable]
     public struct EnemyInfo
     {
         public EnemyType type;

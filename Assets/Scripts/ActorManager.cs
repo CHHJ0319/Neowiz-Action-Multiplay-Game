@@ -104,9 +104,9 @@ public class ActorManager : NetworkBehaviour
         }
     }
 
-    public IEnumerator SpawnEnemyRow(int enemiesPerWave, bool isTargeting)
+    public IEnumerator SpawnEnemyRow(Data.EnemyInfo[] enemyInfos, bool isTargeting)
     {
-        Actor.Enemy.EnemySpawner.Instance.SpawnEnemyRow(enemiesPerWave, isTargeting);
+        Actor.Enemy.EnemySpawner.Instance.SpawnEnemyRow(enemyInfos, isTargeting);
         yield return null;
     }
 }

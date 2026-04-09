@@ -1,4 +1,5 @@
 using Actor;
+using Data;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
@@ -51,16 +52,24 @@ public class RoundManager : NetworkBehaviour
 
     private IEnumerator StartWave1()
     {
-
-        yield return StartCoroutine(ActorManager.Instance.SpawnEnemyRow(6, false));
+        Data.EnemyInfo[] enemyInfos = new Data.EnemyInfo[]
+        {
+            new Data.EnemyInfo { type = EnemyType.Single, lives = 1 },
+            new Data.EnemyInfo { type = EnemyType.Single, lives = 1 },
+            new Data.EnemyInfo { type = EnemyType.Single, lives = 1 },
+            new Data.EnemyInfo { type = EnemyType.Single, lives = 1 },
+            new Data.EnemyInfo { type = EnemyType.Single, lives = 1 },
+            new Data.EnemyInfo { type = EnemyType.Single, lives = 1 },
+        };
+        yield return StartCoroutine(ActorManager.Instance.SpawnEnemyRow(enemyInfos, false));
         yield return new WaitForSeconds(0.5f);
-        yield return StartCoroutine(ActorManager.Instance.SpawnEnemyRow(5, false));
+        yield return StartCoroutine(ActorManager.Instance.SpawnEnemyRow(enemyInfos, false));
 
         yield return new WaitForSeconds(1.0f);
 
-        yield return StartCoroutine(ActorManager.Instance.SpawnEnemyRow(6, true));
+        yield return StartCoroutine(ActorManager.Instance.SpawnEnemyRow(enemyInfos, true));
         yield return new WaitForSeconds(0.5f);
-        yield return StartCoroutine(ActorManager.Instance.SpawnEnemyRow(5, true));
+        yield return StartCoroutine(ActorManager.Instance.SpawnEnemyRow(enemyInfos, true));
 
         //yield return new WaitForSeconds(8.0f);
     }
