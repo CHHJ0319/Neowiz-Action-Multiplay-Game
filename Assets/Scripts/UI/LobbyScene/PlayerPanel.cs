@@ -13,32 +13,55 @@ namespace UI.LobbyScene
         public Button nextButton;
         public Image readyIcon;
 
-        public NetworkVariable<bool> isReady = new NetworkVariable<bool>();
+        private Image panelImage;
 
+        public NetworkVariable<bool> isDisabled = new NetworkVariable<bool>();
+        public NetworkVariable<bool> isReady = new NetworkVariable<bool>();
         private NetworkVariable<int> currentIndex = new NetworkVariable<int>(0);
+
+        private Color disabledColor = new Color(0.5f, 0.5f, 0.5f, 1f);
+        private Color normalColor = Color.white;
 
         void Awake()
         {
+            panelImage = GetComponent<Image>();
+
             previousButton.onClick.AddListener(() => OnPreviousButtonClicked());
             nextButton.onClick.AddListener(() => OnNextButtonClicked());
         }
 
         public override void OnNetworkSpawn()
         {
-            currentIndex.OnValueChanged += RefreshDisplay;
+            isDisabled.OnValueChanged += UpdateVisualState;
             isReady.OnValueChanged += UpdateReadyIcon;
+            currentIndex.OnValueChanged += RefreshDisplay;
+
+            if (IsServer)
+            {
+                SetDisabledServerRpc(true);
+            }
+            else
+            {
+                UpdateVisualState(true, true);
+            }
         }
 
         public override void OnNetworkDespawn()
         {
             Events.GameEvents.OnReadyGame -= UpdateReadyState;
 
-            currentIndex.OnValueChanged -= RefreshDisplay;
+            isDisabled.OnValueChanged -= UpdateVisualState;
             isReady.OnValueChanged -= UpdateReadyIcon;
+            currentIndex.OnValueChanged -= RefreshDisplay;
         }
 
         public void Initialize(string playerName, bool isOwner)
         {
+            if (IsServer)
+            {
+                SetDisabledServerRpc(false);
+            }
+
             ShowCharacterImage();
 
             playeyNameText.text = playerName;
@@ -118,6 +141,17 @@ namespace UI.LobbyScene
 
             bool currentState = readyIcon.gameObject.activeSelf;
             readyIcon.gameObject.SetActive(!currentState);
+        }
+
+        [Rpc(SendTo.Server)]
+        private void SetDisabledServerRpc(bool isDisabled)
+        {
+            this.isDisabled.Value = isDisabled;
+        }
+
+        private void UpdateVisualState(bool previousValue, bool newValue)
+        {
+            panelImage.color = isDisabled.Value ? disabledColor : normalColor;
         }
     }
 
