@@ -18,7 +18,7 @@ namespace UI
 
         [Header("LobbyScene")]
         public RectTransform playerPanels; 
-        public UI.LobbyScene.GameMenuPanel gameMenuPanel;
+        public UI.LobbyScene.SessionMenuPanel sessionMenuPanel;
         public UI.LobbyScene.JoinCodePanel joinCodePanel;
 
         private void Awake()
@@ -29,14 +29,12 @@ namespace UI
         private void OnEnable()
         {
             Events.ActorEvents.OnPlayerFieldHPChanged += UpdateBarricadeHPBar;
-            Events.PlayerEvents.OnLobbySceneInitialized += SetPlayerPanel;
             Events.PlayerEvents.OnStageSceneInitialized += SetPlayerStatusPanel;
         }
 
         private void OnDisable()
         {
             Events.ActorEvents.OnPlayerFieldHPChanged -= UpdateBarricadeHPBar;
-            Events.PlayerEvents.OnLobbySceneInitialized -= SetPlayerPanel;
             Events.PlayerEvents.OnStageSceneInitialized -= SetPlayerStatusPanel;
         }
 
@@ -55,7 +53,9 @@ namespace UI
             {
                 SetJoinCode();
             }
-            gameMenuPanel.Initialize(isHost);
+
+            sessionMenuPanel.Initialize(isHost);
+            SetPlayerPanel();
         }
 
         public RectTransform GetPlayerPanels()
@@ -63,12 +63,12 @@ namespace UI
             return playerPanels;
         }
 
-        private void SetPlayerPanel(string playerName, int playerIndex, bool isOwner)
+        private void SetPlayerPanel()
         {
             if (playerPanels == null || playerPanels.childCount <= 0) return;
 
-            UI.LobbyScene.PlayerPanel playerPanel = playerPanels.GetChild(playerIndex).gameObject.GetComponent<UI.LobbyScene.PlayerPanel>();
-            playerPanel.Initialize(playerName, isOwner);
+            UI.LobbyScene.PlayerPanel playerPanel = playerPanels.GetChild(DataManager.Instance.ClientID).gameObject.GetComponent<UI.LobbyScene.PlayerPanel>();
+            playerPanel.Initialize();
         }
 
         private void SetJoinCode()

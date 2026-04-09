@@ -70,9 +70,11 @@ public class GameManager : NetworkBehaviour
             yield break;
         }
 
-        yield return StartCoroutine(ActorManager.Instance.SpawnPlayer(NetworkManager.Singleton.LocalClientId));
+        yield return StartCoroutine(DataManager.Instance.SetClientInfo((int)NetworkManager.Singleton.LocalClientId));
+        //yield return StartCoroutine(ActorManager.Instance.SpawnPlayer(NetworkManager.Singleton.LocalClientId));
         yield return new WaitForSeconds(0.1f);
 
+        SessionManager.Instance.AddPlayerServerRpc();
         //UIManager.Instance.Initialize((int)NetworkManager.Singleton.LocalClientId, Utils.SceneNavigator.GetCurrentSceneName());
         if (isTest)
         {
@@ -86,9 +88,11 @@ public class GameManager : NetworkBehaviour
     private IEnumerator StartClientSequence(string joinCode)
     {
         yield return StartCoroutine(Utils.NetworkService.ConfigureTransportAndStartNgoAsClient(joinCode));
+        yield return StartCoroutine(DataManager.Instance.SetClientInfo((int)NetworkManager.Singleton.LocalClientId));
 
-        yield return StartCoroutine(ActorManager.Instance.SpawnPlayer(NetworkManager.Singleton.LocalClientId));
-    
+        //yield return StartCoroutine(ActorManager.Instance.SpawnPlayer(NetworkManager.Singleton.LocalClientId));
+
+        SessionManager.Instance.AddPlayerServerRpc();
         UIManager.Instance.Initialize((int)NetworkManager.Singleton.LocalClientId, Utils.SceneNavigator.GetCurrentSceneName());
     }
     #endregion

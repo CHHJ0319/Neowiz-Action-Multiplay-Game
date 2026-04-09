@@ -1,4 +1,5 @@
 using TMPro;
+using Unity.Collections;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,6 +16,7 @@ namespace UI.LobbyScene
 
         private Image panelImage;
 
+        public NetworkVariable<FixedString32Bytes> playeyName = new NetworkVariable<FixedString32Bytes>();
         public NetworkVariable<bool> isDisabled = new NetworkVariable<bool>();
         public NetworkVariable<bool> isReady = new NetworkVariable<bool>();
         private NetworkVariable<int> currentIndex = new NetworkVariable<int>(0);
@@ -32,6 +34,7 @@ namespace UI.LobbyScene
 
         public override void OnNetworkSpawn()
         {
+            playeyName.OnValueChanged += UpdatePlayerNameText;
             isDisabled.OnValueChanged += UpdateVisualState;
             isReady.OnValueChanged += UpdateReadyIcon;
             currentIndex.OnValueChanged += RefreshDisplay;
@@ -43,6 +46,8 @@ namespace UI.LobbyScene
             else
             {
                 UpdateVisualState(true, true);
+                UpdatePlayerNameText("", "");
+                UpdateReadyIcon(true, true);
             }
         }
 
@@ -50,34 +55,40 @@ namespace UI.LobbyScene
         {
             Events.GameEvents.OnReadyGame -= UpdateReadyState;
 
+            playeyName.OnValueChanged -= UpdatePlayerNameText;
             isDisabled.OnValueChanged -= UpdateVisualState;
             isReady.OnValueChanged -= UpdateReadyIcon;
             currentIndex.OnValueChanged -= RefreshDisplay;
         }
 
-        public void Initialize(string playerName, bool isOwner)
+        public void Initialize()
         {
-            if (IsServer)
-            {
-                SetDisabledServerRpc(false);
-            }
+            SetDisabledServerRpc(false);
 
-            ShowCharacterImage();
+            SetPlayerNameServerRpc(DataManager.Instance.PlayerName);
 
-            playeyNameText.text = playerName;
+            //ShowCharacterImage();
 
-            if(isOwner)
-            {
-                previousButton.gameObject.SetActive(true);
-                nextButton.gameObject.SetActive(true);
+            previousButton.gameObject.SetActive(true);
+            nextButton.gameObject.SetActive(true);
 
-                Events.GameEvents.OnReadyGame += UpdateReadyState;
-            }
+            Events.GameEvents.OnReadyGame += UpdateReadyState;
         }
 
         public int GetCharacterIndex() 
         {
             return currentIndex.Value;
+        }
+
+        [Rpc(SendTo.Server)]
+        private void SetPlayerNameServerRpc(string name, RpcParams rpcParams = default)
+        {
+            playeyName.Value = name;
+        }
+
+        private void UpdatePlayerNameText(FixedString32Bytes previousValue, FixedString32Bytes newValue)
+        {
+            playeyNameText.text = playeyName.Value.ToString();
         }
 
         private void ShowCharacterImage()
@@ -138,9 +149,7 @@ namespace UI.LobbyScene
         private void UpdateReadyIcon(bool previousValue, bool newValue)
         {
             if (readyIcon == null) return;
-
-            bool currentState = readyIcon.gameObject.activeSelf;
-            readyIcon.gameObject.SetActive(!currentState);
+            readyIcon.gameObject.SetActive(isReady.Value);
         }
 
         [Rpc(SendTo.Server)]
@@ -151,6 +160,7 @@ namespace UI.LobbyScene
 
         private void UpdateVisualState(bool previousValue, bool newValue)
         {
+            if (panelImage == null) return;
             panelImage.color = isDisabled.Value ? disabledColor : normalColor;
         }
     }

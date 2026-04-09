@@ -19,10 +19,6 @@ namespace Actor.Player
         [SerializeField] private float bulletSpeed = 20f;
         [SerializeField] private float throwForce = 10f;
         [SerializeField] private float attackCooldown = 0.5f;
-        
-
-        
-
 
         [Header("Pointer Settings")]
         [SerializeField] private RectTransform pointer;
@@ -145,7 +141,7 @@ namespace Actor.Player
         {       
             if (sceneName == Utils.SceneList.LobbyScene.ToString())
             {
-                Events.PlayerEvents.InitializeInLobbyScene(PlayerInfo.Value.playerName, (int)OwnerClientId, IsOwner);
+                //Events.PlayerEvents.InitializeInLobbyScene(PlayerInfo.Value.playerName, (int)OwnerClientId, IsOwner);
             }
             else if (sceneName == Utils.SceneList.TutorialScene.ToString())
             {

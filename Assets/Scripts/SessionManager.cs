@@ -1,8 +1,10 @@
-using UnityEngine;
+using Unity.Netcode;
 
-public class SessionManager : MonoBehaviour
+public class SessionManager : NetworkBehaviour
 {
     public static SessionManager Instance { get; private set; }
+
+    private int playerCount = 0;
 
     private void Awake()
     {
@@ -18,9 +20,14 @@ public class SessionManager : MonoBehaviour
         }
     }
 
+    [Rpc(SendTo.Server)]
+    public void AddPlayerServerRpc(RpcParams rpcParams = default)
+    {
+        playerCount++;
+    }
+
     public bool IsAllPlayersReady()
     {
-        int playerCount = ActorManager.Instance.GetPlayerCount();
         int readyCount = UIManager.Instance.GetReadyPlayerCount();
 
         if(playerCount > 1 && playerCount - 1 == readyCount)

@@ -4,10 +4,10 @@ using UnityEngine.UI;
 
 namespace UI.LobbyScene
 {
-    public class GameMenuPanel : MonoBehaviour
+    public class SessionMenuPanel : MonoBehaviour
     {
-        public Button gameStartButton;
-        public Button gameCancelButton;
+        public Button confirmSessiontButton;
+        public Button cancelSessionButton;
 
         private bool _isHost = false;
 
@@ -17,22 +17,22 @@ namespace UI.LobbyScene
             {
                 if(SessionManager.Instance.IsAllPlayersReady())
                 {
-                    gameStartButton.interactable = true;
+                    confirmSessiontButton.interactable = true;
                 }
                 else
                 {
-                    gameStartButton.interactable = false;
+                    confirmSessiontButton.interactable = false;
                 }
             }
         }
 
         public void Initialize(bool isHost)
         {
-            TMP_Text buttonTitle = gameStartButton.GetComponentInChildren<TMP_Text>();
+            TMP_Text buttonTitle = confirmSessiontButton.GetComponentInChildren<TMP_Text>();
             if (isHost)
             {
                 buttonTitle.text = "Start";
-                gameStartButton.interactable = false;
+                confirmSessiontButton.interactable = false;
 
                 _isHost = isHost; 
             }
@@ -41,8 +41,8 @@ namespace UI.LobbyScene
                 buttonTitle.text = "Ready";
             }
 
-            gameStartButton.onClick.AddListener(() => OnGameStartButtonClicked(isHost));
-            gameCancelButton.onClick.AddListener(() => OnGameCancelButtonClicked(isHost));
+            confirmSessiontButton.onClick.AddListener(() => OnGameStartButtonClicked(isHost));
+            cancelSessionButton.onClick.AddListener(() => OnGameCancelButtonClicked(isHost));
         }
 
         private void OnGameStartButtonClicked(bool isHost)
