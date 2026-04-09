@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CopyJoinCodeButton : MonoBehaviour
+public class CharacterSelectButton : MonoBehaviour
 {
     [Header("Individual Sound")]
     public AudioClip clickSound;
