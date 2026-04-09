@@ -1,4 +1,5 @@
 using TMPro;
+using UI.LobbyScene;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,9 +17,9 @@ namespace UI
         public UI.StageScene.PlayerStatusPanel playerStatusPanel;
 
         [Header("LobbyScene")]
-        public RectTransform playerPanels;
-        public TextMeshProUGUI joinCode;
+        public RectTransform playerPanels; 
         public UI.LobbyScene.GameMenuPanel gameMenuPanel;
+        public UI.LobbyScene.JoinCodePanel joinCodePanel;
 
         private void Awake()
         {
@@ -72,10 +73,9 @@ namespace UI
 
         private void SetJoinCode()
         {
-            if (joinCode != null)
+            if (joinCodePanel != null)
             {
-                joinCode.gameObject.SetActive(true);
-                joinCode.text = Utils.NetworkService.JoinCode;
+                joinCodePanel.SetJoinCode();
             }
         }
 

@@ -135,7 +135,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &47838932
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5051,9 +5051,9 @@ RectTransform:
   - {fileID: 1532699426}
   - {fileID: 833773247}
   - {fileID: 1404491815}
-  - {fileID: 47838933}
   - {fileID: 1667322706}
   - {fileID: 1945058473}
+  - {fileID: 47838933}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -5079,8 +5079,8 @@ MonoBehaviour:
   resultPanel: {fileID: 0}
   playerStatusPanel: {fileID: 0}
   playerPanels: {fileID: 1404491815}
-  joinCode: {fileID: 1079919224}
   gameMenuPanel: {fileID: 1667322708}
+  joinCodePanel: {fileID: 1945058476}
 --- !u!1 &1404491814
 GameObject:
   m_ObjectHideFlags: 0
@@ -7182,6 +7182,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32a1f1cced6c49644aa6b888990f1017, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UI.LobbyScene.JoinCodePanel
+  joinCode: {fileID: 1079919224}
+  copyJoinCodeButton: {fileID: 1871176338}
 --- !u!1 &2012672513
 GameObject:
   m_ObjectHideFlags: 0
