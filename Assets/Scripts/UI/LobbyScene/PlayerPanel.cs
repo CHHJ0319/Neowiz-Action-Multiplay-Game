@@ -8,7 +8,7 @@ namespace UI.LobbyScene
 {
     public class PlayerPanel : NetworkBehaviour
     {
-        public Transform characterImages;
+        public Transform characters;
         public TextMeshProUGUI playeyNameText;
         public Button previousButton;
         public Button nextButton;
@@ -37,7 +37,7 @@ namespace UI.LobbyScene
             playeyName.OnValueChanged += UpdatePlayerNameText;
             isDisabled.OnValueChanged += UpdateVisualState;
             isReady.OnValueChanged += UpdateReadyIcon;
-            currentIndex.OnValueChanged += RefreshDisplay;
+            currentIndex.OnValueChanged += UpdateCharacter;
 
             if (IsServer)
             {
@@ -47,6 +47,7 @@ namespace UI.LobbyScene
             {
                 UpdateVisualState(true, true);
                 UpdatePlayerNameText("", "");
+                UpdateCharacter(0, 0);
                 UpdateReadyIcon(true, true);
             }
         }
@@ -58,7 +59,7 @@ namespace UI.LobbyScene
             playeyName.OnValueChanged -= UpdatePlayerNameText;
             isDisabled.OnValueChanged -= UpdateVisualState;
             isReady.OnValueChanged -= UpdateReadyIcon;
-            currentIndex.OnValueChanged -= RefreshDisplay;
+            currentIndex.OnValueChanged -= UpdateCharacter;
         }
 
         public void Initialize()
@@ -66,8 +67,6 @@ namespace UI.LobbyScene
             SetDisabledServerRpc(false);
 
             SetPlayerNameServerRpc(DataManager.Instance.PlayerName);
-
-            //ShowCharacterImage();
 
             previousButton.gameObject.SetActive(true);
             nextButton.gameObject.SetActive(true);
@@ -91,9 +90,9 @@ namespace UI.LobbyScene
             playeyNameText.text = playeyName.Value.ToString();
         }
 
-        private void ShowCharacterImage()
+        private void ShowCharacter()
         {
-            characterImages.gameObject.SetActive(true);
+            characters.gameObject.SetActive(true);
         }
 
         private void OnPreviousButtonClicked()
@@ -106,21 +105,10 @@ namespace UI.LobbyScene
             GetNextIndexServerRpc(1);
         }
 
-        private void RefreshDisplay(int previousValue, int newValue)
-        {
-            int childCount = characterImages.childCount;
-
-            for (int i = 0; i < childCount; i++)
-            {
-                bool isActive = (i == currentIndex.Value);
-                characterImages.GetChild(i).gameObject.SetActive(isActive);
-            }
-        }
-
         [Rpc(SendTo.Server)]
         private void GetNextIndexServerRpc(int direction, RpcParams rpcParams = default)
         {
-            int childCount = characterImages.transform.childCount;
+            int childCount = characters.transform.childCount;
             if (childCount == 0) currentIndex.Value = 0;
 
             int nextIndex = currentIndex.Value + direction;
@@ -132,6 +120,17 @@ namespace UI.LobbyScene
             else
             {
                 currentIndex.Value = nextIndex % childCount;
+            }
+        }
+
+        private void UpdateCharacter(int previousValue, int newValue)
+        {
+            int childCount = characters.childCount;
+
+            for (int i = 0; i < childCount; i++)
+            {
+                bool isActive = (i == currentIndex.Value);
+                characters.GetChild(i).gameObject.SetActive(isActive);
             }
         }
 
@@ -162,6 +161,11 @@ namespace UI.LobbyScene
         {
             if (panelImage == null) return;
             panelImage.color = isDisabled.Value ? disabledColor : normalColor;
+            
+            if(!isDisabled.Value)
+            {
+                ShowCharacter();
+            }
         }
     }
 
