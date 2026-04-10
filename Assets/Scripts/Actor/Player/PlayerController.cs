@@ -70,7 +70,6 @@ namespace Actor.Player
 
         public override void OnNetworkSpawn()
         {
-            SetPlayerName();
             Initialize(Utils.SceneNavigator.GetCurrentSceneName());
 
             NetworkManager.SceneManager.OnLoadComplete += OnSceneLoaded;
@@ -152,14 +151,6 @@ namespace Actor.Player
                 SetPointer((int)OwnerClientId);
                 rb.useGravity = true;
             }
-        }
-
-        private void SetPlayerName()
-        {
-            var currentInfo = PlayerInfo.Value;
-            currentInfo.playerName = "Player" + (OwnerClientId + 1);
-
-            PlayerInfo.Value = currentInfo;
         }
 
         public void SetChareacter(int index)

@@ -1,8 +1,8 @@
-using Actor.Player;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ActorManager : NetworkBehaviour
 {
@@ -19,10 +19,10 @@ public class ActorManager : NetworkBehaviour
         //new Vector3(2f, 0f, -2f),
         //new Vector3(-2f, 0f, -4f),
         //new Vector3(2f, 0f, -4f),
-        new Vector3(-2f, 0f, -6f),
-        new Vector3(2f, 0f, -6f),
-        new Vector3(-2f, 0f, -8f),
-        new Vector3(2f, 0f, -8f),
+        new Vector3(-2f, 1f, -6f),
+        new Vector3(2f, 1f, -6f),
+        new Vector3(-2f, 1f, -8f),
+        new Vector3(2f, 1f, -8f),
     };
 
     private void Awake()
@@ -39,17 +39,33 @@ public class ActorManager : NetworkBehaviour
         }
     }
 
-    public IEnumerator SpawnPlayer(ulong clientId)
+    public override void OnNetworkSpawn()
     {
-        SpawnPlayerServerRpc(clientId);
-        yield return null;
+        NetworkManager.SceneManager.OnLoadComplete += OnSceneLoaded;
+    }
+
+    public override void OnNetworkDespawn()
+    {
+        NetworkManager.SceneManager.OnLoadComplete -= OnSceneLoaded;
+    }
+
+    public void Initialize(int id, string sceneName)
+    {
+        if (sceneName == Utils.SceneList.LobbyScene.ToString())
+        {
+
+        }
+        else if (sceneName == Utils.SceneList.TutorialScene.ToString())
+        {
+            SpawnPlayerServerRpc(NetworkManager.Singleton.LocalClientId, DataManager.Instance.CharacterIndex, DataManager.Instance.PlayerPanelIndex);
+        }
     }
 
     [Rpc(SendTo.Server)]
-    public void SpawnPlayerServerRpc(ulong clientId, RpcParams rpcParams = default)
+    private void SpawnPlayerServerRpc(ulong clientId, int characterIndex, int spawnIdex, RpcParams rpcParams = default)
     {
-        GameObject player = Instantiate(playerPrefabs[0]);
-        player.transform.localPosition = playerSpawnPositions[players.Count];
+        GameObject player = Instantiate(playerPrefabs[characterIndex]);
+        player.transform.localPosition = playerSpawnPositions[spawnIdex];
 
         NetworkObject nv = player.GetComponent<NetworkObject>();
         nv.SpawnAsPlayerObject(clientId);
@@ -57,7 +73,7 @@ public class ActorManager : NetworkBehaviour
         players.Add(clientId, player.GetComponent<Actor.Player.PlayerController>());
     }
 
-    public int GetPlayerCount()
+    private int GetPlayerCount()
     {
         return players.Count;
     }
@@ -72,7 +88,7 @@ public class ActorManager : NetworkBehaviour
         int colorIndex = 0;
         Data.PlayerRole role;
         Data.ElementType color = Data.ElementType.Red;
-        foreach (PlayerController player in players.Values)
+        foreach (Actor.Player.PlayerController player in players.Values)
         {
             if (roles[index] == 0)
             {
@@ -108,5 +124,15 @@ public class ActorManager : NetworkBehaviour
     {
         Actor.Enemy.EnemySpawner.Instance.SpawnEnemyRow(enemyInfos, isTargeting);
         yield return null;
+    }
+
+    private void OnSceneLoaded(ulong clientId, string sceneName, LoadSceneMode loadMode)
+    {
+        if (clientId != NetworkManager.Singleton.LocalClientId)
+        {
+            return;
+        }
+
+        Initialize((int)clientId, sceneName);
     }
 }
