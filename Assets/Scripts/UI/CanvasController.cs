@@ -74,10 +74,12 @@ namespace UI
                 UI.LobbyScene.PlayerPanel playerPanel = panel.gameObject.GetComponent<UI.LobbyScene.PlayerPanel>();
                 if(playerPanel.isDisabled.Value)
                 {
+                    int index = panel.GetSiblingIndex();
+                    DataManager.Instance.SetClientInfo(index + 1);
+                    DataManager.Instance.SetPlayerPanelIndex(index);
+
                     playerPanel.Initialize();
 
-                    int index = panel.GetSiblingIndex();
-                    DataManager.Instance.SetPlayerPanelIndex(index);
                     break;
                 }
             }

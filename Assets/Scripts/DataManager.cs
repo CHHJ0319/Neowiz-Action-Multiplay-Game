@@ -23,12 +23,10 @@ public class DataManager : NetworkBehaviour
         }
     }
 
-    public IEnumerator SetClientInfo()
+    public void SetClientInfo(int id)
     {
-        ID = SessionManager.Instance.PlayerCount.Value + 1;
+        ID = id;
         PlayerName = "Player" + ID;
-
-        yield return null;
     }
 
     public void SetPlayerPanelIndex(int index)

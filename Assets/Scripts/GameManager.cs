@@ -1,8 +1,6 @@
 using System.Collections;
 using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using Utils;
 
 public class GameManager : NetworkBehaviour
 {
@@ -103,7 +101,6 @@ public class GameManager : NetworkBehaviour
         yield return new WaitForSeconds(0.1f);
 
         SessionManager.Instance.ClearServerRpc();
-        yield return StartCoroutine(DataManager.Instance.SetClientInfo());
         SessionManager.Instance.AddPlayerServerRpc();
 
         //UIManager.Instance.Initialize((int)NetworkManager.Singleton.LocalClientId, Utils.SceneNavigator.GetCurrentSceneName());
@@ -128,7 +125,6 @@ public class GameManager : NetworkBehaviour
 
         //yield return StartCoroutine(ActorManager.Instance.SpawnPlayer(NetworkManager.Singleton.LocalClientId));
 
-        yield return StartCoroutine(DataManager.Instance.SetClientInfo());
         SessionManager.Instance.AddPlayerServerRpc();
 
         UIManager.Instance.Initialize((int)NetworkManager.Singleton.LocalClientId, Utils.SceneNavigator.GetCurrentSceneName());
