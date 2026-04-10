@@ -1,10 +1,11 @@
 using Unity.Netcode;
+using UnityEngine.SceneManagement;
 
 public class SessionManager : NetworkBehaviour
 {
     public static SessionManager Instance { get; private set; }
 
-    private int playerCount = 0;
+    public NetworkVariable<int> PlayerCount = new NetworkVariable<int>(0);
 
     private void Awake()
     {
@@ -23,14 +24,26 @@ public class SessionManager : NetworkBehaviour
     [Rpc(SendTo.Server)]
     public void AddPlayerServerRpc(RpcParams rpcParams = default)
     {
-        playerCount++;
+        PlayerCount.Value++;
+    }
+
+    [Rpc(SendTo.Server)]
+    public void RemovePlayerServerRpc(RpcParams rpcParams = default)
+    {
+        PlayerCount.Value--;
+    }
+
+    [Rpc(SendTo.Server)]
+    public void ResetPlayerCountServerRpc(RpcParams rpcParams = default)
+    {
+        PlayerCount.Value = 0;
     }
 
     public bool IsAllPlayersReady()
     {
         int readyCount = UIManager.Instance.GetReadyPlayerCount();
 
-        if(playerCount > 1 && playerCount - 1 == readyCount)
+        if(PlayerCount.Value > 1 && PlayerCount.Value - 1 == readyCount)
         {
             return true;
         }

@@ -6,7 +6,7 @@ public class DataManager : NetworkBehaviour
     public static DataManager Instance { get; private set; }
 
     public string PlayerName { get; private set; }
-    public int ClientID{ get; private set; }
+    public int ID { get; private set; }
 
     private void Awake()
     {
@@ -22,10 +22,10 @@ public class DataManager : NetworkBehaviour
         }
     }
 
-    public IEnumerator SetClientInfo(int id)
+    public IEnumerator SetClientInfo()
     {
-        ClientID = id;
-        PlayerName = "Player" + (ClientID + 1);
+        ID = SessionManager.Instance.PlayerCount.Value + 1;
+        PlayerName = "Player" + ID;
 
         yield return null;
     }

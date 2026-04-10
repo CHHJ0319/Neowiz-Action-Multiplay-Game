@@ -77,4 +77,9 @@ public class UIManager : NetworkBehaviour
     {
         return UI.CanvasController.Instance.GetPlayerPanels();
     }
+
+    public void DisablePlayerPanel()
+    {
+        UI.CanvasController.Instance.DisablePlayerPanel();
+    }
 }

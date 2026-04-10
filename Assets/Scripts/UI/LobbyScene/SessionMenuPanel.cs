@@ -60,8 +60,7 @@ namespace UI.LobbyScene
 
         private void OnGameCancelButtonClicked(bool isHost)
         {
-            Utils.NetworkService.ShutdownNetwork();
-            Utils.SceneNavigator.LoadSceneByName(Utils.SceneList.TitleScene);
+            GameManager.Instance.Disconnect(isHost);
         }
     }
 }

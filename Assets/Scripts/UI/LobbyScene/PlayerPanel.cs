@@ -90,9 +90,9 @@ namespace UI.LobbyScene
             playeyNameText.text = playeyName.Value.ToString();
         }
 
-        private void ShowCharacter()
+        private void SetCharacterVisible(bool isVisible)
         {
-            characters.gameObject.SetActive(true);
+            characters.gameObject.SetActive(isVisible);
         }
 
         private void OnPreviousButtonClicked()
@@ -152,9 +152,10 @@ namespace UI.LobbyScene
         }
 
         [Rpc(SendTo.Server)]
-        private void SetDisabledServerRpc(bool isDisabled)
+        public void SetDisabledServerRpc(bool isDisabled)
         {
             this.isDisabled.Value = isDisabled;
+            currentIndex.Value = 0;
         }
 
         private void UpdateVisualState(bool previousValue, bool newValue)
@@ -162,9 +163,14 @@ namespace UI.LobbyScene
             if (panelImage == null) return;
             panelImage.color = isDisabled.Value ? disabledColor : normalColor;
             
-            if(!isDisabled.Value)
+            if(isDisabled.Value)
             {
-                ShowCharacter();
+                SetPlayerNameServerRpc("");
+                SetCharacterVisible(false);
+            }
+            else
+            {
+                SetCharacterVisible(true);
             }
         }
     }

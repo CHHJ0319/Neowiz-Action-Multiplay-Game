@@ -2,6 +2,7 @@ using System.Collections;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Utils;
 
 public class GameManager : NetworkBehaviour
 {
@@ -43,7 +44,7 @@ public class GameManager : NetworkBehaviour
     {
         if (!IsServer)
         {
-            NetworkManager.Singleton.OnClientDisconnectCallback += OnDisconnect;
+            NetworkManager.Singleton.OnClientDisconnectCallback += ForceDisconnect;
         }
     }
 
@@ -51,8 +52,13 @@ public class GameManager : NetworkBehaviour
     {
         if (NetworkManager.Singleton != null)
         {
-            NetworkManager.Singleton.OnClientDisconnectCallback -= OnDisconnect;
+            NetworkManager.Singleton.OnClientDisconnectCallback -= ForceDisconnect;
         }
+    }
+
+    private void OnApplicationQuit()
+    {
+        Disconnect(IsHost);
     }
 
     private void Initiailize()
@@ -93,10 +99,11 @@ public class GameManager : NetworkBehaviour
             yield break;
         }
 
-        yield return StartCoroutine(DataManager.Instance.SetClientInfo((int)NetworkManager.Singleton.LocalClientId));
         //yield return StartCoroutine(ActorManager.Instance.SpawnPlayer(NetworkManager.Singleton.LocalClientId));
         yield return new WaitForSeconds(0.1f);
 
+        SessionManager.Instance.ResetPlayerCountServerRpc();
+        yield return StartCoroutine(DataManager.Instance.SetClientInfo());
         SessionManager.Instance.AddPlayerServerRpc();
         //UIManager.Instance.Initialize((int)NetworkManager.Singleton.LocalClientId, Utils.SceneNavigator.GetCurrentSceneName());
         if (isTest)
@@ -117,11 +124,12 @@ public class GameManager : NetworkBehaviour
         }
 
         yield return StartCoroutine(Utils.NetworkService.ConfigureTransportAndStartNgoAsClient(joinCode));
-        yield return StartCoroutine(DataManager.Instance.SetClientInfo((int)NetworkManager.Singleton.LocalClientId));
 
         //yield return StartCoroutine(ActorManager.Instance.SpawnPlayer(NetworkManager.Singleton.LocalClientId));
 
+        yield return StartCoroutine(DataManager.Instance.SetClientInfo());
         SessionManager.Instance.AddPlayerServerRpc();
+
         UIManager.Instance.Initialize((int)NetworkManager.Singleton.LocalClientId, Utils.SceneNavigator.GetCurrentSceneName());
     }
     #endregion
@@ -136,8 +144,23 @@ public class GameManager : NetworkBehaviour
 
     }
 
-    private void OnDisconnect(ulong clientId)
+    private void ForceDisconnect(ulong clientId)
     {
+        Disconnect(IsHost);
+    }
+
+    public void Disconnect(bool isHost)
+    {
+        if(isHost)
+        {
+            SessionManager.Instance.ResetPlayerCountServerRpc();
+        }
+        else
+        {
+            SessionManager.Instance.RemovePlayerServerRpc();
+            UIManager.Instance.DisablePlayerPanel();
+        }
+
         Utils.NetworkService.ShutdownNetwork();
         Utils.SceneNavigator.LoadSceneByName(Utils.SceneList.TitleScene);
     }

@@ -67,8 +67,14 @@ namespace UI
         {
             if (playerPanels == null || playerPanels.childCount <= 0) return;
 
-            UI.LobbyScene.PlayerPanel playerPanel = playerPanels.GetChild(DataManager.Instance.ClientID).gameObject.GetComponent<UI.LobbyScene.PlayerPanel>();
+            UI.LobbyScene.PlayerPanel playerPanel = playerPanels.GetChild(DataManager.Instance.ID - 1).gameObject.GetComponent<UI.LobbyScene.PlayerPanel>();
             playerPanel.Initialize();
+        }
+
+        public void DisablePlayerPanel()
+        {
+            UI.LobbyScene.PlayerPanel playerPanel = playerPanels.GetChild(DataManager.Instance.ID - 1).gameObject.GetComponent<UI.LobbyScene.PlayerPanel>();
+            playerPanel.SetDisabledServerRpc(true);
         }
 
         private void SetJoinCode()
