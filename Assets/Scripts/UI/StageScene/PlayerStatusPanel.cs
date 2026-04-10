@@ -21,10 +21,10 @@ namespace UI.StageScene
             Events.PlayerEvents.OnRoleAssigned -= SetPotionIcon;
         }
 
-        public void Initialize(Data.PlayerInfo info)
+        public void Initialize()
         {
-            SetPlayerName(info.playerName);
-            SetPlayerIcon((int)info.character);
+            SetPlayerName(DataManager.Instance.PlayerName);
+            SetPlayerIcon(DataManager.Instance.CharacterIndex);
         }
         
         private void SetPlayerName(string name)

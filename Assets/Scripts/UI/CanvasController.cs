@@ -28,13 +28,11 @@ namespace UI
         private void OnEnable()
         {
             Events.ActorEvents.OnPlayerFieldHPChanged += UpdateBarricadeHPBar;
-            Events.PlayerEvents.OnStageSceneInitialized += SetPlayerStatusPanel;
         }
 
         private void OnDisable()
         {
             Events.ActorEvents.OnPlayerFieldHPChanged -= UpdateBarricadeHPBar;
-            Events.PlayerEvents.OnStageSceneInitialized -= SetPlayerStatusPanel;
         }
 
         public RectTransform GetPointer(int playerIndex) 
@@ -79,7 +77,6 @@ namespace UI
                     DataManager.Instance.SetPlayerPanelIndex(index);
 
                     playerPanel.Initialize();
-
                     break;
                 }
             }
@@ -129,6 +126,7 @@ namespace UI
                 }
             }
 
+            SetPlayerStatusPanel();
             resultPanel.Initialize(isHost);
         }
 
@@ -166,10 +164,9 @@ namespace UI
             barricadeHPBar.fillAmount = currentHPRate;
         }  
 
-        private void SetPlayerStatusPanel(Data.PlayerInfo info)
+        private void SetPlayerStatusPanel()
         {
-
-            playerStatusPanel.Initialize(info);
+            playerStatusPanel.Initialize();
         }
         #endregion
     }

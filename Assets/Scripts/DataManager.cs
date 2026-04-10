@@ -1,13 +1,13 @@
-using System.Collections;
-using Unity.Netcode;
+using UnityEngine;
 
-public class DataManager : NetworkBehaviour
+public class DataManager : MonoBehaviour
 {
     public static DataManager Instance { get; private set; }
 
     public string PlayerName { get; private set; }
     public int ID { get; private set; }
     public int PlayerPanelIndex { get; private set; }
+    public int CharacterIndex { get; private set; }
 
     private void Awake()
     {
@@ -32,5 +32,10 @@ public class DataManager : NetworkBehaviour
     public void SetPlayerPanelIndex(int index)
     {
         PlayerPanelIndex = index;
+    }
+
+    public void SetCharacterIndex(int index)
+    {
+        CharacterIndex = index;
     }
 }

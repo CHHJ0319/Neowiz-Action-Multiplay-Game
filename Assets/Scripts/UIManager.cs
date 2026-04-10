@@ -76,7 +76,6 @@ public class UIManager : NetworkBehaviour
         }
         
         Initialize((int)clientId, sceneName);
-        
     }
 
     public RectTransform GetPlayerPanels()

@@ -103,9 +103,9 @@ public class GameManager : NetworkBehaviour
         SessionManager.Instance.ClearServerRpc();
         SessionManager.Instance.AddPlayerServerRpc();
 
-        //UIManager.Instance.Initialize((int)NetworkManager.Singleton.LocalClientId, Utils.SceneNavigator.GetCurrentSceneName());
         if (isTest)
         {
+            UIManager.Instance.Initialize((int)NetworkManager.Singleton.LocalClientId, Utils.SceneNavigator.GetCurrentSceneName());
         }
         else
         {

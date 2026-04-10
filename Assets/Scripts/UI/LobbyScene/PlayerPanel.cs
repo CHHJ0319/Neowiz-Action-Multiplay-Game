@@ -21,6 +21,8 @@ namespace UI.LobbyScene
         public NetworkVariable<bool> isReady = new NetworkVariable<bool>();
         private NetworkVariable<int> currentIndex = new NetworkVariable<int>(0);
 
+        bool isLocalPlayer = false;
+
         private Color disabledColor = new Color(0.5f, 0.5f, 0.5f, 1f);
         private Color normalColor = Color.white;
 
@@ -72,6 +74,8 @@ namespace UI.LobbyScene
             nextButton.gameObject.SetActive(true);
 
             Events.GameEvents.OnReadyGame += UpdateReadyState;
+
+            isLocalPlayer = true;
         }
 
         public int GetCharacterIndex() 
@@ -131,6 +135,11 @@ namespace UI.LobbyScene
             {
                 bool isActive = (i == currentIndex.Value);
                 characters.GetChild(i).gameObject.SetActive(isActive);
+            }
+
+            if(isLocalPlayer)
+            {
+                DataManager.Instance.SetCharacterIndex(currentIndex.Value);
             }
         }
 
