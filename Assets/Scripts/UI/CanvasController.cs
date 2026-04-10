@@ -1,5 +1,4 @@
-using TMPro;
-using UI.LobbyScene;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -65,15 +64,30 @@ namespace UI
 
         private void SetPlayerPanel()
         {
-            if (playerPanels == null || playerPanels.childCount <= 0) return;
+            if (playerPanels == null || playerPanels.childCount <= 0)
+            {
+                return;
+            }
 
-            UI.LobbyScene.PlayerPanel playerPanel = playerPanels.GetChild(DataManager.Instance.ID - 1).gameObject.GetComponent<UI.LobbyScene.PlayerPanel>();
-            playerPanel.Initialize();
+            foreach (RectTransform panel in playerPanels)
+            {
+                UI.LobbyScene.PlayerPanel playerPanel = panel.gameObject.GetComponent<UI.LobbyScene.PlayerPanel>();
+                if(playerPanel.isDisabled.Value)
+                {
+                    playerPanel.Initialize();
+
+                    int index = panel.GetSiblingIndex();
+                    DataManager.Instance.SetPlayerPanelIndex(index);
+                    break;
+                }
+            }
+
+            
         }
 
-        public void DisablePlayerPanel()
+        public void DisablePlayerPanel(int index)
         {
-            UI.LobbyScene.PlayerPanel playerPanel = playerPanels.GetChild(DataManager.Instance.ID - 1).gameObject.GetComponent<UI.LobbyScene.PlayerPanel>();
+            UI.LobbyScene.PlayerPanel playerPanel = playerPanels.GetChild(index).gameObject.GetComponent<UI.LobbyScene.PlayerPanel>();
             playerPanel.SetDisabledServerRpc(true);
         }
 

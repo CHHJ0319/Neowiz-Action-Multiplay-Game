@@ -1,5 +1,5 @@
+using System.Collections.Generic;
 using Unity.Netcode;
-using UnityEngine.SceneManagement;
 
 public class SessionManager : NetworkBehaviour
 {
@@ -34,7 +34,7 @@ public class SessionManager : NetworkBehaviour
     }
 
     [Rpc(SendTo.Server)]
-    public void ResetPlayerCountServerRpc(RpcParams rpcParams = default)
+    public void ClearServerRpc(RpcParams rpcParams = default)
     {
         PlayerCount.Value = 0;
     }

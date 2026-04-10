@@ -7,6 +7,7 @@ public class DataManager : NetworkBehaviour
 
     public string PlayerName { get; private set; }
     public int ID { get; private set; }
+    public int PlayerPanelIndex { get; private set; }
 
     private void Awake()
     {
@@ -28,5 +29,10 @@ public class DataManager : NetworkBehaviour
         PlayerName = "Player" + ID;
 
         yield return null;
+    }
+
+    public void SetPlayerPanelIndex(int index)
+    {
+        PlayerPanelIndex = index;
     }
 }

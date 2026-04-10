@@ -102,9 +102,10 @@ public class GameManager : NetworkBehaviour
         //yield return StartCoroutine(ActorManager.Instance.SpawnPlayer(NetworkManager.Singleton.LocalClientId));
         yield return new WaitForSeconds(0.1f);
 
-        SessionManager.Instance.ResetPlayerCountServerRpc();
+        SessionManager.Instance.ClearServerRpc();
         yield return StartCoroutine(DataManager.Instance.SetClientInfo());
         SessionManager.Instance.AddPlayerServerRpc();
+
         //UIManager.Instance.Initialize((int)NetworkManager.Singleton.LocalClientId, Utils.SceneNavigator.GetCurrentSceneName());
         if (isTest)
         {
@@ -153,7 +154,7 @@ public class GameManager : NetworkBehaviour
     {
         if(isHost)
         {
-            SessionManager.Instance.ResetPlayerCountServerRpc();
+            SessionManager.Instance.ClearServerRpc();
         }
         else
         {

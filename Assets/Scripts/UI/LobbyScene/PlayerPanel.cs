@@ -136,13 +136,13 @@ namespace UI.LobbyScene
 
         private void UpdateReadyState()
         {
-            UpdateReadyStateServerRpc();
+            SetIsReadyServerRpc(!isReady.Value);
         }
 
         [Rpc(SendTo.Server)]
-        private void UpdateReadyStateServerRpc(RpcParams rpcParams = default)
+        private void SetIsReadyServerRpc(bool isReady, RpcParams rpcParams = default)
         {
-            isReady.Value = !isReady.Value;
+            this.isReady.Value = isReady;
         }
 
         private void UpdateReadyIcon(bool previousValue, bool newValue)
@@ -167,6 +167,7 @@ namespace UI.LobbyScene
             {
                 SetPlayerNameServerRpc("");
                 SetCharacterVisible(false);
+                SetIsReadyServerRpc(false);
             }
             else
             {

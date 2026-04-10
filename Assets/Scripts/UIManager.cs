@@ -70,7 +70,13 @@ public class UIManager : NetworkBehaviour
 
     private void OnSceneLoaded(ulong clientId, string sceneName, LoadSceneMode loadMode)
     {
+        if (clientId != NetworkManager.Singleton.LocalClientId)
+        {
+            return;
+        }
+        
         Initialize((int)clientId, sceneName);
+        
     }
 
     public RectTransform GetPlayerPanels()
@@ -80,6 +86,7 @@ public class UIManager : NetworkBehaviour
 
     public void DisablePlayerPanel()
     {
-        UI.CanvasController.Instance.DisablePlayerPanel();
+        int index = DataManager.Instance.PlayerPanelIndex;
+        UI.CanvasController.Instance.DisablePlayerPanel(index);
     }
 }
