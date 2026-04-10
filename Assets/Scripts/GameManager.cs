@@ -1,6 +1,7 @@
 using System.Collections;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : NetworkBehaviour
 {
@@ -38,6 +39,22 @@ public class GameManager : NetworkBehaviour
         Events.GameEvents.OnQuitGame -= QuitGame;
     }
 
+    public override void OnNetworkSpawn()
+    {
+        if (!IsServer)
+        {
+            NetworkManager.Singleton.OnClientDisconnectCallback += OnDisconnect;
+        }
+    }
+
+    public override void OnNetworkDespawn()
+    {
+        if (NetworkManager.Singleton != null)
+        {
+            NetworkManager.Singleton.OnClientDisconnectCallback -= OnDisconnect;
+        }
+    }
+
     private void Initiailize()
     {
         //ClearEvents();
@@ -63,6 +80,12 @@ public class GameManager : NetworkBehaviour
 
     private IEnumerator StartHostSequence()
     {
+        NetworkManager.Singleton.Shutdown();
+        while (NetworkManager.Singleton.ShutdownInProgress)
+        {
+            yield return null;
+        }
+
         yield return StartCoroutine(Utils.NetworkService.ConfigureTransportAndStartNgoAsHost());
 
         if (!NetworkManager.Singleton.IsHost)
@@ -87,6 +110,12 @@ public class GameManager : NetworkBehaviour
 
     private IEnumerator StartClientSequence(string joinCode)
     {
+        NetworkManager.Singleton.Shutdown();
+        while (NetworkManager.Singleton.ShutdownInProgress)
+        {
+            yield return null;
+        }
+
         yield return StartCoroutine(Utils.NetworkService.ConfigureTransportAndStartNgoAsClient(joinCode));
         yield return StartCoroutine(DataManager.Instance.SetClientInfo((int)NetworkManager.Singleton.LocalClientId));
 
@@ -105,6 +134,12 @@ public class GameManager : NetworkBehaviour
         Events.RoundEvents.Clear();
         Events.ActorEvents.Clear();
 
+    }
+
+    private void OnDisconnect(ulong clientId)
+    {
+        Utils.NetworkService.ShutdownNetwork();
+        Utils.SceneNavigator.LoadSceneByName(Utils.SceneList.TitleScene);
     }
 
     private void QuitGame()

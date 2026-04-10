@@ -76,6 +76,15 @@ namespace Utils
             yield return new WaitForSeconds(2.0f);
         }
 
+        public static void ShutdownNetwork()
+        {
+            if (NetworkManager.Singleton != null)
+            {
+                NetworkManager.Singleton.Shutdown();
+                JoinCode = null;
+            }
+        }
+
         private static async Task<RelayServerData> AllocateRelayServerAndGetJoinCode(int maxConnections, string region = null)
         {
             Allocation allocation;

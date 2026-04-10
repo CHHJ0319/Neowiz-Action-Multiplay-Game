@@ -16,7 +16,7 @@ namespace Utils
                 }
                 else
                 {
-                    UnityEngine.Debug.LogWarning("Clients cannot initiate network scene changes.");
+                    SceneManager.LoadScene(sceneName);
                 }
             }
             else
