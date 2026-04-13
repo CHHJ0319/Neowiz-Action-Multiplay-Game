@@ -14,6 +14,7 @@ namespace UI
         public UI.StageScene.ResultPanel resultPanel;
         public UI.StageScene.StagePanel stagePanel;
         public UI.StageScene.PlayerStatusPanel playerStatusPanel;
+        public UI.StageScene.TimerPanel timerPanel;
 
         [Header("LobbyScene")]
         public RectTransform playerPanels; 
