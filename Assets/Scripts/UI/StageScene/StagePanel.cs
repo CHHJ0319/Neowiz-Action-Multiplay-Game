@@ -1,19 +1,28 @@
+using TMPro;
 using UnityEngine;
 
 namespace UI.StageScene
 {
     public class StagePanel : MonoBehaviour
     {
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
-        {
+        public TextMeshProUGUI stageNameText;
+        public TextMeshProUGUI waveText;
 
+        public void Start()
+        {
+            string stageName = Utils.SceneNavigator.GetCurrentSceneName();
+            SetStageNameText(stageName.Replace("Scene", ""));
+            SetWaveText(1);
         }
 
-        // Update is called once per frame
-        void Update()
+        private void SetStageNameText(string name)
         {
+            stageNameText.text = name;
+        }
 
+        public void SetWaveText(int wave)
+        {
+            waveText.text = "Wave " + wave;
         }
     }
 }

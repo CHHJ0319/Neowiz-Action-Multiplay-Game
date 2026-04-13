@@ -12,6 +12,7 @@ namespace UI
         public Button roundStartButton;
         public Image barricadeHPBar;
         public UI.StageScene.ResultPanel resultPanel;
+        public UI.StageScene.StagePanel stagePanel;
         public UI.StageScene.PlayerStatusPanel playerStatusPanel;
 
         [Header("LobbyScene")]
