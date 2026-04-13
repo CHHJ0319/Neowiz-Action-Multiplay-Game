@@ -106,20 +106,6 @@ public class ActorManager : NetworkBehaviour
         }
     }
 
-    [Rpc(SendTo.Server)]
-    public void SetPlayersCharacterServerRpc(RpcParams rpcParams = default)
-    {
-        RectTransform playerPlanels = UIManager.Instance.GetPlayerPanels();
-        for (int i = 0; i< players.Count; i++)
-        {
-            UI.LobbyScene.PlayerPanel panel = playerPlanels.GetChild(i).GetComponent<UI.LobbyScene.PlayerPanel>();
-            int characterIndex = panel.GetCharacterIndex();
-
-            ulong key = (ulong)i;
-            players[key].SetChareacter(characterIndex);
-        }
-    }
-
     public IEnumerator SpawnEnemyRow(Data.EnemyInfo[] enemyInfos, bool isTargeting)
     {
         Actor.Enemy.EnemySpawner.Instance.SpawnEnemyRow(enemyInfos, isTargeting);
