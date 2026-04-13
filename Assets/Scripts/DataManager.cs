@@ -26,7 +26,7 @@ public class DataManager : MonoBehaviour
     public void SetClientInfo(int id)
     {
         ID = id;
-        PlayerName = "Player" + ID;
+        PlayerName = "PLAYER" + ID;
     }
 
     public void SetPlayerPanelIndex(int index)
