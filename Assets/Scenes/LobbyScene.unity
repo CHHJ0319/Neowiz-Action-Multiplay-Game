@@ -8499,9 +8499,17 @@ PrefabInstance:
       value: "\uB4A4\uB85C \uAC00\uAE30"
       objectReference: {fileID: 0}
     - target: {fileID: 4158784548320598814, guid: 2832c114b6faed340a2a27ef2d402b40, type: 3}
+      propertyPath: m_fontSize
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 4158784548320598814, guid: 2832c114b6faed340a2a27ef2d402b40, type: 3}
       propertyPath: m_fontAsset
       value: 
       objectReference: {fileID: 11400000, guid: db92a2ceac0641343a439550cb132c07, type: 2}
+    - target: {fileID: 4158784548320598814, guid: 2832c114b6faed340a2a27ef2d402b40, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 4158784548320598814, guid: 2832c114b6faed340a2a27ef2d402b40, type: 3}
       propertyPath: m_sharedMaterial
       value: 
@@ -8613,12 +8621,20 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2154795771279566643, guid: 9671b4bb8ac93e44c856d44e2816d74e, type: 3}
       propertyPath: m_text
-      value: START
+      value: "\uAC8C\uC784 \uC2DC\uC791"
+      objectReference: {fileID: 0}
+    - target: {fileID: 2154795771279566643, guid: 9671b4bb8ac93e44c856d44e2816d74e, type: 3}
+      propertyPath: m_fontSize
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 2154795771279566643, guid: 9671b4bb8ac93e44c856d44e2816d74e, type: 3}
       propertyPath: m_fontAsset
       value: 
       objectReference: {fileID: 11400000, guid: db92a2ceac0641343a439550cb132c07, type: 2}
+    - target: {fileID: 2154795771279566643, guid: 9671b4bb8ac93e44c856d44e2816d74e, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 2154795771279566643, guid: 9671b4bb8ac93e44c856d44e2816d74e, type: 3}
       propertyPath: m_sharedMaterial
       value: 
