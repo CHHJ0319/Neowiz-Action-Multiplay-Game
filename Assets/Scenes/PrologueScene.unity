@@ -456,7 +456,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: CANCEL
+  m_text: "\uB4A4\uB85C \uAC00\uAE30"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: db92a2ceac0641343a439550cb132c07, type: 2}
   m_sharedMaterial: {fileID: 458760129803120655, guid: db92a2ceac0641343a439550cb132c07, type: 2}
@@ -568,7 +568,7 @@ MonoBehaviour:
   bgmSource: {fileID: 1113548427}
   buttonSource: {fileID: 1115128402}
   bgmTracks:
-  - {fileID: 8300000, guid: a8864e4c2cd3a554ea2e1afcaa68a363, type: 3}
+  - {fileID: 8300000, guid: 14e8ac5d2d58f79489db001322a77fd8, type: 3}
   - {fileID: 8300000, guid: 904112bf36fa9f24b9109d4aa744236b, type: 3}
   buttons: {fileID: 0}
 --- !u!4 &752616783
