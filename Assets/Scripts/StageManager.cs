@@ -1,13 +1,11 @@
-using Actor;
 using Data;
 using System.Collections;
-using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
-public class RoundManager : NetworkBehaviour
+public class StageManager : NetworkBehaviour
 {
-    public static RoundManager Instance { get; private set; }
+    public static StageManager Instance { get; private set; }
 
     private void Awake()
     {

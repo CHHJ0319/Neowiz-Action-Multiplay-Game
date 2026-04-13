@@ -39,7 +39,7 @@ namespace UI.StageScene
 
         private void SetPlayerNameText(string name)
         {
-            playerName.text = name;
+            playerNameText.text = name;
         }
 
         private IEnumerator HideMessageAfterDelay(float delay)

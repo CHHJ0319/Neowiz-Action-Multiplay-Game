@@ -151,7 +151,7 @@ namespace UI
 
         private void OnRoundStartButtonClicked()
         {
-            RoundManager.Instance.StartRoundServerRpc();
+            StageManager.Instance.StartRoundServerRpc();
             //roundStartButton.gameObject.SetActive(false);
         }
 

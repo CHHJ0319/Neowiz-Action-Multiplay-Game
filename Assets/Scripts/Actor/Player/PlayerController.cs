@@ -55,7 +55,7 @@ namespace Actor.Player
             audioHandler = GetComponent<PlayerAudioHandler>();
             animationHandler = GetComponent<PlayerAnimationHandler>();
 
-            ammo = 100;
+            ammo = 30;
         }
 
         private void OnEnable()
