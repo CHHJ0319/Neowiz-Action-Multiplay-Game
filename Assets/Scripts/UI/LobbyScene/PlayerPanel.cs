@@ -38,7 +38,8 @@ namespace UI.LobbyScene
         {
             playeyName.OnValueChanged += UpdatePlayerNameText;
             isDisabled.OnValueChanged += UpdateVisualState;
-            isReady.OnValueChanged += UpdateReadyIcon;
+            isReady.OnValueChanged += UpdateReadyState;
+            isReady.OnValueChanged += UpdateCharacterSelectButton;
             currentIndex.OnValueChanged += UpdateCharacter;
 
             if (IsServer)
@@ -50,7 +51,7 @@ namespace UI.LobbyScene
                 UpdateVisualState(true, true);
                 UpdatePlayerNameText("", "");
                 UpdateCharacter(0, 0);
-                UpdateReadyIcon(true, true);
+                UpdateReadyState(true, true);
             }
         }
 
@@ -60,7 +61,8 @@ namespace UI.LobbyScene
 
             playeyName.OnValueChanged -= UpdatePlayerNameText;
             isDisabled.OnValueChanged -= UpdateVisualState;
-            isReady.OnValueChanged -= UpdateReadyIcon;
+            isReady.OnValueChanged -= UpdateReadyState;
+            isReady.OnValueChanged -= UpdateCharacterSelectButton;
             currentIndex.OnValueChanged -= UpdateCharacter;
         }
 
@@ -97,6 +99,15 @@ namespace UI.LobbyScene
         private void SetCharacterVisible(bool isVisible)
         {
             characters.gameObject.SetActive(isVisible);
+        }
+
+        private void UpdateCharacterSelectButton(bool previousValue, bool newValue)
+        {
+            if (transform.GetSiblingIndex() == DataManager.Instance.PlayerPanelIndex)
+            {
+                previousButton.gameObject.SetActive(!isReady.Value);
+                nextButton.gameObject.SetActive(!isReady.Value);
+            }
         }
 
         private void OnPreviousButtonClicked()
@@ -154,7 +165,7 @@ namespace UI.LobbyScene
             this.isReady.Value = isReady;
         }
 
-        private void UpdateReadyIcon(bool previousValue, bool newValue)
+        private void UpdateReadyState(bool previousValue, bool newValue)
         {
             if (readyIcon == null) return;
             readyIcon.gameObject.SetActive(isReady.Value);

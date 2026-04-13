@@ -624,7 +624,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ActorManager
   ShowTopMostFoldoutHeaderGroup: 1
   playerPrefabs:
-  - {fileID: 298427653747277566, guid: 00ecd2560e1daf74583b5e0628128997, type: 3}
+  - {fileID: 298427653747277566, guid: 2f126d9162bedf94cb47ea69c2adcbc6, type: 3}
+  - {fileID: 298427653747277566, guid: 26bff404cc2677148b85489b97540dff, type: 3}
+  - {fileID: 298427653747277566, guid: e25b43de61af18240b824ee973ef9449, type: 3}
+  - {fileID: 298427653747277566, guid: aaa1430466a69ac4690e266fb056bc36, type: 3}
 --- !u!114 &241385707
 MonoBehaviour:
   m_ObjectHideFlags: 0

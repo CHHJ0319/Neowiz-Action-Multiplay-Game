@@ -73,7 +73,7 @@ namespace Utils
 
             NetworkManager.Singleton.StartClient();
 
-            yield return new WaitForSeconds(2.0f);
+            yield return new WaitUntil(() => NetworkManager.Singleton.IsConnectedClient);
         }
 
         public static void ShutdownNetwork()
