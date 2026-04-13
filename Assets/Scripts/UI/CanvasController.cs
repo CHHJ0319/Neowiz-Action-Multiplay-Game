@@ -151,7 +151,7 @@ namespace UI
 
         private void OnRoundStartButtonClicked()
         {
-            StageManager.Instance.StartRoundServerRpc();
+            StageManager.Instance.StartWaveServerRpc();
             //roundStartButton.gameObject.SetActive(false);
         }
 
@@ -168,6 +168,13 @@ namespace UI
         private void SetPlayerStatusPanel()
         {
             playerStatusPanel.Initialize();
+        }
+
+        public void UpdateTimerPanel(float time, float timeRate)
+        {
+            if (timerPanel == null) return;
+
+            timerPanel.UpdateTimerPanel(time, timeRate);
         }
         #endregion
     }

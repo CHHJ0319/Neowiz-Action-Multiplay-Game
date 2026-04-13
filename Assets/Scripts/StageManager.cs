@@ -7,6 +7,9 @@ public class StageManager : NetworkBehaviour
 {
     public static StageManager Instance { get; private set; }
 
+    private float timePerWave = 180f;
+    private float currentTime;
+
     private void Awake()
     {
         if (Instance == null)
@@ -21,10 +24,12 @@ public class StageManager : NetworkBehaviour
     }
 
     [Rpc(SendTo.Server)]
-    public void StartRoundServerRpc(RpcParams rpcParams = default)
+    public void StartWaveServerRpc(RpcParams rpcParams = default)
     {
+        currentTime = timePerWave;
+        StartCoroutine(StartTimer());
+
         ActorManager.Instance.SetPlayersRoleServerRpc();
-        //StartRoundClientRpc();
         StartPhases();
     }
 
@@ -70,5 +75,19 @@ public class StageManager : NetworkBehaviour
         yield return StartCoroutine(ActorManager.Instance.SpawnEnemyRow(enemyInfos, true));
 
         //yield return new WaitForSeconds(8.0f);
+    }
+
+    private IEnumerator StartTimer()
+    {
+        while (currentTime > 0)
+        {
+            currentTime -= Time.deltaTime;
+
+            UIManager.Instance.UpdateTimerPanel(currentTime, currentTime / timePerWave);
+            yield return null;
+        }
+
+        currentTime = 0;
+        UIManager.Instance.UpdateTimerPanel(0, 0);
     }
 }

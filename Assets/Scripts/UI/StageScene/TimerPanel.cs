@@ -9,17 +9,22 @@ namespace UI.StageScene
         public TextMeshProUGUI timerText;
         public Image timerBar;
 
-        public void UpdateTimerPanel(string time, float timeRate)
+        public void UpdateTimerPanel(float time, float timeRate)
         {
             UpdateTimerText(time);
             UpdateTimerBar(timeRate);
         }
 
-        private void UpdateTimerText(string time)
+        private void UpdateTimerText(float time)
         {
             if (timerText == null) return;
 
-            timerText.text = time;
+            if (time < 0) time = 0;
+
+            int minutes = Mathf.FloorToInt(time / 60f);
+            int seconds = Mathf.FloorToInt(time % 60f);
+
+            timerText.text = string.Format("{0:00} : {1:00}", minutes, seconds);
         }
 
         private void UpdateTimerBar(float timeRate)
