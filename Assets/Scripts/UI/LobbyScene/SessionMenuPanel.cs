@@ -31,14 +31,14 @@ namespace UI.LobbyScene
             TMP_Text buttonTitle = confirmSessiontButton.GetComponentInChildren<TMP_Text>();
             if (isHost)
             {
-                buttonTitle.text = "Start";
+                buttonTitle.text = "시작";
                 confirmSessiontButton.interactable = false;
 
                 _isHost = isHost; 
             }
             else
             {
-                buttonTitle.text = "Ready";
+                buttonTitle.text = "준비";
             }
 
             confirmSessiontButton.onClick.AddListener(() => OnGameStartButtonClicked(isHost));
