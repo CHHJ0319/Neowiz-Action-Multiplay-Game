@@ -9,11 +9,11 @@ EditorBuildSettings:
     path: Assets/Scenes/TestScenes/EnemyTestScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
-    path: Assets/Scenes/LobbyScene.unity
-    guid: 0791dbf1f2fed274fbdff3a3b5ab32f0
-  - enabled: 1
     path: Assets/Scenes/TitleScene.unity
     guid: 1e15c87f28b6fc5449dc2b424ca21f4c
+  - enabled: 1
+    path: Assets/Scenes/LobbyScene.unity
+    guid: 0791dbf1f2fed274fbdff3a3b5ab32f0
   - enabled: 1
     path: Assets/Scenes/TestScenes/GameTestScene.unity
     guid: 63fa18e7ea1413e489f5e7aa38460864

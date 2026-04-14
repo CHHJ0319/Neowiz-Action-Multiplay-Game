@@ -15,16 +15,16 @@ namespace UI.LobbyScene
         {
             if(_isHost)
             {
-                confirmSessiontButton.interactable = true;
+                //confirmSessiontButton.interactable = true;
 
-                //if(SessionManager.Instance.IsAllPlayersReady())
-                //{
-                //    confirmSessiontButton.interactable = true;
-                //}
-                //else
-                //{
-                //    confirmSessiontButton.interactable = false;
-                //}
+                if (SessionManager.Instance.IsAllPlayersReady())
+                {
+                    confirmSessiontButton.interactable = true;
+                }
+                else
+                {
+                    confirmSessiontButton.interactable = false;
+                }
             }
         }
 
