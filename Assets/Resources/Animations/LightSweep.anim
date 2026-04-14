@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SweepLight
+  m_Name: LightSweep
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -22,26 +22,17 @@ AnimationClip:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0
+        time: 3.3666666
         value: -600
-        inSlope: 240.78932
-        outSlope: 240.78932
-        tangentMode: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
         weightedMode: 0
         inWeight: 0.33333334
-        outWeight: 0.60267437
-      - serializedVersion: 3
-        time: 0.5
-        value: 600
-        inSlope: 161.04019
-        outSlope: -0.010531593
-        tangentMode: 1
-        weightedMode: 0
-        inWeight: 0.4938801
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 2
-        value: 600
+        time: 4.366667
+        value: 1200
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -56,20 +47,7 @@ AnimationClip:
     classID: 224
     script: {fileID: 0}
     flags: 0
-  m_PPtrCurves:
-  - serializedVersion: 2
-    curve:
-    - time: 0
-      value: {fileID: 0}
-    - time: 0.26666668
-      value: {fileID: 21300000, guid: 3e22aa6059deef048be68704ee1957f6, type: 3}
-    - time: 0.51666665
-      value: {fileID: 21300000, guid: 3e22aa6059deef048be68704ee1957f6, type: 3}
-    attribute: m_Sprite
-    path: 
-    classID: 114
-    script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-    flags: 2
+  m_PPtrCurves: []
   m_SampleRate: 60
   m_WrapMode: 0
   m_Bounds:
@@ -86,25 +64,13 @@ AnimationClip:
       isPPtrCurve: 0
       isIntCurve: 0
       isSerializeReferenceCurve: 0
-    - serializedVersion: 2
-      path: 0
-      attribute: 2015549526
-      script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-      typeID: 114
-      customType: 0
-      isPPtrCurve: 1
-      isIntCurve: 0
-      isSerializeReferenceCurve: 0
-    pptrCurveMapping:
-    - {fileID: 0}
-    - {fileID: 21300000, guid: 3e22aa6059deef048be68704ee1957f6, type: 3}
-    - {fileID: 21300000, guid: 3e22aa6059deef048be68704ee1957f6, type: 3}
+    pptrCurveMapping: []
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 2
+    m_StopTime: 4.366667
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -125,26 +91,17 @@ AnimationClip:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0
+        time: 3.3666666
         value: -600
-        inSlope: 240.78932
-        outSlope: 240.78932
-        tangentMode: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
         weightedMode: 0
         inWeight: 0.33333334
-        outWeight: 0.60267437
-      - serializedVersion: 3
-        time: 0.5
-        value: 600
-        inSlope: 161.04019
-        outSlope: -0.010531593
-        tangentMode: 1
-        weightedMode: 0
-        inWeight: 0.4938801
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 2
-        value: 600
+        time: 4.366667
+        value: 1200
         inSlope: 0
         outSlope: 0
         tangentMode: 136
