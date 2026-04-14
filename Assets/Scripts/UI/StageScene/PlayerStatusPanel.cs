@@ -14,11 +14,13 @@ namespace UI.StageScene
         private void OnEnable()
         {
             Events.PlayerEvents.OnRoleAssigned += SetPotionIcon;
+            Events.PlayerEvents.OnAmmoChanged += UpdateAmmoText;
         }
 
         private void OnDisable()
         {
             Events.PlayerEvents.OnRoleAssigned -= SetPotionIcon;
+            Events.PlayerEvents.OnAmmoChanged -= UpdateAmmoText;
         }
 
         public void Initialize()
@@ -58,6 +60,20 @@ namespace UI.StageScene
                 && (int)type < potionIcons.childCount)
             {
                 potionIcons.GetChild((int)type).gameObject.SetActive(true);
+            }
+        }
+
+        private void UpdateAmmoText(int ammo)
+        {
+            if (ammoText == null) return;
+
+            if(ammo == 0)
+            {
+                ammoText.text = "";   
+            }
+            else
+            {
+                ammoText.text = "x" + ammo;
             }
         }
     }

@@ -36,12 +36,14 @@ namespace Actor.Player
         public NetworkVariable<int> Role = new NetworkVariable<int>();
         public NetworkVariable<int> Type = new NetworkVariable<int>();
 
-        public NetworkVariable<bool> isRoleChanged = new NetworkVariable<bool>();
+        public NetworkVariable<bool> IsRoleChanged = new NetworkVariable<bool>();
+        public NetworkVariable<int> Ammo = new NetworkVariable<int>();
 
-        public int ammo;
         Vector3 velocity = new Vector3(0,0,0);
         private Vector3 targetPosition;
         public GameObject targetItem;
+
+        private int defaultAmmo = 30;
 
         private NetworkVariable<Vector2> pointerPosition = new NetworkVariable<Vector2>(
             default, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
@@ -52,8 +54,6 @@ namespace Actor.Player
             inputHandler = GetComponent<PlayerInputHandler>();
             audioHandler = GetComponent<PlayerAudioHandler>();
             animationHandler = GetComponent<PlayerAnimationHandler>();
-
-            ammo = 30;
         }
 
         private void OnEnable()
@@ -70,7 +70,8 @@ namespace Actor.Player
         {
             Initialize(Utils.SceneNavigator.GetCurrentSceneName());
 
-            isRoleChanged.OnValueChanged += OnRoleAssigned;
+            IsRoleChanged.OnValueChanged += OnRoleAssigned;
+            Ammo.OnValueChanged += OnAmmoChanged;
 
             if (IsOwner)
             {
@@ -84,7 +85,8 @@ namespace Actor.Player
 
         public override void OnNetworkDespawn()
         {
-            isRoleChanged.OnValueChanged -= OnRoleAssigned;
+            IsRoleChanged.OnValueChanged -= OnRoleAssigned;
+            Ammo.OnValueChanged -= OnAmmoChanged;
         }
 
         private void Update()
@@ -145,10 +147,19 @@ namespace Actor.Player
 
         public void SetRole(Data.PlayerRole role, Data.ElementType type)
         {
+            if(role == Data.PlayerRole.Shooter)
+            {
+                Ammo.Value = defaultAmmo;
+            }
+            else if (role == Data.PlayerRole.Supporter)
+            {
+                Ammo.Value = 0;
+            }
+
             Role.Value = (int)role;
             Type.Value = (int)type;
 
-            isRoleChanged.Value = !isRoleChanged.Value;
+            IsRoleChanged.Value = !IsRoleChanged.Value;
         }
 
         public void OnRoleAssigned(bool previousValue, bool newValue)
@@ -157,7 +168,7 @@ namespace Actor.Player
             {
                 Data.PlayerRole role = (Data.PlayerRole)Role.Value;
                 Data.ElementType type = (Data.ElementType)Type.Value;
-                Events.PlayerEvents.AssignRole(role, type);
+                Events.PlayerEvents.UpdateRoleUI(role, type);
             }
         }
         #endregion
@@ -212,7 +223,7 @@ namespace Actor.Player
         {
             if (Time.time - lastAttackTime < attackCooldown) return;
 
-            if (ammo > 0)
+            if (Ammo.Value > 0)
             {
                 GameObject bullet = null;
                 switch (Type.Value)
@@ -235,7 +246,7 @@ namespace Actor.Player
 
                 audioHandler.PlayAttackSound();
                 animationHandler.PlayAttack();
-                ammo--;
+                Ammo.Value--;
 
                 lastAttackTime = Time.time;
             }
@@ -261,6 +272,14 @@ namespace Actor.Player
 
                     itemBoxRB.linearVelocity = direction * throwForce;
                 }
+            }
+        }
+
+        public void OnAmmoChanged(int previousValue, int newValue)
+        {
+            if (IsOwner)
+            {
+                Events.PlayerEvents.UpdateAmmoUI(Ammo.Value); 
             }
         }
         #endregion
@@ -340,7 +359,7 @@ namespace Actor.Player
 
         public void AddAmmo(int ammo)
         {
-            this.ammo += ammo;
+            Ammo.Value += ammo;
         }
     }
 }
