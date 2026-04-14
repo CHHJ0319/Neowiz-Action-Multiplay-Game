@@ -11,15 +11,15 @@ namespace UI.StageScene
         public RectTransform potionIcons;
         public TextMeshProUGUI ammoText;
 
-        //private void OnEnable()
-        //{
-        //    Events.PlayerEvents.OnRoleAssigned += SetPotionIcon;
-        //}
+        private void OnEnable()
+        {
+            Events.PlayerEvents.OnRoleAssigned += SetPotionIcon;
+        }
 
-        //private void OnDisable()
-        //{
-        //    Events.PlayerEvents.OnRoleAssigned -= SetPotionIcon;
-        //}
+        private void OnDisable()
+        {
+            Events.PlayerEvents.OnRoleAssigned -= SetPotionIcon;
+        }
 
         public void Initialize()
         {
@@ -45,17 +45,20 @@ namespace UI.StageScene
             }
         }
 
-        //private void SetPotionIcon(Data.PlayerInfo info)
-        //{
-        //    foreach (RectTransform child in potionIcons)
-        //    {
-        //        child.gameObject.SetActive(false);
-        //    }
+        private void SetPotionIcon(Data.PlayerRole role, Data.ElementType type)
+        {
+            foreach (RectTransform child in potionIcons)
+            {
+                child.gameObject.SetActive(false);
+            }
 
-        //    if ((int)info.color >= 0 && (int)info.color < potionIcons.childCount)
-        //    {
-        //        potionIcons.GetChild((int)info.color).gameObject.SetActive(true);
-        //    }
-        //}
+            if (role == Data.PlayerRole.Supporter) return;
+
+            if ((int)type >= 0 
+                && (int)type < potionIcons.childCount)
+            {
+                potionIcons.GetChild((int)type).gameObject.SetActive(true);
+            }
+        }
     }
 }

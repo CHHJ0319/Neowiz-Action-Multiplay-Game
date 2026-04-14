@@ -1,3 +1,4 @@
+using System.Data;
 using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -35,6 +36,8 @@ namespace Actor.Player
         public NetworkVariable<int> Role = new NetworkVariable<int>();
         public NetworkVariable<int> Type = new NetworkVariable<int>();
 
+        public NetworkVariable<bool> isRoleChanged = new NetworkVariable<bool>();
+
         public int ammo;
         Vector3 velocity = new Vector3(0,0,0);
         private Vector3 targetPosition;
@@ -67,6 +70,7 @@ namespace Actor.Player
         {
             Initialize(Utils.SceneNavigator.GetCurrentSceneName());
 
+            isRoleChanged.OnValueChanged += OnRoleAssigned;
 
             if (IsOwner)
             {
@@ -80,6 +84,7 @@ namespace Actor.Player
 
         public override void OnNetworkDespawn()
         {
+            isRoleChanged.OnValueChanged -= OnRoleAssigned;
         }
 
         private void Update()
@@ -142,6 +147,18 @@ namespace Actor.Player
         {
             Role.Value = (int)role;
             Type.Value = (int)type;
+
+            isRoleChanged.Value = !isRoleChanged.Value;
+        }
+
+        public void OnRoleAssigned(bool previousValue, bool newValue)
+        {
+            if (IsOwner)
+            {
+                Data.PlayerRole role = (Data.PlayerRole)Role.Value;
+                Data.ElementType type = (Data.ElementType)Type.Value;
+                Events.PlayerEvents.AssignRole(role, type);
+            }
         }
         #endregion
 
