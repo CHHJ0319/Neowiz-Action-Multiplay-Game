@@ -5,13 +5,14 @@ namespace Events
     public static class PlayerEvents
     {
         public static event Action OnSpawned;
-        public static event Action<Data.PlayerInfo> OnStageSceneInitialized;
-        public static event Action<Data.PlayerInfo> OnRoleAssigned;
+        public static event Action<Data.PlayerRole, Data.ElementType> OnRoleAssigned;
+        public static event Action<int> OnAmmoChanged;
+
         public static void Clear()
         {
             OnSpawned = null;
-            OnStageSceneInitialized = null;
             OnRoleAssigned = null;
+            OnAmmoChanged = null;
         }
 
         public static void SetPlayer()
@@ -19,14 +20,14 @@ namespace Events
             OnSpawned?.Invoke();
         }
 
-        public static void InitializeInStageScene(Data.PlayerInfo info)
+        public static void UpdateRoleUI(Data.PlayerRole role, Data.ElementType type)
         {
-            OnStageSceneInitialized?.Invoke(info);
+            OnRoleAssigned?.Invoke(role, type);
         }
 
-        public static void AssignPlayerRole(Data.PlayerInfo info)
+        public static void UpdateAmmoUI(int ammo)
         {
-            OnRoleAssigned?.Invoke(info);
+            OnAmmoChanged?.Invoke(ammo);
         }
     }
 }

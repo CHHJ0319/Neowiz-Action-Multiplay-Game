@@ -1,3 +1,4 @@
+using UI.StageScene;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -87,5 +88,10 @@ public class UIManager : NetworkBehaviour
     {
         int index = DataManager.Instance.PlayerPanelIndex;
         UI.CanvasController.Instance.DisablePlayerPanel(index);
+    }
+
+    public void UpdateTimerPanel(float time, float timeRate)
+    {
+        UI.CanvasController.Instance.UpdateTimerPanel(time, timeRate);
     }
 }

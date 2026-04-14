@@ -15,7 +15,9 @@ namespace UI.LobbyScene
         {
             if(_isHost)
             {
-                if(SessionManager.Instance.IsAllPlayersReady())
+                //confirmSessiontButton.interactable = true;
+
+                if (SessionManager.Instance.IsAllPlayersReady())
                 {
                     confirmSessiontButton.interactable = true;
                 }
@@ -41,15 +43,14 @@ namespace UI.LobbyScene
                 buttonTitle.text = "ÁØºñ";
             }
 
-            confirmSessiontButton.onClick.AddListener(() => OnGameStartButtonClicked(isHost));
-            cancelSessionButton.onClick.AddListener(() => OnGameCancelButtonClicked(isHost));
+            confirmSessiontButton.onClick.AddListener(() => OnConfirmSessionButtonClicked(isHost));
+            cancelSessionButton.onClick.AddListener(() => OnCancelSessionButtonClicked(isHost));
         }
 
-        private void OnGameStartButtonClicked(bool isHost)
+        private void OnConfirmSessionButtonClicked(bool isHost)
         {
             if(isHost)
             {
-                ActorManager.Instance.SetPlayersCharacterServerRpc();
                 Utils.SceneNavigator.LoadSceneByName(Utils.SceneList.TutorialScene);
             }
             else
@@ -58,7 +59,7 @@ namespace UI.LobbyScene
             }
         }
 
-        private void OnGameCancelButtonClicked(bool isHost)
+        private void OnCancelSessionButtonClicked(bool isHost)
         {
             GameManager.Instance.Disconnect(isHost);
         }

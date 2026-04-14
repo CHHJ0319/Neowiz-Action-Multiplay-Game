@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,7 +12,9 @@ namespace UI
         public Button roundStartButton;
         public Image barricadeHPBar;
         public UI.StageScene.ResultPanel resultPanel;
+        public UI.StageScene.StagePanel stagePanel;
         public UI.StageScene.PlayerStatusPanel playerStatusPanel;
+        public UI.StageScene.TimerPanel timerPanel;
 
         [Header("LobbyScene")]
         public RectTransform playerPanels; 
@@ -150,7 +151,7 @@ namespace UI
 
         private void OnRoundStartButtonClicked()
         {
-            RoundManager.Instance.StartRoundServerRpc();
+            StageManager.Instance.StartWaveServerRpc();
             //roundStartButton.gameObject.SetActive(false);
         }
 
@@ -167,6 +168,13 @@ namespace UI
         private void SetPlayerStatusPanel()
         {
             playerStatusPanel.Initialize();
+        }
+
+        public void UpdateTimerPanel(float time, float timeRate)
+        {
+            if (timerPanel == null) return;
+
+            timerPanel.UpdateTimerPanel(time, timeRate);
         }
         #endregion
     }

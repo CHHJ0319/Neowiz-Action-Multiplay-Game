@@ -1,3 +1,4 @@
+using System.Data;
 using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -32,18 +33,17 @@ namespace Actor.Player
         private PlayerAnimationHandler animationHandler;
         private float lastAttackTime;
 
-        public NetworkVariable<Data.PlayerInfo> PlayerInfo { get; private set; }
-            = new NetworkVariable<Data.PlayerInfo>( new Data.PlayerInfo { 
-                playerName = "Player",
-                character = Data.CharacterType.One, 
-                role = Data.PlayerRole.Shooter, 
-                color = Data.ElementType.Green
-            });  
+        public NetworkVariable<int> Role = new NetworkVariable<int>();
+        public NetworkVariable<int> Type = new NetworkVariable<int>();
 
-        public int ammo;
+        public NetworkVariable<bool> IsRoleChanged = new NetworkVariable<bool>();
+        public NetworkVariable<int> Ammo = new NetworkVariable<int>();
+
         Vector3 velocity = new Vector3(0,0,0);
         private Vector3 targetPosition;
         public GameObject targetItem;
+
+        private int defaultAmmo = 30;
 
         private NetworkVariable<Vector2> pointerPosition = new NetworkVariable<Vector2>(
             default, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
@@ -54,8 +54,6 @@ namespace Actor.Player
             inputHandler = GetComponent<PlayerInputHandler>();
             audioHandler = GetComponent<PlayerAudioHandler>();
             animationHandler = GetComponent<PlayerAnimationHandler>();
-
-            ammo = 100;
         }
 
         private void OnEnable()
@@ -72,7 +70,8 @@ namespace Actor.Player
         {
             Initialize(Utils.SceneNavigator.GetCurrentSceneName());
 
-            NetworkManager.SceneManager.OnLoadComplete += OnSceneLoaded;
+            IsRoleChanged.OnValueChanged += OnRoleAssigned;
+            Ammo.OnValueChanged += OnAmmoChanged;
 
             if (IsOwner)
             {
@@ -86,7 +85,8 @@ namespace Actor.Player
 
         public override void OnNetworkDespawn()
         {
-            NetworkManager.SceneManager.OnLoadComplete -= OnSceneLoaded;
+            IsRoleChanged.OnValueChanged -= OnRoleAssigned;
+            Ammo.OnValueChanged -= OnAmmoChanged;
         }
 
         private void Update()
@@ -138,38 +138,38 @@ namespace Actor.Player
         #region Initailize
         public void Initialize(string sceneName)
         {       
-            if (sceneName == Utils.SceneList.LobbyScene.ToString())
+            if (sceneName == Utils.SceneList.TutorialScene.ToString())
             {
-                //Events.PlayerEvents.InitializeInLobbyScene(PlayerInfo.Value.playerName, (int)OwnerClientId, IsOwner);
-            }
-            else if (sceneName == Utils.SceneList.TutorialScene.ToString())
-            {
-                if(IsOwner)
-                {
-                    Events.PlayerEvents.InitializeInStageScene(PlayerInfo.Value);
-                }
                 SetPointer((int)OwnerClientId);
                 rb.useGravity = true;
             }
         }
 
-        public void SetChareacter(int index)
+        public void SetRole(Data.PlayerRole role, Data.ElementType type)
         {
-            var currentInfo = PlayerInfo.Value;
-            currentInfo.character = (Data.CharacterType)index;
+            if(role == Data.PlayerRole.Shooter)
+            {
+                Ammo.Value = defaultAmmo;
+            }
+            else if (role == Data.PlayerRole.Supporter)
+            {
+                Ammo.Value = 0;
+            }
 
-            PlayerInfo.Value = currentInfo;
+            Role.Value = (int)role;
+            Type.Value = (int)type;
+
+            IsRoleChanged.Value = !IsRoleChanged.Value;
         }
 
-        public void SetRole(Data.PlayerRole role, Data.ElementType color)
+        public void OnRoleAssigned(bool previousValue, bool newValue)
         {
-            var currentInfo = PlayerInfo.Value;
-            currentInfo.role = role;
-            currentInfo.color = color;
-
-            PlayerInfo.Value = currentInfo;
-
-            Events.PlayerEvents.AssignPlayerRole(PlayerInfo.Value);
+            if (IsOwner)
+            {
+                Data.PlayerRole role = (Data.PlayerRole)Role.Value;
+                Data.ElementType type = (Data.ElementType)Type.Value;
+                Events.PlayerEvents.UpdateRoleUI(role, type);
+            }
         }
         #endregion
 
@@ -203,14 +203,14 @@ namespace Actor.Player
 
             if (inputHandler.attackAction.triggered)
             {
-                if (PlayerInfo.Value.role == Data.PlayerRole.Shooter)
+                if (Role.Value == (int)Data.PlayerRole.Shooter)
                 {
                     direction.y = 0;
                     direction = direction.normalized;
 
                     ShootBulletServerRPC(direction, firePoint.position, firePoint.rotation);
                 }
-                else if (PlayerInfo.Value.role == Data.PlayerRole.Supporter)
+                else if (Role.Value == (int)Data.PlayerRole.Supporter)
                 {
                     ShootItemServerRPC(direction);
                 }
@@ -223,18 +223,18 @@ namespace Actor.Player
         {
             if (Time.time - lastAttackTime < attackCooldown) return;
 
-            if (ammo > 0)
+            if (Ammo.Value > 0)
             {
                 GameObject bullet = null;
-                switch (PlayerInfo.Value.color)
+                switch (Type.Value)
                 {
-                    case Data.ElementType.Red: 
+                    case (int)Data.ElementType.Red: 
                         bullet = Instantiate(redBulletPrefab, spawnPosition, spawnRotation); 
                         break;
-                    case Data.ElementType.Green:
+                    case (int)Data.ElementType.Green:
                         bullet = Instantiate(greenBulletPrefab, spawnPosition, spawnRotation);
                         break;
-                    case Data.ElementType.Blue:
+                    case (int)Data.ElementType.Blue:
                         bullet = Instantiate(blueBulletPrefab, spawnPosition, spawnRotation);
                         break;
                 }
@@ -242,11 +242,11 @@ namespace Actor.Player
                 NetworkObject netObj = bullet.GetComponent<NetworkObject>();
                 netObj.Spawn();
 
-                bullet.GetComponent<Actor.Weapon.NetworkBullet>().Initialize(PlayerInfo.Value.color, direction * bulletSpeed);
+                bullet.GetComponent<Actor.Weapon.NetworkBullet>().Initialize((Data.ElementType)Type.Value, direction * bulletSpeed);
 
                 audioHandler.PlayAttackSound();
                 animationHandler.PlayAttack();
-                ammo--;
+                Ammo.Value--;
 
                 lastAttackTime = Time.time;
             }
@@ -272,6 +272,14 @@ namespace Actor.Player
 
                     itemBoxRB.linearVelocity = direction * throwForce;
                 }
+            }
+        }
+
+        public void OnAmmoChanged(int previousValue, int newValue)
+        {
+            if (IsOwner)
+            {
+                Events.PlayerEvents.UpdateAmmoUI(Ammo.Value); 
             }
         }
         #endregion
@@ -315,11 +323,11 @@ namespace Actor.Player
         {
             if(inputHandler.interactAction.triggered)
             {
-                if (PlayerInfo.Value.role == Data.PlayerRole.Shooter)
+                if (Role.Value == (int)Data.PlayerRole.Shooter)
                 {
                     
                 }
-                else if (PlayerInfo.Value.role == Data.PlayerRole.Supporter)
+                else if (Role.Value == (int)Data.PlayerRole.Supporter)
                 {
                     PickUpServerRpc();
                 }
@@ -351,12 +359,7 @@ namespace Actor.Player
 
         public void AddAmmo(int ammo)
         {
-            this.ammo += ammo;
-        }
-
-        private void OnSceneLoaded(ulong clientId, string sceneName, LoadSceneMode loadMode)
-        {
-            Initialize(sceneName);
+            Ammo.Value += ammo;
         }
     }
 }

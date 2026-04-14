@@ -5739,7 +5739,9 @@ MonoBehaviour:
   roundStartButton: {fileID: 0}
   barricadeHPBar: {fileID: 0}
   resultPanel: {fileID: 0}
+  stagePanel: {fileID: 0}
   playerStatusPanel: {fileID: 0}
+  timerPanel: {fileID: 0}
   playerPanels: {fileID: 1404491815}
   sessionMenuPanel: {fileID: 1667322708}
   joinCodePanel: {fileID: 1945058476}
