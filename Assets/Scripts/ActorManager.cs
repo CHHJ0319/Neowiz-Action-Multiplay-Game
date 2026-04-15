@@ -155,7 +155,8 @@ public class ActorManager : NetworkBehaviour
 
         if (enemies.Count == 0)
         {
-            Debug.Log("모든 적이 처치되었습니다! 다음 스테이지로 이동하거나 보상을 지급하세요.");
+            UIManager.Instance.EndRoundClientRpc();
+
         }
     }
     #endregion

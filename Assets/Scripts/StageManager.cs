@@ -67,7 +67,6 @@ public class StageManager : NetworkBehaviour
         yield return StartCoroutine(ActorManager.Instance.SpawnEnemyRow(enemyInfos, true));
 
         //Events.RoundEvents.EndRound();
-        //UIManager.Instance.EndRound();
     }
 
     private IEnumerator StartTimer()

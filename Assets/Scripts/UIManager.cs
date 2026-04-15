@@ -83,7 +83,8 @@ public class UIManager : NetworkBehaviour
         UI.CanvasController.Instance.UpdatePingMessage(playerIndex, message);
     }
 
-    public void EndRound()
+    [Rpc(SendTo.Everyone)]
+    public void EndRoundClientRpc()
     {
         if(IsHost)
         {
