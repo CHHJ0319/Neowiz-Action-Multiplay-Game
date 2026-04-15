@@ -1,5 +1,6 @@
 using System.Data;
 using Unity.Netcode;
+using Unity.Netcode.Components;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -25,6 +26,7 @@ namespace Actor.Player
         [SerializeField] private UI.StageScene.Pointer pointer;
         //[SerializeField] private float distanceFromCamera = 10f;
 
+        public float pickupRadius = 2.0f;
         [SerializeField] private Transform itemHolder;
 
         private Rigidbody rb;
@@ -43,7 +45,7 @@ namespace Actor.Player
 
         Vector3 velocity = new Vector3(0,0,0);
         private Vector3 targetPosition;
-        public GameObject targetItem;
+        public GameObject heldItem;
 
         private int defaultAmmo = 15;
 
@@ -113,20 +115,6 @@ namespace Actor.Player
         {
             Move();
             Rotate();
-        }
-
-        private void OnTriggerStay(Collider other)
-        {
-            if (other.CompareTag("Item"))
-            {
-                GameObject item = other.gameObject;
-                targetItem = item;
-            }
-        }
-
-        private void OnTriggerExit(Collider other)
-        {
-            targetItem = null;
         }
 
         #region Initailize
@@ -263,24 +251,23 @@ namespace Actor.Player
         [Rpc(SendTo.Server)]
         private void ShootItemServerRPC(Vector3 direction, RpcParams rpcParams = default)
         {
-            if(targetItem != null)
+            if (heldItem == null) return;
+            
+            audioHandler.PlayAttackSound();
+
+            heldItem.transform.SetParent(null);
+            heldItem.transform.forward = direction;
+
+            Rigidbody itemBoxRB = heldItem.GetComponent<Rigidbody>();
+            if (itemBoxRB != null)
             {
-                audioHandler.PlayAttackSound();
+                itemBoxRB.constraints = RigidbodyConstraints.None;
 
-                targetItem.transform.SetParent(null);
-                targetItem.transform.forward = direction;
 
-                Rigidbody itemBoxRB = targetItem.GetComponent<Rigidbody>();
-                if (itemBoxRB != null)
-                {
-                    itemBoxRB.isKinematic = false;
-
-                    itemBoxRB.constraints = RigidbodyConstraints.None;
-                    itemBoxRB.constraints = RigidbodyConstraints.FreezeRotation;
-
-                    itemBoxRB.linearVelocity = direction * throwForce;
-                }
+                itemBoxRB.AddForce((direction).normalized * throwForce, ForceMode.Impulse);
             }
+
+            heldItem = null;
         }
 
         public void OnAmmoChanged(int previousValue, int newValue)
@@ -364,23 +351,42 @@ namespace Actor.Player
         [Rpc(SendTo.Server)]
         private void PickUpServerRpc(RpcParams rpcParams = default)
         {
-            if (targetItem == null) return;
-            Rigidbody itemBoxRB = targetItem.GetComponent<Rigidbody>();
-            if (itemBoxRB != null)
+            if (heldItem != null) return;
+
+            Collider[] colliders = Physics.OverlapSphere(transform.position, pickupRadius);
+
+            Actor.Item.ItemBox closestItem = null;
+            float minDistance = Mathf.Infinity;
+
+            foreach (Collider col in colliders)
             {
-                itemBoxRB.isKinematic = true;
+                if (col.CompareTag("Item"))
+                {
+                    float distance = Vector3.Distance(transform.position, col.transform.position);
+                    if (distance < minDistance)
+                    {
+                        minDistance = distance;
+                        closestItem = col.GetComponent<Actor.Item.ItemBox>();
+                    }
+                }
             }
 
-            NetworkObject netObj = targetItem.GetComponent<NetworkObject>();
-            netObj.TrySetParent(transform, true);
-            netObj.transform.localPosition = itemHolder.localPosition;
-            netObj.transform.localRotation = Quaternion.identity;
+            if (closestItem != null)
+            {
+                NetworkObject netObj = closestItem.GetComponent<NetworkObject>();
+                netObj.TrySetParent(transform, true);
+                netObj.transform.localPosition = itemHolder.localPosition;
+                netObj.transform.localRotation = Quaternion.identity;
 
-            //Collider col = targetItem.GetComponent<Collider>();
-            //if (col != null)
-            //{
-            //    col.enabled = false;
-            //}
+                heldItem = closestItem.gameObject;
+                
+            }
+        }
+
+        private void OnDrawGizmosSelected()
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(transform.position, pickupRadius);
         }
         #endregion
 

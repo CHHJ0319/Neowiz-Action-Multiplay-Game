@@ -96,6 +96,7 @@ MonoBehaviour:
   throwForce: 10
   attackCooldown: 0.5
   pointer: {fileID: 0}
+  pickupRadius: 0.5
   itemHolder: {fileID: 3100335534239249294}
   playerIndex:
     UpdateTraits:
@@ -122,7 +123,7 @@ MonoBehaviour:
       MinSecondsBetweenUpdates: 0
       MaxSecondsBetweenUpdates: 0
     m_InternalValue: 0
-  targetItem: {fileID: 0}
+  heldItem: {fileID: 0}
 --- !u!114 &8228642264112133640
 MonoBehaviour:
   m_ObjectHideFlags: 0

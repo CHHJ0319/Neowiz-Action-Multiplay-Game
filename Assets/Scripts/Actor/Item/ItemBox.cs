@@ -1,4 +1,5 @@
 using Unity.Netcode;
+using Unity.Netcode.Components;
 using UnityEngine;
 
 namespace Actor.Item
@@ -9,64 +10,58 @@ namespace Actor.Item
 
         public bool IsGrounded = false;
 
+        private int floorLayer;
+
         private void Awake()
         {
             rb = GetComponent<Rigidbody>();
+            floorLayer = LayerMask.NameToLayer("Floor");
         }
 
-        private void OnTriggerStay(Collider other)
+        private void OnCollisionEnter(Collision collision)
         {
-            //if (other.CompareTag("Floor"))
-            //{
-            //    IsGrounded = true;
-            //}
-            //else if (other.CompareTag("Player") && !IsGrounded)
-            //{
-            //    Actor.Player.PlayerController player = other.gameObject.GetComponent<Actor.Player.PlayerController>();
-            //    if(player.Role.Value == (int)Data.PlayerRole.Shooter)
-            //    {
-            //        Use(player);
-            //    }
-            //}
+            if (collision.gameObject.layer == floorLayer)
+            {
+                IsGrounded = true;
+            }
+
+            if (IsGrounded)
+            {
+                Rigidbody rb = GetComponent<Rigidbody>();
+
+                if (rb != null)
+                {
+                    rb.linearVelocity = Vector3.zero;
+                    rb.angularVelocity = Vector3.zero;
+
+                    transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
+
+                    rb.constraints = RigidbodyConstraints.FreezePositionX |
+                                     RigidbodyConstraints.FreezePositionZ |
+                                     RigidbodyConstraints.FreezeRotation;
+                }
+            }
+            else
+            {
+                if (collision.gameObject.CompareTag("Player"))
+                {
+                    if (transform.parent == null)
+                    {
+                        Actor.Player.PlayerController player = collision.gameObject.GetComponent<Actor.Player.PlayerController>();
+                        Use(player);
+                    }
+                }
+            }
         }
 
-        private void OnTriggerExit(Collider other)
+        private void OnCollisionExit(Collision collision)
         {
-            if (other.CompareTag("Floor"))
+            if (collision.gameObject.layer == floorLayer)
             {
                 IsGrounded = false;
             }
         }
 
-        public override void OnNetworkSpawn()
-        {
-            
-        }
-
-        public override void OnNetworkDespawn()
-        {
-
-        }
-
-        private void FixedUpdate()
-        {
-            if (!IsServer) return;
-
-            CheckGroundStatus();
-        }
-
         public abstract void Use(Actor.Player.PlayerController player);
-
-        private void CheckGroundStatus()
-        {
-            if (IsGrounded)
-            {
-                rb.linearVelocity = Vector3.zero;
-                rb.angularVelocity = Vector3.zero;
-
-                transform.rotation = Quaternion.identity;
-                rb.constraints = RigidbodyConstraints.FreezeAll;
-            }
-        }
     }
 }

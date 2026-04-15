@@ -92,6 +92,7 @@ MonoBehaviour:
   throwForce: 10
   attackCooldown: 0.5
   pointer: {fileID: 0}
+  pickupRadius: 0.5
   itemHolder: {fileID: 3100335534239249294}
   playerIndex:
     UpdateTraits:
@@ -118,7 +119,7 @@ MonoBehaviour:
       MinSecondsBetweenUpdates: 0
       MaxSecondsBetweenUpdates: 0
     m_InternalValue: 0
-  targetItem: {fileID: 0}
+  heldItem: {fileID: 0}
 --- !u!114 &8228642264112133640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182,7 +183,7 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -306,12 +307,12 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.55
-  m_Height: 1.1
+  m_Radius: 0.35
+  m_Height: 1.2
   m_Direction: 1
   m_Center: {x: 0, y: -0.2, z: 0}
 --- !u!114 &636168752373950485

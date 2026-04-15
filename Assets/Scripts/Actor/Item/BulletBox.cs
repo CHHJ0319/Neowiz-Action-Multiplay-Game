@@ -7,24 +7,22 @@ namespace Actor.Item
     {
         private int ammo = 10;
 
-        private bool isCollected = false;
-
         public override void Use(Actor.Player.PlayerController player)
         {
-            if (isCollected) return;
-
-            AddAmmo(player);
+            if (IsServer)
+            {
+                if (player.Role.Value == (int)Data.PlayerRole.Shooter)
+                {
+                    AddAmmo(player);
+                }
+            }
         }
 
         private void AddAmmo(Actor.Player.PlayerController player)
         {
             player.AddAmmo(ammo);
 
-            isCollected = true;
-            if (IsServer)
-            {
-                GetComponent<NetworkObject>().Despawn();
-            }
+            GetComponent<NetworkObject>().Despawn();
         }
     }
 }
