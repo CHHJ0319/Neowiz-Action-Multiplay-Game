@@ -1,8 +1,5 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Data;
-using System.Drawing;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -14,7 +11,7 @@ public class ActorManager : NetworkBehaviour
     public GameObject[] playerPrefabs;
 
     private Dictionary<ulong, Actor.Player.PlayerController> players = new();
-    private Dictionary<int, Actor.Enemy.EnemyController> enemies = new();
+    private Dictionary<ulong, Actor.Enemy.EnemyController> enemies = new();
 
     private Vector3[] playerSpawnPositions =
     {
@@ -64,6 +61,7 @@ public class ActorManager : NetworkBehaviour
         }
     }
 
+    #region Player
     [Rpc(SendTo.Server)]
     private void SpawnPlayerServerRpc(ulong clientId, int characterIndex, int spawnIdex, RpcParams rpcParams = default)
     {
@@ -130,12 +128,37 @@ public class ActorManager : NetworkBehaviour
         }
         return types;
     }
+    #endregion
 
+    #region Enemy
     public IEnumerator SpawnEnemyRow(Data.EnemyInfo[] enemyInfos, bool isTargeting)
     {
         Actor.Enemy.EnemySpawner.Instance.SpawnEnemyRow(enemyInfos, isTargeting);
         yield return null;
     }
+
+    public void AddEnemy(ulong id, Actor.Enemy.EnemyController enemy)
+    {
+        enemies.Add(id, enemy);
+    }
+
+    public void RemoveEnemy(ulong id)
+    {
+        if (enemies.ContainsKey(id))
+        {
+            enemies.Remove(id);
+        }
+        else
+        {
+            Debug.LogWarning($"[Server] 제거하려는 ID({id})를 찾을 수 없습니다.");
+        }
+
+        if (enemies.Count == 0)
+        {
+            Debug.Log("모든 적이 처치되었습니다! 다음 스테이지로 이동하거나 보상을 지급하세요.");
+        }
+    }
+    #endregion
 
     private void OnSceneLoaded(ulong clientId, string sceneName, LoadSceneMode loadMode)
     {

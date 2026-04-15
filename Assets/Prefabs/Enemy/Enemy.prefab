@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 2455528070
+  GlobalObjectIdHash: 3759375679
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -78,7 +78,7 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   elementIcon: {fileID: 8851243485089332874}
   damage: 10
-  speed: 5
+  speed: 3
   typeMaterials:
   - {fileID: 2100000, guid: a6c395bbb44583642ac330b5d232be1b, type: 2}
   - {fileID: 2100000, guid: f77795e0f60b9794685406cbea46bc70, type: 2}

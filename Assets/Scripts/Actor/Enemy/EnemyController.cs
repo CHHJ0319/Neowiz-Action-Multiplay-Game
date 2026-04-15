@@ -28,11 +28,21 @@ namespace Actor.Enemy
 
         public override void OnNetworkSpawn()
         {
+            if (IsServer)
+            {
+                ActorManager.Instance.AddEnemy(NetworkObjectId, this);
+            }
+
             Type.OnValueChanged += OnTypeChanged;
         }
 
         public override void OnNetworkDespawn()
         {
+            if(IsServer)
+            {
+                ActorManager.Instance.RemoveEnemy(NetworkObjectId);
+            }
+
             Type.OnValueChanged -= OnTypeChanged;
         }
 
