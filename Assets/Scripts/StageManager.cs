@@ -31,7 +31,7 @@ public class StageManager : NetworkBehaviour
 
         ActorManager.Instance.SetPlayersRoleServerRpc();
         StartWaveClientRpc(ActorManager.Instance.GetAllPlayerRoles(), ActorManager.Instance.GetAllPlayerTypes());
-        StartPhases();
+        StartCoroutine(StartWave1());
     }
 
     [Rpc(SendTo.Everyone)]
@@ -43,14 +43,6 @@ public class StageManager : NetworkBehaviour
     public void EndRound()
     {
 
-    }
-
-    private void StartPhases()
-    {
-        StartCoroutine(StartWave1());
-
-        //Events.RoundEvents.EndRound();
-        //UIManager.Instance.EndRound();
     }
 
     private IEnumerator StartWave1()
@@ -74,7 +66,8 @@ public class StageManager : NetworkBehaviour
         yield return new WaitForSeconds(0.5f);
         yield return StartCoroutine(ActorManager.Instance.SpawnEnemyRow(enemyInfos, true));
 
-        //yield return new WaitForSeconds(8.0f);
+        //Events.RoundEvents.EndRound();
+        //UIManager.Instance.EndRound();
     }
 
     private IEnumerator StartTimer()
