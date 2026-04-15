@@ -6,6 +6,8 @@ namespace UI.LobbyScene
 {
     public class SessionMenuPanel : MonoBehaviour
     {
+        public bool isTest = false;
+
         public Button confirmSessiontButton;
         public Button cancelSessionButton;
 
@@ -15,15 +17,21 @@ namespace UI.LobbyScene
         {
             if(_isHost)
             {
-                //confirmSessiontButton.interactable = true;
-
-                if (SessionManager.Instance.IsAllPlayersReady())
+                if(isTest)
                 {
                     confirmSessiontButton.interactable = true;
+
                 }
                 else
                 {
-                    confirmSessiontButton.interactable = false;
+                    if (SessionManager.Instance.IsAllPlayersReady())
+                    {
+                        confirmSessiontButton.interactable = true;
+                    }
+                    else
+                    {
+                        confirmSessiontButton.interactable = false;
+                    }
                 }
             }
         }
