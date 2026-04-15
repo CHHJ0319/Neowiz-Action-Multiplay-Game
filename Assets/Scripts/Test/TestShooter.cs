@@ -66,7 +66,6 @@ namespace Test
             Vector3 direction = (target.localPosition - spawnPosition).normalized;
 
             GameObject bullet = Instantiate(bulletPrefab, spawnPosition, Quaternion.LookRotation(direction));
-            bullet.GetComponent<Actor.Weapon.Bullet>().Intialize(type);
 
             Rigidbody rb = bullet.GetComponent<Rigidbody>();
             if (rb != null)

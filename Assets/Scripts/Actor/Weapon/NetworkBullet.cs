@@ -9,24 +9,14 @@ namespace Actor.Weapon
 
         [SerializeField] private GameObject fakeBulletPrefab;
 
-        [Header("Materials")]
-        public Material typeRed;
-        public Material typeGreen;
-        public Material typeBlue;
-        public Material typeOrange;
-
-        public NetworkVariable<Data.ElementType> Type = new NetworkVariable<Data.ElementType>(Data.ElementType.Red);
-
-        private MeshRenderer meshRenderer;
+        public Data.ElementType type;
 
         private Bullet fakeBullet;
 
-        public NetworkVariable<Vector3> velocity = new NetworkVariable<Vector3>(
-            default, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
+        public NetworkVariable<Vector3> velocity = new NetworkVariable<Vector3>();
 
         private void Awake()
         {
-            meshRenderer = GetComponent<MeshRenderer>();
         }
 
         public override void OnNetworkSpawn()
@@ -36,6 +26,11 @@ namespace Actor.Weapon
 
         public override void OnNetworkDespawn()
         {
+            if (fakeBullet != null)
+            {
+                Destroy(fakeBullet.gameObject);
+            }
+
             velocity.OnValueChanged -= Launch;
         }
 
@@ -52,7 +47,7 @@ namespace Actor.Weapon
             if (other.CompareTag("Enemy"))
             {
                 Enemy.EnemyController enemy = other.GetComponent<Enemy.EnemyController>();
-                enemy.TakeDamage(Type.Value);
+                enemy.TakeDamage(type);
                 if (IsServer)
                 {
                     DespawnBullet();
@@ -62,9 +57,7 @@ namespace Actor.Weapon
 
         public void Initialize(Data.ElementType type, Vector3 velocity)
         {
-
-            Type.Value = type;
-
+            this.type = type;
             this.velocity.Value = velocity;
         }
 
@@ -81,7 +74,6 @@ namespace Actor.Weapon
 
                 GameObject fake = Instantiate(fakeBulletPrefab, transform.position, transform.rotation);
                 fakeBullet = fake.GetComponent<Bullet>();
-                fakeBullet.Intialize(Type.Value);
                 fakeBullet.Launch(velocity.Value);
             }
 
