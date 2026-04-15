@@ -16,18 +16,18 @@ namespace Actor.Item
 
         private void OnTriggerStay(Collider other)
         {
-            if (other.CompareTag("Floor"))
-            {
-                IsGrounded = true;
-            }
-            else if (other.CompareTag("Player") && !IsGrounded)
-            {
-                Actor.Player.PlayerController player = other.gameObject.GetComponent<Actor.Player.PlayerController>();
-                if(player.Role.Value == (int)Data.PlayerRole.Shooter)
-                {
-                    Use(player);
-                }
-            }
+            //if (other.CompareTag("Floor"))
+            //{
+            //    IsGrounded = true;
+            //}
+            //else if (other.CompareTag("Player") && !IsGrounded)
+            //{
+            //    Actor.Player.PlayerController player = other.gameObject.GetComponent<Actor.Player.PlayerController>();
+            //    if(player.Role.Value == (int)Data.PlayerRole.Shooter)
+            //    {
+            //        Use(player);
+            //    }
+            //}
         }
 
         private void OnTriggerExit(Collider other)

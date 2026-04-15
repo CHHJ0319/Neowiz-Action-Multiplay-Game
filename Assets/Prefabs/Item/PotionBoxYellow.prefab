@@ -64,6 +64,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PotionBoxYellow
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c93f55b4551acc44d9dab1dc0383470b, type: 3}
+      propertyPath: m_TagString
+      value: Item
+      objectReference: {fileID: 0}
     - target: {fileID: 7986006741331934663, guid: c93f55b4551acc44d9dab1dc0383470b, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -207,7 +211,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 122
   m_CollisionDetection: 0
 --- !u!65 &880465133995240671
 BoxCollider:

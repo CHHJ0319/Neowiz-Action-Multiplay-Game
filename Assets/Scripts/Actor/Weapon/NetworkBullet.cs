@@ -53,6 +53,13 @@ namespace Actor.Weapon
                     DespawnBullet();
                 }
             }
+            else if (other.CompareTag("Item"))
+            {
+                if (IsServer)
+                {
+                    DespawnBullet();
+                }
+            }
         }
 
         public void Initialize(Data.ElementType type, Vector3 velocity)
