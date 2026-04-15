@@ -76,7 +76,7 @@ namespace UI
                 {
                     int index = panel.GetSiblingIndex();
                     DataManager.Instance.SetClientInfo(index + 1);
-                    DataManager.Instance.SetPlayerPanelIndex(index);
+                    DataManager.Instance.SetSessionPlayerIndex(index);
 
                     playerPanel.Initialize();
                     break;
@@ -189,6 +189,12 @@ namespace UI
                 index++;
                 if (roles.Length <= index) break;
             }
+        }
+
+        public void UpdatePingMessage(int playerIndex, string message)
+        {
+            UI.StageScene.PingItem pingItem = pingPanel.GetChild(playerIndex).GetComponent<UI.StageScene.PingItem>();
+            pingItem.UpdateRequestMessageText(message);
         }
         #endregion
     }

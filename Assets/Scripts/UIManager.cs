@@ -1,7 +1,6 @@
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
 
 public class UIManager : NetworkBehaviour
 {
@@ -61,7 +60,7 @@ public class UIManager : NetworkBehaviour
 
     public void DisablePlayerPanel()
     {
-        int index = DataManager.Instance.PlayerPanelIndex;
+        int index = DataManager.Instance.SessionPlayerIndex;
         UI.CanvasController.Instance.DisablePlayerPanel(index);
     }
     #endregion
@@ -75,6 +74,18 @@ public class UIManager : NetworkBehaviour
     public void SetPingPanel(Data.PlayerRole[] roles, Data.ElementType[] types)
     {
         UI.CanvasController.Instance.SetPingPanel(roles, types);
+    }
+
+    [Rpc(SendTo.Server)]
+    public void UpdatePingMessageServerRpc(int playerIndex, string message, RpcParams rpcParams = default)
+    {
+        UpdatePingMessageClientRpc(playerIndex, message);
+    }
+
+    [Rpc(SendTo.Everyone)]
+    public void UpdatePingMessageClientRpc(int playerIndex, string message)
+    {
+        UI.CanvasController.Instance.UpdatePingMessage(playerIndex, message);
     }
 
     public void EndRound()

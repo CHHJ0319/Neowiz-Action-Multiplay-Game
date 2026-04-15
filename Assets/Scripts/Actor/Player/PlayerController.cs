@@ -45,7 +45,7 @@ namespace Actor.Player
         private Vector3 targetPosition;
         public GameObject targetItem;
 
-        private int defaultAmmo = 30;
+        private int defaultAmmo = 15;
 
         private NetworkVariable<Vector2> pointerPosition = new NetworkVariable<Vector2>(
             default, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
@@ -78,7 +78,7 @@ namespace Actor.Player
             if (IsOwner)
             {
                 inputHandler.SetPlayerInputEnabled(true);
-                SetPlayerIndexServerRPC(DataManager.Instance.PlayerPanelIndex);
+                SetPlayerIndexServerRPC(DataManager.Instance.SessionPlayerIndex);
             }
             else
             {
@@ -218,7 +218,7 @@ namespace Actor.Player
                     direction.y = 0;
                     direction = direction.normalized;
 
-                    ShootBulletServerRPC(direction, firePoint.position, firePoint.rotation);
+                    ShootBulletServerRPC(DataManager.Instance.SessionPlayerIndex, direction, firePoint.position, firePoint.rotation);
                 }
                 else if (Role.Value == (int)Data.PlayerRole.Supporter)
                 {
@@ -229,7 +229,7 @@ namespace Actor.Player
         }
 
         [Rpc(SendTo.Server)]
-        private void ShootBulletServerRPC(Vector3 direction, Vector3  spawnPosition, Quaternion spawnRotation, RpcParams rpcParams = default)
+        private void ShootBulletServerRPC(int playerIndex, Vector3 direction, Vector3  spawnPosition, Quaternion spawnRotation, RpcParams rpcParams = default)
         {
             if (Time.time - lastAttackTime < attackCooldown) return;
 
@@ -259,6 +259,12 @@ namespace Actor.Player
                 Ammo.Value--;
 
                 lastAttackTime = Time.time;
+            }
+            else
+            {
+                UIManager.Instance.UpdatePingMessageServerRpc(
+                    playerIndex,
+                    Data.RequestData.MessageList[0]);
             }
         }
 

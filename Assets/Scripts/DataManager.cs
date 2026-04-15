@@ -6,7 +6,7 @@ public class DataManager : MonoBehaviour
 
     public string PlayerName { get; private set; }
     public int ID { get; private set; }
-    public int PlayerPanelIndex { get; private set; }
+    public int SessionPlayerIndex { get; private set; }
     public int CharacterIndex { get; private set; }
 
     private void Awake()
@@ -29,9 +29,9 @@ public class DataManager : MonoBehaviour
         PlayerName = "PLAYER" + ID;
     }
 
-    public void SetPlayerPanelIndex(int index)
+    public void SetSessionPlayerIndex(int index)
     {
-        PlayerPanelIndex = index;
+        SessionPlayerIndex = index;
     }
 
     public void SetCharacterIndex(int index)

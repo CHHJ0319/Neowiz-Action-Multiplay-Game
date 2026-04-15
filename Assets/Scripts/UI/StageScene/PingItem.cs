@@ -7,6 +7,7 @@ namespace UI.StageScene
 {
     public class PingItem : MonoBehaviour
     {
+        public Image speechBubble;
         public TextMeshProUGUI requestMessageText;
         public Image typeIcon;
         public TextMeshProUGUI playerNameText;
@@ -16,14 +17,17 @@ namespace UI.StageScene
             SetPlayerNameText();
         }
 
-        public void SetRequestMessageText(int index)
+        public void UpdateRequestMessageText(string message)
         {
             StopAllCoroutines();
 
-            requestMessageText.text = Data.RequestData.MessageList[index];
+            requestMessageText.text = message;
 
-            requestMessageText.gameObject.SetActive(true);
-            StartCoroutine(HideMessageAfterDelay(1.0f));
+            speechBubble.gameObject.SetActive(true);
+            if (gameObject.activeInHierarchy)
+            {
+                StartCoroutine(HideMessageAfterDelay(1.0f));
+            }
         }
 
         public void Initialize(Data.PlayerRole role, Data.ElementType type)
@@ -64,7 +68,7 @@ namespace UI.StageScene
         {
             yield return new WaitForSeconds(delay);
 
-            requestMessageText.gameObject.SetActive(false);
+            speechBubble.gameObject.SetActive(false);
         }
     }
 }
