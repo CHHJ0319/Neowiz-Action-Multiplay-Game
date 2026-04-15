@@ -28,27 +28,30 @@ public class StageManager : NetworkBehaviour
     [Rpc(SendTo.Server)]
     public void StartWaveServerRpc(RpcParams rpcParams = default)
     {
-        currentTime = timePerWave;
-        StartCoroutine(StartTimer());
+        StartCoroutine(WaveRoutine());
+    }
 
+    private IEnumerator WaveRoutine()
+    {
+        yield return StartCoroutine(WavePreparationRoutine());
+
+        yield return StartCoroutine(StartWave1());
+        yield return null;
+    }
+
+    private IEnumerator WavePreparationRoutine()
+    {
         ActorManager.Instance.SetPlayersRoleServerRpc();
-        StartWaveClientRpc(ActorManager.Instance.GetAllPlayerRoles(), ActorManager.Instance.GetAllPlayerTypes());
-        StartCoroutine(StartWave1());
-    }
+        UIManager.Instance.SetPingPanelClientRpc(ActorManager.Instance.GetAllPlayerRoles(), ActorManager.Instance.GetAllPlayerTypes());
 
-    [Rpc(SendTo.Everyone)]
-    public void StartWaveClientRpc(Data.PlayerRole[] roles, Data.ElementType[] types)
-    {
-        UIManager.Instance.SetPingPanel(roles, types);
-    }
-
-    public void EndRound()
-    {
-
+        yield return new WaitForSeconds(5.0f);
     }
 
     private IEnumerator StartWave1()
     {
+        currentTime = timePerWave;
+        StartCoroutine(StartTimer());
+
         Data.EnemyInfo[] enemyInfos = new Data.EnemyInfo[]
         {
             new Data.EnemyInfo { type = EnemyType.Single, lives = 1 },
@@ -67,8 +70,6 @@ public class StageManager : NetworkBehaviour
         yield return StartCoroutine(ActorManager.Instance.SpawnEnemyRow(enemyInfos, true));
         yield return new WaitForSeconds(0.5f);
         yield return StartCoroutine(ActorManager.Instance.SpawnEnemyRow(enemyInfos, true));
-
-        //Events.RoundEvents.EndRound();
     }
 
     private IEnumerator StartTimer()

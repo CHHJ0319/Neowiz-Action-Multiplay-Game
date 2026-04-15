@@ -66,7 +66,8 @@ public class UIManager : NetworkBehaviour
         UI.CanvasController.Instance.UpdateTimerPanel(time, timeRate);
     }
 
-    public void SetPingPanel(Data.PlayerRole[] roles, Data.ElementType[] types)
+    [Rpc(SendTo.Everyone)]
+    public void SetPingPanelClientRpc(Data.PlayerRole[] roles, Data.ElementType[] types)
     {
         UI.CanvasController.Instance.SetPingPanel(roles, types);
     }
