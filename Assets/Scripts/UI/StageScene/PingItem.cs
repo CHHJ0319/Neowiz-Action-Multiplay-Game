@@ -7,18 +7,40 @@ namespace UI.StageScene
 {
     public class PingItem : MonoBehaviour
     {
+        public Image speechBubble;
         public TextMeshProUGUI requestMessageText;
         public Image typeIcon;
         public TextMeshProUGUI playerNameText;
 
-        public void SetRequestMessageText(int index)
+        private void Start()
+        {
+            SetPlayerNameText();
+        }
+
+        public void UpdateRequestMessageText(string message)
         {
             StopAllCoroutines();
 
-            requestMessageText.text = Data.RequestData.MessageList[index];
+            requestMessageText.text = message;
 
-            requestMessageText.gameObject.SetActive(true);
-            StartCoroutine(HideMessageAfterDelay(1.0f));
+            speechBubble.gameObject.SetActive(true);
+            if (gameObject.activeInHierarchy)
+            {
+                StartCoroutine(HideMessageAfterDelay(1.0f));
+            }
+        }
+
+        public void Initialize(Data.PlayerRole role, Data.ElementType type)
+        {
+            if(role == Data.PlayerRole.Shooter)
+            {
+                this.gameObject.SetActive(true);
+                SetTypeIcon(type);
+            }
+            else if (role == Data.PlayerRole.Supporter)
+            {
+                this.gameObject.SetActive(false);
+            }
         }
 
         private void SetTypeIcon(Data.ElementType type)
@@ -37,16 +59,16 @@ namespace UI.StageScene
             }
         }
 
-        private void SetPlayerNameText(string name)
+        private void SetPlayerNameText()
         {
-            playerNameText.text = name;
+            playerNameText.text = "PLAYER" + (transform.GetSiblingIndex() + 1);
         }
 
         private IEnumerator HideMessageAfterDelay(float delay)
         {
             yield return new WaitForSeconds(delay);
 
-            requestMessageText.gameObject.SetActive(false);
+            speechBubble.gameObject.SetActive(false);
         }
     }
 }

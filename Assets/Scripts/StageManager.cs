@@ -30,14 +30,14 @@ public class StageManager : NetworkBehaviour
         StartCoroutine(StartTimer());
 
         ActorManager.Instance.SetPlayersRoleServerRpc();
+        StartWaveClientRpc(ActorManager.Instance.GetAllPlayerRoles(), ActorManager.Instance.GetAllPlayerTypes());
         StartPhases();
     }
 
     [Rpc(SendTo.Everyone)]
-    public void StartRoundClientRpc()
+    public void StartWaveClientRpc(Data.PlayerRole[] roles, Data.ElementType[] types)
     {
-        //Events.RoundEvents.StartRound();
-        StartPhases();
+        UIManager.Instance.SetPingPanel(roles, types);
     }
 
     public void EndRound()

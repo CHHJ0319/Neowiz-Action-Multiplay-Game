@@ -15,6 +15,7 @@ namespace UI
         public UI.StageScene.StagePanel stagePanel;
         public UI.StageScene.PlayerStatusPanel playerStatusPanel;
         public UI.StageScene.TimerPanel timerPanel;
+        public RectTransform pingPanel;
 
         [Header("LobbyScene")]
         public RectTransform playerPanels; 
@@ -34,14 +35,6 @@ namespace UI
         private void OnDisable()
         {
             Events.ActorEvents.OnPlayerFieldHPChanged -= UpdateBarricadeHPBar;
-        }
-
-        public RectTransform GetPointer(int playerIndex) 
-        {
-            if (pointers == null || pointers.childCount <= playerIndex) return null;
-
-            //pointers.GetChild(playerIndex).gameObject.SetActive(true);
-            return pointers.GetChild(playerIndex) as RectTransform;
         }
 
         #region LobbyScene
@@ -75,7 +68,7 @@ namespace UI
                 {
                     int index = panel.GetSiblingIndex();
                     DataManager.Instance.SetClientInfo(index + 1);
-                    DataManager.Instance.SetPlayerPanelIndex(index);
+                    DataManager.Instance.SetSessionPlayerIndex(index);
 
                     playerPanel.Initialize();
                     break;
@@ -175,6 +168,32 @@ namespace UI
             if (timerPanel == null) return;
 
             timerPanel.UpdateTimerPanel(time, timeRate);
+        }
+
+        public void SetPingPanel(Data.PlayerRole[] roles, Data.ElementType[] types)
+        {
+            if (pingPanel == null) return;
+
+            int index = 0;
+            foreach(RectTransform item in pingPanel)
+            {
+                item.GetComponent<UI.StageScene.PingItem>().Initialize(roles[index], types[index]);
+                index++;
+                if (roles.Length <= index) break;
+            }
+        }
+
+        public void UpdatePingMessage(int playerIndex, string message)
+        {
+            UI.StageScene.PingItem pingItem = pingPanel.GetChild(playerIndex).GetComponent<UI.StageScene.PingItem>();
+            pingItem.UpdateRequestMessageText(message);
+        }
+
+        public UI.StageScene.Pointer GetPointer(int playerIndex)
+        {
+            if (pointers == null || pointers.childCount <= playerIndex) return null;
+
+            return pointers.GetChild(playerIndex).GetComponent< UI.StageScene.Pointer>();
         }
         #endregion
     }

@@ -1,5 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
+using System.Drawing;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -57,7 +60,7 @@ public class ActorManager : NetworkBehaviour
         }
         else if (sceneName == Utils.SceneList.TutorialScene.ToString())
         {
-            SpawnPlayerServerRpc(NetworkManager.Singleton.LocalClientId, DataManager.Instance.CharacterIndex, DataManager.Instance.PlayerPanelIndex);
+            SpawnPlayerServerRpc(NetworkManager.Singleton.LocalClientId, DataManager.Instance.CharacterIndex, DataManager.Instance.SessionPlayerIndex);
         }
     }
 
@@ -73,7 +76,7 @@ public class ActorManager : NetworkBehaviour
         players.Add(clientId, player.GetComponent<Actor.Player.PlayerController>());
     }
 
-    private int GetPlayerCount()
+    public int GetPlayerCount()
     {
         return players.Count;
     }
@@ -104,6 +107,28 @@ public class ActorManager : NetworkBehaviour
             player.SetRole(role, color);
             index++;
         }
+    }
+
+    public Data.PlayerRole[] GetAllPlayerRoles()
+    {
+        Data.PlayerRole[] roles = new Data.PlayerRole[players.Count];
+        foreach (Actor.Player.PlayerController player in players.Values)
+        {
+            int index = player.playerIndex.Value;
+            roles[index] = (Data.PlayerRole)player.Role.Value;
+        }
+        return roles;
+    }
+
+    public Data.ElementType[] GetAllPlayerTypes()
+    {
+        Data.ElementType[] types = new Data.ElementType[players.Count];
+        foreach (Actor.Player.PlayerController player in players.Values)
+        {
+            int index = player.playerIndex.Value;
+            types[index] = (Data.ElementType)player.Type.Value;
+        }
+        return types;
     }
 
     public IEnumerator SpawnEnemyRow(Data.EnemyInfo[] enemyInfos, bool isTargeting)
