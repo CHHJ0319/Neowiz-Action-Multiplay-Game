@@ -32,7 +32,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -181,10 +181,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Actor.Weapon.NetworkBullet
   ShowTopMostFoldoutHeaderGroup: 1
   lifeTime: 3
-  fakeBulletPrefab: {fileID: 1250150633442540248, guid: 524ed342b22dc6045961e50ae8cea82a, type: 3}
+  fakeBulletPrefab: {fileID: 1250150633442540248, guid: 85472e18f21522b45842703579278627, type: 3}
   typeRed: {fileID: 2100000, guid: 555c8006e4624b74f864892ea47a053d, type: 2}
   typeGreen: {fileID: 2100000, guid: 93a3ce3d977653a4d8c9d59b7947b910, type: 2}
   typeBlue: {fileID: 2100000, guid: ac0b1ed607e5e834c8acd7996540d976, type: 2}
+  typeOrange: {fileID: 0}
   Type:
     UpdateTraits:
       MinSecondsBetweenUpdates: 0

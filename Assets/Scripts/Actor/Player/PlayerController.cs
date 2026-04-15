@@ -111,7 +111,8 @@ namespace Actor.Player
 
         private void FixedUpdate()
         {
-            ApplyMovement();
+            Move();
+            Rotate();
         }
 
         private void OnTriggerStay(Collider other)
@@ -183,16 +184,18 @@ namespace Actor.Player
             velocity = moveDirection * currentSpeed;
         }
 
-        private void ApplyMovement()
+        private void Move()
         {
             animationHandler.PlayMovement(inputHandler.horizontal, inputHandler.vertical);
             rb.linearVelocity = new Vector3(velocity.x, rb.linearVelocity.y, velocity.z);
 
-            //if (moveDirection.magnitude > 0.1f)
-            //{
-            //    Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
-            //    rb.MoveRotation(Quaternion.Slerp(rb.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime));
-            //}
+            transform.LookAt(targetPosition);
+        }
+
+        private void Rotate()
+        {
+            Vector3 lookAtPosition = new Vector3(targetPosition.x, transform.position.y, targetPosition.z);
+            transform.LookAt(lookAtPosition);
         }
 
         #region Shoot
