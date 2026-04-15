@@ -6,7 +6,7 @@ namespace Actor
     {
         public static PlayerField Instance;
 
-        public MeshFilter plane;
+        public MeshFilter itemSpawnArea;
         public Transform core;
 
         public float hp;

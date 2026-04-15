@@ -7,7 +7,7 @@ namespace Actor.Spawner
     {
         public static ItemSpawner Instance;
 
-        public GameObject bulletBoxPrefab;
+        public GameObject[] itemBoxPrefabs;
 
         private float _yOffset = 1.0f;
 
@@ -19,7 +19,8 @@ namespace Actor.Spawner
         [Rpc(SendTo.Server)]
         public void SpawnItemServerRpc(RpcParams rpcParams = default)
         {
-            GameObject item = Instantiate(bulletBoxPrefab);
+            int randomIndex = Random.Range(0, 3);
+            GameObject item = Instantiate(itemBoxPrefabs[randomIndex]);
             item.transform.localPosition = GetRandomPositionOnPlane();
 
             NetworkObject nv = item.GetComponent<NetworkObject>();
@@ -28,7 +29,7 @@ namespace Actor.Spawner
 
         public Vector3 GetRandomPositionOnPlane()
         {
-            MeshFilter targetPlane = PlayerField.Instance.plane;
+            MeshFilter targetPlane = PlayerField.Instance.itemSpawnArea;
 
             if (targetPlane == null) return Vector3.zero;
 
