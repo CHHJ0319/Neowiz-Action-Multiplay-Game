@@ -155,8 +155,13 @@ public class ActorManager : NetworkBehaviour
 
         if (enemies.Count == 0)
         {
-            UIManager.Instance.EndRoundClientRpc();
+            StartCoroutine(StageManager.Instance.EndWave());
         }
+    }
+
+    public float GetPlayerFiledHPRate()
+    {
+        return Actor.PlayerField.Instance.GetPlayerFiledHPRate();
     }
     #endregion
 

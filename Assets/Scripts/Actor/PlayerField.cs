@@ -37,6 +37,11 @@ namespace Actor
             Events.ActorEvents.OnEnemyEnteredPlayerField -= TakeDamage;
         }
 
+        public float GetPlayerFiledHPRate()
+        {
+            return hp / maxHP;
+        }
+
         private void TakeDamage(float damage)
         {
             hp -= damage;

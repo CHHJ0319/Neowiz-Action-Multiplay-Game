@@ -138,9 +138,14 @@ namespace UI
             roundStartButton.gameObject.SetActive(true);
         }
 
-        public void SetResultPanelVisible(bool visivle)
+        public void SetResultPanelVisible(bool isVisible)
         {
-            resultPanel.gameObject.SetActive(visivle);
+            resultPanel.gameObject.SetActive(isVisible);
+        }
+
+        public void ShowResult(int startCount)
+        {
+            resultPanel.ShowResult(startCount);
         }
 
         private void OnRoundStartButtonClicked()
