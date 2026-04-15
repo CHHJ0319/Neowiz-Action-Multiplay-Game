@@ -15,6 +15,7 @@ namespace UI
         public UI.StageScene.StagePanel stagePanel;
         public UI.StageScene.PlayerStatusPanel playerStatusPanel;
         public UI.StageScene.TimerPanel timerPanel;
+        public RectTransform pingPanel;
 
         [Header("LobbyScene")]
         public RectTransform playerPanels; 
@@ -175,6 +176,19 @@ namespace UI
             if (timerPanel == null) return;
 
             timerPanel.UpdateTimerPanel(time, timeRate);
+        }
+
+        public void SetPingPanel(Data.PlayerRole[] roles, Data.ElementType[] types)
+        {
+            if (pingPanel == null) return;
+
+            int index = 0;
+            foreach(RectTransform item in pingPanel)
+            {
+                item.GetComponent<UI.StageScene.PingItem>().Initialize(roles[index], types[index]);
+                index++;
+                if (roles.Length <= index) break;
+            }
         }
         #endregion
     }

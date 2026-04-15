@@ -11,6 +11,11 @@ namespace UI.StageScene
         public Image typeIcon;
         public TextMeshProUGUI playerNameText;
 
+        private void Start()
+        {
+            SetPlayerNameText();
+        }
+
         public void SetRequestMessageText(int index)
         {
             StopAllCoroutines();
@@ -19,6 +24,19 @@ namespace UI.StageScene
 
             requestMessageText.gameObject.SetActive(true);
             StartCoroutine(HideMessageAfterDelay(1.0f));
+        }
+
+        public void Initialize(Data.PlayerRole role, Data.ElementType type)
+        {
+            if(role == Data.PlayerRole.Shooter)
+            {
+                this.gameObject.SetActive(true);
+                SetTypeIcon(type);
+            }
+            else if (role == Data.PlayerRole.Supporter)
+            {
+                this.gameObject.SetActive(false);
+            }
         }
 
         private void SetTypeIcon(Data.ElementType type)
@@ -37,9 +55,9 @@ namespace UI.StageScene
             }
         }
 
-        private void SetPlayerNameText(string name)
+        private void SetPlayerNameText()
         {
-            playerNameText.text = name;
+            playerNameText.text = "PLAYER" + (transform.GetSiblingIndex() + 1);
         }
 
         private IEnumerator HideMessageAfterDelay(float delay)

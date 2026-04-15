@@ -1,7 +1,7 @@
-using UI.StageScene;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class UIManager : NetworkBehaviour
 {
@@ -48,9 +48,33 @@ public class UIManager : NetworkBehaviour
         return UI.CanvasController.Instance.GetPointer(playerIndex);
     }
 
+    #region LobbyScene
     public int GetReadyPlayerCount()
     {
         return UI.CanvasController.Instance.GetReadyPlayerCount();
+    }
+
+    public RectTransform GetPlayerPanels()
+    {
+        return UI.CanvasController.Instance.GetPlayerPanels();
+    }
+
+    public void DisablePlayerPanel()
+    {
+        int index = DataManager.Instance.PlayerPanelIndex;
+        UI.CanvasController.Instance.DisablePlayerPanel(index);
+    }
+    #endregion
+
+    #region StageScene
+    public void UpdateTimerPanel(float time, float timeRate)
+    {
+        UI.CanvasController.Instance.UpdateTimerPanel(time, timeRate);
+    }
+
+    public void SetPingPanel(Data.PlayerRole[] roles, Data.ElementType[] types)
+    {
+        UI.CanvasController.Instance.SetPingPanel(roles, types);
     }
 
     public void EndRound()
@@ -68,6 +92,7 @@ public class UIManager : NetworkBehaviour
     {
         UI.CanvasController.Instance.SetResultPanelVisible(false);
     }
+    #endregion
 
     private void OnSceneLoaded(ulong clientId, string sceneName, LoadSceneMode loadMode)
     {
@@ -77,21 +102,5 @@ public class UIManager : NetworkBehaviour
         }
         
         Initialize((int)clientId, sceneName);
-    }
-
-    public RectTransform GetPlayerPanels()
-    {
-        return UI.CanvasController.Instance.GetPlayerPanels();
-    }
-
-    public void DisablePlayerPanel()
-    {
-        int index = DataManager.Instance.PlayerPanelIndex;
-        UI.CanvasController.Instance.DisablePlayerPanel(index);
-    }
-
-    public void UpdateTimerPanel(float time, float timeRate)
-    {
-        UI.CanvasController.Instance.UpdateTimerPanel(time, timeRate);
     }
 }

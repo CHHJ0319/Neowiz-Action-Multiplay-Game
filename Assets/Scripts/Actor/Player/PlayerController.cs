@@ -33,6 +33,8 @@ namespace Actor.Player
         private PlayerAnimationHandler animationHandler;
         private float lastAttackTime;
 
+        public NetworkVariable<int> playerIndex = new NetworkVariable<int>();
+
         public NetworkVariable<int> Role = new NetworkVariable<int>();
         public NetworkVariable<int> Type = new NetworkVariable<int>();
 
@@ -76,6 +78,7 @@ namespace Actor.Player
             if (IsOwner)
             {
                 inputHandler.SetPlayerInputEnabled(true);
+                SetPlayerIndexServerRPC(DataManager.Instance.PlayerPanelIndex);
             }
             else
             {
@@ -171,6 +174,13 @@ namespace Actor.Player
                 Events.PlayerEvents.UpdateRoleUI(role, type);
             }
         }
+
+        [Rpc(SendTo.Server)]
+        private void SetPlayerIndexServerRPC(int index, RpcParams rpcParams = default)
+        {
+            playerIndex.Value = index;
+        }
+
         #endregion
 
         private void CalculateVeocity()
