@@ -76,7 +76,7 @@ public class ActorManager : NetworkBehaviour
         players.Add(clientId, player.GetComponent<Actor.Player.PlayerController>());
     }
 
-    private int GetPlayerCount()
+    public int GetPlayerCount()
     {
         return players.Count;
     }

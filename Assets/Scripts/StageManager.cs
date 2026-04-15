@@ -29,7 +29,6 @@ public class StageManager : NetworkBehaviour
         currentTime = timePerWave;
         StartCoroutine(StartTimer());
 
-
         ActorManager.Instance.SetPlayersRoleServerRpc();
         StartWaveClientRpc(ActorManager.Instance.GetAllPlayerRoles(), ActorManager.Instance.GetAllPlayerTypes());
         StartPhases();

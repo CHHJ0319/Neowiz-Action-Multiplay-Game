@@ -22,7 +22,7 @@ namespace Actor.Player
         [SerializeField] private float attackCooldown = 0.5f;
 
         [Header("Pointer Settings")]
-        [SerializeField] private RectTransform pointer;
+        [SerializeField] private UI.StageScene.Pointer pointer;
         //[SerializeField] private float distanceFromCamera = 10f;
 
         [SerializeField] private Transform itemHolder;
@@ -56,16 +56,6 @@ namespace Actor.Player
             inputHandler = GetComponent<PlayerInputHandler>();
             audioHandler = GetComponent<PlayerAudioHandler>();
             animationHandler = GetComponent<PlayerAnimationHandler>();
-        }
-
-        private void OnEnable()
-        {
-            Events.RoundEvents.OnRoundStarted += ShowPointer;
-        }
-
-        private void OnDisable()
-        {
-            Events.RoundEvents.OnRoundStarted -= ShowPointer;
         }
 
         public override void OnNetworkSpawn()
@@ -114,7 +104,7 @@ namespace Actor.Player
             {
                 if (pointer != null)
                 {
-                    pointer.position = pointerPosition.Value;
+                    pointer.transform.position = pointerPosition.Value;
                 }
             }
         }
@@ -141,11 +131,8 @@ namespace Actor.Player
         #region Initailize
         public void Initialize(string sceneName)
         {       
-            if (sceneName == Utils.SceneList.TutorialScene.ToString())
-            {
-                SetPointer((int)OwnerClientId);
-                rb.useGravity = true;
-            }
+            SetPointer((int)OwnerClientId);
+            rb.useGravity = true;
         }
 
         public void SetRole(Data.PlayerRole role, Data.ElementType type)
@@ -173,6 +160,8 @@ namespace Actor.Player
                 Data.ElementType type = (Data.ElementType)Type.Value;
                 Events.PlayerEvents.UpdateRoleUI(role, type);
             }
+
+            ShowPointer();
         }
 
         [Rpc(SendTo.Server)]
@@ -312,7 +301,7 @@ namespace Actor.Player
 
                 if (pointer != null)
                 {
-                    pointer.position = Camera.main.WorldToScreenPoint(targetPosition);
+                    pointer.SetPosition(Camera.main.WorldToScreenPoint(targetPosition));
                 }
             }
         }
@@ -328,9 +317,28 @@ namespace Actor.Player
             pointer = UIManager.Instance.GetPointer(id);
         }
 
-        private void ShowPointer()
+        public void ShowPointer()
         {
             pointer.gameObject.SetActive(true);
+            if (Role.Value == (int)Data.PlayerRole.Shooter)
+            {
+                switch ((Data.ElementType)Type.Value)
+                {
+                    case Data.ElementType.Red:
+                        pointer.SetColor(Color.red);
+                        break;
+                    case Data.ElementType.Green:
+                        pointer.SetColor(Color.green);
+                        break;
+                    case Data.ElementType.Blue:
+                        pointer.SetColor(Color.blue);
+                        break;
+                }
+            }
+            else if (Role.Value == (int)Data.PlayerRole.Supporter)
+            {
+                pointer.SetColor(Color.white);
+            }
         }
         #endregion
 

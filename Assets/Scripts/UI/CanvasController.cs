@@ -37,14 +37,6 @@ namespace UI
             Events.ActorEvents.OnPlayerFieldHPChanged -= UpdateBarricadeHPBar;
         }
 
-        public RectTransform GetPointer(int playerIndex) 
-        {
-            if (pointers == null || pointers.childCount <= playerIndex) return null;
-
-            //pointers.GetChild(playerIndex).gameObject.SetActive(true);
-            return pointers.GetChild(playerIndex) as RectTransform;
-        }
-
         #region LobbyScene
         public void SetLobbySceneUI(bool isHost)
         {
@@ -195,6 +187,13 @@ namespace UI
         {
             UI.StageScene.PingItem pingItem = pingPanel.GetChild(playerIndex).GetComponent<UI.StageScene.PingItem>();
             pingItem.UpdateRequestMessageText(message);
+        }
+
+        public UI.StageScene.Pointer GetPointer(int playerIndex)
+        {
+            if (pointers == null || pointers.childCount <= playerIndex) return null;
+
+            return pointers.GetChild(playerIndex).GetComponent< UI.StageScene.Pointer>();
         }
         #endregion
     }

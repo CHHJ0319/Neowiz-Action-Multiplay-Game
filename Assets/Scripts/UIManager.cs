@@ -42,11 +42,6 @@ public class UIManager : NetworkBehaviour
         }
     }
 
-    public RectTransform GetPointer(int playerIndex)
-    {
-        return UI.CanvasController.Instance.GetPointer(playerIndex);
-    }
-
     #region LobbyScene
     public int GetReadyPlayerCount()
     {
@@ -113,5 +108,10 @@ public class UIManager : NetworkBehaviour
         }
         
         Initialize((int)clientId, sceneName);
+    }
+
+    public UI.StageScene.Pointer GetPointer(int playerIndex)
+    {
+        return UI.CanvasController.Instance.GetPointer(playerIndex);
     }
 }
