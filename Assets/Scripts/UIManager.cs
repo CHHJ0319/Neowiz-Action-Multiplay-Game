@@ -85,6 +85,13 @@ public class UIManager : NetworkBehaviour
     }
 
     [Rpc(SendTo.Everyone)]
+    public void SetPlayerRoleDisplayClientRpc(Data.PlayerRole[] roles, bool isActive)
+    {
+        Data.PlayerRole role = roles[DataManager.Instance.SessionPlayerIndex];
+        UI.CanvasController.Instance.SetPlayerRoleDisplay(role, isActive);
+    }
+
+    [Rpc(SendTo.Everyone)]
     public void EndRoundClientRpc()
     {
         if(IsHost)

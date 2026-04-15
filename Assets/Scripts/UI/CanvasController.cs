@@ -16,6 +16,7 @@ namespace UI
         public UI.StageScene.PlayerStatusPanel playerStatusPanel;
         public UI.StageScene.TimerPanel timerPanel;
         public RectTransform pingPanel;
+        public RectTransform playerRoleDisplay;
 
         [Header("LobbyScene")]
         public RectTransform playerPanels; 
@@ -200,6 +201,15 @@ namespace UI
         {
             stagePanel.SetWaveText(wave);
 
+        }
+
+        public void SetPlayerRoleDisplay(Data.PlayerRole role, bool isActive)
+        {
+            if (playerRoleDisplay != null)
+            {
+                var image = playerRoleDisplay.GetChild((int)role);
+                image.gameObject.SetActive(isActive);
+            }
         }
         #endregion
     }
