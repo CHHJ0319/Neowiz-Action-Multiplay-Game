@@ -16,15 +16,15 @@ namespace UI.StageScene
 
         [Header("Buttons")]
         public RectTransform menuRow;
-        public Button nextStageButton;
+        public Button nextWaveButton;
 
         void Awake()
         {
             SetTitleImage(true);
 
-            if (nextStageButton != null)
+            if (nextWaveButton != null)
             {
-                nextStageButton.onClick.AddListener(() => OnNextStageButtonClicked());
+                nextWaveButton.onClick.AddListener(() => OnNextWaveButtonClicked());
             }
         }
 
@@ -74,9 +74,10 @@ namespace UI.StageScene
             }
         }
 
-        private void OnNextStageButtonClicked()
+        private void OnNextWaveButtonClicked()
         {
             UIManager.Instance.CloseResultPanelClientRpc();
+            StageManager.Instance.UpdateWaveIndexServerRpc();
         }
     }
 

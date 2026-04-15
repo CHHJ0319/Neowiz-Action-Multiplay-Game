@@ -10,6 +10,8 @@ public class StageManager : NetworkBehaviour
     private float timePerWave = 180f;
     private float currentTime;
 
+    private int waveIndex = 1;
+
     private void Awake()
     {
         if (Instance == null)
@@ -81,5 +83,12 @@ public class StageManager : NetworkBehaviour
 
         currentTime = 0;
         UIManager.Instance.UpdateTimerPanel(0, 0);
+    }
+
+    [Rpc(SendTo.Server)]
+    public void UpdateWaveIndexServerRpc()
+    {
+        waveIndex++;
+        UIManager.Instance.SetWaveTextClientRpc(waveIndex);
     }
 }

@@ -99,6 +99,12 @@ public class UIManager : NetworkBehaviour
     {
         UI.CanvasController.Instance.SetResultPanelVisible(false);
     }
+
+    [Rpc(SendTo.Everyone)]
+    public void SetWaveTextClientRpc(int wave)
+    {
+        UI.CanvasController.Instance.SetWaveText(wave);
+    }
     #endregion
 
     private void OnSceneLoaded(ulong clientId, string sceneName, LoadSceneMode loadMode)

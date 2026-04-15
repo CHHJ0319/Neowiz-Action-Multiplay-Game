@@ -195,6 +195,12 @@ namespace UI
 
             return pointers.GetChild(playerIndex).GetComponent< UI.StageScene.Pointer>();
         }
+
+        public void SetWaveText(int wave)
+        {
+            stagePanel.SetWaveText(wave);
+
+        }
         #endregion
     }
 }

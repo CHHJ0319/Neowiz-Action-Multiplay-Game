@@ -156,7 +156,6 @@ public class ActorManager : NetworkBehaviour
         if (enemies.Count == 0)
         {
             UIManager.Instance.EndRoundClientRpc();
-
         }
     }
     #endregion
