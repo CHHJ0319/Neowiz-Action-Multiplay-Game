@@ -1010,6 +1010,7 @@ MonoBehaviour:
   createSessionPanel: {fileID: 1408451422}
   joinSessionPanel: {fileID: 1618718463}
   settingPanel: {fileID: 879633820}
+  clickSound: {fileID: 8300000, guid: 46426052479c67c4c98fd53e57e84732, type: 3}
 --- !u!1 &357030326
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,5 +1,5 @@
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
 
 namespace UI.TitleScene
@@ -21,34 +21,18 @@ namespace UI.TitleScene
         public GameObject joinSessionPanel;
         public GameObject settingPanel;
 
+        [Header("Audio")]
+        public  AudioClip clickSound;
+        private AudioSource audioSource;
+
+
         private bool isAnyPanelActive = false;
 
         private void Awake()
         {
-            if (tutorialButton != null)
-            {
-                tutorialButton.onClick.AddListener(() => OnTutorialButtonClicked());
-            }
+            audioSource = GetComponent<AudioSource>();
 
-            if (createSessionButton != null)
-            {
-                createSessionButton.onClick.AddListener(() => OnCreasteSessionButtonClicked());
-            }
-
-            if (joinSessionButton != null)
-            {
-                joinSessionButton.onClick.AddListener(() => OnJoinSessionButtonClicked());
-            }
-
-            if (settingButton != null)
-            {
-                settingButton.onClick.AddListener(() => OnSettingButtonClicked());
-            }
-
-            if (quitGameButton != null)
-            {
-                quitGameButton.onClick.AddListener(() => Events.GameEvents.QuitGame());
-            }
+            SetupButtons();
         }
 
         private void Update()
@@ -56,9 +40,72 @@ namespace UI.TitleScene
             UpdateOverlayBlocker();
         }
 
+        private void SetupButtons()
+        {
+            if (tutorialButton != null)
+            {
+                tutorialButton.onClick.AddListener(() =>
+                {
+                    PlayClickSound();
+                    OnTutorialButtonClicked();
+                });
+            }
+
+            if (createSessionButton != null)
+            {
+                createSessionButton.onClick.AddListener(() =>
+                {
+                    PlayClickSound();
+                    OnCreasteSessionButtonClicked();
+                });
+            }
+
+            if (joinSessionButton != null)
+            {
+                joinSessionButton.onClick.AddListener(() => 
+                { 
+                    PlayClickSound(); 
+                    OnJoinSessionButtonClicked(); 
+                });
+            }
+
+            if (settingButton != null)
+            {
+                settingButton.onClick.AddListener(() => 
+                { 
+                    PlayClickSound(); 
+                    OnSettingButtonClicked(); 
+                });
+            }
+
+            if (quitGameButton != null)
+            {
+                quitGameButton.onClick.AddListener(() =>
+                {
+                    PlayClickSound();
+                    Events.GameEvents.QuitGame();
+                });
+            }
+        }
+
         private void OnTutorialButtonClicked()
         {
             Utils.SceneNavigator.LoadSceneByName(Utils.SceneList.PrologueScene);
+        }
+
+        private void OnCreasteSessionButtonClicked()
+        {
+            if (createSessionPanel != null) createSessionPanel.GetComponent<CreateSessionPanel>().SetVisible(true);
+        }
+
+        private void OnJoinSessionButtonClicked()
+        {
+            if (joinSessionPanel != null) joinSessionPanel.GetComponent<JoinSessionPanel>().SetVisible(true);
+        }
+
+        private void OnSettingButtonClicked()
+        {
+            if (settingPanel != null) settingPanel.GetComponent<SettingPanel>().SetVisible(true);
         }
 
         private void UpdateOverlayBlocker()
@@ -79,19 +126,18 @@ namespace UI.TitleScene
             }
         }
 
-        private void OnCreasteSessionButtonClicked()
+        private void PlayClickSound()
         {
-            if (createSessionPanel != null) createSessionPanel.GetComponent<CreateSessionPanel>().SetVisible(true);
-        }
+            GameObject soundObj = new GameObject("TempClickSound");
+            AudioSource asource = soundObj.AddComponent<AudioSource>();
+            asource.clip = clickSound;
+            asource.playOnAwake = false;
 
-        private void OnJoinSessionButtonClicked()
-        {
-            if (joinSessionPanel != null) joinSessionPanel.GetComponent<JoinSessionPanel>().SetVisible(true);
-        }
+            DontDestroyOnLoad(soundObj);
 
-        private void OnSettingButtonClicked()
-        {
-            if (settingPanel != null) settingPanel.GetComponent<SettingPanel>().SetVisible(true);
+            asource.Play();
+
+            Destroy(soundObj, clickSound.length);
         }
     }
 }
