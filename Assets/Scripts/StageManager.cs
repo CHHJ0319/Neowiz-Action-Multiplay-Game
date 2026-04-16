@@ -1,5 +1,6 @@
 using Data;
 using System.Collections;
+using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -12,6 +13,8 @@ public class StageManager : NetworkBehaviour
 
     private int waveIndex = 1;
     private bool isWaveRunning = false;
+
+    private Dictionary<string, int> scores = new();
 
     private void Awake()
     {
@@ -43,10 +46,13 @@ public class StageManager : NetworkBehaviour
     public IEnumerator EndWave()
     {
         isWaveRunning = false;
-        int startCount = EvaluateWave();
         ActorManager.Instance.ClearItemsServerRpc();
+
+        int startCount = EvaluateWave();
+        string mvp = GetMVP();
         UIManager.Instance.EndRoundClientRpc(startCount);
 
+        ClearScores();
         yield return null;
     }
 
@@ -83,6 +89,30 @@ public class StageManager : NetworkBehaviour
         }
 
         return starCount;
+    }
+
+    private string GetMVP()
+    {
+        if(scores.Count == 0) return string.Empty;
+
+        string mvpName = string.Empty;
+        int maxValue = int.MinValue;
+
+        foreach (var kvp in scores)
+        {
+            if (kvp.Value > maxValue)
+            {
+                maxValue = kvp.Value;
+                mvpName = kvp.Key;
+            }
+        }
+
+        return mvpName;
+    }
+
+    private void ClearScores()
+    {
+        scores.Clear();
     }
 
     private IEnumerator StartWave1()
@@ -139,18 +169,28 @@ public class StageManager : NetworkBehaviour
     }
 
     [Rpc(SendTo.Server)]
-    public void UpdateWaveIndexServerRpc()
+    public void UpdateWaveIndexServerRpc(RpcParams rpcParams = default)
     {
         waveIndex++;
         UIManager.Instance.SetWaveTextClientRpc(waveIndex);
     }
 
     [Rpc(SendTo.Server)]
-    public void ResetStageServerRpc()
+    public void ResetStageServerRpc(RpcParams rpcParams = default)
     {
         waveIndex = 1;
         UIManager.Instance.SetWaveTextClientRpc(waveIndex);
 
         ActorManager.Instance.ResetPlayerFiledHPClientRpc();
+    }
+
+    [Rpc(SendTo.Server)]
+    public void UpdateScoreServerRpc(string playerName, RpcParams rpcParams = default)
+    {
+        if (!scores.ContainsKey(playerName))
+        {
+            scores[playerName] = 0;
+        }
+        scores[playerName]++;
     }
 }

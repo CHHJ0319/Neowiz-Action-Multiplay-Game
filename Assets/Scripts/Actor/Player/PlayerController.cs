@@ -1,5 +1,6 @@
 using Unity.Netcode;
 using UnityEngine;
+using static UnityEngine.LowLevelPhysics2D.PhysicsLayers;
 
 namespace Actor.Player 
 {
@@ -199,7 +200,12 @@ namespace Actor.Player
                     direction.y = 0;
                     direction = direction.normalized;
 
-                    ShootBulletServerRPC(DataManager.Instance.SessionPlayerIndex, direction, firePoint.position, firePoint.rotation);
+                    ShootBulletServerRPC(
+                        DataManager.Instance.SessionPlayerIndex,
+                        DataManager.Instance.PlayerName,
+                        direction, 
+                        firePoint.position, 
+                        firePoint.rotation);
                 }
                 else if (Role.Value == (int)Data.PlayerRole.Supporter)
                 {
@@ -210,7 +216,7 @@ namespace Actor.Player
         }
 
         [Rpc(SendTo.Server)]
-        private void ShootBulletServerRPC(int playerIndex, Vector3 direction, Vector3  spawnPosition, Quaternion spawnRotation, RpcParams rpcParams = default)
+        private void ShootBulletServerRPC(int playerIndex, string playerName, Vector3 direction, Vector3  spawnPosition, Quaternion spawnRotation, RpcParams rpcParams = default)
         {
             if (Time.time - lastAttackTime < attackCooldown) return;
 
@@ -233,7 +239,10 @@ namespace Actor.Player
                 NetworkObject netObj = bullet.GetComponent<NetworkObject>();
                 netObj.Spawn();
 
-                bullet.GetComponent<Actor.Weapon.NetworkBullet>().Initialize((Data.ElementType)Type.Value, direction * bulletSpeed);
+                bullet.GetComponent<Actor.Weapon.NetworkBullet>().Initialize(
+                    playerName,
+                    (Data.ElementType)Type.Value, 
+                    direction * bulletSpeed);
 
                 animationHandler.PlayAttack();
                 Ammo.Value--;

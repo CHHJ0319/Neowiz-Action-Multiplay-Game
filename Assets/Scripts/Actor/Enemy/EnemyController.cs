@@ -1,6 +1,7 @@
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using static UnityEngine.LowLevelPhysics2D.PhysicsLayers;
 
 namespace Actor.Enemy
 {
@@ -147,7 +148,7 @@ namespace Actor.Enemy
             }
         }
 
-        public void TakeDamage(Data.ElementType bulletType)
+        public void TakeDamage(Data.ElementType bulletType, string playerName)
         {
             //if(Type.Value == bulletType)
             //{
@@ -156,7 +157,7 @@ namespace Actor.Enemy
 
             if (hp <= 0)
             {
-                DieServerRPC();
+                DieServerRPC(playerName);
             }
         }
 
@@ -186,11 +187,13 @@ namespace Actor.Enemy
         }
 
         [Rpc(SendTo.Server)]
-        public void DieServerRPC(RpcParams rpcParams = default)
+        public void DieServerRPC(string playerName, RpcParams rpcParams = default)
         {
             IsMoving.Value = false;
             audioHandler.PlayDeathSound();
             animationHandler.PlayDead();
+
+            StageManager.Instance.UpdateScoreServerRpc(playerName);
         }
 
         public void DespawnSelf()

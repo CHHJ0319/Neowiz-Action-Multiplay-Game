@@ -1,5 +1,6 @@
 using Unity.Netcode;
 using UnityEngine;
+using static UnityEngine.LowLevelPhysics2D.PhysicsLayers;
 
 namespace Actor.Weapon
 {
@@ -11,9 +12,12 @@ namespace Actor.Weapon
 
         public Data.ElementType type;
 
+        private string playerName;
+
         private Bullet fakeBullet;
 
         public NetworkVariable<Vector3> velocity = new NetworkVariable<Vector3>();
+
 
         private void Awake()
         {
@@ -47,7 +51,7 @@ namespace Actor.Weapon
             if (other.CompareTag("Enemy"))
             {
                 Enemy.EnemyController enemy = other.GetComponent<Enemy.EnemyController>();
-                enemy.TakeDamage(type);
+                enemy.TakeDamage(type, playerName);
                 if (IsServer)
                 {
                     DespawnBullet();
@@ -62,8 +66,9 @@ namespace Actor.Weapon
             }
         }
 
-        public void Initialize(Data.ElementType type, Vector3 velocity)
+        public void Initialize(string playerName, Data.ElementType type, Vector3 velocity)
         {
+            this.playerName = playerName;
             this.type = type;
             this.velocity.Value = velocity;
         }
