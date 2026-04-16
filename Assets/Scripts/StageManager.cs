@@ -11,6 +11,7 @@ public class StageManager : NetworkBehaviour
     private float currentTime;
 
     private int waveIndex = 1;
+    private bool isWaveRunning = false;
 
     private void Awake()
     {
@@ -41,6 +42,7 @@ public class StageManager : NetworkBehaviour
 
     public IEnumerator EndWave()
     {
+        isWaveRunning = false;
         int startCount = EvaluateWave();
         UIManager.Instance.EndRoundClientRpc(startCount);
 
@@ -84,6 +86,10 @@ public class StageManager : NetworkBehaviour
 
     private IEnumerator StartWave1()
     {
+        isWaveRunning = true;
+
+        StartCoroutine(SpawnItemPeriodicallyRoutine());
+
         currentTime = timePerWave;
         StartCoroutine(StartTimer());
 
@@ -119,6 +125,16 @@ public class StageManager : NetworkBehaviour
 
         currentTime = 0;
         UIManager.Instance.UpdateTimerPanel(0, 0);
+    }
+
+    private IEnumerator SpawnItemPeriodicallyRoutine()
+    {
+        while (isWaveRunning)
+        {
+            Actor.Spawner.ItemSpawner.Instance.SpawnItemServerRpc();
+
+            yield return new WaitForSeconds(5.0f);
+        }
     }
 
     [Rpc(SendTo.Server)]

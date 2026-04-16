@@ -15,6 +15,7 @@ public class ActorManager : NetworkBehaviour
 
     private Dictionary<ulong, Actor.Player.PlayerController> players = new();
     private Dictionary<ulong, Actor.Enemy.EnemyController> enemies = new();
+    //private Dictionary<ulong, Actor.Item.ItemBox> items = new();
 
     private Vector3[] playerSpawnPositions =
     {
