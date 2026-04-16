@@ -8524,30 +8524,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1667322706}
     m_Modifications:
-    - target: {fileID: 4158784548320598814, guid: 2832c114b6faed340a2a27ef2d402b40, type: 3}
-      propertyPath: m_text
-      value: "\uB4A4\uB85C \uAC00\uAE30"
-      objectReference: {fileID: 0}
-    - target: {fileID: 4158784548320598814, guid: 2832c114b6faed340a2a27ef2d402b40, type: 3}
-      propertyPath: m_fontSize
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 4158784548320598814, guid: 2832c114b6faed340a2a27ef2d402b40, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: db92a2ceac0641343a439550cb132c07, type: 2}
-    - target: {fileID: 4158784548320598814, guid: 2832c114b6faed340a2a27ef2d402b40, type: 3}
-      propertyPath: m_fontSizeBase
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 4158784548320598814, guid: 2832c114b6faed340a2a27ef2d402b40, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: 458760129803120655, guid: db92a2ceac0641343a439550cb132c07, type: 2}
-    - target: {fileID: 4158784548320598814, guid: 2832c114b6faed340a2a27ef2d402b40, type: 3}
-      propertyPath: m_hasFontAssetChanged
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6203805940108204139, guid: 2832c114b6faed340a2a27ef2d402b40, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -8628,10 +8604,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6355819345815317697, guid: 2832c114b6faed340a2a27ef2d402b40, type: 3}
-      propertyPath: clickSound
-      value: 
-      objectReference: {fileID: 8300000, guid: d96ab0602d909504b880c74def91a09f, type: 3}
     - target: {fileID: 7939115780642475316, guid: 2832c114b6faed340a2a27ef2d402b40, type: 3}
       propertyPath: m_Name
       value: CancelSessionButton
@@ -8649,30 +8621,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1667322706}
     m_Modifications:
-    - target: {fileID: 2154795771279566643, guid: 9671b4bb8ac93e44c856d44e2816d74e, type: 3}
-      propertyPath: m_text
-      value: "\uAC8C\uC784 \uC2DC\uC791"
-      objectReference: {fileID: 0}
-    - target: {fileID: 2154795771279566643, guid: 9671b4bb8ac93e44c856d44e2816d74e, type: 3}
-      propertyPath: m_fontSize
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 2154795771279566643, guid: 9671b4bb8ac93e44c856d44e2816d74e, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: db92a2ceac0641343a439550cb132c07, type: 2}
-    - target: {fileID: 2154795771279566643, guid: 9671b4bb8ac93e44c856d44e2816d74e, type: 3}
-      propertyPath: m_fontSizeBase
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 2154795771279566643, guid: 9671b4bb8ac93e44c856d44e2816d74e, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: 458760129803120655, guid: db92a2ceac0641343a439550cb132c07, type: 2}
-    - target: {fileID: 2154795771279566643, guid: 9671b4bb8ac93e44c856d44e2816d74e, type: 3}
-      propertyPath: m_hasFontAssetChanged
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6096885685786414447, guid: 9671b4bb8ac93e44c856d44e2816d74e, type: 3}
       propertyPath: m_Name
       value: ConfirmSessionButton
@@ -8757,10 +8705,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8155020396417848964, guid: 9671b4bb8ac93e44c856d44e2816d74e, type: 3}
-      propertyPath: clickSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 4bdd991b1cd225b43a5078f3b7b9fe52, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

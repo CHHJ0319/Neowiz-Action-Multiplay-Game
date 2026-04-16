@@ -3,8 +3,8 @@ using UnityEngine.UI;
 
 public class SessionMenuButton : MonoBehaviour
 {
-    [Header("Individual Sound")]
     public AudioClip clickSound;
+    public float soundVolume = 1.0f;
 
     private void Awake()
     {
@@ -20,8 +20,18 @@ public class SessionMenuButton : MonoBehaviour
     {
         if (clickSound != null)
         {
-            Vector3 cameraPos = Camera.main.transform.position;
-            AudioSource.PlayClipAtPoint(clickSound, cameraPos);
+            GameObject soundObj = new GameObject("TempClickSound");
+            AudioSource asource = soundObj.AddComponent<AudioSource>();
+            asource.clip = clickSound;
+            asource.playOnAwake = false;
+            asource.volume = soundVolume;
+
+            DontDestroyOnLoad(soundObj);
+
+
+            asource.Play();
+
+            Destroy(soundObj, clickSound.length);
         }
     }
 }
