@@ -43,7 +43,8 @@ public class SessionManager : NetworkBehaviour
     {
         int readyCount = UIManager.Instance.GetReadyPlayerCount();
 
-        if(PlayerCount.Value > 1 && PlayerCount.Value - 1 == readyCount)
+        if(PlayerCount.Value > 3 && 
+            PlayerCount.Value - 1 == readyCount)
         {
             return true;
         }
