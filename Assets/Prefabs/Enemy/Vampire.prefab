@@ -203,6 +203,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3ba062c052c5d1d419b707a190ed405f, type: 3}
       insertIndex: -1
       addedObject: {fileID: -1698624566811462676}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3ba062c052c5d1d419b707a190ed405f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1987125846604117717}
   m_SourcePrefab: {fileID: 100100000, guid: 3ba062c052c5d1d419b707a190ed405f, type: 3}
 --- !u!1 &4719453263996620335 stripped
 GameObject:
@@ -362,6 +365,42 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.5, y: 0.76, z: 0.3}
   m_Center: {x: 0, y: 0.38, z: 0}
+--- !u!114 &1987125846604117717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4719453263996620335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7176d3778d4c04b46b98e5b6e7dbe1f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Actor.Enemy.EnemyAnimationHandler
+  ShowTopMostFoldoutHeaderGroup: 1
+  NetworkAnimatorExpanded: 0
+  AuthorityMode: 0
+  m_Animator: {fileID: 4464684238755708145}
+  TransitionStateInfoList:
+  - IsCrossFadeExit: 0
+    Layer: 0
+    OriginatingState: -1054578416
+    DestinationState: 1316002576
+    TransitionDuration: 0.25
+    TriggerNameHash: 973584577
+    TransitionIndex: 0
+  AnimatorParameterEntries:
+    ParameterEntries:
+    - name: isAttacking
+      NameHash: 973584577
+      Synchronize: 1
+      ParameterType: 9
+    - name: isDead
+      NameHash: 1276664872
+      Synchronize: 1
+      ParameterType: 4
+  AnimatorParametersExpanded: 0
+  animator: {fileID: 4464684238755708145}
 --- !u!4 &5347194502394401941 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3ba062c052c5d1d419b707a190ed405f, type: 3}

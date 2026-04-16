@@ -15,6 +15,8 @@ namespace Actor.Enemy
 
         private Rigidbody rb;
 
+        private Actor.Enemy.EnemyAnimationHandler animationHandler;
+
         private int hp;
 
         public NetworkVariable<Data.NetworkElementType> Type = new NetworkVariable<Data.NetworkElementType>();
@@ -25,6 +27,8 @@ namespace Actor.Enemy
         private void Awake()
         {
             rb = GetComponent<Rigidbody>();
+
+            animationHandler = GetComponent<Actor.Enemy.EnemyAnimationHandler>();
         }
 
         public override void OnNetworkSpawn()
@@ -32,6 +36,7 @@ namespace Actor.Enemy
             if (IsServer)
             {
                 ActorManager.Instance.AddEnemy(NetworkObjectId, this);
+                animationHandler.OnDeathAnimationFinished += DespawnSelf;
             }
 
             Type.OnValueChanged += OnTypeChanged;
@@ -42,6 +47,7 @@ namespace Actor.Enemy
             if(IsServer)
             {
                 ActorManager.Instance.RemoveEnemy(NetworkObjectId);
+                animationHandler.OnDeathAnimationFinished -= DespawnSelf;
             }
 
             Type.OnValueChanged -= OnTypeChanged;
@@ -138,7 +144,7 @@ namespace Actor.Enemy
 
             if (hp <= 0)
             {
-                DespawnSelfServerRPC();
+                DieServerRPC();
             }
         }
 
@@ -158,12 +164,26 @@ namespace Actor.Enemy
                     rb.linearVelocity = Direction.Value.normalized * speed;
                 }
             }
+            else
+            {
+                if (rb != null)
+                {
+                    rb.linearVelocity = Vector3.zero;
+                }
+            }
         }
 
         [Rpc(SendTo.Server)]
         public void DespawnSelfServerRPC(RpcParams rpcParams = default)
         {
             DespawnSelf();
+        }
+
+        [Rpc(SendTo.Server)]
+        public void DieServerRPC(RpcParams rpcParams = default)
+        {
+            IsMoving.Value = false;
+            animationHandler.PlayDead();
         }
 
         private void DespawnSelf()

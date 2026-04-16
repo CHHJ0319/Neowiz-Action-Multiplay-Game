@@ -198,6 +198,9 @@ PrefabInstance:
       addedObject: {fileID: 3661659647830969665}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 07442f58c0518094d865dbc0de5f088f, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 4987524675669575131}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 07442f58c0518094d865dbc0de5f088f, type: 3}
+      insertIndex: -1
       addedObject: {fileID: -9027374836502047671}
   m_SourcePrefab: {fileID: 100100000, guid: 07442f58c0518094d865dbc0de5f088f, type: 3}
 --- !u!1 &5828848612904731 stripped
@@ -315,7 +318,7 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   elementIcon: {fileID: 7905554608857878127}
   damage: 10
-  speed: 2
+  speed: 2.5
   typeMaterials:
   - {fileID: 2100000, guid: a6c395bbb44583642ac330b5d232be1b, type: 2}
   - {fileID: 2100000, guid: f77795e0f60b9794685406cbea46bc70, type: 2}
@@ -337,6 +340,42 @@ MonoBehaviour:
       MinSecondsBetweenUpdates: 0
       MaxSecondsBetweenUpdates: 0
     m_InternalValue: {x: 0, y: 0, z: 0}
+--- !u!114 &4987524675669575131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5828848612904731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7176d3778d4c04b46b98e5b6e7dbe1f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Actor.Enemy.EnemyAnimationHandler
+  ShowTopMostFoldoutHeaderGroup: 1
+  NetworkAnimatorExpanded: 0
+  AuthorityMode: 0
+  m_Animator: {fileID: 3518401613074434881}
+  TransitionStateInfoList:
+  - IsCrossFadeExit: 0
+    Layer: 0
+    OriginatingState: -1358311819
+    DestinationState: 508058772
+    TransitionDuration: 0.25
+    TriggerNameHash: 973584577
+    TransitionIndex: 0
+  AnimatorParameterEntries:
+    ParameterEntries:
+    - name: isAttacking
+      NameHash: 973584577
+      Synchronize: 1
+      ParameterType: 9
+    - name: isDead
+      NameHash: 1276664872
+      Synchronize: 1
+      ParameterType: 4
+  AnimatorParametersExpanded: 0
+  animator: {fileID: 3518401613074434881}
 --- !u!65 &-9027374836502047671
 BoxCollider:
   m_ObjectHideFlags: 0
