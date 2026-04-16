@@ -8232,7 +8232,7 @@ MonoBehaviour:
   joinCode: {fileID: 1079919224}
   copyJoinCodeButton: {fileID: 1871176338}
   copyJoinCodeSound: {fileID: 8300000, guid: dd2246832f8109e4f8e336113e797f6a, type: 3}
-  soundVolume: 0.3
+  soundVolume: 0.1
 --- !u!1 &2024393130
 GameObject:
   m_ObjectHideFlags: 0

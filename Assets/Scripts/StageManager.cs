@@ -62,7 +62,7 @@ public class StageManager : NetworkBehaviour
     {
         int starCount = 0;
         float hp = ActorManager.Instance.GetPlayerFiledHPRate();
-        if(hp < 0)
+        if(hp <= 0)
         {
             starCount = 0;
         }
@@ -97,14 +97,14 @@ public class StageManager : NetworkBehaviour
             new Data.EnemyInfo { type = EnemyType.Single, lives = 1 },
         };
         yield return StartCoroutine(ActorManager.Instance.SpawnEnemyRow(enemyInfos, false));
-        yield return new WaitForSeconds(0.5f);
-        //yield return StartCoroutine(ActorManager.Instance.SpawnEnemyRow(enemyInfos, false));
+        yield return new WaitForSeconds(1.0f);
+        yield return StartCoroutine(ActorManager.Instance.SpawnEnemyRow(enemyInfos, false));
 
-        //yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(1.5f);
 
-        //yield return StartCoroutine(ActorManager.Instance.SpawnEnemyRow(enemyInfos, true));
-        //yield return new WaitForSeconds(0.5f);
-        //yield return StartCoroutine(ActorManager.Instance.SpawnEnemyRow(enemyInfos, true));
+        yield return StartCoroutine(ActorManager.Instance.SpawnEnemyRow(enemyInfos, true));
+        yield return new WaitForSeconds(1.0f);
+        yield return StartCoroutine(ActorManager.Instance.SpawnEnemyRow(enemyInfos, true));
     }
 
     private IEnumerator StartTimer()

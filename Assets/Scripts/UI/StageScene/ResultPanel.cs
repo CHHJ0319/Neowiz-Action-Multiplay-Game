@@ -6,15 +6,19 @@ namespace UI.StageScene
 {
     public class ResultPanel : MonoBehaviour
     {
-        [Header("TitleImage")]
+        [Header("TitleRow")]
         public GameObject victoryImage;
         public GameObject defeatImage;
 
-        [Header("")]
+        [Header("StarRow")]
         public RectTransform starRow;
+        public Sprite activeStarSprite;
+        public Sprite inactiveStarSprite;
+
+        [Header("MVPRow")]
         public TextMeshProUGUI mvpNameText;
 
-        [Header("Buttons")]
+        [Header("MenuRoww")]
         public RectTransform menuRow;
         public Button nextWaveButton;
 
@@ -74,7 +78,14 @@ namespace UI.StageScene
 
             for (int i = 0; i < totalChildren; i++)
             {
-                starRow.GetChild(i).gameObject.SetActive(i < starCount);
+                if(i<starCount)
+                {
+                    starRow.GetChild(i).GetComponent<Image>().sprite = activeStarSprite;
+                }
+                else
+                {
+                    starRow.GetChild(i).GetComponent<Image>().sprite = inactiveStarSprite;
+                }
             }
         }
 

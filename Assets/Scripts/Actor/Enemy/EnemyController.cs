@@ -64,12 +64,18 @@ namespace Actor.Enemy
         {
             if (other.CompareTag("Barricade"))
             {
-                Events.ActorEvents.HandleEnemyPlayerFieldCollision(damage);
-                DespawnSelfServerRPC();
+                if(IsServer)
+                {
+                    Events.ActorEvents.HandleEnemyPlayerFieldCollision(damage);
+                    DespawnSelf();
+                }
             }
             else if(other.CompareTag("DespawnWall"))
             {
-                DespawnSelfServerRPC();
+                if (IsServer)
+                {
+                    DespawnSelf();
+                }
             }
         }
 
@@ -180,12 +186,6 @@ namespace Actor.Enemy
         }
 
         [Rpc(SendTo.Server)]
-        public void DespawnSelfServerRPC(RpcParams rpcParams = default)
-        {
-            DespawnSelf();
-        }
-
-        [Rpc(SendTo.Server)]
         public void DieServerRPC(RpcParams rpcParams = default)
         {
             IsMoving.Value = false;
@@ -193,8 +193,13 @@ namespace Actor.Enemy
             animationHandler.PlayDead();
         }
 
-        private void DespawnSelf()
+        public void DespawnSelf()
         {
+            if (!IsSpawned)
+            {
+                return;
+            }
+
             GetComponent<NetworkObject>().Despawn();
         }
 

@@ -48,11 +48,11 @@ namespace Actor
 
             PlayHitSounds();
 
-            Events.ActorEvents.UpdatePlayerFieldHPBar(hp/maxHP);
+            UIManager.Instance.UpdateBarricadeHPBarClientRpc(hp/maxHP);
 
             if(hp <= 0)
             {
-                //Events.RoundEvents.EndRound();
+                ActorManager.Instance.ClearEemiesServerRpc();
             }
         }
 

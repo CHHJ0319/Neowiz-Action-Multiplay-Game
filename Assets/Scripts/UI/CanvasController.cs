@@ -30,12 +30,10 @@ namespace UI
 
         private void OnEnable()
         {
-            Events.ActorEvents.OnPlayerFieldHPChanged += UpdateBarricadeHPBar;
         }
 
         private void OnDisable()
         {
-            Events.ActorEvents.OnPlayerFieldHPChanged -= UpdateBarricadeHPBar;
         }
 
         #region LobbyScene
@@ -154,7 +152,7 @@ namespace UI
             //roundStartButton.gameObject.SetActive(false);
         }
 
-        private void UpdateBarricadeHPBar(float hpRate)
+        public void UpdateBarricadeHPBar(float hpRate)
         {
             if (barricadeHPBar == null) return;
 

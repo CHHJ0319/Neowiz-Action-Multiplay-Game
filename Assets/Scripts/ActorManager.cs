@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -169,11 +170,27 @@ public class ActorManager : NetworkBehaviour
         }
     }
 
+    [Rpc(SendTo.Server)]
+    public void ClearEemiesServerRpc(RpcParams rpcParams = default)
+    {
+        var enemyList = enemies.Values.ToList();
+
+        foreach (var enemy in enemyList)
+        {
+            if (enemy != null)
+            {
+                enemy.DespawnSelf();
+            }
+        }
+
+        enemies.Clear();
+    }
+    #endregion
+
     public float GetPlayerFiledHPRate()
     {
         return Actor.PlayerField.Instance.GetPlayerFiledHPRate();
     }
-    #endregion
 
     private void OnSceneLoaded(ulong clientId, string sceneName, LoadSceneMode loadMode)
     {

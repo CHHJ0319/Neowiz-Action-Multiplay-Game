@@ -131,4 +131,10 @@ public class UIManager : NetworkBehaviour
     {
         return UI.CanvasController.Instance.GetPointer(playerIndex);
     }
+
+    [Rpc(SendTo.Everyone)]
+    public void UpdateBarricadeHPBarClientRpc(float hpRate)
+    {
+        UI.CanvasController.Instance.UpdateBarricadeHPBar(hpRate);
+    }
 }
