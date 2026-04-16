@@ -8,7 +8,8 @@ namespace UI.LobbyScene
     {
         public TextMeshProUGUI joinCode;
         public Button copyJoinCodeButton;
-        public AudioClip clickSound;
+        public AudioClip copyJoinCodeSound;
+        public float soundVolume = 1.0f;
 
         private void Awake()
         {
@@ -36,10 +37,20 @@ namespace UI.LobbyScene
 
         private void PlayClickSound()
         {
-            if (clickSound != null)
+            if (copyJoinCodeSound != null)
             {
-                Vector3 cameraPos = Camera.main.transform.position;
-                AudioSource.PlayClipAtPoint(clickSound, cameraPos);
+                GameObject soundObj = new GameObject("TempClickSound");
+                AudioSource asource = soundObj.AddComponent<AudioSource>();
+                asource.clip = copyJoinCodeSound;
+                asource.playOnAwake = false;
+                asource.volume = soundVolume;
+
+                DontDestroyOnLoad(soundObj);
+
+
+                asource.Play();
+
+                Destroy(soundObj, copyJoinCodeSound.length);
             }
         }
     }
