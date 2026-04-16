@@ -44,6 +44,7 @@ public class StageManager : NetworkBehaviour
     {
         isWaveRunning = false;
         int startCount = EvaluateWave();
+        ActorManager.Instance.ClearItemsServerRpc();
         UIManager.Instance.EndRoundClientRpc(startCount);
 
         yield return null;
@@ -131,7 +132,7 @@ public class StageManager : NetworkBehaviour
     {
         while (isWaveRunning)
         {
-            Actor.Spawner.ItemSpawner.Instance.SpawnItemServerRpc();
+            ActorManager.Instance.SpawnItemServerRpc();
 
             yield return new WaitForSeconds(5.0f);
         }

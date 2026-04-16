@@ -15,7 +15,7 @@ public class ActorManager : NetworkBehaviour
 
     private Dictionary<ulong, Actor.Player.PlayerController> players = new();
     private Dictionary<ulong, Actor.Enemy.EnemyController> enemies = new();
-    //private Dictionary<ulong, Actor.Item.ItemBox> items = new();
+    private Dictionary<ulong, Actor.Item.ItemBox> items = new();
 
     private Vector3[] playerSpawnPositions =
     {
@@ -162,7 +162,7 @@ public class ActorManager : NetworkBehaviour
         }
         else
         {
-            Debug.LogWarning($"[Server] 제거하려는 ID({id})를 찾을 수 없습니다.");
+            Debug.LogWarning($"[Server] 제거하려는 적의 ID({id})를 찾을 수 없습니다.");
         }
 
         if (enemies.Count == 0)
@@ -185,6 +185,47 @@ public class ActorManager : NetworkBehaviour
         }
 
         enemies.Clear();
+    }
+    #endregion
+
+    #region Item
+    [Rpc(SendTo.Server)]
+    public void SpawnItemServerRpc(RpcParams rpcParams = default)
+    {
+        Actor.Spawner.ItemSpawner.Instance.SpawnItem();
+    }
+
+    public void AddItem(ulong id, Actor.Item.ItemBox item)
+    {
+        items.Add(id, item);
+    }
+
+    public void RemoveItem(ulong id)
+    {
+        if (items.ContainsKey(id))
+        {
+            items.Remove(id);
+        }
+        else
+        {
+            Debug.LogWarning($"[Server] 제거하려는 아이템의 ID({id})를 찾을 수 없습니다.");
+        }
+    }
+
+    [Rpc(SendTo.Server)]
+    public void ClearItemsServerRpc(RpcParams rpcParams = default)
+    {
+        var itemList = items.Values.ToList();
+
+        foreach (var item in itemList)
+        {
+            if (item != null)
+            {
+                item.DespawnSelf();
+            }
+        }
+
+        items.Clear();
     }
     #endregion
 

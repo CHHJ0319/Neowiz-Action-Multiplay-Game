@@ -16,8 +16,7 @@ namespace Actor.Spawner
             Instance = this;
         }
 
-        [Rpc(SendTo.Server)]
-        public void SpawnItemServerRpc(RpcParams rpcParams = default)
+        public void SpawnItem()
         {
             int randomIndex = Random.Range(0, 3);
             GameObject item = Instantiate(itemBoxPrefabs[randomIndex]);

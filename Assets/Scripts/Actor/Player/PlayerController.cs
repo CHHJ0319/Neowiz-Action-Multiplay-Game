@@ -94,7 +94,7 @@ namespace Actor.Player
 
                     if (inputHandler.quickSlot1Action.triggered)
                     {
-                        Actor.Spawner.ItemSpawner.Instance.SpawnItemServerRpc();
+                        ActorManager.Instance.SpawnItemServerRpc();
                     }
                 }
             }

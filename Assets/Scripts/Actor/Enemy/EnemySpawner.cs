@@ -72,7 +72,6 @@ namespace Actor.Enemy
 
             NetworkObject netObj = enemy.GetComponent<NetworkObject>();
             netObj.Spawn();
-            ulong id = netObj.NetworkObjectId;
 
             if (info.type == Data.EnemyType.Single)
             {

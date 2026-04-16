@@ -1,5 +1,4 @@
 using Unity.Netcode;
-using Unity.Netcode.Components;
 using UnityEngine;
 
 namespace Actor.Item
@@ -16,6 +15,23 @@ namespace Actor.Item
         {
             rb = GetComponent<Rigidbody>();
             floorLayer = LayerMask.NameToLayer("Floor");
+        }
+
+        public override void OnNetworkSpawn()
+        {
+            if (IsServer)
+            {
+                ActorManager.Instance.AddItem(NetworkObjectId, this);
+            }
+
+        }
+
+        public override void OnNetworkDespawn()
+        {
+            if (IsServer)
+            {
+                ActorManager.Instance.RemoveItem(NetworkObjectId);
+            }
         }
 
         private void OnCollisionEnter(Collision collision)
@@ -63,5 +79,15 @@ namespace Actor.Item
         }
 
         public abstract void Use(Actor.Player.PlayerController player);
+
+        public void DespawnSelf()
+        {
+            if (!IsSpawned)
+            {
+                return;
+            }
+
+            GetComponent<NetworkObject>().Despawn();
+        }
     }
 }

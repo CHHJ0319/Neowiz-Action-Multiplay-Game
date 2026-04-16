@@ -22,7 +22,7 @@ namespace Actor.Item
         {
             player.AddAmmo(ammo);
 
-            GetComponent<NetworkObject>().Despawn();
+            DespawnSelf();
         }
     }
 }
