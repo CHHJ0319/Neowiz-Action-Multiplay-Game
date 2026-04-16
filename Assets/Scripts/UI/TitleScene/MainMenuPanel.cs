@@ -23,15 +23,12 @@ namespace UI.TitleScene
 
         [Header("Audio")]
         public  AudioClip clickSound;
-        private AudioSource audioSource;
-
+        public float soundVolume = 1.0f;
 
         private bool isAnyPanelActive = false;
 
         private void Awake()
         {
-            audioSource = GetComponent<AudioSource>();
-
             SetupButtons();
         }
 
@@ -128,16 +125,20 @@ namespace UI.TitleScene
 
         private void PlayClickSound()
         {
-            GameObject soundObj = new GameObject("TempClickSound");
-            AudioSource asource = soundObj.AddComponent<AudioSource>();
-            asource.clip = clickSound;
-            asource.playOnAwake = false;
+            if (clickSound != null)
+            {
+                GameObject soundObj = new GameObject("TempClickSound");
+                AudioSource asource = soundObj.AddComponent<AudioSource>();
+                asource.clip = clickSound;
+                asource.playOnAwake = false;
+                asource.volume = soundVolume;
 
-            DontDestroyOnLoad(soundObj);
+                DontDestroyOnLoad(soundObj);
 
-            asource.Play();
+                asource.Play();
 
-            Destroy(soundObj, clickSound.length);
+                Destroy(soundObj, clickSound.length);
+            }
         }
     }
 }
