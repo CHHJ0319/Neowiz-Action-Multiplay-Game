@@ -21,8 +21,7 @@ namespace Actor
         {
             Instance = this;
 
-            hp = maxHP;
-            Events.ActorEvents.UpdatePlayerFieldHPBar(hp/maxHP);
+            ResetPlayerFiledHP();
 
             audioSource = GetComponent<AudioSource>();
         }
@@ -40,6 +39,12 @@ namespace Actor
         public float GetPlayerFiledHPRate()
         {
             return hp / maxHP;
+        }
+
+        public void ResetPlayerFiledHP()
+        {
+            hp = maxHP;
+            UIManager.Instance.UpdateBarricadeHPBarClientRpc(hp / maxHP);
         }
 
         private void TakeDamage(float damage)

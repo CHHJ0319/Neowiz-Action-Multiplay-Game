@@ -126,5 +126,14 @@ public class StageManager : NetworkBehaviour
     {
         waveIndex++;
         UIManager.Instance.SetWaveTextClientRpc(waveIndex);
-    } 
+    }
+
+    [Rpc(SendTo.Server)]
+    public void ResetStageServerRpc()
+    {
+        waveIndex = 1;
+        UIManager.Instance.SetWaveTextClientRpc(waveIndex);
+
+        ActorManager.Instance.ResetPlayerFiledHPClientRpc();
+    }
 }

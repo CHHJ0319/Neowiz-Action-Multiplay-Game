@@ -20,10 +20,21 @@ namespace UI.StageScene
 
         [Header("MenuRoww")]
         public RectTransform menuRow;
+        public Button restartStageButton;
         public Button nextWaveButton;
 
         void Awake()
         {
+            SetupButtons();
+        }
+
+        private void SetupButtons()
+        {
+            if (restartStageButton != null)
+            {
+                restartStageButton.onClick.AddListener(() => OnRestartStageButtonClicked());
+            }
+
             if (nextWaveButton != null)
             {
                 nextWaveButton.onClick.AddListener(() => OnNextWaveButtonClicked());
@@ -95,6 +106,12 @@ namespace UI.StageScene
             {
                 mvpNameText.text = $"MVP: {playerName}";
             }
+        }
+
+        private void OnRestartStageButtonClicked()
+        {
+            UIManager.Instance.CloseResultPanelClientRpc();
+            StageManager.Instance.ResetStageServerRpc();
         }
 
         private void OnNextWaveButtonClicked()

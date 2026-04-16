@@ -192,6 +192,12 @@ public class ActorManager : NetworkBehaviour
         return Actor.PlayerField.Instance.GetPlayerFiledHPRate();
     }
 
+    [Rpc(SendTo.Everyone)]
+    public void ResetPlayerFiledHPClientRpc()
+    {
+        Actor.PlayerField.Instance.ResetPlayerFiledHP();
+    }
+
     private void OnSceneLoaded(ulong clientId, string sceneName, LoadSceneMode loadMode)
     {
         if (clientId != NetworkManager.Singleton.LocalClientId)
