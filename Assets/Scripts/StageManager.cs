@@ -39,6 +39,14 @@ public class StageManager : NetworkBehaviour
         yield return null;
     }
 
+    public IEnumerator EndWave()
+    {
+        int startCount = EvaluateWave();
+        UIManager.Instance.EndRoundClientRpc(startCount);
+
+        yield return null;
+    }
+
     private IEnumerator WavePreparationRoutine()
     {
         ActorManager.Instance.SetPlayersRoleServerRpc();
@@ -48,6 +56,30 @@ public class StageManager : NetworkBehaviour
 
         UIManager.Instance.SetPlayerRoleDisplayClientRpc(ActorManager.Instance.GetAllPlayerRoles(), false);
         yield return new WaitForSeconds(2.0f);
+    }
+
+    private int EvaluateWave()
+    {
+        int starCount = 0;
+        float hp = ActorManager.Instance.GetPlayerFiledHPRate();
+        if(hp < 0)
+        {
+            starCount = 0;
+        }
+        else if(hp <= 0.5)
+        {
+            starCount = 1;
+        }
+        else if(hp <= 0.8)
+        {
+            starCount = 2;
+        }
+        else
+        {
+            starCount = 3;
+        }
+
+        return starCount;
     }
 
     private IEnumerator StartWave1()
@@ -94,5 +126,5 @@ public class StageManager : NetworkBehaviour
     {
         waveIndex++;
         UIManager.Instance.SetWaveTextClientRpc(waveIndex);
-    }
+    } 
 }

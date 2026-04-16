@@ -20,8 +20,6 @@ namespace UI.StageScene
 
         void Awake()
         {
-            SetTitleImage(true);
-
             if (nextWaveButton != null)
             {
                 nextWaveButton.onClick.AddListener(() => OnNextWaveButtonClicked());
@@ -30,7 +28,7 @@ namespace UI.StageScene
 
         public void Initialize(bool isHost)
         {
-            if(isHost)
+            if (isHost)
             {
                 menuRow.gameObject.SetActive(true);
             }
@@ -40,7 +38,21 @@ namespace UI.StageScene
             }
         }
 
-        public void SetTitleImage(bool isVictory)
+        public void ShowResult(int startCount)
+        {
+            if(startCount > 0)
+            {
+                SetTitleImage(true);
+            }
+            else
+            {
+                SetTitleImage(false);
+            }
+
+            SetStars(startCount);
+        }
+
+        private void SetTitleImage(bool isVictory)
         {
             victoryImage.SetActive(false);
             defeatImage.SetActive(false);
@@ -56,7 +68,7 @@ namespace UI.StageScene
             }
         }
 
-        public void SetStars(int starCount)
+        private void SetStars(int starCount)
         {
             int totalChildren = starRow.childCount;
 
@@ -66,11 +78,11 @@ namespace UI.StageScene
             }
         }
 
-        public void SetMVP(string playerrName)
+        private void SetMVP(string playerName)
         {
             if (mvpNameText != null)
             {
-                mvpNameText.text = $"MVP: {playerrName}";
+                mvpNameText.text = $"MVP: {playerName}";
             }
         }
 

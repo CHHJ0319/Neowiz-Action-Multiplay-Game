@@ -92,14 +92,16 @@ public class UIManager : NetworkBehaviour
     }
 
     [Rpc(SendTo.Everyone)]
-    public void EndRoundClientRpc()
+    public void EndRoundClientRpc(int startCount)
     {
         if(IsHost)
         {
             UI.CanvasController.Instance.ShowRoundStartButton();
         }
-        UI.CanvasController.Instance.SetResultPanelVisible(true);
         UI.CanvasController.Instance.HidePointers();
+
+        UI.CanvasController.Instance.SetResultPanelVisible(true);
+        UI.CanvasController.Instance.ShowResult(startCount);
     }
 
     [Rpc(SendTo.Everyone)]
