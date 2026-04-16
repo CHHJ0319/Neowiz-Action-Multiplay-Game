@@ -8,7 +8,7 @@ namespace Actor.Enemy
         public static EnemySpawner Instance;
 
         [Header("Enemy Prepabs")]
-        public GameObject normalEnemyPrefab;
+        public GameObject[] normalEnemyPrefabs;
 
         //private float normalEnemySpawnRate = 70f;
         //private float multiLivesEnemySpawnRate = 90f;
@@ -67,7 +67,8 @@ namespace Actor.Enemy
 
         private void SpawnEnemy(Vector3 spawnPosition, Vector3 direction, Data.EnemyInfo info)
         {
-            GameObject enemy = Instantiate(normalEnemyPrefab, spawnPosition, Quaternion.LookRotation(direction));
+            int enemyIndex = Random.Range(0, 4);
+            GameObject enemy = Instantiate(normalEnemyPrefabs[enemyIndex], spawnPosition, Quaternion.LookRotation(direction));
 
             NetworkObject netObj = enemy.GetComponent<NetworkObject>();
             netObj.Spawn();
