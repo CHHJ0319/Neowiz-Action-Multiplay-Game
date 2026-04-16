@@ -92,7 +92,7 @@ public class UIManager : NetworkBehaviour
     }
 
     [Rpc(SendTo.Everyone)]
-    public void EndRoundClientRpc(int startCount)
+    public void EndRoundClientRpc(int startCount, string mvp)
     {
         if(IsHost)
         {
@@ -101,7 +101,7 @@ public class UIManager : NetworkBehaviour
         UI.CanvasController.Instance.HidePointers();
 
         UI.CanvasController.Instance.SetResultPanelVisible(true);
-        UI.CanvasController.Instance.ShowResult(startCount);
+        UI.CanvasController.Instance.ShowResult(startCount, mvp);
     }
 
     [Rpc(SendTo.Everyone)]

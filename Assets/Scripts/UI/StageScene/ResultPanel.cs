@@ -53,17 +53,19 @@ namespace UI.StageScene
             }
         }
 
-        public void ShowResult(int startCount)
+        public void ShowResult(int startCount, string mvp)
         {
             if(startCount > 0)
             {
                 SetTitleImage(true);
                 nextWaveButton.gameObject.SetActive(true);
+                SetMVP(mvp);
             }
             else
             {
                 SetTitleImage(false);
                 nextWaveButton.gameObject.SetActive(false);
+                SetMVP("");
             }
 
             SetStars(startCount);
@@ -102,11 +104,11 @@ namespace UI.StageScene
             }
         }
 
-        private void SetMVP(string playerName)
+        private void SetMVP(string name)
         {
             if (mvpNameText != null)
             {
-                mvpNameText.text = $"MVP: {playerName}";
+                mvpNameText.text = $"MVP: {name}";
             }
         }
 

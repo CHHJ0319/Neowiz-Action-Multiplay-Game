@@ -141,9 +141,9 @@ namespace UI
             resultPanel.gameObject.SetActive(isVisible);
         }
 
-        public void ShowResult(int startCount)
+        public void ShowResult(int startCount, string mvp)
         {
-            resultPanel.ShowResult(startCount);
+            resultPanel.ShowResult(startCount, mvp);
         }
 
         private void OnRoundStartButtonClicked()

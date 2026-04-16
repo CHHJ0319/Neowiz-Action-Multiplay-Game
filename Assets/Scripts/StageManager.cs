@@ -50,7 +50,7 @@ public class StageManager : NetworkBehaviour
 
         int startCount = EvaluateWave();
         string mvp = GetMVP();
-        UIManager.Instance.EndRoundClientRpc(startCount);
+        UIManager.Instance.EndRoundClientRpc(startCount, mvp);
 
         ClearScores();
         yield return null;
