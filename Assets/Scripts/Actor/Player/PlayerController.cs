@@ -113,8 +113,11 @@ namespace Actor.Player
 
         private void FixedUpdate()
         {
-            Move();
-            Rotate();
+            if (IsOwner)
+            {
+                Move();
+                Rotate();
+            }
         }
 
         #region Initailize
