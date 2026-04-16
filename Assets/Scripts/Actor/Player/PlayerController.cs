@@ -192,10 +192,12 @@ namespace Actor.Player
         #region Shoot
         private void Shoot()
         {
-            Vector3 direction = (targetPosition - itemHolder.position).normalized;
-
             if (inputHandler.attackAction.triggered)
             {
+                audioHandler.PlayAttackSound();
+
+                Vector3 direction = (targetPosition - itemHolder.position).normalized;
+
                 if (Role.Value == (int)Data.PlayerRole.Shooter)
                 {
                     direction.y = 0;
@@ -237,7 +239,6 @@ namespace Actor.Player
 
                 bullet.GetComponent<Actor.Weapon.NetworkBullet>().Initialize((Data.ElementType)Type.Value, direction * bulletSpeed);
 
-                audioHandler.PlayAttackSound();
                 animationHandler.PlayAttack();
                 Ammo.Value--;
 
@@ -255,8 +256,6 @@ namespace Actor.Player
         private void ShootItemServerRPC(Vector3 direction, RpcParams rpcParams = default)
         {
             if (heldItem == null) return;
-            
-            audioHandler.PlayAttackSound();
 
             heldItem.transform.SetParent(null);
             heldItem.transform.forward = direction;

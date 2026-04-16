@@ -328,7 +328,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Actor.Player.PlayerAudioHandler
   dashSound: {fileID: 8300000, guid: c0ed19776a149ed4f94a327b77fa7627, type: 3}
-  throwSound: {fileID: 8300000, guid: c0ed19776a149ed4f94a327b77fa7627, type: 3}
+  throwSound: {fileID: 8300000, guid: d134ae447c2fe8d4990f4f7f3e090fed, type: 3}
 --- !u!82 &-2162922536168923710
 AudioSource:
   m_ObjectHideFlags: 0
@@ -342,7 +342,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0
