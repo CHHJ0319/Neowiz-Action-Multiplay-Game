@@ -8,6 +8,8 @@ public class ActorManager : NetworkBehaviour
 {
     public static ActorManager Instance { get; private set; }
 
+    public bool isTest = false;
+
     public GameObject[] playerPrefabs;
 
     private Dictionary<ulong, Actor.Player.PlayerController> players = new();
@@ -93,7 +95,15 @@ public class ActorManager : NetworkBehaviour
         {
             if (roles[index] == 0)
             {
-                role = Data.PlayerRole.Supporter;
+                if (isTest)
+                {
+                    role = Data.PlayerRole.Shooter;
+                    color = Data.ElementType.Red;
+                }
+                else
+                {
+                    role = Data.PlayerRole.Supporter;
+                }
             }
             else
             {

@@ -328,7 +328,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Actor.Player.PlayerAudioHandler
   dashSound: {fileID: 8300000, guid: c0ed19776a149ed4f94a327b77fa7627, type: 3}
-  throwSound: {fileID: 8300000, guid: c0ed19776a149ed4f94a327b77fa7627, type: 3}
+  throwSound: {fileID: 8300000, guid: d134ae447c2fe8d4990f4f7f3e090fed, type: 3}
 --- !u!82 &-2162922536168923710
 AudioSource:
   m_ObjectHideFlags: 0
@@ -342,7 +342,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -438,6 +438,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 439e2b248f264b042af0777e42a3b2d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Actor.Player.PlayerAnimationHandler
+  ShowTopMostFoldoutHeaderGroup: 1
+  NetworkAnimatorExpanded: 0
+  AuthorityMode: 0
+  m_Animator: {fileID: 773673850910025101}
+  TransitionStateInfoList: []
+  AnimatorParameterEntries:
+    ParameterEntries:
+    - name: DoThrow
+      NameHash: -1661293899
+      Synchronize: 1
+      ParameterType: 9
+    - name: Speed
+      NameHash: -823668238
+      Synchronize: 1
+      ParameterType: 1
+  AnimatorParametersExpanded: 0
   animator: {fileID: 773673850910025101}
 --- !u!1 &431559900017748654
 GameObject:

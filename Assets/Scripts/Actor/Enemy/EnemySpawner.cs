@@ -8,14 +8,14 @@ namespace Actor.Enemy
         public static EnemySpawner Instance;
 
         [Header("Enemy Prepabs")]
-        public GameObject normalEnemyPrefab;
+        public GameObject[] normalEnemyPrefabs;
 
         //private float normalEnemySpawnRate = 70f;
         //private float multiLivesEnemySpawnRate = 90f;
         //private float multiTypeEnemySpawnRate = 100f;
 
         public float spawnWidth = 18f;
-        private static float fixedSpawnY = 0.5f;
+        private static float fixedSpawnY = 0.01f;
 
         void Awake()
         {
@@ -67,7 +67,8 @@ namespace Actor.Enemy
 
         private void SpawnEnemy(Vector3 spawnPosition, Vector3 direction, Data.EnemyInfo info)
         {
-            GameObject enemy = Instantiate(normalEnemyPrefab, spawnPosition, Quaternion.LookRotation(direction));
+            int enemyIndex = Random.Range(0, 4);
+            GameObject enemy = Instantiate(normalEnemyPrefabs[enemyIndex], spawnPosition, Quaternion.LookRotation(direction));
 
             NetworkObject netObj = enemy.GetComponent<NetworkObject>();
             netObj.Spawn();
@@ -82,7 +83,7 @@ namespace Actor.Enemy
                 enemy.GetComponent<Actor.Enemy.EnemyController>().SetMultiType(Data.ElementType.Random);
             }
             enemy.GetComponent<Actor.Enemy.EnemyController>().SetHP(info.lives);
-            enemy.GetComponent<Actor.Enemy.EnemyController>().LaunchClientRpc(direction);
+            enemy.GetComponent<Actor.Enemy.EnemyController>().StartMovingServerRpc(direction);
         }
         #endregion
     }

@@ -270,6 +270,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ActorManager
   ShowTopMostFoldoutHeaderGroup: 1
+  isTest: 0
   playerPrefabs:
   - {fileID: 298427653747277566, guid: 2f126d9162bedf94cb47ea69c2adcbc6, type: 3}
   - {fileID: 298427653747277566, guid: 26bff404cc2677148b85489b97540dff, type: 3}

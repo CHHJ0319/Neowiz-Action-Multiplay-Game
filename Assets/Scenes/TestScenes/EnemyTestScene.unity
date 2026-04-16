@@ -155,7 +155,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TestShooter
   target: {fileID: 193415757}
-  bulletPrefab: {fileID: 1250150633442540248, guid: 524ed342b22dc6045961e50ae8cea82a, type: 3}
+  bulletPrefab: {fileID: 1250150633442540248, guid: 42a7c53393516c74d9339a836654231e, type: 3}
   bulletSpeed: 20
   spawnOffset: 1
 --- !u!4 &300782981

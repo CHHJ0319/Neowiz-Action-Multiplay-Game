@@ -98,13 +98,13 @@ public class StageManager : NetworkBehaviour
         };
         yield return StartCoroutine(ActorManager.Instance.SpawnEnemyRow(enemyInfos, false));
         yield return new WaitForSeconds(0.5f);
-        yield return StartCoroutine(ActorManager.Instance.SpawnEnemyRow(enemyInfos, false));
+        //yield return StartCoroutine(ActorManager.Instance.SpawnEnemyRow(enemyInfos, false));
 
-        yield return new WaitForSeconds(1.0f);
+        //yield return new WaitForSeconds(1.0f);
 
-        yield return StartCoroutine(ActorManager.Instance.SpawnEnemyRow(enemyInfos, true));
-        yield return new WaitForSeconds(0.5f);
-        yield return StartCoroutine(ActorManager.Instance.SpawnEnemyRow(enemyInfos, true));
+        //yield return StartCoroutine(ActorManager.Instance.SpawnEnemyRow(enemyInfos, true));
+        //yield return new WaitForSeconds(0.5f);
+        //yield return StartCoroutine(ActorManager.Instance.SpawnEnemyRow(enemyInfos, true));
     }
 
     private IEnumerator StartTimer()

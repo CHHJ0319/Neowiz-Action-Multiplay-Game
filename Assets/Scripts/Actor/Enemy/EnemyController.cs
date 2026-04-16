@@ -1,8 +1,6 @@
-using System.Collections.Generic;
-using TMPro;
 using Unity.Netcode;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Actor.Enemy
 {
@@ -15,15 +13,24 @@ namespace Actor.Enemy
 
         public Material[] typeMaterials;
 
+        private Rigidbody rb;
+
+        private Actor.Enemy.EnemyAnimationHandler animationHandler;
+        private Actor.Enemy.EnemyAudioHandler audioHandler;
+
         private int hp;
 
         public NetworkVariable<Data.NetworkElementType> Type = new NetworkVariable<Data.NetworkElementType>();
+        public NetworkVariable<bool> IsMoving = new NetworkVariable<bool>();
+        public NetworkVariable<Vector3> Direction = new NetworkVariable<Vector3>();
 
-        private Rigidbody rb;
 
         private void Awake()
         {
             rb = GetComponent<Rigidbody>();
+
+            animationHandler = GetComponent<Actor.Enemy.EnemyAnimationHandler>();
+            audioHandler = GetComponent<Actor.Enemy.EnemyAudioHandler>();
         }
 
         public override void OnNetworkSpawn()
@@ -31,6 +38,7 @@ namespace Actor.Enemy
             if (IsServer)
             {
                 ActorManager.Instance.AddEnemy(NetworkObjectId, this);
+                animationHandler.OnDeathAnimationFinished += DespawnSelf;
             }
 
             Type.OnValueChanged += OnTypeChanged;
@@ -41,9 +49,15 @@ namespace Actor.Enemy
             if(IsServer)
             {
                 ActorManager.Instance.RemoveEnemy(NetworkObjectId);
+                animationHandler.OnDeathAnimationFinished -= DespawnSelf;
             }
 
             Type.OnValueChanged -= OnTypeChanged;
+        }
+
+        void FixedUpdate()
+        {
+            Move();
         }
 
         private void OnTriggerEnter(Collider other)
@@ -51,6 +65,10 @@ namespace Actor.Enemy
             if (other.CompareTag("Barricade"))
             {
                 Events.ActorEvents.HandleEnemyPlayerFieldCollision(damage);
+                DespawnSelfServerRPC();
+            }
+            else if(other.CompareTag("DespawnWall"))
+            {
                 DespawnSelfServerRPC();
             }
         }
@@ -125,28 +143,39 @@ namespace Actor.Enemy
 
         public void TakeDamage(Data.ElementType bulletType)
         {
-            if(Type.Value == bulletType)
-            {
+            //if(Type.Value == bulletType)
+            //{
                 hp--;
-            }
+            //}
 
             if (hp <= 0)
             {
-                DespawnSelfServerRPC();
+                DieServerRPC();
             }
         }
 
-        [Rpc(SendTo.Everyone)]
-        public void LaunchClientRpc(Vector3 direction)
+        [Rpc(SendTo.Server)]
+        public void StartMovingServerRpc(Vector3 direction, RpcParams rpcParams = default)
         {
-            Launch(direction);
+            IsMoving.Value = true;
+            Direction.Value = direction;
         }
 
-        public void Launch(Vector3 direction)
+        public void Move()
         {
-            if (rb != null)
+            if(IsMoving.Value)
             {
-                rb.linearVelocity = direction * speed;
+                if (rb != null)
+                {
+                    rb.linearVelocity = Direction.Value.normalized * speed;
+                }
+            }
+            else
+            {
+                if (rb != null)
+                {
+                    rb.linearVelocity = Vector3.zero;
+                }
             }
         }
 
@@ -154,6 +183,14 @@ namespace Actor.Enemy
         public void DespawnSelfServerRPC(RpcParams rpcParams = default)
         {
             DespawnSelf();
+        }
+
+        [Rpc(SendTo.Server)]
+        public void DieServerRPC(RpcParams rpcParams = default)
+        {
+            IsMoving.Value = false;
+            audioHandler.PlayDeathSound();
+            animationHandler.PlayDead();
         }
 
         private void DespawnSelf()

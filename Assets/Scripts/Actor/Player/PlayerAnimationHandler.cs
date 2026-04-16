@@ -1,8 +1,9 @@
+using Unity.Netcode.Components;
 using UnityEngine;
 
 namespace Actor.Player
 {
-    public class PlayerAnimationHandler : MonoBehaviour
+    public class PlayerAnimationHandler : NetworkAnimator
     {
         public Animator animator;
 
