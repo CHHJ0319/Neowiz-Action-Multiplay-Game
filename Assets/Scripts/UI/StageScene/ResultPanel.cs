@@ -58,10 +58,12 @@ namespace UI.StageScene
             if(startCount > 0)
             {
                 SetTitleImage(true);
+                nextWaveButton.gameObject.SetActive(true);
             }
             else
             {
                 SetTitleImage(false);
+                nextWaveButton.gameObject.SetActive(false);
             }
 
             SetStars(startCount);

@@ -149,7 +149,7 @@ namespace UI
         private void OnRoundStartButtonClicked()
         {
             StageManager.Instance.StartWaveServerRpc();
-            //roundStartButton.gameObject.SetActive(false);
+            roundStartButton.gameObject.SetActive(false);
         }
 
         public void UpdateBarricadeHPBar(float hpRate)
