@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 554329534914315587}
   - component: {fileID: 3072943392774156249}
   - component: {fileID: 30908190772669126}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -90,6 +90,16 @@ MonoBehaviour:
     UpdateTraits:
       MinSecondsBetweenUpdates: 0
       MaxSecondsBetweenUpdates: 0
+  IsMoving:
+    UpdateTraits:
+      MinSecondsBetweenUpdates: 0
+      MaxSecondsBetweenUpdates: 0
+    m_InternalValue: 0
+  Direction:
+    UpdateTraits:
+      MinSecondsBetweenUpdates: 0
+      MaxSecondsBetweenUpdates: 0
+    m_InternalValue: {x: 0, y: 0, z: 0}
 --- !u!33 &7355710978905667135
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -209,7 +219,7 @@ GameObject:
   - component: {fileID: 450843422641619661}
   - component: {fileID: 8851243485089332874}
   - component: {fileID: 5641477124427290848}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ElementIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}

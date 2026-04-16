@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7563766219065646790}
   - component: {fileID: 5112102516171303772}
   - component: {fileID: 1463445458818803781}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ElementIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98,6 +98,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -9161498666643807742, guid: 298a1096e8113814788111ed6c637114, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 298a1096e8113814788111ed6c637114, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -137,6 +141,30 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 298a1096e8113814788111ed6c637114, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7918892301560790633, guid: 298a1096e8113814788111ed6c637114, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -7765695264962587503, guid: 298a1096e8113814788111ed6c637114, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -6419243995626536944, guid: 298a1096e8113814788111ed6c637114, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -5370177400333393387, guid: 298a1096e8113814788111ed6c637114, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -3474380210025404408, guid: 298a1096e8113814788111ed6c637114, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -2736734626299254622, guid: 298a1096e8113814788111ed6c637114, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -2176441266749079214, guid: 298a1096e8113814788111ed6c637114, type: 3}
       propertyPath: m_LocalRotation.w
@@ -191,13 +219,41 @@ PrefabInstance:
       value: Zombie
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 298a1096e8113814788111ed6c637114, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 298a1096e8113814788111ed6c637114, type: 3}
       propertyPath: m_TagString
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 3632837419827627782, guid: 298a1096e8113814788111ed6c637114, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3690063096349229661, guid: 298a1096e8113814788111ed6c637114, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4344817136849485795, guid: 298a1096e8113814788111ed6c637114, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5792130531311840555, guid: 298a1096e8113814788111ed6c637114, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: f803757f5a8640446804d208554b033d, type: 2}
+    - target: {fileID: 6373021237867254015, guid: 298a1096e8113814788111ed6c637114, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6960625777167604941, guid: 298a1096e8113814788111ed6c637114, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8150646620207562021, guid: 298a1096e8113814788111ed6c637114, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -309,7 +365,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 0.5, y: 0.8, z: 0.3}
   m_Center: {x: 0, y: 0.4, z: 0}
