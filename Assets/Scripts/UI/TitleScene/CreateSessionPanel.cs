@@ -9,12 +9,12 @@ namespace UI.TitleScene
     {
         [SerializeField] private TMP_InputField passwordInputField;
         [SerializeField] private Button creasteSessionButton;
-        [SerializeField] private Button closesButton;
+        [SerializeField] private Button closeButton;
 
         void Awake()
         {
             creasteSessionButton.onClick.AddListener(() => OnCreateSessionButtonClicked());
-            closesButton.onClick.AddListener(() => OnCloseButtonClicked());
+            closeButton.onClick.AddListener(() => OnCloseButtonClicked());
         }
 
         private void OnCreateSessionButtonClicked()

@@ -9,12 +9,12 @@ namespace UI.TitleScene
         [SerializeField] private TMP_InputField joinCodeInputField;
         [SerializeField] private TMP_InputField passwordInputField;
         [SerializeField] private Button joinSessionButton;
-        [SerializeField] private Button closesButton;
+        [SerializeField] private Button closeButton;
 
         void Awake()
         {
             joinSessionButton.onClick.AddListener(() => OnJoinSessionButtonClicked());
-            closesButton.onClick.AddListener(() => SetVisible(false));
+            closeButton.onClick.AddListener(() => SetVisible(false));
         }
 
         private void OnJoinSessionButtonClicked()

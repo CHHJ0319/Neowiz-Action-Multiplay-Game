@@ -12,7 +12,7 @@ public class SettingPanel : MonoBehaviour
     public TextMeshProUGUI textBgm;
     public TextMeshProUGUI textSfx;
 
-    [SerializeField] private Button closesButton;
+    [SerializeField] private Button closeButton;
 
     private bool isBgmMuted;
     private bool isSfxMuted;
@@ -22,7 +22,7 @@ public class SettingPanel : MonoBehaviour
 
     private void Awake()
     {
-        closesButton.onClick.AddListener(() => SetVisible(false));
+        closeButton.onClick.AddListener(() => SetVisible(false));
     }
 
     private void Start()
