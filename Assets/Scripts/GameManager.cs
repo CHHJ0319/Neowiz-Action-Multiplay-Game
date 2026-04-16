@@ -1,5 +1,6 @@
 using System.Collections;
 using Unity.Netcode;
+using Unity.VectorGraphics;
 using UnityEngine;
 
 public class GameManager : NetworkBehaviour
@@ -158,7 +159,11 @@ public class GameManager : NetworkBehaviour
             {
                 SessionManager.Instance.RemovePlayerServerRpc();
             }
-            UIManager.Instance.DisablePlayerPanel();
+
+            if (Utils.SceneNavigator.GetCurrentSceneName() == Utils.SceneList.LobbyScene.ToString())
+            {
+                UIManager.Instance.DisablePlayerPanel();
+            }
         }
 
         Utils.NetworkService.ShutdownNetwork();
