@@ -10,9 +10,9 @@ namespace Actor.Enemy
         [Header("Enemy Prepabs")]
         public GameObject normalEnemyPrefab;
 
-        private float normalEnemySpawnRate = 70f;
-        private float multiLivesEnemySpawnRate = 90f;
-        private float multiTypeEnemySpawnRate = 100f;
+        //private float normalEnemySpawnRate = 70f;
+        //private float multiLivesEnemySpawnRate = 90f;
+        //private float multiTypeEnemySpawnRate = 100f;
 
         public float spawnWidth = 18f;
         private static float fixedSpawnY = 0.5f;

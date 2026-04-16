@@ -15,7 +15,7 @@ namespace Test
         public float spawnOffset = 1.0f;
 
         private Camera mainCamera;
-        private Data.ElementType type = Data.ElementType.Red;
+        //private Data.ElementType type = Data.ElementType.Red;
 
         void Start()
         {
@@ -33,31 +33,31 @@ namespace Test
             }
         }
 
-        void OnQuickSlot1(InputValue value)
-        {
-            if (value.isPressed)
-            {
-                type = Data.ElementType.Red;
-            }
-        }
+        //void OnQuickSlot1(InputValue value)
+        //{
+        //    if (value.isPressed)
+        //    {
+        //        type = Data.ElementType.Red;
+        //    }
+        //}
 
-        void OnQuickSlot2(InputValue value)
-        {
-            if (value.isPressed)
-            {
-                type = Data.ElementType.Green;
+        //void OnQuickSlot2(InputValue value)
+        //{
+        //    if (value.isPressed)
+        //    {
+        //        type = Data.ElementType.Green;
 
-            }
-        }
+        //    }
+        //}
 
-        void OnQuickSlot3(InputValue value)
-        {
-            if (value.isPressed)
-            {
-                type = Data.ElementType.Blue;
+        //void OnQuickSlot3(InputValue value)
+        //{
+        //    if (value.isPressed)
+        //    {
+        //        type = Data.ElementType.Blue;
 
-            }
-        }
+        //    }
+        //}
 
         private void Shoot()
         {

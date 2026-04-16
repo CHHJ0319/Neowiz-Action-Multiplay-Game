@@ -154,7 +154,10 @@ public class GameManager : NetworkBehaviour
         }
         else
         {
-            SessionManager.Instance.RemovePlayerServerRpc();
+            if (NetworkManager.Singleton != null && NetworkManager.Singleton.IsListening)
+            {
+                SessionManager.Instance.RemovePlayerServerRpc();
+            }
             UIManager.Instance.DisablePlayerPanel();
         }
 
