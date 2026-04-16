@@ -8,6 +8,7 @@ TagManager:
   - Barricade
   - Item
   - Floor
+  - DespawnWall
   layers:
   - Default
   - TransparentFX

@@ -16,6 +16,7 @@ namespace Actor.Enemy
         private Rigidbody rb;
 
         private Actor.Enemy.EnemyAnimationHandler animationHandler;
+        private Actor.Enemy.EnemyAudioHandler audioHandler;
 
         private int hp;
 
@@ -29,6 +30,7 @@ namespace Actor.Enemy
             rb = GetComponent<Rigidbody>();
 
             animationHandler = GetComponent<Actor.Enemy.EnemyAnimationHandler>();
+            audioHandler = GetComponent<Actor.Enemy.EnemyAudioHandler>();
         }
 
         public override void OnNetworkSpawn()
@@ -63,6 +65,10 @@ namespace Actor.Enemy
             if (other.CompareTag("Barricade"))
             {
                 Events.ActorEvents.HandleEnemyPlayerFieldCollision(damage);
+                DespawnSelfServerRPC();
+            }
+            else if(other.CompareTag("DespawnWall"))
+            {
                 DespawnSelfServerRPC();
             }
         }
@@ -137,10 +143,10 @@ namespace Actor.Enemy
 
         public void TakeDamage(Data.ElementType bulletType)
         {
-            if(Type.Value == bulletType)
-            {
+            //if(Type.Value == bulletType)
+            //{
                 hp--;
-            }
+            //}
 
             if (hp <= 0)
             {
@@ -183,6 +189,7 @@ namespace Actor.Enemy
         public void DieServerRPC(RpcParams rpcParams = default)
         {
             IsMoving.Value = false;
+            audioHandler.PlayDeathSound();
             animationHandler.PlayDead();
         }
 

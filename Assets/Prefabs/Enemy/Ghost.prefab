@@ -202,6 +202,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 07442f58c0518094d865dbc0de5f088f, type: 3}
       insertIndex: -1
       addedObject: {fileID: -9027374836502047671}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 07442f58c0518094d865dbc0de5f088f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4239270410216621983}
   m_SourcePrefab: {fileID: 100100000, guid: 07442f58c0518094d865dbc0de5f088f, type: 3}
 --- !u!1 &5828848612904731 stripped
 GameObject:
@@ -397,6 +400,20 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.7, y: 0.7, z: 0.4}
   m_Center: {x: 0, y: 0.44, z: 0}
+--- !u!114 &4239270410216621983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5828848612904731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 113573368836de94bae60463897b2039, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Actor.Enemy.EnemyAudioHandler
+  crySound: {fileID: 0}
+  deathSound: {fileID: 8300000, guid: 4713f8e4ab6900142b3207fedbe115c7, type: 3}
 --- !u!4 &819485678704645537 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 07442f58c0518094d865dbc0de5f088f, type: 3}
