@@ -15,7 +15,7 @@ namespace Actor.Enemy
         //private float multiTypeEnemySpawnRate = 100f;
 
         public float spawnWidth = 18f;
-        private static float fixedSpawnY = 0.5f;
+        private static float fixedSpawnY = 0.01f;
 
         void Awake()
         {
@@ -83,7 +83,7 @@ namespace Actor.Enemy
                 enemy.GetComponent<Actor.Enemy.EnemyController>().SetMultiType(Data.ElementType.Random);
             }
             enemy.GetComponent<Actor.Enemy.EnemyController>().SetHP(info.lives);
-            enemy.GetComponent<Actor.Enemy.EnemyController>().LaunchClientRpc(direction);
+            enemy.GetComponent<Actor.Enemy.EnemyController>().StartMovingServerRpc(direction);
         }
         #endregion
     }

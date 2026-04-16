@@ -1,8 +1,6 @@
-using System.Collections.Generic;
-using TMPro;
 using Unity.Netcode;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Actor.Enemy
 {
@@ -15,11 +13,14 @@ namespace Actor.Enemy
 
         public Material[] typeMaterials;
 
+        private Rigidbody rb;
+
         private int hp;
 
         public NetworkVariable<Data.NetworkElementType> Type = new NetworkVariable<Data.NetworkElementType>();
+        public NetworkVariable<bool> IsMoving = new NetworkVariable<bool>();
+        public NetworkVariable<Vector3> Direction = new NetworkVariable<Vector3>();
 
-        private Rigidbody rb;
 
         private void Awake()
         {
@@ -44,6 +45,11 @@ namespace Actor.Enemy
             }
 
             Type.OnValueChanged -= OnTypeChanged;
+        }
+
+        void FixedUpdate()
+        {
+            Move();
         }
 
         private void OnTriggerEnter(Collider other)
@@ -136,17 +142,21 @@ namespace Actor.Enemy
             }
         }
 
-        [Rpc(SendTo.Everyone)]
-        public void LaunchClientRpc(Vector3 direction)
+        [Rpc(SendTo.Server)]
+        public void StartMovingServerRpc(Vector3 direction, RpcParams rpcParams = default)
         {
-            Launch(direction);
+            IsMoving.Value = true;
+            Direction.Value = direction;
         }
 
-        public void Launch(Vector3 direction)
+        public void Move()
         {
-            if (rb != null)
+            if(IsMoving.Value)
             {
-                rb.linearVelocity = direction * speed;
+                if (rb != null)
+                {
+                    rb.linearVelocity = Direction.Value.normalized * speed;
+                }
             }
         }
 

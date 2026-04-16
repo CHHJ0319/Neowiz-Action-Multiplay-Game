@@ -249,7 +249,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 80
@@ -315,7 +315,7 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   elementIcon: {fileID: 7905554608857878127}
   damage: 10
-  speed: 3
+  speed: 2
   typeMaterials:
   - {fileID: 2100000, guid: a6c395bbb44583642ac330b5d232be1b, type: 2}
   - {fileID: 2100000, guid: f77795e0f60b9794685406cbea46bc70, type: 2}
@@ -327,6 +327,16 @@ MonoBehaviour:
     UpdateTraits:
       MinSecondsBetweenUpdates: 0
       MaxSecondsBetweenUpdates: 0
+  IsMoving:
+    UpdateTraits:
+      MinSecondsBetweenUpdates: 0
+      MaxSecondsBetweenUpdates: 0
+    m_InternalValue: 0
+  Direction:
+    UpdateTraits:
+      MinSecondsBetweenUpdates: 0
+      MaxSecondsBetweenUpdates: 0
+    m_InternalValue: {x: 0, y: 0, z: 0}
 --- !u!65 &-9027374836502047671
 BoxCollider:
   m_ObjectHideFlags: 0
