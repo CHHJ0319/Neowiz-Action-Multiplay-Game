@@ -22,11 +22,10 @@ namespace UI.StageScene
             StopAllCoroutines();
 
             requestMessageText.text = message;
-
-            speechBubble.gameObject.SetActive(true);
             if (gameObject.activeInHierarchy)
             {
-                StartCoroutine(HideMessageAfterDelay(1.0f));
+                StartCoroutine(ShowSpeechBubble(1.0f));
+
             }
         }
 
@@ -64,8 +63,10 @@ namespace UI.StageScene
             playerNameText.text = "PLAYER" + (transform.GetSiblingIndex() + 1);
         }
 
-        private IEnumerator HideMessageAfterDelay(float delay)
+        private IEnumerator ShowSpeechBubble(float delay)
         {
+            speechBubble.gameObject.SetActive(true);
+
             yield return new WaitForSeconds(delay);
 
             speechBubble.gameObject.SetActive(false);

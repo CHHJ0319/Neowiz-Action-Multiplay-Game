@@ -1,9 +1,5 @@
-using System.Data;
 using Unity.Netcode;
-using Unity.Netcode.Components;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Actor.Player 
 {
