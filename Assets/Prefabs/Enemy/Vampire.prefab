@@ -572,7 +572,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 113573368836de94bae60463897b2039, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Actor.Enemy.EnemyAudioHandler
-  crySound: {fileID: 0}
+  crySound: {fileID: 8300000, guid: 3da2e3901a2059f4e8fbf87f80741698, type: 3}
   deathSound: {fileID: 8300000, guid: 292ba4a6551bb4e42b112c47e958b3de, type: 3}
 --- !u!4 &5347194502394401941 stripped
 Transform:
