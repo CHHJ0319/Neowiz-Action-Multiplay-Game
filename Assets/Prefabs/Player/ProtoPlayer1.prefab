@@ -358,7 +358,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd54bfc6d36f35f40adb2abcc2e44a46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Actor.Player.PlayerAudioHandler
-  dashSound: {fileID: 8300000, guid: c0ed19776a149ed4f94a327b77fa7627, type: 3}
+  dashSound: {fileID: 8300000, guid: c75347905e2a8454389bf2dd3291a264, type: 3}
   throwSound: {fileID: 8300000, guid: d134ae447c2fe8d4990f4f7f3e090fed, type: 3}
 --- !u!82 &-2162922536168923710
 AudioSource:
