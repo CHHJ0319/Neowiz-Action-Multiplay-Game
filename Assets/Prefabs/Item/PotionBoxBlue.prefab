@@ -68,6 +68,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Item
       objectReference: {fileID: 0}
+    - target: {fileID: 7910393687921463825, guid: 2f8e5c1563f808544a85377d2b36b85b, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -1886130057104531637, guid: 2f8e5c1563f808544a85377d2b36b85b, type: 3}
     - target: {fileID: 7986006741331934663, guid: 2f8e5c1563f808544a85377d2b36b85b, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
