@@ -150,10 +150,10 @@ namespace Actor.Enemy
 
         public void TakeDamage(Data.ElementType bulletType, string playerName)
         {
-            if (Type.Value == bulletType)
-            {
+            //if (Type.Value == bulletType)
+            //{
                 hp--;
-            }
+            //}
 
             if (hp <= 0)
             {

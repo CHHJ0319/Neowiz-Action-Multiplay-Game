@@ -6,16 +6,20 @@ namespace UI.StageScene
 {
     public class ResultPanel : MonoBehaviour
     {
-        [Header("TitleRow")]
-        public GameObject victoryImage;
-        public GameObject defeatImage;
-
         [Header("StarRow")]
+        public RectTransform victoryStarDeco;
+        public RectTransform lostStarDeco;
         public RectTransform starRow;
         public Sprite activeStarSprite;
         public Sprite inactiveStarSprite;
 
+        [Header("TitleRow")]
+        public GameObject victoryImage;
+        public GameObject defeatImage;
+
         [Header("MVPRow")]
+        public RectTransform mvpImage;
+        public RectTransform failImage;
         public TextMeshProUGUI mvpNameText;
 
         [Header("MenuRoww")]
@@ -58,14 +62,18 @@ namespace UI.StageScene
             if(startCount > 0)
             {
                 SetTitleImage(true);
+                SetStarDeco(true);
                 nextWaveButton.gameObject.SetActive(true);
-                SetMVP(mvp);
+                SetMVPImage(true);
+                SetMVPName(mvp);
             }
             else
             {
                 SetTitleImage(false);
+                SetStarDeco(false);
                 nextWaveButton.gameObject.SetActive(false);
-                SetMVP("");
+                SetMVPImage(false);
+                SetMVPName("");
             }
 
             SetStars(startCount);
@@ -87,6 +95,22 @@ namespace UI.StageScene
             }
         }
 
+        private void SetStarDeco(bool isVictory)
+        {
+            victoryStarDeco.gameObject.SetActive(false);
+            lostStarDeco.gameObject.SetActive(false);
+
+            if (isVictory)
+            {
+                victoryStarDeco.gameObject.SetActive(true);
+            }
+
+            else
+            {
+                lostStarDeco.gameObject.SetActive(true);
+            }
+        }
+
         private void SetStars(int starCount)
         {
             int totalChildren = starRow.childCount;
@@ -104,7 +128,23 @@ namespace UI.StageScene
             }
         }
 
-        private void SetMVP(string name)
+        private void SetMVPImage(bool isVictory)
+        {
+            mvpImage.gameObject.SetActive(false);
+            failImage.gameObject.SetActive(false);
+
+            if (isVictory)
+            {
+                mvpImage.gameObject.SetActive(true);
+            }
+
+            else
+            {
+                failImage.gameObject.SetActive(true);
+            }
+        }
+
+        private void SetMVPName(string name)
         {
             if (mvpNameText != null)
             {
