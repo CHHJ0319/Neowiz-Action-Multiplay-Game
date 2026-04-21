@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 6436685136806678605}
   - component: {fileID: 6897731990371858660}
+  - component: {fileID: 3427712134109350516}
   - component: {fileID: 6195046905669205212}
   - component: {fileID: 1240022843088312750}
-  - component: {fileID: 3427712134109350516}
   m_Layer: 5
-  m_Name: ConfirmButton
+  m_Name: PopupButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -48,6 +48,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1433622847628122232}
   m_CullTransparentMesh: 1
+--- !u!114 &3427712134109350516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1433622847628122232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65935692131f96540bfc07e07645f6e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OptionButton
+  clickSound: {fileID: 8300000, guid: 46426052479c67c4c98fd53e57e84732, type: 3}
+  soundVolume: 1
 --- !u!114 &6195046905669205212
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134,19 +148,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &3427712134109350516
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1433622847628122232}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65935692131f96540bfc07e07645f6e8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::OptionButton
-  clickSound: {fileID: 8300000, guid: a8761a5eebaa61c4ea506e25f2f23ac9, type: 3}
 --- !u!1 &5475306971090659606
 GameObject:
   m_ObjectHideFlags: 0
@@ -159,7 +160,7 @@ GameObject:
   - component: {fileID: 2541758092944859747}
   - component: {fileID: 1876012638960806606}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -212,7 +213,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uD655\uC778"
+  m_text: "\uB4A4\uB85C\uAC00\uAE30"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: db92a2ceac0641343a439550cb132c07, type: 2}
   m_sharedMaterial: {fileID: 458760129803120655, guid: db92a2ceac0641343a439550cb132c07, type: 2}

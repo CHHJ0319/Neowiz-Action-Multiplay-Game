@@ -1,9 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UI
+namespace UI.Common
 {
-    public class CommonButton : MonoBehaviour
+    public class PopupButton : MonoBehaviour
     {
         public AudioClip clickSound;
         public float soundVolume = 1.0f;
