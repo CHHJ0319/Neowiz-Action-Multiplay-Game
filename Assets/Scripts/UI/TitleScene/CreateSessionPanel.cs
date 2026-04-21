@@ -28,7 +28,7 @@ namespace UI.TitleScene
             teamNameInputField.characterLimit = 10;
             teamNameInputField.onEndEdit.AddListener((value) => CheckIfEmpty(value, teamNameInputFieldErrorMessage));
             passwordInputField.characterLimit = 4;
-            //passwordInputField.onEndEdit.AddListener((value) => CheckIfEmpty(value, passwordInputFieldErrorMessage));
+            passwordInputField.onEndEdit.AddListener((value) => ValidatePasswordLength(value, passwordInputFieldErrorMessage));
         }
 
         private void OnCreateSessionButtonClicked()
@@ -61,6 +61,18 @@ namespace UI.TitleScene
             else
             {
                 errorMessage.gameObject.SetActive(false);
+            }
+        }
+
+        private void ValidatePasswordLength(string input, RectTransform errorMessage)
+        {
+            if (input.Length == 4)
+            {
+                errorMessage.gameObject.SetActive(false);
+            }
+            else
+            {
+                errorMessage.gameObject.SetActive(true);
             }
         }
     }

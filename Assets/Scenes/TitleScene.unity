@@ -3108,6 +3108,10 @@ PrefabInstance:
       propertyPath: m_text
       value: "\uD50C\uB808\uC774\uC5B4 \uC774\uB984\uC744 \uC785\uB825\uD574\uC8FC\uC138\uC694..."
       objectReference: {fileID: 0}
+    - target: {fileID: 2958600344349530123, guid: 9e5a960e3b9f9d647b06d4fa045d1260, type: 3}
+      propertyPath: m_text
+      value: "\u200B"
+      objectReference: {fileID: 0}
     - target: {fileID: 4153359128133513030, guid: 9e5a960e3b9f9d647b06d4fa045d1260, type: 3}
       propertyPath: m_text
       value: "\uC774\uB984\uC744 \uC785\uB825\uD574 \uC8FC\uC138\uC694."
@@ -3199,6 +3203,10 @@ PrefabInstance:
     - target: {fileID: 6876779869858374464, guid: 9e5a960e3b9f9d647b06d4fa045d1260, type: 3}
       propertyPath: m_text
       value: "\uD50C\uB808\uC774\uC5B4\n\uC774\uB984"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7330516634109032073, guid: 9e5a960e3b9f9d647b06d4fa045d1260, type: 3}
+      propertyPath: m_Text
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7330516634109032073, guid: 9e5a960e3b9f9d647b06d4fa045d1260, type: 3}
       propertyPath: m_ContentType
@@ -4290,23 +4298,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 365332801677838858, guid: 87b6aed25ff0c564cb0069d1290c410a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1341974214774792115, guid: 87b6aed25ff0c564cb0069d1290c410a, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1341974214774792115, guid: 87b6aed25ff0c564cb0069d1290c410a, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1341974214774792115, guid: 87b6aed25ff0c564cb0069d1290c410a, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 355
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1341974214774792115, guid: 87b6aed25ff0c564cb0069d1290c410a, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -40
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1366847917618989966, guid: 87b6aed25ff0c564cb0069d1290c410a, type: 3}
       propertyPath: m_AnchorMax.y
@@ -4346,19 +4354,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5220173095087538255, guid: 87b6aed25ff0c564cb0069d1290c410a, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5220173095087538255, guid: 87b6aed25ff0c564cb0069d1290c410a, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5220173095087538255, guid: 87b6aed25ff0c564cb0069d1290c410a, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 145
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5220173095087538255, guid: 87b6aed25ff0c564cb0069d1290c410a, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -40
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6415703855706749175, guid: 87b6aed25ff0c564cb0069d1290c410a, type: 3}
       propertyPath: m_text
@@ -4999,6 +5007,14 @@ PrefabInstance:
       propertyPath: m_text
       value: "\uD300 \uC774\uB984\uC744 \uC785\uB825\uD574\uC8FC\uC138\uC694."
       objectReference: {fileID: 0}
+    - target: {fileID: 2958600344349530123, guid: 9e5a960e3b9f9d647b06d4fa045d1260, type: 3}
+      propertyPath: m_text
+      value: "\u200B"
+      objectReference: {fileID: 0}
+    - target: {fileID: 2958600344349530123, guid: 9e5a960e3b9f9d647b06d4fa045d1260, type: 3}
+      propertyPath: m_isRichText
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4153359128133513030, guid: 9e5a960e3b9f9d647b06d4fa045d1260, type: 3}
       propertyPath: m_text
       value: "4\uC790\uB9AC \uBE44\uBC00\uBC88\uD638\uB97C \uC785\uB825\uD574 \uC8FC\uC138\uC694."
@@ -5091,6 +5107,30 @@ PrefabInstance:
       propertyPath: m_text
       value: "\uBE44\uBC00\uBC88\uD638"
       objectReference: {fileID: 0}
+    - target: {fileID: 7330516634109032073, guid: 9e5a960e3b9f9d647b06d4fa045d1260, type: 3}
+      propertyPath: m_Text
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7330516634109032073, guid: 9e5a960e3b9f9d647b06d4fa045d1260, type: 3}
+      propertyPath: m_InputType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7330516634109032073, guid: 9e5a960e3b9f9d647b06d4fa045d1260, type: 3}
+      propertyPath: m_ContentType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7330516634109032073, guid: 9e5a960e3b9f9d647b06d4fa045d1260, type: 3}
+      propertyPath: m_KeyboardType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7330516634109032073, guid: 9e5a960e3b9f9d647b06d4fa045d1260, type: 3}
+      propertyPath: m_TextComponent
+      value: 
+      objectReference: {fileID: 1765909157}
+    - target: {fileID: 7330516634109032073, guid: 9e5a960e3b9f9d647b06d4fa045d1260, type: 3}
+      propertyPath: m_CharacterValidation
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7517508781198637998, guid: 9e5a960e3b9f9d647b06d4fa045d1260, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -5098,6 +5138,10 @@ PrefabInstance:
     - target: {fileID: 7674825809253268664, guid: 9e5a960e3b9f9d647b06d4fa045d1260, type: 3}
       propertyPath: m_Name
       value: PasswordInputField
+      objectReference: {fileID: 0}
+    - target: {fileID: 7674825809253268664, guid: 9e5a960e3b9f9d647b06d4fa045d1260, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5395,6 +5439,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1763906457}
   m_CullTransparentMesh: 1
+--- !u!114 &1765909157 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2958600344349530123, guid: 9e5a960e3b9f9d647b06d4fa045d1260, type: 3}
+  m_PrefabInstance: {fileID: 1700711862}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1 &1789996255
 GameObject:
   m_ObjectHideFlags: 0
@@ -6079,6 +6134,10 @@ PrefabInstance:
       propertyPath: m_text
       value: "\uD300 \uC774\uB984\uC744 \uC785\uB825\uD574\uC8FC\uC138\uC694."
       objectReference: {fileID: 0}
+    - target: {fileID: 2958600344349530123, guid: 9e5a960e3b9f9d647b06d4fa045d1260, type: 3}
+      propertyPath: m_text
+      value: "\u200B"
+      objectReference: {fileID: 0}
     - target: {fileID: 4153359128133513030, guid: 9e5a960e3b9f9d647b06d4fa045d1260, type: 3}
       propertyPath: m_text
       value: "\uC774\uB984\uC744 \uC785\uB825\uD574 \uC8FC\uC138\uC694."
@@ -6170,6 +6229,10 @@ PrefabInstance:
     - target: {fileID: 6876779869858374464, guid: 9e5a960e3b9f9d647b06d4fa045d1260, type: 3}
       propertyPath: m_text
       value: "\uD300 \uC774\uB984"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7330516634109032073, guid: 9e5a960e3b9f9d647b06d4fa045d1260, type: 3}
+      propertyPath: m_Text
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7517508781198637998, guid: 9e5a960e3b9f9d647b06d4fa045d1260, type: 3}
       propertyPath: m_IsActive
