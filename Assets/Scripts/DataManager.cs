@@ -1,3 +1,10 @@
+using System.Collections.Generic;
+using Unity.Services.Core;
+using Unity.Services.Authentication;
+using Unity.Services.CloudSave;
+using Unity.Services.CloudSave.Models;
+using Unity.Services.CloudSave.Models.Data.Player;
+using SaveOptions = Unity.Services.CloudSave.Models.Data.Player.SaveOptions;
 using UnityEngine;
 
 public class DataManager : MonoBehaviour
@@ -37,5 +44,15 @@ public class DataManager : MonoBehaviour
     public void SetCharacterIndex(int index)
     {
         CharacterIndex = index;
+    }
+
+    public async void SaveData()
+    {
+        var playerData = new Dictionary<string, object>{
+          {"firstKeyName", "a text value"},
+          {"secondKeyName", 123}
+        };
+        await CloudSaveService.Instance.Data.Player.SaveAsync(playerData);
+        Debug.Log($"Saved data {string.Join(',', playerData)}");
     }
 }
