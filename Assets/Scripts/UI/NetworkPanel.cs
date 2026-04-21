@@ -27,6 +27,10 @@ namespace UI
 
         private void Access()
         {
+            string playerName = "TestPlayer";
+            string teamName = "TestTeam";
+            string password = "0000";
+
             string joinCode = joinCodeInputField.text;
 
             if (!string.IsNullOrEmpty(joinCode))
@@ -35,7 +39,7 @@ namespace UI
             }
             else
             {
-                Events.GameEvents.StartHost();
+                Events.GameEvents.StartHost(playerName, teamName, password);
             }
 
             joinCodeInputField.gameObject.SetActive(false);

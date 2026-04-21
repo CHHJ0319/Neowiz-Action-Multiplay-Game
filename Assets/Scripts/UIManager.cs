@@ -55,7 +55,7 @@ public class UIManager : NetworkBehaviour
 
     public void DisablePlayerPanel()
     {
-        int index = DataManager.Instance.SessionPlayerIndex;
+        int index = DataManager.Instance.ID;
         UI.CanvasController.Instance.DisablePlayerPanel(index);
     }
     #endregion
@@ -87,7 +87,7 @@ public class UIManager : NetworkBehaviour
     [Rpc(SendTo.Everyone)]
     public void SetPlayerRoleDisplayClientRpc(Data.PlayerRole[] roles, bool isActive)
     {
-        Data.PlayerRole role = roles[DataManager.Instance.SessionPlayerIndex];
+        Data.PlayerRole role = roles[DataManager.Instance.ID];
         UI.CanvasController.Instance.SetPlayerRoleDisplay(role, isActive);
     }
 

@@ -7,7 +7,12 @@ namespace UI.TitleScene
 {
     public class CreateSessionPanel : MonoBehaviour
     {
+        [Header("Input Fields")]
+        [SerializeField] private TMP_InputField playerNameInputField;
+        [SerializeField] private TMP_InputField teamNameInputField;
         [SerializeField] private TMP_InputField passwordInputField;
+
+        [Header("Button Group")]
         [SerializeField] private Button creasteSessionButton;
         [SerializeField] private Button closeButton;
 
@@ -19,8 +24,11 @@ namespace UI.TitleScene
 
         private void OnCreateSessionButtonClicked()
         {
-            //string password = passwordInputField.text;
-            Events.GameEvents.StartHost();
+            string playerName = playerNameInputField.text;
+            string teamName = teamNameInputField.text;
+            string password = passwordInputField.text;
+
+            Events.GameEvents.StartHost(playerName, teamName, password);
 
             SetVisible(false);
         }

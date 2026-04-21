@@ -103,7 +103,7 @@ namespace UI.LobbyScene
 
         private void UpdateCharacterSelectButton(bool previousValue, bool newValue)
         {
-            if (transform.GetSiblingIndex() == DataManager.Instance.SessionPlayerIndex)
+            if (transform.GetSiblingIndex() == DataManager.Instance.ID)
             {
                 previousButton.gameObject.SetActive(!isReady.Value);
                 nextButton.gameObject.SetActive(!isReady.Value);

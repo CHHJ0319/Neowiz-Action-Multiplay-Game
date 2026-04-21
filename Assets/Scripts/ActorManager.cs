@@ -61,7 +61,7 @@ public class ActorManager : NetworkBehaviour
         }
         else if (sceneName == Utils.SceneList.TutorialScene.ToString())
         {
-            SpawnPlayerServerRpc(NetworkManager.Singleton.LocalClientId, DataManager.Instance.CharacterIndex, DataManager.Instance.SessionPlayerIndex);
+            SpawnPlayerServerRpc(NetworkManager.Singleton.LocalClientId, DataManager.Instance.CharacterIndex, DataManager.Instance.ID);
         }
     }
 

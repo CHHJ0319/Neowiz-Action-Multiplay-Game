@@ -66,8 +66,7 @@ namespace UI
                 if(playerPanel.isDisabled.Value)
                 {
                     int index = panel.GetSiblingIndex();
-                    DataManager.Instance.SetClientInfo(index + 1);
-                    DataManager.Instance.SetSessionPlayerIndex(index);
+                    DataManager.Instance.SetID(index);
 
                     playerPanel.Initialize();
                     break;

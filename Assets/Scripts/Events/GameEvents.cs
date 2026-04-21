@@ -5,7 +5,7 @@ namespace Events
     public static class GameEvents
     {
         public static event Action OnQuitGame;
-        public static event Action OnStartHost;
+        public static event Action<string, string, string> OnStartHost;
         public static event Action<string> OnStartClient;
         public static event Action OnReadyGame;
         
@@ -17,9 +17,9 @@ namespace Events
             OnReadyGame = null;
         } 
 
-        public static void StartHost()
+        public static void StartHost(string playerName, string teamName, string password)
         {
-            OnStartHost?.Invoke();
+            OnStartHost?.Invoke(playerName, teamName, password);
         }
 
         public static void StartClient(string joinCode)

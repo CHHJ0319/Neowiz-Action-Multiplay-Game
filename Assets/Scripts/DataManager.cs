@@ -13,7 +13,6 @@ public class DataManager : MonoBehaviour
 
     public string PlayerName { get; private set; }
     public int ID { get; private set; }
-    public int SessionPlayerIndex { get; private set; }
     public int CharacterIndex { get; private set; }
 
     private void Awake()
@@ -30,15 +29,14 @@ public class DataManager : MonoBehaviour
         }
     }
 
-    public void SetClientInfo(int id)
+    public void SetID(int id)
     {
         ID = id;
-        PlayerName = "PLAYER" + ID;
     }
 
-    public void SetSessionPlayerIndex(int index)
+    public void SetPlayerName(string name)
     {
-        SessionPlayerIndex = index;
+        PlayerName = name;
     }
 
     public void SetCharacterIndex(int index)

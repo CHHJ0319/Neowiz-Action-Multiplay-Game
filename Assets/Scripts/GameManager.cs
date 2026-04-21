@@ -73,9 +73,9 @@ public class GameManager : NetworkBehaviour
     }
 
     #region Network Service
-    private void StartHost()
+    private void StartHost(string playerName, string teamName, string password)
     {
-        StartCoroutine(StartHostSequence());
+        StartCoroutine(StartHostSequence(playerName, teamName, password));
     }
 
     private void StartClient(string joinCode)
@@ -83,7 +83,7 @@ public class GameManager : NetworkBehaviour
         StartCoroutine(StartClientSequence(joinCode));
     }
 
-    private IEnumerator StartHostSequence()
+    private IEnumerator StartHostSequence(string playerName, string teamName, string password)
     {
         NetworkManager.Singleton.Shutdown();
         while (NetworkManager.Singleton.ShutdownInProgress)
@@ -98,20 +98,9 @@ public class GameManager : NetworkBehaviour
             yield break;
         }
 
-        //yield return StartCoroutine(ActorManager.Instance.SpawnPlayer(NetworkManager.Singleton.LocalClientId));
         yield return new WaitForSeconds(0.1f);
 
-        SessionManager.Instance.ClearServerRpc();
-        SessionManager.Instance.AddPlayerServerRpc();
-
-        if (isTest)
-        {
-            UIManager.Instance.Initialize((int)NetworkManager.Singleton.LocalClientId, Utils.SceneNavigator.GetCurrentSceneName());
-        }
-        else
-        {
-            Utils.SceneNavigator.LoadSceneByName(Utils.SceneList.LobbyScene);
-        }
+        yield return StartCoroutine(HandleConnectionSuccess(playerName, teamName));
     }
 
     private IEnumerator StartClientSequence(string joinCode)
@@ -129,6 +118,26 @@ public class GameManager : NetworkBehaviour
         SessionManager.Instance.AddPlayerServerRpc();
 
         UIManager.Instance.Initialize((int)NetworkManager.Singleton.LocalClientId, Utils.SceneNavigator.GetCurrentSceneName());
+    }
+
+    private IEnumerator HandleConnectionSuccess(string playerName, string teamName)
+    {
+        DataManager.Instance.SetPlayerName(playerName);
+
+        SessionManager.Instance.Initialize(teamName);
+
+        yield return null;
+
+        if (isTest)
+        {
+            UIManager.Instance.Initialize((int)NetworkManager.Singleton.LocalClientId, Utils.SceneNavigator.GetCurrentSceneName());
+        }
+        else
+        {
+            Utils.SceneNavigator.LoadSceneByName(Utils.SceneList.LobbyScene);
+        }
+
+        yield return null;
     }
     #endregion
 

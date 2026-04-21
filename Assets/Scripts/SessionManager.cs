@@ -1,10 +1,12 @@
 using System.Collections.Generic;
+using Unity.Collections;
 using Unity.Netcode;
 
 public class SessionManager : NetworkBehaviour
 {
     public static SessionManager Instance { get; private set; }
 
+    public NetworkVariable<FixedString64Bytes> TeamName = new NetworkVariable<FixedString64Bytes>();
     public NetworkVariable<int> PlayerCount = new NetworkVariable<int>(0);
 
     private void Awake()
@@ -19,6 +21,19 @@ public class SessionManager : NetworkBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public void Initialize(string teamName)
+    {
+        SetTeamNameServerRpc(teamName);
+        ClearServerRpc();
+        AddPlayerServerRpc();
+    }
+
+    [Rpc(SendTo.Server)]
+    public void SetTeamNameServerRpc(string teamName, RpcParams rpcParams = default)
+    {
+        TeamName.Value = teamName;
     }
 
     [Rpc(SendTo.Server)]

@@ -67,7 +67,7 @@ namespace Actor.Player
             if (IsOwner)
             {
                 inputHandler.SetPlayerInputEnabled(true);
-                SetPlayerIndexServerRPC(DataManager.Instance.SessionPlayerIndex);
+                SetPlayerIndexServerRPC(DataManager.Instance.ID);
             }
             else
             {
@@ -201,7 +201,7 @@ namespace Actor.Player
                     direction = direction.normalized;
 
                     ShootBulletServerRPC(
-                        DataManager.Instance.SessionPlayerIndex,
+                        DataManager.Instance.ID,
                         DataManager.Instance.PlayerName,
                         direction, 
                         firePoint.position, 
