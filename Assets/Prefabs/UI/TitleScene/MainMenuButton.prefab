@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6302045263953474700}
   - component: {fileID: 6678812386772151674}
   - component: {fileID: 2767041648533574828}
+  - component: {fileID: 5354946416344280564}
   - component: {fileID: 2936841321475344960}
   m_Layer: 5
   m_Name: MainMenuButton
@@ -134,6 +135,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &5354946416344280564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1170202297524422048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0996f7a7a41ba26438a40fe0dca0c7f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UI.TitleScene.MainMenuButton
+  clickSound: {fileID: 8300000, guid: 46426052479c67c4c98fd53e57e84732, type: 3}
+  soundVolume: 0.5
 --- !u!114 &2936841321475344960
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -166,7 +181,7 @@ GameObject:
   - component: {fileID: 2647373972030992173}
   - component: {fileID: 6760761232145488055}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -186,10 +201,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 7656768716940863147}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 400, y: 110}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2647373972030992173
 CanvasRenderer:

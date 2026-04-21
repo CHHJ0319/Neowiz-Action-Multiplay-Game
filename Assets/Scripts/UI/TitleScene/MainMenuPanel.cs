@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Audio;
 using UnityEngine.UI;
 
 namespace UI.TitleScene
@@ -21,10 +20,6 @@ namespace UI.TitleScene
         public GameObject joinSessionPanel;
         public GameObject settingPanel;
 
-        [Header("Audio")]
-        public  AudioClip clickSound;
-        public float soundVolume = 1.0f;
-
         private bool isAnyPanelActive = false;
 
         private void Awake()
@@ -43,7 +38,6 @@ namespace UI.TitleScene
             {
                 tutorialButton.onClick.AddListener(() =>
                 {
-                    PlayClickSound();
                     OnTutorialButtonClicked();
                 });
             }
@@ -52,7 +46,6 @@ namespace UI.TitleScene
             {
                 createSessionButton.onClick.AddListener(() =>
                 {
-                    PlayClickSound();
                     OnCreasteSessionButtonClicked();
                 });
             }
@@ -61,7 +54,6 @@ namespace UI.TitleScene
             {
                 joinSessionButton.onClick.AddListener(() => 
                 { 
-                    PlayClickSound(); 
                     OnJoinSessionButtonClicked(); 
                 });
             }
@@ -70,7 +62,6 @@ namespace UI.TitleScene
             {
                 settingButton.onClick.AddListener(() => 
                 { 
-                    PlayClickSound(); 
                     OnSettingButtonClicked(); 
                 });
             }
@@ -79,7 +70,6 @@ namespace UI.TitleScene
             {
                 quitGameButton.onClick.AddListener(() =>
                 {
-                    PlayClickSound();
                     Events.GameEvents.QuitGame();
                 });
             }
@@ -120,24 +110,6 @@ namespace UI.TitleScene
             if (overlayBlocker.gameObject.activeSelf != isAnyPanelActive)
             {
                 overlayBlocker.gameObject.SetActive(isAnyPanelActive);
-            }
-        }
-
-        private void PlayClickSound()
-        {
-            if (clickSound != null)
-            {
-                GameObject soundObj = new GameObject("TempClickSound");
-                AudioSource asource = soundObj.AddComponent<AudioSource>();
-                asource.clip = clickSound;
-                asource.playOnAwake = false;
-                asource.volume = soundVolume;
-
-                DontDestroyOnLoad(soundObj);
-
-                asource.Play();
-
-                Destroy(soundObj, clickSound.length);
             }
         }
     }
