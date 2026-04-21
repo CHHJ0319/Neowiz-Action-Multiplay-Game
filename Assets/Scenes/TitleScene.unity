@@ -119,6 +119,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!224 &96964720 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 2834494316469516106, guid: 9e5a960e3b9f9d647b06d4fa045d1260, type: 3}
+  m_PrefabInstance: {fileID: 1700711862}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &115114978
 GameObject:
   m_ObjectHideFlags: 0
@@ -3195,6 +3200,22 @@ PrefabInstance:
       propertyPath: m_text
       value: "\uD50C\uB808\uC774\uC5B4\n\uC774\uB984"
       objectReference: {fileID: 0}
+    - target: {fileID: 7330516634109032073, guid: 9e5a960e3b9f9d647b06d4fa045d1260, type: 3}
+      propertyPath: m_ContentType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7330516634109032073, guid: 9e5a960e3b9f9d647b06d4fa045d1260, type: 3}
+      propertyPath: m_KeyboardType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7330516634109032073, guid: 9e5a960e3b9f9d647b06d4fa045d1260, type: 3}
+      propertyPath: m_CharacterLimit
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7330516634109032073, guid: 9e5a960e3b9f9d647b06d4fa045d1260, type: 3}
+      propertyPath: m_CharacterValidation
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7517508781198637998, guid: 9e5a960e3b9f9d647b06d4fa045d1260, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -3699,6 +3720,78 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SessionMAnager
   ShowTopMostFoldoutHeaderGroup: 1
+  TeamName:
+    UpdateTraits:
+      MinSecondsBetweenUpdates: 0
+      MaxSecondsBetweenUpdates: 0
+    m_InternalValue:
+      utf8LengthInBytes: 0
+      bytes:
+        offset0000:
+          byte0000: 0
+          byte0001: 0
+          byte0002: 0
+          byte0003: 0
+          byte0004: 0
+          byte0005: 0
+          byte0006: 0
+          byte0007: 0
+          byte0008: 0
+          byte0009: 0
+          byte0010: 0
+          byte0011: 0
+          byte0012: 0
+          byte0013: 0
+          byte0014: 0
+          byte0015: 0
+        offset0016:
+          byte0000: 0
+          byte0001: 0
+          byte0002: 0
+          byte0003: 0
+          byte0004: 0
+          byte0005: 0
+          byte0006: 0
+          byte0007: 0
+          byte0008: 0
+          byte0009: 0
+          byte0010: 0
+          byte0011: 0
+          byte0012: 0
+          byte0013: 0
+          byte0014: 0
+          byte0015: 0
+        offset0032:
+          byte0000: 0
+          byte0001: 0
+          byte0002: 0
+          byte0003: 0
+          byte0004: 0
+          byte0005: 0
+          byte0006: 0
+          byte0007: 0
+          byte0008: 0
+          byte0009: 0
+          byte0010: 0
+          byte0011: 0
+          byte0012: 0
+          byte0013: 0
+          byte0014: 0
+          byte0015: 0
+        byte0048: 0
+        byte0049: 0
+        byte0050: 0
+        byte0051: 0
+        byte0052: 0
+        byte0053: 0
+        byte0054: 0
+        byte0055: 0
+        byte0056: 0
+        byte0057: 0
+        byte0058: 0
+        byte0059: 0
+        byte0060: 0
+        byte0061: 0
   PlayerCount:
     UpdateTraits:
       MinSecondsBetweenUpdates: 0
@@ -4408,8 +4501,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UI.TitleScene.CreateSessionPanel
   playerNameInputField: {fileID: 853965319}
+  playerNameInputFieldErrorMessage: {fileID: 2079967514}
   teamNameInputField: {fileID: 2121357873}
+  teamNameInputFieldErrorMessage: {fileID: 2066494434}
   passwordInputField: {fileID: 1700711864}
+  passwordInputFieldErrorMessage: {fileID: 96964720}
   creasteSessionButton: {fileID: 1548950180}
   closeButton: {fileID: 427985466}
 --- !u!1 &1270318844
@@ -5925,6 +6021,16 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2053068934}
   m_CullTransparentMesh: 1
+--- !u!224 &2066494434 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 2834494316469516106, guid: 9e5a960e3b9f9d647b06d4fa045d1260, type: 3}
+  m_PrefabInstance: {fileID: 2121357871}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &2079967514 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 2834494316469516106, guid: 9e5a960e3b9f9d647b06d4fa045d1260, type: 3}
+  m_PrefabInstance: {fileID: 853965317}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2081539857
 GameObject:
   m_ObjectHideFlags: 0
