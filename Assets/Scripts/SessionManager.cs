@@ -1,10 +1,11 @@
-using System.Collections.Generic;
 using Unity.Collections;
 using Unity.Netcode;
 
 public class SessionManager : NetworkBehaviour
 {
     public static SessionManager Instance { get; private set; }
+
+    public string CurrentSessionPassword { get; private set; }
 
     public NetworkVariable<FixedString64Bytes> TeamName = new NetworkVariable<FixedString64Bytes>();
     public NetworkVariable<int> PlayerCount = new NetworkVariable<int>(0);
@@ -23,8 +24,9 @@ public class SessionManager : NetworkBehaviour
         }
     }
 
-    public void Initialize(string teamName)
+    public void Initialize(string teamName, string password)
     {
+        SetSessionPassword(password);
         SetTeamNameServerRpc(teamName);
         ClearServerRpc();
         AddPlayerServerRpc();
@@ -67,5 +69,10 @@ public class SessionManager : NetworkBehaviour
         {
             return false;
         }
+    }
+
+    private void SetSessionPassword(string password)
+    {
+        CurrentSessionPassword = password;
     }
 }

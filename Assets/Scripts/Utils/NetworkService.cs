@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Text;
 using System.Threading.Tasks;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
@@ -53,7 +54,7 @@ namespace Utils
             yield return new WaitForSeconds(2.0f);
         }
 
-        public static IEnumerator ConfigureTransportAndStartNgoAsClient(string relayJoinCode)
+        public static IEnumerator ConfigureTransportAndStartNgoAsClient(string relayJoinCode, string password)
         {
             var clientRelayUtilityTask = Utils.NetworkService.JoinRelayServerFromJoinCode(relayJoinCode);
 
@@ -71,6 +72,8 @@ namespace Utils
             var relayServerData = clientRelayUtilityTask.Result;
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
 
+            byte[] payload = Encoding.ASCII.GetBytes(password);
+            NetworkManager.Singleton.NetworkConfig.ConnectionData = payload;
             NetworkManager.Singleton.StartClient();
 
             yield return new WaitUntil(() => NetworkManager.Singleton.IsConnectedClient);

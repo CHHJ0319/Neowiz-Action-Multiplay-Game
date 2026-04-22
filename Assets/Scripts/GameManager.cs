@@ -1,6 +1,6 @@
 using System.Collections;
+using System.Text;
 using Unity.Netcode;
-using Unity.VectorGraphics;
 using UnityEngine;
 
 public class GameManager : NetworkBehaviour
@@ -41,7 +41,12 @@ public class GameManager : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-        if (!IsServer)
+        if (IsServer)
+        {
+            
+
+        }
+        else
         {
             NetworkManager.Singleton.OnClientDisconnectCallback += ForceDisconnect;
         }
@@ -49,7 +54,10 @@ public class GameManager : NetworkBehaviour
 
     public override void OnNetworkDespawn()
     {
-        if (NetworkManager.Singleton != null)
+        if (IsServer)
+        { 
+        }
+        else
         {
             NetworkManager.Singleton.OnClientDisconnectCallback -= ForceDisconnect;
         }
@@ -67,20 +75,15 @@ public class GameManager : NetworkBehaviour
         Utils.NetworkService.InitializeUnityServicesAsync();
     }
 
-    public static void LoadTitleScene()
-    {
-        Utils.SceneNavigator.LoadSceneByName(Utils.SceneList.TitleScene);
-    }
-
     #region Network Service
     private void StartHost(string playerName, string teamName, string password)
     {
         StartCoroutine(StartHostSequence(playerName, teamName, password));
     }
 
-    private void StartClient(string joinCode)
+    private void StartClient(string joinCode, string playerName, string password)
     {
-        StartCoroutine(StartClientSequence(joinCode));
+        StartCoroutine(StartClientSequence(joinCode, playerName, password));
     }
 
     private IEnumerator StartHostSequence(string playerName, string teamName, string password)
@@ -100,10 +103,10 @@ public class GameManager : NetworkBehaviour
 
         yield return new WaitForSeconds(0.1f);
 
-        yield return StartCoroutine(HandleConnectionSuccess(playerName, teamName));
+        yield return StartCoroutine(HandleHostConnectionSuccess(playerName, teamName, password));
     }
 
-    private IEnumerator StartClientSequence(string joinCode)
+    private IEnumerator StartClientSequence(string joinCode, string playerName, string password)
     {
         NetworkManager.Singleton.Shutdown();
         while (NetworkManager.Singleton.ShutdownInProgress)
@@ -111,21 +114,24 @@ public class GameManager : NetworkBehaviour
             yield return null;
         }
 
-        yield return StartCoroutine(Utils.NetworkService.ConfigureTransportAndStartNgoAsClient(joinCode));
+        yield return StartCoroutine(Utils.NetworkService.ConfigureTransportAndStartNgoAsClient(joinCode, password));
 
-        //yield return StartCoroutine(ActorManager.Instance.SpawnPlayer(NetworkManager.Singleton.LocalClientId));
+        if (!NetworkManager.Singleton.IsClient)
+        {
+            yield break;
+        }
 
-        SessionManager.Instance.AddPlayerServerRpc();
-
-        UIManager.Instance.Initialize((int)NetworkManager.Singleton.LocalClientId, Utils.SceneNavigator.GetCurrentSceneName());
+        yield return StartCoroutine(HandleClientConnectionSuccess(playerName));
     }
 
-    private IEnumerator HandleConnectionSuccess(string playerName, string teamName)
+    private IEnumerator HandleHostConnectionSuccess(string playerName, string teamName, string password)
     {
+        NetworkManager.Singleton.NetworkConfig.ConnectionApproval = true;
+        NetworkManager.Singleton.ConnectionApprovalCallback = ApprovalCheck;
+        yield return null;
+
         DataManager.Instance.SetPlayerName(playerName);
-
-        SessionManager.Instance.Initialize(teamName);
-
+        SessionManager.Instance.Initialize(teamName, password);
         yield return null;
 
         if (isTest)
@@ -136,19 +142,16 @@ public class GameManager : NetworkBehaviour
         {
             Utils.SceneNavigator.LoadSceneByName(Utils.SceneList.LobbyScene);
         }
-
         yield return null;
     }
-    #endregion
 
-    private void ClearEvents()
+    private IEnumerator HandleClientConnectionSuccess(string playerName)
     {
-        Events.GameEvents.Clear();
-        Events.ActorEvents.Clear();
-        Events.UIEvents.Clear();
-        Events.RoundEvents.Clear();
-        Events.ActorEvents.Clear();
+        SessionManager.Instance.AddPlayerServerRpc();
 
+        UIManager.Instance.Initialize((int)NetworkManager.Singleton.LocalClientId, Utils.SceneNavigator.GetCurrentSceneName());
+
+        yield return null;
     }
 
     private void ForceDisconnect(ulong clientId)
@@ -158,7 +161,7 @@ public class GameManager : NetworkBehaviour
 
     public void Disconnect(bool isHost)
     {
-        if(isHost)
+        if (isHost)
         {
             SessionManager.Instance.ClearServerRpc();
         }
@@ -177,6 +180,46 @@ public class GameManager : NetworkBehaviour
 
         Utils.NetworkService.ShutdownNetwork();
         Utils.SceneNavigator.LoadSceneByName(Utils.SceneList.TitleScene);
+    }
+    #endregion
+
+    private void ClearEvents()
+    {
+        Events.GameEvents.Clear();
+        Events.ActorEvents.Clear();
+        Events.UIEvents.Clear();
+        Events.RoundEvents.Clear();
+        Events.ActorEvents.Clear();
+
+    }
+
+    private void ApprovalCheck(NetworkManager.ConnectionApprovalRequest request, NetworkManager.ConnectionApprovalResponse response)
+    {
+        if (request.ClientNetworkId == NetworkManager.Singleton.LocalClientId)
+        {
+            response.Approved = true;
+            response.CreatePlayerObject = true;
+            return;
+        }
+
+        byte[] connectionData = request.Payload;
+        string clientPassword = Encoding.ASCII.GetString(connectionData);
+
+        string password = SessionManager.Instance.CurrentSessionPassword;
+        if (clientPassword == password)
+        {
+            response.Approved = true;
+            response.CreatePlayerObject = true;
+            Debug.Log("클라이언트 접속 승인 완료");
+        }
+        else
+        {
+            response.Approved = false;
+            response.Reason = "비밀번호가 일치하지 않습니다."; 
+            Debug.Log("클라이언트 접속 거부: 비밀번호 불일치");
+        }
+
+        response.Pending = false;
     }
 
     private void QuitGame()

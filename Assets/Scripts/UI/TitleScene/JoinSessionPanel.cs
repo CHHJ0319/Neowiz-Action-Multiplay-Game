@@ -6,8 +6,15 @@ namespace UI.TitleScene
 {
     public class JoinSessionPanel : MonoBehaviour
     {
+        [Header("Input Fields")]
+        [SerializeField] private TMP_InputField playerNameInputField;
+        [SerializeField] private RectTransform playerNameInputFieldErrorMessage;
         [SerializeField] private TMP_InputField joinCodeInputField;
+        [SerializeField] private RectTransform joinCodeInputFieldErrorMessage;
         [SerializeField] private TMP_InputField passwordInputField;
+        [SerializeField] private RectTransform passwordInputFieldErrorMessage;
+
+        [Header("Button Group")]
         [SerializeField] private Button joinSessionButton;
         [SerializeField] private Button closeButton;
 
@@ -15,13 +22,20 @@ namespace UI.TitleScene
         {
             joinSessionButton.onClick.AddListener(() => OnJoinSessionButtonClicked());
             closeButton.onClick.AddListener(() => SetVisible(false));
+
+            playerNameInputField.characterLimit = 5;
+            playerNameInputField.onEndEdit.AddListener((value) => CheckIfEmpty(value, playerNameInputFieldErrorMessage));
+            passwordInputField.characterLimit = 4;
+            passwordInputField.onEndEdit.AddListener((value) => ValidatePasswordLength(value, passwordInputFieldErrorMessage));
         }
 
         private void OnJoinSessionButtonClicked()
         {
+            string playerName = playerNameInputField.text;
             string joinCode = joinCodeInputField.text;
-            //string password = passwordInputField.text;
-            Events.GameEvents.StartClient(joinCode);
+            string password = passwordInputField.text;
+            
+            Events.GameEvents.StartClient(joinCode, playerName, password);
 
             SetVisible(false);
         }
@@ -29,6 +43,30 @@ namespace UI.TitleScene
         public void SetVisible(bool isVisible)
         {
             gameObject.SetActive(isVisible);
+        }
+
+        private void CheckIfEmpty(string input, RectTransform errorMessage)
+        {
+            if (string.IsNullOrWhiteSpace(input))
+            {
+                errorMessage.gameObject.SetActive(true);
+            }
+            else
+            {
+                errorMessage.gameObject.SetActive(false);
+            }
+        }
+
+        private void ValidatePasswordLength(string input, RectTransform errorMessage)
+        {
+            if (input.Length == 4)
+            {
+                errorMessage.gameObject.SetActive(false);
+            }
+            else
+            {
+                errorMessage.gameObject.SetActive(true);
+            }
         }
     }
 }

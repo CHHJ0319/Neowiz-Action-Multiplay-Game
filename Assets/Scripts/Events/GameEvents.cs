@@ -6,7 +6,7 @@ namespace Events
     {
         public static event Action OnQuitGame;
         public static event Action<string, string, string> OnStartHost;
-        public static event Action<string> OnStartClient;
+        public static event Action<string, string, string> OnStartClient;
         public static event Action OnReadyGame;
         
         public static void Clear()
@@ -22,9 +22,9 @@ namespace Events
             OnStartHost?.Invoke(playerName, teamName, password);
         }
 
-        public static void StartClient(string joinCode)
+        public static void StartClient(string joinCode, string playerName, string password)
         {
-            OnStartClient?.Invoke(joinCode);
+            OnStartClient?.Invoke(joinCode, playerName, password);
         }
 
         public static void QuitGame()

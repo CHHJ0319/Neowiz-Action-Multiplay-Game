@@ -35,7 +35,7 @@ namespace UI
 
             if (!string.IsNullOrEmpty(joinCode))
             {
-                Events.GameEvents.StartClient(joinCode);
+                Events.GameEvents.StartClient(joinCode, playerName, password);
             }
             else
             {
