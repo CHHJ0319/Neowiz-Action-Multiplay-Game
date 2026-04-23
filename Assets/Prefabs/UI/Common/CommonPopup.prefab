@@ -38,7 +38,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 800, y: 500}
+  m_SizeDelta: {x: 500, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2478369272546005744
 CanvasRenderer:
@@ -113,7 +113,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -180}
+  m_AnchoredPosition: {x: 0, y: -89}
   m_SizeDelta: {x: 500, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &7054697118333558335
@@ -241,8 +241,8 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_characterHorizontalScale: 1
@@ -313,7 +313,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 180}
+  m_AnchoredPosition: {x: 0, y: 85}
   m_SizeDelta: {x: 400, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4593825773601304662
@@ -428,6 +428,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: CancelButton
       objectReference: {fileID: 0}
+    - target: {fileID: 1876012638960806606, guid: ba857ccb6a22abc4d82d81b9ed1cb8cd, type: 3}
+      propertyPath: m_fontStyle
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3427712134109350516, guid: ba857ccb6a22abc4d82d81b9ed1cb8cd, type: 3}
+      propertyPath: clickSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 0896085aae61e5e4780fd9e459776d44, type: 3}
     - target: {fileID: 6436685136806678605, guid: ba857ccb6a22abc4d82d81b9ed1cb8cd, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -507,6 +515,14 @@ PrefabInstance:
     - target: {fileID: 6436685136806678605, guid: ba857ccb6a22abc4d82d81b9ed1cb8cd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7698727143064537416, guid: ba857ccb6a22abc4d82d81b9ed1cb8cd, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7698727143064537416, guid: ba857ccb6a22abc4d82d81b9ed1cb8cd, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -530,6 +546,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: ConfirmButton
       objectReference: {fileID: 0}
+    - target: {fileID: 1876012638960806606, guid: ba857ccb6a22abc4d82d81b9ed1cb8cd, type: 3}
+      propertyPath: m_text
+      value: "\uD655\uC778"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1876012638960806606, guid: ba857ccb6a22abc4d82d81b9ed1cb8cd, type: 3}
+      propertyPath: m_fontStyle
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3427712134109350516, guid: ba857ccb6a22abc4d82d81b9ed1cb8cd, type: 3}
+      propertyPath: clickSound
+      value: 
+      objectReference: {fileID: 8300000, guid: a8761a5eebaa61c4ea506e25f2f23ac9, type: 3}
     - target: {fileID: 6436685136806678605, guid: ba857ccb6a22abc4d82d81b9ed1cb8cd, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -609,6 +637,14 @@ PrefabInstance:
     - target: {fileID: 6436685136806678605, guid: ba857ccb6a22abc4d82d81b9ed1cb8cd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7698727143064537416, guid: ba857ccb6a22abc4d82d81b9ed1cb8cd, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7698727143064537416, guid: ba857ccb6a22abc4d82d81b9ed1cb8cd, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
