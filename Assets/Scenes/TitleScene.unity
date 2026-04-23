@@ -1373,7 +1373,7 @@ GameObject:
   - component: {fileID: 443106059}
   - component: {fileID: 443106058}
   m_Layer: 5
-  m_Name: TextSfx
+  m_Name: Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1655,7 +1655,7 @@ GameObject:
   - component: {fileID: 474449576}
   - component: {fileID: 474449575}
   m_Layer: 5
-  m_Name: SliderSfx
+  m_Name: SFXSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3757,6 +3757,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 928849817}
     m_Modifications:
+    - target: {fileID: 200186572624791674, guid: 87b6aed25ff0c564cb0069d1290c410a, type: 3}
+      propertyPath: m_Name
+      value: SaveButton
+      objectReference: {fileID: 0}
     - target: {fileID: 365332801677838858, guid: 87b6aed25ff0c564cb0069d1290c410a, type: 3}
       propertyPath: m_Name
       value: SettingPanel
@@ -3764,6 +3768,26 @@ PrefabInstance:
     - target: {fileID: 365332801677838858, guid: 87b6aed25ff0c564cb0069d1290c410a, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 804626238114003660, guid: 87b6aed25ff0c564cb0069d1290c410a, type: 3}
+      propertyPath: m_text
+      value: "\uC800\uC7A5"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1341974214774792115, guid: 87b6aed25ff0c564cb0069d1290c410a, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1341974214774792115, guid: 87b6aed25ff0c564cb0069d1290c410a, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1341974214774792115, guid: 87b6aed25ff0c564cb0069d1290c410a, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 355
+      objectReference: {fileID: 0}
+    - target: {fileID: 1341974214774792115, guid: 87b6aed25ff0c564cb0069d1290c410a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -40
       objectReference: {fileID: 0}
     - target: {fileID: 1366847917618989966, guid: 87b6aed25ff0c564cb0069d1290c410a, type: 3}
       propertyPath: m_AnchorMax.y
@@ -3789,6 +3813,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 2.5
       objectReference: {fileID: 0}
+    - target: {fileID: 2620138128069882710, guid: 87b6aed25ff0c564cb0069d1290c410a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -110
+      objectReference: {fileID: 0}
     - target: {fileID: 4652920040151977392, guid: 87b6aed25ff0c564cb0069d1290c410a, type: 3}
       propertyPath: m_SizeDelta.y
       value: 5
@@ -3797,13 +3825,33 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 2.5
       objectReference: {fileID: 0}
+    - target: {fileID: 5220173095087538255, guid: 87b6aed25ff0c564cb0069d1290c410a, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5220173095087538255, guid: 87b6aed25ff0c564cb0069d1290c410a, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5220173095087538255, guid: 87b6aed25ff0c564cb0069d1290c410a, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 145
+      objectReference: {fileID: 0}
+    - target: {fileID: 5220173095087538255, guid: 87b6aed25ff0c564cb0069d1290c410a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -40
+      objectReference: {fileID: 0}
     - target: {fileID: 5882642815840252173, guid: 87b6aed25ff0c564cb0069d1290c410a, type: 3}
       propertyPath: m_text
       value: "\uC800\uC7A5"
       objectReference: {fileID: 0}
     - target: {fileID: 6415703855706749175, guid: 87b6aed25ff0c564cb0069d1290c410a, type: 3}
       propertyPath: m_text
-      value: "\uC138\uD305\n"
+      value: "\uC124\uC815"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6617538181590611329, guid: 87b6aed25ff0c564cb0069d1290c410a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 110
       objectReference: {fileID: 0}
     - target: {fileID: 8292976931405370549, guid: 87b6aed25ff0c564cb0069d1290c410a, type: 3}
       propertyPath: m_AnchorMax.y
@@ -3902,7 +3950,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 6641093030865649035, guid: 87b6aed25ff0c564cb0069d1290c410a, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 8492575363587606034, guid: 87b6aed25ff0c564cb0069d1290c410a, type: 3}
       insertIndex: 1
@@ -3943,11 +3992,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da23dbecaebbcf0429b0bd705a561389, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SettingPanel
+  bgmMuteButton: {fileID: 1819141737}
+  bgmMuteButtonLabel: {fileID: 1340404481}
+  sfxMuteButton: {fileID: 1719391858}
+  sfxMuteButtonLabel: {fileID: 443106058}
   bgmSlider: {fileID: 1270318846}
   sfxSlider: {fileID: 474449575}
-  textBgm: {fileID: 1340404481}
-  textSfx: {fileID: 443106058}
-  closeButton: {fileID: 0}
+  saveButton: {fileID: 1077378838}
+  closeButton: {fileID: 1557124392}
+--- !u!114 &1077378838 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6481579765303724, guid: 87b6aed25ff0c564cb0069d1290c410a, type: 3}
+  m_PrefabInstance: {fileID: 1077378834}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
 --- !u!1 &1097061716
 GameObject:
   m_ObjectHideFlags: 0
@@ -4346,7 +4409,7 @@ GameObject:
   - component: {fileID: 1270318845}
   - component: {fileID: 1270318846}
   m_Layer: 5
-  m_Name: SliderBgm
+  m_Name: BGMSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4510,7 +4573,7 @@ GameObject:
   - component: {fileID: 1340404482}
   - component: {fileID: 1340404481}
   m_Layer: 5
-  m_Name: TextBgm
+  m_Name: Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4675,6 +4738,17 @@ RectTransform:
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6481579765303724, guid: 87b6aed25ff0c564cb0069d1290c410a, type: 3}
   m_PrefabInstance: {fileID: 1217145917}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
+--- !u!114 &1557124392 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6555384273910797904, guid: 87b6aed25ff0c564cb0069d1290c410a, type: 3}
+  m_PrefabInstance: {fileID: 1077378834}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
@@ -5063,7 +5137,7 @@ GameObject:
   - component: {fileID: 1719391856}
   - component: {fileID: 1719391858}
   m_Layer: 5
-  m_Name: SfxMuteButton
+  m_Name: SFXMuteButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5357,7 +5431,7 @@ GameObject:
   - component: {fileID: 1819141735}
   - component: {fileID: 1819141737}
   m_Layer: 5
-  m_Name: BgmMuteButton
+  m_Name: BGMMuteButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

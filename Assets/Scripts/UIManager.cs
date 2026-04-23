@@ -1,3 +1,4 @@
+using UI.TitleScene;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -41,6 +42,16 @@ public class UIManager : NetworkBehaviour
             UI.CanvasController.Instance.SetStageSceneSceneUI(IsHost);
         }
     }
+
+    #region Title Scene
+    public void UpdateSettingPanel()
+    {
+        if (SettingPanel.Instance != null)
+        {
+            SettingPanel.Instance.UpdateUIState();
+        }
+    }
+    #endregion
 
     #region LobbyScene
     public int GetReadyPlayerCount()

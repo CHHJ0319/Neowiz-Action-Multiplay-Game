@@ -2,140 +2,171 @@
 using UnityEngine.UI;
 using TMPro;
 
-public class SettingPanel : MonoBehaviour
+namespace UI.TitleScene
 {
-    [Header("Sliders")]
-    public Slider bgmSlider;
-    public Slider sfxSlider;
-
-    [Header("Mute Button Labels")]
-    public TextMeshProUGUI textBgm;
-    public TextMeshProUGUI textSfx;
-
-    [SerializeField] private Button closeButton;
-
-    private bool isBgmMuted;
-    private bool isSfxMuted;
-
-    private float lastBgmVolume = 1f;
-    private float lastSfxVolume = 1f;
-
-    private void Awake()
+    public class SettingPanel : MonoBehaviour
     {
-        closeButton.onClick.AddListener(() => SetVisible(false));
-    }
+        public static SettingPanel Instance;
 
-    private void Start()
-    {
-        bgmSlider.minValue = 0f;
-        bgmSlider.maxValue = 1f;
-        bgmSlider.wholeNumbers = false;
+        [Header("Mute Buttons")]
+        public Button bgmMuteButton;
+        public TextMeshProUGUI bgmMuteButtonLabel;
+        public Button sfxMuteButton;
+        public TextMeshProUGUI sfxMuteButtonLabel;
 
-        sfxSlider.minValue = 0f;
-        sfxSlider.maxValue = 1f;
-        sfxSlider.wholeNumbers = false;
+        [Header("Sliders")]
+        public Slider bgmSlider;
+        public Slider sfxSlider;
 
-        lastBgmVolume = PlayerPrefs.GetFloat("BGM_VOLUME", 1f);
-        lastSfxVolume = PlayerPrefs.GetFloat("SFX_VOLUME", 1f);
+        [SerializeField] private Button saveButton;
+        [SerializeField] private Button closeButton;
 
-        isBgmMuted = PlayerPrefs.GetInt("BGM_MUTED", 0) == 1;
-        isSfxMuted = PlayerPrefs.GetInt("SFX_MUTED", 0) == 1;
-
-        bgmSlider.value = lastBgmVolume;
-        sfxSlider.value = lastSfxVolume;
-
-        ApplyVolumes();
-        UpdateMuteLabels();
-    }
-
-    public void OnBgmChanged()
-    {
-        lastBgmVolume = bgmSlider.value;
-        PlayerPrefs.SetFloat("BGM_VOLUME", lastBgmVolume);
-
-        if (isBgmMuted && lastBgmVolume > 0f)
+        private void Awake()
         {
-            isBgmMuted = false;
-            PlayerPrefs.SetInt("BGM_MUTED", 0);
+            if (Instance == null)
+            {
+                Instance = this;
+                DontDestroyOnLoad(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
+                return;
+            }
+
+            Initialize();
         }
 
-        ApplyVolumes();
-        UpdateMuteLabels();
-    }
-
-    public void OnSfxChanged()
-    {
-        lastSfxVolume = sfxSlider.value;
-        PlayerPrefs.SetFloat("SFX_VOLUME", lastSfxVolume);
-
-        if (isSfxMuted && lastSfxVolume > 0f)
+        private void OnEnable()
         {
-            isSfxMuted = false;
-            PlayerPrefs.SetInt("SFX_MUTED", 0);
+            SoundManager.Instance.LoadSettings();
         }
 
-        ApplyVolumes();
-        UpdateMuteLabels();
-    }
-
-    public void ToggleBgmMute()
-    {
-        isBgmMuted = !isBgmMuted;
-        PlayerPrefs.SetInt("BGM_MUTED", isBgmMuted ? 1 : 0);
-
-        if (isBgmMuted)
+        private void OnDisable()
         {
-            bgmSlider.value = 0f;
-        }
-        else
-        {
-            bgmSlider.value = lastBgmVolume;
         }
 
-
-        ApplyVolumes();
-        UpdateMuteLabels();
-    }
-
-    public void ToggleSfxMute()
-    {
-        isSfxMuted = !isSfxMuted;
-        PlayerPrefs.SetInt("SFX_MUTED", isSfxMuted ? 1 : 0);
-
-        if (isSfxMuted)
+        private void Initialize()
         {
-            sfxSlider.value = 0f;
-        }
-        else
-        {
-            sfxSlider.value = lastSfxVolume;
-        }
+            bgmSlider.minValue = 0f;
+            bgmSlider.maxValue = 1f;
+            bgmSlider.wholeNumbers = false;
 
-        ApplyVolumes();
-        UpdateMuteLabels();
-    }
+            sfxSlider.minValue = 0f;
+            sfxSlider.maxValue = 1f;
+            sfxSlider.wholeNumbers = false;
 
-    private void ApplyVolumes()
-    {
-        float appliedBgm = isBgmMuted ? 0f : lastBgmVolume;
-        float appliedSfx = isSfxMuted ? 0f : lastSfxVolume;
-    }
+            bgmSlider.onValueChanged.AddListener(OnBgmSliderMoved);
+            sfxSlider.onValueChanged.AddListener(OnSfxSliderMoved);
 
-    private void UpdateMuteLabels()
-    {
-        if (textBgm != null)
-        {
-            textBgm.text = isBgmMuted ? "BGM OFF" : "BGM";
+            bgmMuteButton.onClick.AddListener(() => ToggleBgmMute());
+            sfxMuteButton.onClick.AddListener(() => ToggleSfxMute());
+
+            saveButton.onClick.AddListener(() => OnSaveButtonClicked());
+            closeButton.onClick.AddListener(() => OnCloseButtonClicked());
         }
 
-        if (textSfx != null)
+        public void UpdateUIState()
         {
-            textSfx.text = isSfxMuted ? "SFX OFF" : "SFX";
-        }
-    }
+            if (SoundManager.Instance.IsBGMMuted)
+            {
+                bgmSlider.value = 0f;
+            }
+            else
+            {
+                bgmSlider.value = SoundManager.Instance.BGMVolume;
+            }
 
-    public void SetVisible(bool isVisible)
-    {
-        gameObject.SetActive(isVisible);
+            if (SoundManager.Instance.IsSFXMuted)
+            {
+                sfxSlider.value = 0f;
+            }
+            else
+            {
+                sfxSlider.value = SoundManager.Instance.SFXVolume;
+            }
+        }
+
+        private void OnBgmSliderMoved(float value)
+        {
+            SoundManager.Instance.SetBGMVolume(value);
+
+            UpdateMuteLabels();
+        }
+
+        private void OnSfxSliderMoved(float value)
+        {
+            SoundManager.Instance.SetSFXVolume(value);
+
+            UpdateMuteLabels();
+        }
+
+        private void ToggleBgmMute()
+        {
+            SoundManager.Instance.ToggleBGMMute();
+
+            if (SoundManager.Instance.IsBGMMuted)
+            {
+                SoundManager.Instance.BackupBGMVolume();
+                bgmSlider.value = 0f;
+            }
+            else
+            {
+                SoundManager.Instance.LoadLastBGMVolume();
+                bgmSlider.value = SoundManager.Instance.BGMVolume;
+            }
+
+            UpdateMuteLabels();
+        }
+
+        private void ToggleSfxMute()
+        {
+            SoundManager.Instance.ToggleSFXMute();
+
+            if (SoundManager.Instance.IsSFXMuted)
+            {
+                SoundManager.Instance.BackupSFXVolume();
+                sfxSlider.value = 0f;
+            }
+            else
+            {
+                SoundManager.Instance.LoadLastSFXVolume();
+                sfxSlider.value = SoundManager.Instance.SFXVolume;
+            }
+
+            UpdateMuteLabels();
+        }
+
+        private void UpdateMuteLabels()
+        {
+            bool isBgmMuted = SoundManager.Instance.IsBGMMuted;
+            bool isSfxMuted = SoundManager.Instance.IsSFXMuted;
+
+            if (bgmMuteButtonLabel != null)
+            {
+                bgmMuteButtonLabel.text = isBgmMuted ? "BGM OFF" : "BGM";
+            }
+
+            if (sfxMuteButtonLabel != null)
+            {
+                sfxMuteButtonLabel.text = isSfxMuted ? "SFX OFF" : "SFX";
+            }
+        }
+
+        private void OnSaveButtonClicked()
+        {
+            SoundManager.Instance.SaveSettings();
+            SetVisible(false);
+        }
+
+        private void OnCloseButtonClicked()
+        {
+            SetVisible(false);
+        }
+
+        public void SetVisible(bool isVisible)
+        {
+            gameObject.SetActive(isVisible);
+        }
     }
 }
