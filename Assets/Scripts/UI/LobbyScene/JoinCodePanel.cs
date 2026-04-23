@@ -39,18 +39,8 @@ namespace UI.LobbyScene
         {
             if (copyJoinCodeSound != null)
             {
-                GameObject soundObj = new GameObject("TempClickSound");
-                AudioSource asource = soundObj.AddComponent<AudioSource>();
-                asource.clip = copyJoinCodeSound;
-                asource.playOnAwake = false;
-                asource.volume = soundVolume;
+                SoundManager.Instance.PlaySFX(copyJoinCodeSound, soundVolume);
 
-                DontDestroyOnLoad(soundObj);
-
-
-                asource.Play();
-
-                Destroy(soundObj, copyJoinCodeSound.length);
             }
         }
     }

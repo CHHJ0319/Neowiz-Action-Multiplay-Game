@@ -20,18 +20,7 @@ public class CharacterSelectButton : MonoBehaviour
     {
         if (clickSound != null)
         {
-            GameObject soundObj = new GameObject("TempClickSound");
-            AudioSource asource = soundObj.AddComponent<AudioSource>();
-            asource.clip = clickSound;
-            asource.playOnAwake = false;
-            asource.volume = soundVolume;
-
-            DontDestroyOnLoad(soundObj);
-
-
-            asource.Play();
-
-            Destroy(soundObj, clickSound.length);
+            SoundManager.Instance.PlaySFX(clickSound, soundVolume);
         }
     }
 }

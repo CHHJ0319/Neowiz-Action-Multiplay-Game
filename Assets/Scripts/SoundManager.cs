@@ -6,6 +6,9 @@ public class SoundManager : MonoBehaviour
     public static SoundManager Instance;
 
     public AudioMixer gameAudioMixer;
+
+    [Header("Audio Sources")]
+    public AudioSource sfxSource;
     
     public bool IsBGMMuted { get; private set; }
     public bool IsSFXMuted { get; private set; }
@@ -32,8 +35,16 @@ public class SoundManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+    }
 
+    private void Start()
+    {
         LoadSettings();
+    }
+
+    public void PlaySFX(AudioClip clip, float volume = 1f)
+    {
+        sfxSource.PlayOneShot(clip, volume);
     }
 
     public void SetBGMVolume(float volume)
@@ -99,6 +110,9 @@ public class SoundManager : MonoBehaviour
 
         IsBGMMuted = PlayerPrefs.GetInt(BGM_MUTE_KEY, 0) == 1;
         IsSFXMuted = PlayerPrefs.GetInt(SFX_MUTE_KEY, 0) == 1;
+
+        SetBGMVolume(BGMVolume);
+        SetSFXVolume(SFXVolume);
 
         UIManager.Instance.UpdateSettingPanel();
     }

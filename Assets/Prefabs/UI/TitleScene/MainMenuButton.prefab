@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UI.TitleScene.MainMenuButton
   clickSound: {fileID: 8300000, guid: 46426052479c67c4c98fd53e57e84732, type: 3}
-  soundVolume: 0.5
+  soundVolume: 1
 --- !u!114 &2936841321475344960
 MonoBehaviour:
   m_ObjectHideFlags: 0

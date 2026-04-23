@@ -2217,6 +2217,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5354946416344280564, guid: 2fd97a2a3bfa98548a15247336e479e4, type: 3}
+      propertyPath: soundVolume
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6760761232145488055, guid: 2fd97a2a3bfa98548a15247336e479e4, type: 3}
       propertyPath: m_text
       value: "\uAC8C\uC784 \uC885\uB8CC"
@@ -3756,11 +3760,11 @@ AudioSource:
   m_GameObject: {fileID: 1070391239}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 3291601170477467450, guid: d49a8d8518a3c944dabd5276a853fbe6, type: 2}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: 46426052479c67c4c98fd53e57e84732, type: 3}
+  m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.1
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -4263,6 +4267,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundManager
   gameAudioMixer: {fileID: 24100000, guid: d49a8d8518a3c944dabd5276a853fbe6, type: 2}
+  sfxSource: {fileID: 1070391241}
 --- !u!4 &1216204316
 Transform:
   m_ObjectHideFlags: 0

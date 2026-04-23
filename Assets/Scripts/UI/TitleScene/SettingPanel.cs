@@ -36,6 +36,11 @@ namespace UI.TitleScene
             Initialize();
         }
 
+        private void Start()
+        {
+            UpdateUIState();
+        }
+
         private void Initialize()
         {
             bgmSlider.minValue = 0f;
