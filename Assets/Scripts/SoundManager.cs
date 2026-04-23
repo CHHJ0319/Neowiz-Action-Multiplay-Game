@@ -1,8 +1,11 @@
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class SoundManager : MonoBehaviour
 {
     public static SoundManager Instance;
+
+    public AudioMixer gameAudioMixer;
     
     public bool IsBGMMuted { get; private set; }
     public bool IsSFXMuted { get; private set; }
@@ -37,6 +40,9 @@ public class SoundManager : MonoBehaviour
     {
         BGMVolume = volume;
 
+        float dB = volume > 0.0001f ? Mathf.Log10(volume) * 20 : -80f;
+        gameAudioMixer.SetFloat("BGMVolume", dB);
+
         if (IsBGMMuted && BGMVolume > 0f)
         {
             IsBGMMuted = false;
@@ -46,6 +52,9 @@ public class SoundManager : MonoBehaviour
     public void SetSFXVolume(float volume)
     {
         SFXVolume = volume;
+
+        float dB = volume > 0.0001f ? Mathf.Log10(volume) * 20 : -80f;
+        gameAudioMixer.SetFloat("SFXVolume", dB);
 
         if (IsSFXMuted && SFXVolume > 0f)
         {
@@ -83,6 +92,17 @@ public class SoundManager : MonoBehaviour
         SFXVolume = LastSFXVolume;
     }
 
+    public void LoadSettings()
+    {
+        BGMVolume = PlayerPrefs.GetFloat(BGM_VOLUME_KEY, 1f);
+        SFXVolume = PlayerPrefs.GetFloat(SFX_VOLUME_KEY, 1f);
+
+        IsBGMMuted = PlayerPrefs.GetInt(BGM_MUTE_KEY, 0) == 1;
+        IsSFXMuted = PlayerPrefs.GetInt(SFX_MUTE_KEY, 0) == 1;
+
+        UIManager.Instance.UpdateSettingPanel();
+    }
+
     public void SaveSettings()
     {
         if(IsBGMMuted)
@@ -106,16 +126,5 @@ public class SoundManager : MonoBehaviour
             PlayerPrefs.SetInt(SFX_MUTE_KEY, 0);
             PlayerPrefs.SetFloat(SFX_VOLUME_KEY, SFXVolume);
         }
-    }
-
-    public void LoadSettings()
-    {
-        BGMVolume = PlayerPrefs.GetFloat(BGM_VOLUME_KEY, 1f);
-        SFXVolume = PlayerPrefs.GetFloat(SFX_VOLUME_KEY, 1f);
-
-        IsBGMMuted = PlayerPrefs.GetInt(BGM_MUTE_KEY, 0) == 1;
-        IsSFXMuted = PlayerPrefs.GetInt(SFX_MUTE_KEY, 0) == 1;
-
-        UIManager.Instance.UpdateSettingPanel();
     }
 }

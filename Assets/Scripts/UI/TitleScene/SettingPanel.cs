@@ -36,15 +36,6 @@ namespace UI.TitleScene
             Initialize();
         }
 
-        private void OnEnable()
-        {
-            SoundManager.Instance.LoadSettings();
-        }
-
-        private void OnDisable()
-        {
-        }
-
         private void Initialize()
         {
             bgmSlider.minValue = 0f;
@@ -160,6 +151,7 @@ namespace UI.TitleScene
 
         private void OnCloseButtonClicked()
         {
+            SoundManager.Instance.LoadSettings();
             SetVisible(false);
         }
 
