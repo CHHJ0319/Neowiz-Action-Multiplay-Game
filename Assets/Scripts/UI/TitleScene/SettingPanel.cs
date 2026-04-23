@@ -26,7 +26,6 @@ namespace UI.TitleScene
             if (Instance == null)
             {
                 Instance = this;
-                DontDestroyOnLoad(gameObject);
             }
             else
             {

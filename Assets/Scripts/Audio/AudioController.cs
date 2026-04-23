@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Audio
 {
@@ -8,13 +7,9 @@ namespace Audio
         public static SoundManager instance;
 
         public AudioSource bgmSource;
-        public AudioSource buttonSource;
 
-        [Header("BGM Settings")]
+        [Header("BGM Lists")]
         public AudioClip[] bgmTracks;
-
-        [Header("Connection Settings")]
-        public RectTransform buttons;
 
         void Awake()
         {
@@ -27,6 +22,7 @@ namespace Audio
             else
             {
                 Destroy(gameObject);
+                return;
             }
         }
 
@@ -37,17 +33,6 @@ namespace Audio
 
         private void Initialized()
         {
-            AssignButtonSounds();
-        }
-
-        public void AssignButtonSounds()
-        {
-            if (buttons == null) return;
-
-            foreach (RectTransform btn in buttons)
-            {
-                btn.GetComponent<Button>().onClick.AddListener(PlayButtonClickSound);
-            }
         }
 
         private void PlayBGM()
@@ -57,14 +42,6 @@ namespace Audio
             bgmSource.clip = bgmTracks[0];
             bgmSource.loop = true;
             bgmSource.Play();
-        }
-
-        private void PlayButtonClickSound()
-        {
-            if (buttonSource != null)
-            {
-                buttonSource.Play();
-            }
         }
     }
 }
