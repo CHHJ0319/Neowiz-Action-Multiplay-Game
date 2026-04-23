@@ -31,6 +31,13 @@ namespace UI.TitleScene
             passwordInputField.onEndEdit.AddListener((value) => ValidatePasswordLength(value, passwordInputFieldErrorMessage));
         }
 
+        private void Start()
+        {
+            playerNameInputField.onValueChanged.AddListener(delegate { OnInputChanged(); });
+            teamNameInputField.onValueChanged.AddListener(delegate { OnInputChanged(); });
+            passwordInputField.onValueChanged.AddListener(delegate { OnInputChanged(); });
+        }
+
         private void OnCreateSessionButtonClicked()
         {
             string playerName = playerNameInputField.text;
@@ -74,6 +81,22 @@ namespace UI.TitleScene
             {
                 errorMessage.gameObject.SetActive(true);
             }
+        }
+
+        private void OnInputChanged()
+        {
+            creasteSessionButton.interactable = CanCreateSession();
+        }
+
+        private bool CanCreateSession()
+        {
+            bool isPlayerNameValid = !string.IsNullOrWhiteSpace(playerNameInputField.text);
+
+            bool isTeamNameValid = !string.IsNullOrWhiteSpace(teamNameInputField.text);
+
+            bool isPasswordValid = passwordInputField.text.Length == 4;
+
+            return isPlayerNameValid && isTeamNameValid && isPasswordValid;
         }
     }
 }
