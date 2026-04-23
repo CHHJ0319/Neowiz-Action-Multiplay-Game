@@ -25,8 +25,16 @@ namespace UI.TitleScene
 
             playerNameInputField.characterLimit = 5;
             playerNameInputField.onEndEdit.AddListener((value) => CheckIfEmpty(value, playerNameInputFieldErrorMessage));
+            joinCodeInputField.onEndEdit.AddListener((value) => CheckIfEmpty(value, joinCodeInputFieldErrorMessage));
             passwordInputField.characterLimit = 4;
             passwordInputField.onEndEdit.AddListener((value) => ValidatePasswordLength(value, passwordInputFieldErrorMessage));
+        }
+
+        private void Start()
+        {
+            playerNameInputField.onValueChanged.AddListener(delegate { OnInputChanged(); });
+            joinCodeInputField.onValueChanged.AddListener(delegate { OnInputChanged(); });
+            passwordInputField.onValueChanged.AddListener(delegate { OnInputChanged(); });
         }
 
         private void OnJoinSessionButtonClicked()
@@ -67,6 +75,22 @@ namespace UI.TitleScene
             {
                 errorMessage.gameObject.SetActive(true);
             }
+        }
+
+        private void OnInputChanged()
+        {
+            joinSessionButton.interactable = CanJoinSession();
+        }
+
+        private bool CanJoinSession()
+        {
+            bool isPlayerNameValid = !string.IsNullOrWhiteSpace(playerNameInputField.text);
+
+            bool isJoinCodeValid = !string.IsNullOrWhiteSpace(joinCodeInputField.text);
+
+            bool isPasswordValid = passwordInputField.text.Length == 4;
+
+            return isPlayerNameValid && isJoinCodeValid && isPasswordValid;
         }
     }
 }

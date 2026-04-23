@@ -147,10 +147,9 @@ public class GameManager : NetworkBehaviour
 
     private IEnumerator HandleClientConnectionSuccess(string playerName)
     {
+        DataManager.Instance.SetPlayerName(playerName);
         SessionManager.Instance.AddPlayerServerRpc();
-
         UIManager.Instance.Initialize((int)NetworkManager.Singleton.LocalClientId, Utils.SceneNavigator.GetCurrentSceneName());
-
         yield return null;
     }
 
