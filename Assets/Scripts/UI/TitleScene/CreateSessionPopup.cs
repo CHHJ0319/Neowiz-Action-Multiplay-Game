@@ -4,28 +4,29 @@ using UnityEngine.UI;
 
 namespace UI.TitleScene
 {
-    public class JoinSessionPanel : MonoBehaviour
+    public class CreateSessionPopup : MonoBehaviour
     {
         [Header("Input Fields")]
         [SerializeField] private TMP_InputField playerNameInputField;
         [SerializeField] private RectTransform playerNameInputFieldErrorMessage;
-        [SerializeField] private TMP_InputField joinCodeInputField;
-        [SerializeField] private RectTransform joinCodeInputFieldErrorMessage;
+        [SerializeField] private TMP_InputField teamNameInputField;
+        [SerializeField] private RectTransform teamNameInputFieldErrorMessage;
         [SerializeField] private TMP_InputField passwordInputField;
         [SerializeField] private RectTransform passwordInputFieldErrorMessage;
 
         [Header("Button Group")]
-        [SerializeField] private Button joinSessionButton;
+        [SerializeField] private Button creasteSessionButton;
         [SerializeField] private Button closeButton;
 
         void Awake()
         {
-            joinSessionButton.onClick.AddListener(() => OnJoinSessionButtonClicked());
-            closeButton.onClick.AddListener(() => SetVisible(false));
+            creasteSessionButton.onClick.AddListener(() => OnCreateSessionButtonClicked());
+            closeButton.onClick.AddListener(() => OnCloseButtonClicked());
 
             playerNameInputField.characterLimit = 5;
             playerNameInputField.onEndEdit.AddListener((value) => CheckIfEmpty(value, playerNameInputFieldErrorMessage));
-            joinCodeInputField.onEndEdit.AddListener((value) => CheckIfEmpty(value, joinCodeInputFieldErrorMessage));
+            teamNameInputField.characterLimit = 10;
+            teamNameInputField.onEndEdit.AddListener((value) => CheckIfEmpty(value, teamNameInputFieldErrorMessage));
             passwordInputField.characterLimit = 4;
             passwordInputField.onEndEdit.AddListener((value) => ValidatePasswordLength(value, passwordInputFieldErrorMessage));
         }
@@ -33,18 +34,23 @@ namespace UI.TitleScene
         private void Start()
         {
             playerNameInputField.onValueChanged.AddListener(delegate { OnInputChanged(); });
-            joinCodeInputField.onValueChanged.AddListener(delegate { OnInputChanged(); });
+            teamNameInputField.onValueChanged.AddListener(delegate { OnInputChanged(); });
             passwordInputField.onValueChanged.AddListener(delegate { OnInputChanged(); });
         }
 
-        private void OnJoinSessionButtonClicked()
+        private void OnCreateSessionButtonClicked()
         {
             string playerName = playerNameInputField.text;
-            string joinCode = joinCodeInputField.text;
+            string teamName = teamNameInputField.text;
             string password = passwordInputField.text;
-            
-            Events.GameEvents.StartClient(joinCode, playerName, password);
 
+            Events.GameEvents.StartHost(playerName, teamName, password);
+
+            SetVisible(false);
+        }
+
+        private void OnCloseButtonClicked()
+        {
             SetVisible(false);
         }
 
@@ -79,18 +85,18 @@ namespace UI.TitleScene
 
         private void OnInputChanged()
         {
-            joinSessionButton.interactable = CanJoinSession();
+            creasteSessionButton.interactable = CanCreateSession();
         }
 
-        private bool CanJoinSession()
+        private bool CanCreateSession()
         {
             bool isPlayerNameValid = !string.IsNullOrWhiteSpace(playerNameInputField.text);
 
-            bool isJoinCodeValid = !string.IsNullOrWhiteSpace(joinCodeInputField.text);
+            bool isTeamNameValid = !string.IsNullOrWhiteSpace(teamNameInputField.text);
 
             bool isPasswordValid = passwordInputField.text.Length == 4;
 
-            return isPlayerNameValid && isJoinCodeValid && isPasswordValid;
+            return isPlayerNameValid && isTeamNameValid && isPasswordValid;
         }
     }
 }

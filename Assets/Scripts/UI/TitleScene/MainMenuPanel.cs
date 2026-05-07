@@ -82,12 +82,12 @@ namespace UI.TitleScene
 
         private void OnCreasteSessionButtonClicked()
         {
-            if (createSessionPanel != null) createSessionPanel.GetComponent<CreateSessionPanel>().SetVisible(true);
+            if (createSessionPanel != null) createSessionPanel.GetComponent<CreateSessionPopup>().SetVisible(true);
         }
 
         private void OnJoinSessionButtonClicked()
         {
-            if (joinSessionPanel != null) joinSessionPanel.GetComponent<JoinSessionPanel>().SetVisible(true);
+            if (joinSessionPanel != null) joinSessionPanel.GetComponent<JoinSessionPopup>().SetVisible(true);
         }
 
         private void OnSettingButtonClicked()
