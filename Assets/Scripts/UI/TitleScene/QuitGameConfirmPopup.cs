@@ -2,12 +2,12 @@ using UnityEngine.Localization.Settings;
 
 namespace UI.TitleScene
 {
-    public class SettingConfirmPopup: UI.LobbyScene.CommonPopup
+    public class QuitGameConfirmPopup : UI.LobbyScene.CommonPopup
     {
         void Awake()
         {
             string message = LocalizationSettings.StringDatabase.GetLocalizedString(
-                "PopupMessage", "settingConfirmMessage");
+                "PopupMessage", "quitGameConfirmMessage");
             SetPrompt(message);
 
             SetupButtons();
@@ -21,8 +21,7 @@ namespace UI.TitleScene
             {
                 confirmButton.onClick.AddListener(() =>
                 {
-                    SoundManager.Instance.LoadSettings();
-                    Events.UIEvents.CloseSettingPanel();
+                    Events.GameEvents.QuitGame();
                 });
             }
         }

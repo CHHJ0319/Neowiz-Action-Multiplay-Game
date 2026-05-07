@@ -20,6 +20,9 @@ namespace UI.TitleScene
         public GameObject joinSessionPanel;
         public GameObject settingPanel;
 
+        [Header("Common Popups")]
+        public QuitGameConfirmPopup quitGameConfirmPopup;
+
         private bool isAnyPanelActive = false;
 
         private void Awake()
@@ -70,7 +73,10 @@ namespace UI.TitleScene
             {
                 quitGameButton.onClick.AddListener(() =>
                 {
-                    Events.GameEvents.QuitGame();
+                    if(quitGameConfirmPopup != null)
+                    {
+                        quitGameConfirmPopup.SetVisible(true);
+                    }
                 });
             }
         }
