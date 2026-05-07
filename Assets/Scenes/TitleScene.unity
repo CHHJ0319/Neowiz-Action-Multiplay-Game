@@ -354,6 +354,7 @@ MonoBehaviour:
   pingPanel: {fileID: 0}
   playerRoleDisplay: {fileID: 0}
   playerPanels: {fileID: 0}
+  teamNamePanel: {fileID: 0}
   sessionMenuPanel: {fileID: 0}
   joinCodePanel: {fileID: 0}
 --- !u!1 &138816563 stripped

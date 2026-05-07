@@ -6,7 +6,7 @@ namespace UI.TitleScene
     {
         void Awake()
         {
-            string message = Utils.LocaleLoader.GetPopupMessage("SaveSettingMessage");
+            string message = Utils.LocaleLoader.GetPopupMessage("Test");
             SetPrompt(message);
 
             SetupButtons();
