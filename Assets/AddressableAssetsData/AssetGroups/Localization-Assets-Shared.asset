@@ -15,6 +15,11 @@ MonoBehaviour:
   m_GroupName: Localization-Assets-Shared
   m_GUID: 8375692ed8139ac46a86cf72695157c9
   m_SerializeEntries:
+  - m_GUID: 271f0dc9f1d576447ac1ead17bcc1809
+    m_Address: Assets/Tables/ButtonLabelTable Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7e18014ab84cb6d46948ba596654d826
     m_Address: Assets/Settings/PopupMessage Shared Data.asset
     m_ReadOnly: 1
