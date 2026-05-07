@@ -10,12 +10,7 @@ namespace UI.LobbyScene
         public Button confirmButton;
         public Button cancelButton;
 
-        protected virtual void Awake()
-        {
-            SetupButtons();
-        }
-
-        private void SetupButtons()
+        protected virtual void SetupButtons()
         {
             if (confirmButton != null)
             {
@@ -41,7 +36,12 @@ namespace UI.LobbyScene
 
         private void OnPopupButtonClicked()
         {
-            gameObject.SetActive(false);
+            SetVisible(false);
+        }
+
+        public void SetVisible(bool isVisible)
+        {
+            gameObject.SetActive(isVisible);
         }
     }
 }

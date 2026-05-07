@@ -8,6 +8,9 @@ namespace UI.TitleScene
     {
         public static SettingPanel Instance;
 
+        public SaveSettingPopup saveSettingPopup;
+        public SettingConfirmPopup settingConfirmPopup;
+
         [Header("Mute Buttons")]
         public Button bgmMuteButton;
         public TextMeshProUGUI bgmMuteButtonLabel;
@@ -18,6 +21,7 @@ namespace UI.TitleScene
         public Slider bgmSlider;
         public Slider sfxSlider;
 
+        [Header("Button Group")]
         [SerializeField] private Button saveButton;
         [SerializeField] private Button closeButton;
 
@@ -39,6 +43,16 @@ namespace UI.TitleScene
         private void Start()
         {
             UpdateUIState();
+        }
+
+        private void OnEnable()
+        {
+            Events.UIEvents.OnSettingConfirmPanelClosed += () => SetVisible(false);
+        }
+
+        private void OnDisable()
+        {
+            Events.UIEvents.OnSettingConfirmPanelClosed -= () => SetVisible(false);
         }
 
         private void Initialize()
@@ -150,14 +164,26 @@ namespace UI.TitleScene
 
         private void OnSaveButtonClicked()
         {
-            SoundManager.Instance.SaveSettings();
-            SetVisible(false);
+            if (saveSettingPopup != null)
+            {
+                saveSettingPopup.SetVisible(true);
+            }
         }
 
         private void OnCloseButtonClicked()
         {
-            SoundManager.Instance.LoadSettings();
-            SetVisible(false);
+            if (SoundManager.Instance.IsSettingsChanged())
+            {
+                if (settingConfirmPopup != null)
+                {
+                    settingConfirmPopup.SetVisible(true);
+                }
+            }
+            else 
+            {
+                SetVisible(false);
+            }
+
         }
 
         public void SetVisible(bool isVisible)
