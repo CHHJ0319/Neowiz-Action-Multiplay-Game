@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SessionMenuButton : MonoBehaviour
+public class LobbyMenuButton : MonoBehaviour
 {
     public AudioClip clickSound;
     public float soundVolume = 1.0f;

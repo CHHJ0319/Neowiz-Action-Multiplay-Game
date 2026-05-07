@@ -22,10 +22,10 @@ namespace UI
         public RectTransform playerRoleDisplay;
 
         [Header("LobbyScene")]
-        public RectTransform playerPanels; 
         public UI.LobbyScene.TeamNamePanel teamNamePanel;
-        public UI.LobbyScene.SessionMenuPanel sessionMenuPanel;
         public UI.LobbyScene.JoinCodePanel joinCodePanel;
+        public RectTransform characterSelectPanel;
+        public UI.LobbyScene.LobbyMenuPanel LobbyMenuPanel;
 
         private void Awake()
         {
@@ -43,14 +43,9 @@ namespace UI
                 SetJoinCode();
             }
 
-            sessionMenuPanel.Initialize(isHost);
+            LobbyMenuPanel.Initialize(isHost);
             SetTeamNamePanel();
             SetPlayerPanel();
-        }
-
-        public RectTransform GetPlayerPanels()
-        {
-            return playerPanels;
         }
 
         private void SetTeamNamePanel()
@@ -64,17 +59,17 @@ namespace UI
 
         private void SetPlayerPanel()
         {
-            if (playerPanels == null || playerPanels.childCount <= 0)
+            if (characterSelectPanel == null || characterSelectPanel.childCount <= 0)
             {
                 return;
             }
 
-            foreach (RectTransform panel in playerPanels)
+            foreach (RectTransform slot in characterSelectPanel)
             {
-                UI.LobbyScene.PlayerPanel playerPanel = panel.gameObject.GetComponent<UI.LobbyScene.PlayerPanel>();
+                UI.LobbyScene.PlayerSlot playerPanel = slot.gameObject.GetComponent<UI.LobbyScene.PlayerSlot>();
                 if(playerPanel.isDisabled.Value)
                 {
-                    int index = panel.GetSiblingIndex();
+                    int index = slot.GetSiblingIndex();
                     DataManager.Instance.SetID(index);
 
                     playerPanel.Initialize();
@@ -87,7 +82,7 @@ namespace UI
 
         public void DisablePlayerPanel(int index)
         {
-            UI.LobbyScene.PlayerPanel playerPanel = playerPanels.GetChild(index).gameObject.GetComponent<UI.LobbyScene.PlayerPanel>();
+            UI.LobbyScene.PlayerSlot playerPanel = characterSelectPanel.GetChild(index).gameObject.GetComponent<UI.LobbyScene.PlayerSlot>();
             playerPanel.SetDisabledServerRpc(true);
         }
 
@@ -102,9 +97,9 @@ namespace UI
         public int GetReadyPlayerCount()
         {
             int readyCount = 0;
-            foreach (RectTransform child in playerPanels)
+            foreach (RectTransform child in characterSelectPanel)
             {
-                UI.LobbyScene.PlayerPanel panel = child.GetComponent<UI.LobbyScene.PlayerPanel>();
+                UI.LobbyScene.PlayerSlot panel = child.GetComponent<UI.LobbyScene.PlayerSlot>();
                 if (panel.isReady.Value)
                 {
                     readyCount++;

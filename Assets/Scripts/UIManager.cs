@@ -59,11 +59,6 @@ public class UIManager : NetworkBehaviour
         return UI.CanvasController.Instance.GetReadyPlayerCount();
     }
 
-    public RectTransform GetPlayerPanels()
-    {
-        return UI.CanvasController.Instance.GetPlayerPanels();
-    }
-
     public void DisablePlayerPanel()
     {
         int index = DataManager.Instance.ID;

@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace UI.LobbyScene
 {
-    public class SessionMenuPanel : MonoBehaviour
+    public class LobbyMenuPanel : MonoBehaviour
     {
         public bool isTest = false;
 

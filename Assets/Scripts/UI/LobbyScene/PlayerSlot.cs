@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace UI.LobbyScene
 {
-    public class PlayerPanel : NetworkBehaviour
+    public class PlayerSlot : NetworkBehaviour
     {
         public Transform characters;
         public TextMeshProUGUI playeyNameText;

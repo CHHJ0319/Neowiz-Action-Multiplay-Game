@@ -5267,7 +5267,7 @@ GameObject:
   - component: {fileID: 1277555527}
   - component: {fileID: 1277555526}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5312,7 +5312,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC2A4\uD14C\uC774\uC9C0 \uB85C\uBE44"
+  m_text: "\uB85C\uBE44"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: db92a2ceac0641343a439550cb132c07, type: 2}
   m_sharedMaterial: {fileID: 458760129803120655, guid: db92a2ceac0641343a439550cb132c07, type: 2}
@@ -5890,12 +5890,12 @@ RectTransform:
   - {fileID: 754989112}
   - {fileID: 1265695413}
   - {fileID: 1532699426}
+  - {fileID: 1045216669}
+  - {fileID: 1945058473}
   - {fileID: 833773247}
   - {fileID: 1404491815}
   - {fileID: 1667322706}
   - {fileID: 47838933}
-  - {fileID: 1945058473}
-  - {fileID: 1045216669}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -5925,10 +5925,10 @@ MonoBehaviour:
   timerPanel: {fileID: 0}
   pingPanel: {fileID: 0}
   playerRoleDisplay: {fileID: 0}
-  playerPanels: {fileID: 1404491815}
   teamNamePanel: {fileID: 1045216672}
-  sessionMenuPanel: {fileID: 1667322708}
   joinCodePanel: {fileID: 1945058476}
+  characterSelectPanel: {fileID: 1404491815}
+  LobbyMenuPanel: {fileID: 1667322708}
 --- !u!1001 &1325069580
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6074,7 +6074,7 @@ GameObject:
   - component: {fileID: 1404491816}
   - component: {fileID: 1404491818}
   m_Layer: 5
-  m_Name: PlayerPanels
+  m_Name: CharacterSelectPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6505,7 +6505,7 @@ GameObject:
   - component: {fileID: 1532699428}
   - component: {fileID: 1532699427}
   m_Layer: 5
-  m_Name: Title
+  m_Name: TitlePanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7112,7 +7112,7 @@ GameObject:
   - component: {fileID: 1666507531}
   - component: {fileID: 1666507530}
   m_Layer: 5
-  m_Name: Player1Panel
+  m_Name: PlayerSlot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7283,7 +7283,7 @@ GameObject:
   - component: {fileID: 1667322708}
   - component: {fileID: 1667322707}
   m_Layer: 5
-  m_Name: SessionMenuPanel
+  m_Name: LobbyMenuPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
