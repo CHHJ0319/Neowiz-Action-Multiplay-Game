@@ -6,9 +6,6 @@ public class SoundManager : MonoBehaviour
     public static SoundManager Instance;
 
     public AudioMixer gameAudioMixer;
-
-    [Header("Audio Sources")]
-    public AudioSource sfxSource;
     
     public bool IsBGMMuted { get; private set; }
     public bool IsSFXMuted { get; private set; }
@@ -49,7 +46,7 @@ public class SoundManager : MonoBehaviour
 
     public void PlaySFX(AudioClip clip, float volume = 1f)
     {
-        sfxSource.PlayOneShot(clip, volume);
+        Audio.AudioController.instance.PlaySFX(clip, volume);
     }
 
     public void SetBGMVolume(float volume)

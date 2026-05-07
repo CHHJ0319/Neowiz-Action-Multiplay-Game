@@ -7,7 +7,7 @@ namespace UI.TitleScene
         void Awake()
         {
             string message = LocalizationSettings.StringDatabase.GetLocalizedString(
-                "PopupMessage", "settingConfirmMessage");
+                "PopupMessageTable", "SettingConfirmMessage");
             SetPrompt(message);
 
             SetupButtons();

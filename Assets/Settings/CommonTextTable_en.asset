@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
-  m_Name: PopupMessage_en
+  m_Name: CommonTextTable_en
   m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.StringTable
   m_LocaleId:
     m_Code: en
-  m_SharedData: {fileID: 11400000, guid: 7e18014ab84cb6d46948ba596654d826, type: 2}
+  m_SharedData: {fileID: 11400000, guid: 8ede42df617c7214090267047ca1f894, type: 2}
   m_Metadata:
     m_Items: []
   m_TableData: []

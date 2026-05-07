@@ -3153,6 +3153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TitleBGMManager
   bgmSource: {fileID: 715384105}
+  sfxSource: {fileID: 1070391241}
   bgmTracks:
   - {fileID: 8300000, guid: 36940054faefa8e43a4adf5b4934d59c, type: 3}
 --- !u!4 &550233186
@@ -5542,7 +5543,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundManager
   gameAudioMixer: {fileID: 24100000, guid: d49a8d8518a3c944dabd5276a853fbe6, type: 2}
-  sfxSource: {fileID: 1070391241}
 --- !u!4 &1216204316
 Transform:
   m_ObjectHideFlags: 0

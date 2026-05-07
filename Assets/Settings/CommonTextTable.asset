@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5be51871efa6c3e4eae1703925c8f5ac, type: 3}
-  m_Name: PopupMessage
+  m_Name: CommonTextTable
   m_EditorClassIdentifier: Unity.Localization.Editor::UnityEditor.Localization.StringTableCollection
-  m_SharedTableData: {fileID: 11400000, guid: 7e18014ab84cb6d46948ba596654d826, type: 2}
+  m_SharedTableData: {fileID: 11400000, guid: 8ede42df617c7214090267047ca1f894, type: 2}
   m_Tables:
-  - {fileID: 11400000, guid: f15b149379359fd40a6af607b4f5042b, type: 2}
-  - {fileID: 11400000, guid: 2974d97fd0679c04c88f8bc37434ed1a, type: 2}
+  - {fileID: 11400000, guid: 7e328e5d5f038bd409fb5330d81a9d22, type: 2}
+  - {fileID: 11400000, guid: 21a395df79904cf41b820a9b35f3fbea, type: 2}
   m_Extensions: []
   m_Group: String Table
   references:

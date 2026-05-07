@@ -5,8 +5,8 @@ namespace UI.PrologueScene
 {
     public class PrologueMenuPanel : MonoBehaviour
     {
-        public Button tutorialSceneButton;
-        public Button titleSceneButton;
+        public Button tutorialButton;
+        public Button backButton;
 
         private void Awake()
         {
@@ -15,17 +15,17 @@ namespace UI.PrologueScene
 
         private void SetupButtons()
         {
-            if (tutorialSceneButton != null)
+            if (tutorialButton != null)
             {
-                tutorialSceneButton.onClick.AddListener(() =>
+                tutorialButton.onClick.AddListener(() =>
                 {
                     OnTutorialButtonClicked();
                 });
             }
 
-            if (titleSceneButton != null)
+            if (backButton != null)
             {
-                titleSceneButton.onClick.AddListener(() =>
+                backButton.onClick.AddListener(() =>
                 {
                     OnTitleButtonClicked();
                 });

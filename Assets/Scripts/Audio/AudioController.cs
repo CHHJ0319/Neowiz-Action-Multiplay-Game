@@ -2,11 +2,13 @@ using UnityEngine;
 
 namespace Audio
 {
-    public class SoundManager : MonoBehaviour
+    public class AudioController : MonoBehaviour
     {
-        public static SoundManager instance;
+        public static AudioController instance;
 
+        [Header("Audio Sources")]
         public AudioSource bgmSource;
+        public AudioSource sfxSource;
 
         [Header("BGM Lists")]
         public AudioClip[] bgmTracks;
@@ -37,11 +39,22 @@ namespace Audio
 
         private void PlayBGM()
         {
-            if (bgmTracks == null && bgmTracks.Length <= 0 && bgmSource == null) return;
+            if (bgmTracks == null && bgmTracks.Length <= 0) return;
 
-            bgmSource.clip = bgmTracks[0];
-            bgmSource.loop = true;
-            bgmSource.Play();
+            if(bgmSource != null)
+            {
+                bgmSource.clip = bgmTracks[0];
+                bgmSource.loop = true;
+                bgmSource.Play();
+            }
+        }
+
+        public void PlaySFX(AudioClip clip, float volume = 1f)
+        {
+            if (bgmSource != null)
+            {
+                sfxSource.PlayOneShot(clip, volume);
+            }
         }
     }
 }
