@@ -27,8 +27,8 @@ MonoBehaviour:
     m_Key: QuitGameConfirmMessage
     m_Metadata:
       m_Items: []
-  - m_Id: 164559431131136
-    m_Key: Test
+  - m_Id: 173854486945792
+    m_Key: CopyJoinCodeMessage
     m_Metadata:
       m_Items: []
   m_Metadata:

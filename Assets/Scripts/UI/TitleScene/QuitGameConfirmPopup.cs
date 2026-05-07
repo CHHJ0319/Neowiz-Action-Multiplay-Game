@@ -1,8 +1,6 @@
-using UnityEngine.Localization.Settings;
-
 namespace UI.TitleScene
 {
-    public class QuitGameConfirmPopup : UI.LobbyScene.CommonPopup
+    public class QuitGameConfirmPopup : UI.Common.CommonPopup
     {
         void Awake()
         {

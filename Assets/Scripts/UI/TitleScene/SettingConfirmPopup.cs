@@ -1,8 +1,6 @@
-using UnityEngine.Localization.Settings;
-
 namespace UI.TitleScene
 {
-    public class SettingConfirmPopup: UI.LobbyScene.CommonPopup
+    public class SettingConfirmPopup: UI.Common.CommonPopup
     {
         void Awake()
         {

@@ -1,12 +1,10 @@
-using UnityEngine.Localization.Settings;
-
 namespace UI.TitleScene
 {
-    public class SaveSettingPopup : UI.LobbyScene.CommonPopup
+    public class SaveSettingPopup : UI.Common.CommonPopup
     {
         void Awake()
         {
-            string message = Utils.LocaleLoader.GetPopupMessage("Test");
+            string message = Utils.LocaleLoader.GetPopupMessage("SaveSettingMessage");
             SetPrompt(message);
 
             SetupButtons();

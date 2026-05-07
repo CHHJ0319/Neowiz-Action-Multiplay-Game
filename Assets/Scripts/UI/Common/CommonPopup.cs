@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UI.LobbyScene
+namespace UI.Common
 {
     public abstract class CommonPopup : MonoBehaviour
     {

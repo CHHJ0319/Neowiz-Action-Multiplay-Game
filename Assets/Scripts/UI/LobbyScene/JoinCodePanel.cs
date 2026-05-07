@@ -1,4 +1,5 @@
 using TMPro;
+using UI.TitleScene;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,9 +7,13 @@ namespace UI.LobbyScene
 {
     public class JoinCodePanel : MonoBehaviour
     {
+        public CopyJoinCodePopup copyJoinCodePopup;
+
+        [Header("UI Elements")]
         public TextMeshProUGUI joinCode;
         public Button copyJoinCodeButton;
         public AudioClip copyJoinCodeSound;
+
         public float soundVolume = 1.0f;
 
         private void Awake()
@@ -30,8 +35,11 @@ namespace UI.LobbyScene
             PlayClickSound();
             if (joinCode != null)
             {
-                GUIUtility.systemCopyBuffer = joinCode.text;
-
+                if(copyJoinCodePopup != null)
+                {
+                    GUIUtility.systemCopyBuffer = joinCode.text;
+                    copyJoinCodePopup.SetVisible(true);
+                }
             }
         }
 
