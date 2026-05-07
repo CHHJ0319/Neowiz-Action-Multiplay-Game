@@ -6,8 +6,7 @@ namespace UI.TitleScene
     {
         void Awake()
         {
-            string message = LocalizationSettings.StringDatabase.GetLocalizedString(
-                "PopupMessageTable", "QuitGameConfirmMessage");
+            string message = Utils.LocaleLoader.GetPopupMessage("QuitGameConfirmMessage"); 
             SetPrompt(message);
 
             SetupButtons();

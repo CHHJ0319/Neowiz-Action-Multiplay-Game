@@ -6,8 +6,7 @@ namespace UI.TitleScene
     {
         void Awake()
         {
-            string message = LocalizationSettings.StringDatabase.GetLocalizedString(
-                "PopupMessageTable", "SaveSettingMessage");
+            string message = Utils.LocaleLoader.GetPopupMessage("SaveSettingMessage");
             SetPrompt(message);
 
             SetupButtons();

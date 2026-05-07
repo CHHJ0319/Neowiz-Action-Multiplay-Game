@@ -36,8 +36,7 @@ namespace UI.PrologueScene
         {
             if (prologueText != null)
             {
-                string script = LocalizationSettings.StringDatabase.GetLocalizedString(
-                "CommonTextTable", "PrologueScript");
+                string script = Utils.LocaleLoader.GetCommonText("PrologueScript");
                 prologueText.text = script;
             }
 
