@@ -23,6 +23,7 @@ namespace UI
 
         [Header("LobbyScene")]
         public RectTransform playerPanels; 
+        public UI.LobbyScene.TeamNamePanel teamNamePanel;
         public UI.LobbyScene.SessionMenuPanel sessionMenuPanel;
         public UI.LobbyScene.JoinCodePanel joinCodePanel;
 
@@ -43,12 +44,22 @@ namespace UI
             }
 
             sessionMenuPanel.Initialize(isHost);
+            SetTeamNamePanel();
             SetPlayerPanel();
         }
 
         public RectTransform GetPlayerPanels()
         {
             return playerPanels;
+        }
+
+        private void SetTeamNamePanel()
+        {
+            if (teamNamePanel == null)
+                return;
+
+            string teamName = SessionManager.Instance.TeamName.Value.ToString();
+            teamNamePanel.SetTeamName(teamName);
         }
 
         private void SetPlayerPanel()

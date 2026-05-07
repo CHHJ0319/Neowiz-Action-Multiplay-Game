@@ -4194,6 +4194,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1045216669}
+  - component: {fileID: 1045216672}
   - component: {fileID: 1045216671}
   - component: {fileID: 1045216670}
   m_Layer: 5
@@ -4261,6 +4262,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1045216668}
   m_CullTransparentMesh: 1
+--- !u!114 &1045216672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1045216668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a3f8ad549185cc4ab7fd5c328163058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UI.LobbyScene.TeamNamePanel
+  teamNameText: {fileID: 1779751081}
 --- !u!1001 &1050107805
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5912,6 +5926,7 @@ MonoBehaviour:
   pingPanel: {fileID: 0}
   playerRoleDisplay: {fileID: 0}
   playerPanels: {fileID: 1404491815}
+  teamNamePanel: {fileID: 1045216672}
   sessionMenuPanel: {fileID: 1667322708}
   joinCodePanel: {fileID: 1945058476}
 --- !u!1001 &1325069580
@@ -7595,7 +7610,7 @@ GameObject:
   - component: {fileID: 1779751082}
   - component: {fileID: 1779751081}
   m_Layer: 5
-  m_Name: TeamName
+  m_Name: TeamNameText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

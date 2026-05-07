@@ -26,9 +26,9 @@ public class SessionManager : NetworkBehaviour
 
     public void Initialize(string teamName, string password)
     {
+        ClearServerRpc();
         SetSessionPassword(password);
         SetTeamNameServerRpc(teamName);
-        ClearServerRpc();
         AddPlayerServerRpc();
     }
 
@@ -54,6 +54,7 @@ public class SessionManager : NetworkBehaviour
     public void ClearServerRpc(RpcParams rpcParams = default)
     {
         PlayerCount.Value = 0;
+        TeamName.Value = "";
     }
 
     public bool IsAllPlayersReady()
