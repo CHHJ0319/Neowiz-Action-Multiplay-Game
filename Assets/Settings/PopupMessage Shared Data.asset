@@ -16,7 +16,7 @@ MonoBehaviour:
   m_TableCollectionNameGuidString: 7e18014ab84cb6d46948ba596654d826
   m_Entries:
   - m_Id: 19976413184
-    m_Key: settingsConfirm
+    m_Key: settingsConfirmMessage
     m_Metadata:
       m_Items: []
   m_Metadata:

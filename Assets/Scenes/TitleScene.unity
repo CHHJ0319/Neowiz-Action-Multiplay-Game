@@ -323,7 +323,7 @@ RectTransform:
   - {fileID: 349241547}
   - {fileID: 1789996256}
   - {fileID: 928849817}
-  - {fileID: 1856679985}
+  - {fileID: 268247077}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -343,6 +343,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74ec8a37ac3afee48b504b280af9820e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UI.CanvasController
+  settingCofirmPanel: {fileID: 1856679985}
   pointers: {fileID: 0}
   roundStartButton: {fileID: 0}
   barricadeHPBar: {fileID: 0}
@@ -991,6 +992,53 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &252328720 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6415703855706749175, guid: 8dfab4ffa9526014e9b70d765cd13325, type: 3}
+  m_PrefabInstance: {fileID: 1856679984}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!1 &268247076
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 268247077}
+  m_Layer: 5
+  m_Name: CommonPopups
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &268247077
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 268247076}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1856679985}
+  m_Father: {fileID: 115114982}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &295771395
 GameObject:
   m_ObjectHideFlags: 0
@@ -4285,6 +4333,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6087036068007953110, guid: 75a98d695a635004fbb919a5dcc5038c, type: 3}
   m_PrefabInstance: {fileID: 426578402}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1005868886 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 365332801677838858, guid: 8dfab4ffa9526014e9b70d765cd13325, type: 3}
+  m_PrefabInstance: {fileID: 1856679984}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1062785172
 GameObject:
   m_ObjectHideFlags: 0
@@ -5798,6 +5851,17 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1514816834 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5305026990968813481, guid: 8dfab4ffa9526014e9b70d765cd13325, type: 3}
+  m_PrefabInstance: {fileID: 1856679984}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
 --- !u!114 &1548950180 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6481579765303724, guid: 87b6aed25ff0c564cb0069d1290c410a, type: 3}
@@ -6853,11 +6917,43 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 115114982}
+    m_TransformParent: {fileID: 268247077}
     m_Modifications:
+    - target: {fileID: 142422778716241482, guid: 8dfab4ffa9526014e9b70d765cd13325, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 142422778716241482, guid: 8dfab4ffa9526014e9b70d765cd13325, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 142422778716241482, guid: 8dfab4ffa9526014e9b70d765cd13325, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 142422778716241482, guid: 8dfab4ffa9526014e9b70d765cd13325, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 365332801677838858, guid: 8dfab4ffa9526014e9b70d765cd13325, type: 3}
       propertyPath: m_Name
-      value: CommonPopup
+      value: SettingConfirmPanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 7531648530035292520, guid: 8dfab4ffa9526014e9b70d765cd13325, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7531648530035292520, guid: 8dfab4ffa9526014e9b70d765cd13325, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7531648530035292520, guid: 8dfab4ffa9526014e9b70d765cd13325, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7531648530035292520, guid: 8dfab4ffa9526014e9b70d765cd13325, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8492575363587606034, guid: 8dfab4ffa9526014e9b70d765cd13325, type: 3}
       propertyPath: m_Pivot.x
@@ -6942,13 +7038,31 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 365332801677838858, guid: 8dfab4ffa9526014e9b70d765cd13325, type: 3}
+      insertIndex: 1
+      addedObject: {fileID: 1856679988}
   m_SourcePrefab: {fileID: 100100000, guid: 8dfab4ffa9526014e9b70d765cd13325, type: 3}
 --- !u!224 &1856679985 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8492575363587606034, guid: 8dfab4ffa9526014e9b70d765cd13325, type: 3}
   m_PrefabInstance: {fileID: 1856679984}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1856679988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1005868886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 431e703c78a3d8949938edf1e3ca1166, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UI.TitleScene.SettingConfirmPanel
+  prompt: {fileID: 252328720}
+  confirmButton: {fileID: 1514816834}
+  cancelButton: {fileID: 2086339012}
 --- !u!1 &1929037954
 GameObject:
   m_ObjectHideFlags: 0
@@ -7327,6 +7441,17 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2086339012 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2369750322183188619, guid: 8dfab4ffa9526014e9b70d765cd13325, type: 3}
+  m_PrefabInstance: {fileID: 1856679984}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
 --- !u!1001 &2121357871
 PrefabInstance:
   m_ObjectHideFlags: 0

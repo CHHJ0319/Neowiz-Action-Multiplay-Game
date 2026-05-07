@@ -7,6 +7,9 @@ namespace UI
     {
         public static CanvasController Instance;
 
+        [Header("Title")]
+        public RectTransform settingCofirmPanel;
+
         [Header ("StageScene")]
         public RectTransform pointers;
         public Button roundStartButton;
@@ -28,13 +31,8 @@ namespace UI
             Instance = this;
         }
 
-        private void OnEnable()
-        {
-        }
-
-        private void OnDisable()
-        {
-        }
+        #region TitleScene
+        #endregion
 
         #region LobbyScene
         public void SetLobbySceneUI(bool isHost)
