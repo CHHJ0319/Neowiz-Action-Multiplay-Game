@@ -24,5 +24,7 @@ EditorBuildSettings:
     path: Assets/Scenes/PrologueScene.unity
     guid: 63bae590fed49de42a12fdbd7dd2afb6
   m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: c5b64b85ef1c1fd4d96e8e6cd317a105, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+    com.unity.localization.settings: {fileID: 11400000, guid: 9bdf163408db46348b9da0f033617f3a, type: 2}
   m_UseUCBPForAssetBundles: 0
