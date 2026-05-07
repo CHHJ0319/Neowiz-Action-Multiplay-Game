@@ -17320,10 +17320,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TitleBGMManager
   bgmSource: {fileID: 1112581999}
-  buttonSource: {fileID: 20953464}
+  sfxSource: {fileID: 0}
   bgmTracks:
   - {fileID: 8300000, guid: 23eb413fa46e2f84ead7b5c9081aa4d6, type: 3}
-  buttons: {fileID: 0}
 --- !u!4 &256376133
 Transform:
   m_ObjectHideFlags: 0
@@ -76420,6 +76419,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74ec8a37ac3afee48b504b280af9820e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UI.CanvasController
+  settingCofirmPanel: {fileID: 0}
   pointers: {fileID: 2097074116}
   roundStartButton: {fileID: 1949384588}
   barricadeHPBar: {fileID: 218191945}
@@ -76429,9 +76429,10 @@ MonoBehaviour:
   timerPanel: {fileID: 1537358047}
   pingPanel: {fileID: 1680434693}
   playerRoleDisplay: {fileID: 922892391}
-  playerPanels: {fileID: 0}
-  sessionMenuPanel: {fileID: 0}
+  teamNamePanel: {fileID: 0}
   joinCodePanel: {fileID: 0}
+  characterSelectPanel: {fileID: 0}
+  LobbyMenuPanel: {fileID: 0}
 --- !u!1 &1085627258 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: acfcc7982b465484e9772512be7f30da, type: 3}
