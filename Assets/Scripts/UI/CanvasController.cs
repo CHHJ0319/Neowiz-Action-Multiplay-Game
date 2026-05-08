@@ -19,7 +19,7 @@ namespace UI
         public RectTransform pointers;
         public Button roundStartButton;
         public Image barricadeHPBar;
-        public UI.StageScene.ResultPanel resultPanel;
+        public UI.StageScene.ResultPopup resultPopup;
         public UI.StageScene.StagePanel stagePanel;
         public UI.StageScene.PlayerStatusPanel playerStatusPanel;
         public UI.StageScene.TimerPanel timerPanel;
@@ -146,7 +146,7 @@ namespace UI
             }
 
             SetPlayerStatusPanel();
-            resultPanel.Initialize(isHost);
+            resultPopup.Initialize(isHost);
         }
 
         public void HidePointers()
@@ -164,12 +164,12 @@ namespace UI
 
         public void SetResultPanelVisible(bool isVisible)
         {
-            resultPanel.gameObject.SetActive(isVisible);
+            resultPopup.gameObject.SetActive(isVisible);
         }
 
         public void ShowResult(int startCount, string mvp)
         {
-            resultPanel.ShowResult(startCount, mvp);
+            resultPopup.ShowResult(startCount, mvp);
         }
 
         private void OnRoundStartButtonClicked()

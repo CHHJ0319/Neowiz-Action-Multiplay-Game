@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace UI.StageScene
 {
-    public class ResultPanel : MonoBehaviour
+    public class ResultPopup : MonoBehaviour
     {
         [Header("StarRow")]
         public RectTransform victoryStarDeco;

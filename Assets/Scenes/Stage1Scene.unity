@@ -11919,9 +11919,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 322284492}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 200, y: -192.5}
   m_SizeDelta: {x: 400, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &466881122
@@ -25572,9 +25572,9 @@ RectTransform:
   - {fileID: 365060353}
   m_Father: {fileID: 173411611}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 300, y: -50}
   m_SizeDelta: {x: 160, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &980466164
@@ -26978,7 +26978,7 @@ MonoBehaviour:
   pointers: {fileID: 329213531}
   roundStartButton: {fileID: 1190367169}
   barricadeHPBar: {fileID: 950610508}
-  resultPanel: {fileID: 1732735515}
+  resultPopup: {fileID: 1732735515}
   stagePanel: {fileID: 1161255997}
   playerStatusPanel: {fileID: 480606370}
   timerPanel: {fileID: 839515469}
@@ -27002,14 +27002,14 @@ RectTransform:
   m_Children:
   - {fileID: 950610510}
   - {fileID: 1190367172}
-  - {fileID: 24897544}
   - {fileID: 329213531}
-  - {fileID: 1732735516}
   - {fileID: 480606371}
   - {fileID: 1161255998}
   - {fileID: 839515470}
   - {fileID: 266762678}
   - {fileID: 1011402839}
+  - {fileID: 24897544}
+  - {fileID: 1732735516}
   - {fileID: 1990092504}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -29566,9 +29566,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 322284492}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 200, y: -85}
   m_SizeDelta: {x: 400, y: 170}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1167643587
@@ -33349,9 +33349,9 @@ RectTransform:
   - {fileID: 663217082}
   m_Father: {fileID: 173411611}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 100, y: -50}
   m_SizeDelta: {x: 160, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1325917152
@@ -42835,7 +42835,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7774697937333864266, guid: 923d55c1e3caf1e4f97e79273d99ccae, type: 3}
       propertyPath: m_Name
-      value: ResultPanel
+      value: ResultPopup
       objectReference: {fileID: 0}
     - target: {fileID: 7774697937333864266, guid: 923d55c1e3caf1e4f97e79273d99ccae, type: 3}
       propertyPath: m_IsActive
@@ -49780,7 +49780,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1990092504
 RectTransform:
   m_ObjectHideFlags: 0
