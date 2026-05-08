@@ -23,5 +23,6 @@ namespace Events
         {
             OnSettingConfirmPanelClosed?.Invoke();
         }
+
     }
 }
