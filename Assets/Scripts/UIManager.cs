@@ -37,7 +37,8 @@ public class UIManager : NetworkBehaviour
         {
             UI.CanvasController.Instance.SetLobbySceneUI(IsHost);
         }
-        else if (sceneName == Utils.SceneList.TutorialScene.ToString())
+        else if (sceneName == Utils.SceneList.Stage1Scene.ToString()
+            || sceneName == Utils.SceneList.Stage2Scene.ToString())
         {
             UI.CanvasController.Instance.SetStageSceneSceneUI(IsHost);
         }
