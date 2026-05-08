@@ -1,3 +1,4 @@
+using UI.Common;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,7 +8,11 @@ namespace UI
     {
         public static CanvasController Instance;
 
-        [Header("Title")]
+        [Header("Common")]
+        public UI.Common.LeaderBoard leaderBoard;
+        public UI.Common.TeamInfoPanel teamInfoPanel;
+
+        [Header("TitleScene")]
         public RectTransform settingCofirmPanel;
 
         [Header ("StageScene")]
@@ -31,6 +36,24 @@ namespace UI
         {
             Instance = this;
         }
+
+        #region Common
+        public void ShowLeaderBoard()
+        {
+            if (leaderBoard == null)
+                return;
+
+            leaderBoard.SetVisible(true);
+        }
+
+        public void ShowTeamInfoPanel()
+        {
+            if (teamInfoPanel == null)
+                return;
+
+            teamInfoPanel.SetVisible(true);
+        }
+        #endregion
 
         #region TitleScene
         #endregion

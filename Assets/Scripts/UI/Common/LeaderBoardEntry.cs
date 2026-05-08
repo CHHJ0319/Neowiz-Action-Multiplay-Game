@@ -1,19 +1,18 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace UI.Common
 {
     public class LeaderBoardEntry : MonoBehaviour
     {
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
+        private void Awake()
         {
+            Button button = GetComponent<Button>();
 
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
+            if (button != null)
+            {
+                button.onClick.AddListener(() => CanvasController.Instance.ShowTeamInfoPanel());
+            }
         }
     }
 }
