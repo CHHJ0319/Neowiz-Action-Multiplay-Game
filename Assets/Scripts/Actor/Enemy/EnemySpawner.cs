@@ -39,7 +39,6 @@ namespace Actor.Enemy
                 if (isTargeting)
                 {
                     direction = (target.position - spawnPosition).normalized;
-
                 }
 
                 SpawnEnemy(spawnPosition, direction, enemyInfos[i]);

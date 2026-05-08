@@ -22,6 +22,7 @@ public class StageManager : NetworkBehaviour
         {
             Instance = this;
 
+            DontDestroyOnLoad(gameObject);
         }
         else if (Instance != this)
         {
