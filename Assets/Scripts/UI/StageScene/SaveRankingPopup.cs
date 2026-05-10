@@ -1,16 +1,29 @@
 using UnityEngine;
+using UnityEngine.UI;
 
-public class SaveRankingPopup : MonoBehaviour
+namespace UI.StageScene
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public class SaveRankingPopup : MonoBehaviour
     {
-        
-    }
+        public Button saveButton;
+        public Button nextWaveButton;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        private void Awake()
+        {
+            if (saveButton != null)
+            {
+                saveButton.onClick.AddListener(() => SetVisible(false));
+            }
+
+            if (nextWaveButton != null)
+            {
+                nextWaveButton.onClick.AddListener(() => SetVisible(false));
+            }
+        }
+
+        public void SetVisible(bool isVisible)
+        {
+            gameObject.SetActive(isVisible);
+        }
     }
 }

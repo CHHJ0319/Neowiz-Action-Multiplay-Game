@@ -1,4 +1,5 @@
 using UI.Common;
+using UI.StageScene;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,12 +20,13 @@ namespace UI
         public RectTransform pointers;
         public Button roundStartButton;
         public Image barricadeHPBar;
-        public UI.StageScene.ResultPopup resultPopup;
         public UI.StageScene.StagePanel stagePanel;
         public UI.StageScene.PlayerStatusPanel playerStatusPanel;
         public UI.StageScene.TimerPanel timerPanel;
         public RectTransform pingPanel;
         public RectTransform playerRoleDisplay;
+        public UI.StageScene.ResultPopup resultPopup;
+        public UI.StageScene.SaveRankingPopup saveRankingPopup;
 
         [Header("LobbyScene")]
         public UI.LobbyScene.TeamNamePanel teamNamePanel;
@@ -162,9 +164,14 @@ namespace UI
             roundStartButton.gameObject.SetActive(true);
         }
 
-        public void SetResultPanelVisible(bool isVisible)
+        public void SetResultPopupVisible(bool isVisible)
         {
             resultPopup.gameObject.SetActive(isVisible);
+        }
+
+        public void SetSaveRankingPopupVisible(bool isVisible)
+        {
+            saveRankingPopup.gameObject.SetActive(isVisible);
         }
 
         public void ShowResult(int startCount, string mvp)

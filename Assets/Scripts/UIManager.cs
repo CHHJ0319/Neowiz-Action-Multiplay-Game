@@ -107,14 +107,14 @@ public class UIManager : NetworkBehaviour
         }
         UI.CanvasController.Instance.HidePointers();
 
-        UI.CanvasController.Instance.SetResultPanelVisible(true);
+        UI.CanvasController.Instance.SetResultPopupVisible(true);
         UI.CanvasController.Instance.ShowResult(startCount, mvp);
     }
 
     [Rpc(SendTo.Everyone)]
-    public void CloseResultPanelClientRpc()
+    public void CloseResultPopupClientRpc()
     {
-        UI.CanvasController.Instance.SetResultPanelVisible(false);
+        UI.CanvasController.Instance.SetResultPopupVisible(false);
     }
 
     [Rpc(SendTo.Everyone)]

@@ -26,7 +26,7 @@ namespace UI.LobbyScene
             if (joinCode != null)
             {
                 gameObject.SetActive(true);
-                joinCode.text = Utils.NetworkService.JoinCode;
+                joinCode.text = Services.NetworkService.JoinCode;
             }
         }
 

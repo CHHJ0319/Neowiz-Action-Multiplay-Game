@@ -22,7 +22,7 @@ namespace UI.StageScene
         public RectTransform failImage;
         public TextMeshProUGUI mvpNameText;
 
-        [Header("MenuRoww")]
+        [Header("MenuRow")]
         public RectTransform menuRow;
         public Button restartStageButton;
         public Button nextWaveButton;
@@ -154,13 +154,13 @@ namespace UI.StageScene
 
         private void OnRestartStageButtonClicked()
         {
-            UIManager.Instance.CloseResultPanelClientRpc();
+            UIManager.Instance.CloseResultPopupClientRpc();
             StageManager.Instance.ResetStageServerRpc();
         }
 
         private void OnNextWaveButtonClicked()
         {
-            UIManager.Instance.CloseResultPanelClientRpc();
+            UIManager.Instance.CloseResultPopupClientRpc();
             StageManager.Instance.UpdateWaveIndexServerRpc();
         }
     }

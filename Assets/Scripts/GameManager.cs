@@ -70,9 +70,9 @@ public class GameManager : NetworkBehaviour
 
     private void Initiailize()
     {
-        //ClearEvents();
+        ClearEvents();
 
-        Utils.NetworkService.InitializeUnityServicesAsync();
+        Services.UGSService.InitializeUnityServicesAsync();
     }
 
     #region Network Service
@@ -94,7 +94,7 @@ public class GameManager : NetworkBehaviour
             yield return null;
         }
 
-        yield return StartCoroutine(Utils.NetworkService.ConfigureTransportAndStartNgoAsHost());
+        yield return StartCoroutine(Services.NetworkService.ConfigureTransportAndStartNgoAsHost());
 
         if (!NetworkManager.Singleton.IsHost)
         {
@@ -114,7 +114,7 @@ public class GameManager : NetworkBehaviour
             yield return null;
         }
 
-        yield return StartCoroutine(Utils.NetworkService.ConfigureTransportAndStartNgoAsClient(joinCode, password));
+        yield return StartCoroutine(Services.NetworkService.ConfigureTransportAndStartNgoAsClient(joinCode, password));
 
         if (!NetworkManager.Singleton.IsClient)
         {
@@ -177,7 +177,7 @@ public class GameManager : NetworkBehaviour
             }
         }
 
-        Utils.NetworkService.ShutdownNetwork();
+        Services.NetworkService.ShutdownNetwork();
         Utils.SceneNavigator.LoadSceneByName(Utils.SceneList.TitleScene);
     }
     #endregion

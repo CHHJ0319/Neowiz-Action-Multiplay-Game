@@ -11,7 +11,7 @@ using Unity.Services.Relay;
 using Unity.Services.Relay.Models;
 using UnityEngine;
 
-namespace Utils
+namespace Services
 {
     public static class NetworkService
     {
@@ -19,23 +19,9 @@ namespace Utils
 
         private const int m_MaxConnections = 4;
 
-        public static async void InitializeUnityServicesAsync()
-        {
-            try
-            {
-                await UnityServices.InitializeAsync();
-                await AuthenticationService.Instance.SignInAnonymouslyAsync();
-                var playerID = AuthenticationService.Instance.PlayerId;
-            }
-            catch (Exception e)
-            {
-                Debug.LogException(e);
-            }
-        }
-
         public static IEnumerator ConfigureTransportAndStartNgoAsHost()
         {
-            var serverRelayUtilityTask = Utils.NetworkService.AllocateRelayServerAndGetJoinCode(m_MaxConnections);
+            var serverRelayUtilityTask = AllocateRelayServerAndGetJoinCode(m_MaxConnections);
             while (!serverRelayUtilityTask.IsCompleted)
             {
                 yield return null;
@@ -56,7 +42,7 @@ namespace Utils
 
         public static IEnumerator ConfigureTransportAndStartNgoAsClient(string relayJoinCode, string password)
         {
-            var clientRelayUtilityTask = Utils.NetworkService.JoinRelayServerFromJoinCode(relayJoinCode);
+            var clientRelayUtilityTask = JoinRelayServerFromJoinCode(relayJoinCode);
 
             while (!clientRelayUtilityTask.IsCompleted)
             {
