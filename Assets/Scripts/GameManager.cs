@@ -68,11 +68,11 @@ public class GameManager : NetworkBehaviour
         Disconnect(IsHost);
     }
 
-    private void Initiailize()
+    private async void Initiailize()
     {
         ClearEvents();
 
-        //Services.UGSService.InitializeUnityServicesAsync();
+        //await Services.UGSService.InitializeUnityServicesAsync();
     }
 
     #region Network Service

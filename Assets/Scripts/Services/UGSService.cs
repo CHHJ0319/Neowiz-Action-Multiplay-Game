@@ -20,10 +20,15 @@ namespace Services
             try
             {
                 await UnityServices.InitializeAsync();
-                if (!AuthenticationService.Instance.IsSignedIn)
+                if (AuthenticationService.Instance.IsSignedIn)
                 {
-                    await AuthenticationService.Instance.SignInAnonymouslyAsync();
+                    if (AuthenticationService.Instance.IsSignedIn)
+                    {
+                        AuthenticationService.Instance.SignOut(true);
+                    }
                 }
+                await AuthenticationService.Instance.SignInAnonymouslyAsync();
+
             }
             catch (Exception e)
             {
