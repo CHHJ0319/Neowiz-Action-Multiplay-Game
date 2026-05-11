@@ -45,9 +45,9 @@ public class DataManager : MonoBehaviour
         await Services.UGSService.SubmitTeamScoreAsync(teamData);
     }
 
-    public async Task<List<LeaderboardEntry>> FetchRankings()
+    public async Task<List<LeaderboardEntry>> GetRankings()
     {
-        var rankings = await Services.UGSService.FetchRankingsAsync();
+        var rankings = await Services.UGSService.GetRankingsAsync();
         return rankings;
     }
 }

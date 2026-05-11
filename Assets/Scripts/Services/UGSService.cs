@@ -73,7 +73,7 @@ namespace Services
             }
         }
 
-        public static async Task<List<LeaderboardEntry>> FetchRankingsAsync()
+        public static async Task<List<LeaderboardEntry>> GetRankingsAsync()
         {
             try
             {

@@ -68,10 +68,9 @@ public class GameManager : NetworkBehaviour
         Disconnect(IsHost);
     }
 
-    private async void Initiailize()
+    private void Initiailize()
     {
         ClearEvents();
-
     }
 
     #region Network Service

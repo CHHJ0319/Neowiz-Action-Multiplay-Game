@@ -20,7 +20,7 @@ namespace UI.Common
                 closeButton.onClick.AddListener(() => SetVisible(false));
             }
         }
-        private async void OnEnable()
+        private void OnEnable()
         {
             try
             {
@@ -44,7 +44,7 @@ namespace UI.Common
                 Destroy(child.gameObject);
             }
 
-            List<LeaderboardEntry> rankings = await DataManager.Instance.FetchRankings();
+            List<LeaderboardEntry> rankings = await DataManager.Instance.GetRankings();
 
             foreach (var ranking in rankings)
             {
