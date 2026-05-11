@@ -293,7 +293,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 50}
+  m_SizeDelta: {x: 500, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &847913359534737628
 CanvasRenderer:
@@ -737,7 +737,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000061035156, y: 189.99997}
+  m_AnchoredPosition: {x: 0, y: 180}
   m_SizeDelta: {x: 500, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3731757007589258502
@@ -1685,7 +1685,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afce00133de1373498ee16224dfb4afb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TeamInfoPanel
-  closeButton: {fileID: 0}
+  teamName: {fileID: 2729227112285867520}
+  memberList: {fileID: 8506436837663684083}
+  roundText: {fileID: 6337260151475458050}
+  scoreText: {fileID: 9084925484499653562}
+  closeButton: {fileID: 5231770696437625724}
 --- !u!222 &5848102923220804729
 CanvasRenderer:
   m_ObjectHideFlags: 0

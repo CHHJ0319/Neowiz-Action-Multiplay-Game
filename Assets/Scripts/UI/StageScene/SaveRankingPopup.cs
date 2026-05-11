@@ -1,7 +1,4 @@
-using Data;
-using Services;
 using System.Collections.Generic;
-using UnityEditor.Localization.Plugins.XLIFF.V20;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -27,10 +24,10 @@ namespace UI.StageScene
 
         private void OnSaveButtonClicked()
         {
-            TeamData myTeam = new TeamData
+            Data.TeamData myTeam = new Data.TeamData
             {
                 teamName = "슈퍼스타팀",
-                memberNames = new List<string> { "철수", "영희", "민수" },
+                memberNames = new List<string> { "철수", "영희", "민수", "바둑이" },
                 finalRound = 8,
                 totalScore = 1250
             };

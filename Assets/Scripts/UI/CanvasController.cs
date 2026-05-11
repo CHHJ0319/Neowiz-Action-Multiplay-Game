@@ -1,5 +1,4 @@
 using UI.Common;
-using UI.StageScene;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -48,11 +47,12 @@ namespace UI
             leaderBoard.SetVisible(true);
         }
 
-        public void ShowTeamInfoPanel()
+        public void ShowTeamInfoPanel(Data.TeamData teamData)
         {
             if (teamInfoPanel == null)
                 return;
 
+            teamInfoPanel.SetData(teamData);
             teamInfoPanel.SetVisible(true);
         }
         #endregion

@@ -19,7 +19,7 @@ namespace UI.Common
 
             if (button != null)
             {
-                button.onClick.AddListener(() => CanvasController.Instance.ShowTeamInfoPanel());
+                button.onClick.AddListener(() => ShowTeamInfo());
             }
         }
 
@@ -31,6 +31,14 @@ namespace UI.Common
             teamName.text = teamData.teamName;
             roundText.text = "" + teamData.finalRound;
             scoreText.text = "" + teamData.totalScore;
+        }
+
+        private void ShowTeamInfo()
+        {
+            if (teamData == null)
+                return;
+
+            CanvasController.Instance.ShowTeamInfoPanel(teamData);
         }
     }
 }
