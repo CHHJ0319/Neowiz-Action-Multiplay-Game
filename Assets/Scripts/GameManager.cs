@@ -72,17 +72,18 @@ public class GameManager : NetworkBehaviour
     {
         ClearEvents();
 
-        //await Services.UGSService.InitializeUnityServicesAsync();
     }
 
     #region Network Service
-    private void StartHost(string playerName, string teamName, string password)
+    private async void StartHost(string playerName, string teamName, string password)
     {
+        await Services.UGSService.InitializeUnityServicesAsync();
         StartCoroutine(StartHostSequence(playerName, teamName, password));
     }
 
-    private void StartClient(string joinCode, string playerName, string password)
+    private async void StartClient(string joinCode, string playerName, string password)
     {
+        await Services.UGSService.InitializeUnityServicesAsync();
         StartCoroutine(StartClientSequence(joinCode, playerName, password));
     }
 
