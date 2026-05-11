@@ -1,3 +1,7 @@
+using Data;
+using Services;
+using System.Collections.Generic;
+using UnityEditor.Localization.Plugins.XLIFF.V20;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,13 +16,27 @@ namespace UI.StageScene
         {
             if (saveButton != null)
             {
-                saveButton.onClick.AddListener(() => SetVisible(false));
+                saveButton.onClick.AddListener(() => OnSaveButtonClicked());
             }
 
             if (nextWaveButton != null)
             {
                 nextWaveButton.onClick.AddListener(() => SetVisible(false));
             }
+        }
+
+        private void OnSaveButtonClicked()
+        {
+            TeamData myTeam = new TeamData
+            {
+                teamName = "슈퍼스타팀",
+                memberNames = new List<string> { "철수", "영희", "민수" },
+                finalRound = 5,
+                totalScore = 1250
+            };
+            _ = UGSService.SubmitTeamScoreAsync(myTeam);
+
+            // SetVisible(false);
         }
 
         public void SetVisible(bool isVisible)

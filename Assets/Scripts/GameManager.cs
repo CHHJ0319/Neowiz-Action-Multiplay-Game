@@ -72,7 +72,7 @@ public class GameManager : NetworkBehaviour
     {
         ClearEvents();
 
-        Services.UGSService.InitializeUnityServicesAsync();
+        //Services.UGSService.InitializeUnityServicesAsync();
     }
 
     #region Network Service
