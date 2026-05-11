@@ -37,6 +37,7 @@ namespace Services
             {
                 await InitializeUnityServicesAsync();
 
+                long combinedScore = (long)(teamData.finalRound * 1000000) + teamData.totalScore;
                 var metadata = new Dictionary<string, object>
                 {
                     { "teamName", teamData.teamName },
@@ -52,7 +53,7 @@ namespace Services
 
                 var playerEntry = await LeaderboardsService.Instance.AddPlayerScoreAsync(
                     LeaderboardId,
-                    teamData.totalScore,
+                    combinedScore,
                     options
                 );
 

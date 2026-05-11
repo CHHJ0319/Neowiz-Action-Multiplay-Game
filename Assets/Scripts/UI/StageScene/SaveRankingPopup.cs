@@ -31,7 +31,7 @@ namespace UI.StageScene
             {
                 teamName = "슈퍼스타팀",
                 memberNames = new List<string> { "철수", "영희", "민수" },
-                finalRound = 5,
+                finalRound = 8,
                 totalScore = 1250
             };
             _ = UGSService.SubmitTeamScoreAsync(myTeam);
