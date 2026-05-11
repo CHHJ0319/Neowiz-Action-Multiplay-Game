@@ -1,4 +1,6 @@
-using Services;
+using Newtonsoft.Json;
+using System.Collections.Generic;
+using Unity.Services.Leaderboards.Models;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,6 +8,9 @@ namespace UI.Common
 {
     public class LeaderBoard : MonoBehaviour
     {
+        public GameObject leaderBoardEntryPrefab;
+        public RectTransform content;
+
         public Button closeButton;
 
         private void Awake()
@@ -19,7 +24,7 @@ namespace UI.Common
         {
             try
             {
-                DataManager.Instance.FetchRankings();
+                RefreshRanking();
             }
             catch (System.Exception e)
             {
@@ -27,10 +32,31 @@ namespace UI.Common
             }
         }
 
-
         public void SetVisible(bool isVisible)
         {
             gameObject.SetActive(isVisible);
+        }
+
+        private async void RefreshRanking()
+        {
+            foreach (RectTransform child in content)
+            {
+                Destroy(child.gameObject);
+            }
+
+            List<LeaderboardEntry> rankings = await DataManager.Instance.FetchRankings();
+
+            foreach (var ranking in rankings)
+            {
+                if (!string.IsNullOrEmpty(ranking.Metadata))
+                {
+                    GameObject entry = Instantiate(leaderBoardEntryPrefab, content);
+                    UI.Common.LeaderBoardEntry leaderBoardEntry = entry.GetComponent<UI.Common.LeaderBoardEntry>();
+
+                    var details = JsonConvert.DeserializeObject<Data.TeamData>(ranking.Metadata);
+                    leaderBoardEntry.SetData(ranking.Rank + 1, details);
+                }
+            }
         }
     }
 }

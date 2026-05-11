@@ -1,13 +1,7 @@
-using Data;
-using Services;
 using System.Collections.Generic;
-using Unity.Services.Authentication;
-using Unity.Services.CloudSave;
-using Unity.Services.CloudSave.Models;
-using Unity.Services.CloudSave.Models.Data.Player;
-using Unity.Services.Core;
+using System.Threading.Tasks;
+using Unity.Services.Leaderboards.Models;
 using UnityEngine;
-using SaveOptions = Unity.Services.CloudSave.Models.Data.Player.SaveOptions;
 
 public class DataManager : MonoBehaviour
 {
@@ -51,9 +45,9 @@ public class DataManager : MonoBehaviour
         await Services.UGSService.SubmitTeamScoreAsync(teamData);
     }
 
-    public async void FetchRankings()
+    public async Task<List<LeaderboardEntry>> FetchRankings()
     {
-        await UGSService.FetchRankingsAsync();
-
+        var rankings = await Services.UGSService.FetchRankingsAsync();
+        return rankings;
     }
 }
