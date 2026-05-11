@@ -19,9 +19,7 @@ namespace UI.Common
         {
             try
             {
-                await UGSService.FetchTopRankingsAsync();
-
-                Debug.Log("[LeaderBoard] 랭킹 업데이트 완료.");
+                DataManager.Instance.FetchRankings();
             }
             catch (System.Exception e)
             {

@@ -34,9 +34,9 @@ namespace UI.StageScene
                 finalRound = 8,
                 totalScore = 1250
             };
-            _ = UGSService.SubmitTeamScoreAsync(myTeam);
+            DataManager.Instance.SaveRanking(myTeam);
 
-            // SetVisible(false);
+            SetVisible(false);
         }
 
         public void SetVisible(bool isVisible)

@@ -74,7 +74,7 @@ namespace Services
             }
         }
 
-        public static async Task FetchTopRankingsAsync()
+        public static async Task FetchRankingsAsync()
         {
             try
             {

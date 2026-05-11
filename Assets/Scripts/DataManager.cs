@@ -1,11 +1,13 @@
+using Data;
+using Services;
 using System.Collections.Generic;
-using Unity.Services.Core;
 using Unity.Services.Authentication;
 using Unity.Services.CloudSave;
 using Unity.Services.CloudSave.Models;
 using Unity.Services.CloudSave.Models.Data.Player;
-using SaveOptions = Unity.Services.CloudSave.Models.Data.Player.SaveOptions;
+using Unity.Services.Core;
 using UnityEngine;
+using SaveOptions = Unity.Services.CloudSave.Models.Data.Player.SaveOptions;
 
 public class DataManager : MonoBehaviour
 {
@@ -44,13 +46,14 @@ public class DataManager : MonoBehaviour
         CharacterIndex = index;
     }
 
-    public async void SaveData()
+    public async void SaveRanking(Data.TeamData teamData)
     {
-        var playerData = new Dictionary<string, object>{
-          {"firstKeyName", "a text value"},
-          {"secondKeyName", 123}
-        };
-        await CloudSaveService.Instance.Data.Player.SaveAsync(playerData);
-        Debug.Log($"Saved data {string.Join(',', playerData)}");
+        await Services.UGSService.SubmitTeamScoreAsync(teamData);
+    }
+
+    public async void FetchRankings()
+    {
+        await UGSService.FetchRankingsAsync();
+
     }
 }
