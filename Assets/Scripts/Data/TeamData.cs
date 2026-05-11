@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using System.Collections.Generic;
 
 namespace Data
@@ -5,9 +6,16 @@ namespace Data
     [System.Serializable]
     public class TeamData
     {
-        public string teamName;          
-        public List<string> memberNames; 
-        public int finalRound;           
-        public int totalScore;           
+        [JsonProperty("teamName")]
+        public string teamName;
+
+        [JsonProperty("memberNames")]
+        public List<string> memberNames;
+
+        [JsonProperty("finalRound")]
+        public int finalRound;
+
+        [JsonProperty("totalScore")]
+        public int totalScore;
     }
 }

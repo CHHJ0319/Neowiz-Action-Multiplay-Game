@@ -76,19 +76,37 @@ namespace Services
 
         public static async Task FetchTopRankingsAsync()
         {
-            var scoresResponse = await LeaderboardsService.Instance.GetScoresAsync(LeaderboardId, new GetScoresOptions { Limit = 10 });
-
-            foreach (var entry in scoresResponse.Results)
+            try
             {
-                if (!string.IsNullOrEmpty(entry.Metadata))
+                await InitializeUnityServicesAsync();
+
+                var options = new GetScoresOptions
                 {
-                    TeamData details = JsonConvert.DeserializeObject<TeamData>(entry.Metadata);
-                    Debug.Log($"순위: {entry.Rank + 1} | 팀명: {details.teamName} | 점수: {entry.Score}");
-                }
-                else
+                    Limit = 10,
+                    IncludeMetadata = true
+                };
+
+                var scoresResponse = await LeaderboardsService.Instance.GetScoresAsync(LeaderboardId, options);
+
+                Debug.Log($"[UGS] 총 {scoresResponse.Results.Count}개의 순위를 불러왔습니다.");
+
+                foreach (var entry in scoresResponse.Results)
                 {
-                    Debug.Log($"순위: {entry.Rank + 1} | 데이터 없음 | 점수: {entry.Score}");
+                    if (!string.IsNullOrEmpty(entry.Metadata))
+                    {
+                        Data.TeamData details = JsonConvert.DeserializeObject<Data.TeamData>(entry.Metadata);
+
+                        Debug.Log($"순위: {entry.Rank + 1} | 팀명: {details.teamName} | 라운드: {details.finalRound} | 점수: {details.totalScore}");
+                    }
+                    else
+                    {
+                        Debug.LogWarning($"순위: {entry.Rank + 1} | 메타데이터가 여전히 null입니다. (저장 시점 확인 필요)");
+                    }
                 }
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"[UGS] 순위 불러오기 실패: {e.Message}");
             }
         }
     }
