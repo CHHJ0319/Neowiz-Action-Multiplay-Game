@@ -193,7 +193,7 @@ namespace Actor.Enemy
             audioHandler.PlayDeathSound();
             animationHandler.PlayDead();
 
-            StageManager.Instance.UpdateScoreServerRpc(playerName);
+            SessionManager.Instance.UpdateScoreServerRpc(playerName);
         }
 
         public void DespawnSelf()

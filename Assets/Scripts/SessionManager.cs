@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Unity.Collections;
 using Unity.Netcode;
 
@@ -9,6 +10,8 @@ public class SessionManager : NetworkBehaviour
 
     public NetworkVariable<FixedString64Bytes> TeamName = new NetworkVariable<FixedString64Bytes>();
     public NetworkVariable<int> PlayerCount = new NetworkVariable<int>(0);
+
+    private Dictionary<string, int> scores = new();
 
     private void Awake()
     {
@@ -76,4 +79,40 @@ public class SessionManager : NetworkBehaviour
     {
         CurrentSessionPassword = password;
     }
+
+    [Rpc(SendTo.Server)]
+    public void UpdateScoreServerRpc(string playerName, RpcParams rpcParams = default)
+    {
+        if (!scores.ContainsKey(playerName))
+        {
+            scores[playerName] = 0;
+        }
+        scores[playerName]++;
+    }
+
+    #region Score
+    public string GetMVP()
+    {
+        if (scores.Count == 0) return string.Empty;
+
+        string mvpName = string.Empty;
+        int maxValue = int.MinValue;
+
+        foreach (var kvp in scores)
+        {
+            if (kvp.Value > maxValue)
+            {
+                maxValue = kvp.Value;
+                mvpName = kvp.Key;
+            }
+        }
+
+        return mvpName;
+    }
+
+    public void ClearScores()
+    {
+        scores.Clear();
+    }
+    #endregion
 }

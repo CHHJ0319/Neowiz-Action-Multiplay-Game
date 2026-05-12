@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class StageManager : NetworkBehaviour
 {
@@ -13,8 +14,6 @@ public class StageManager : NetworkBehaviour
 
     private int waveIndex = 1;
     private bool isWaveRunning = false;
-
-    private Dictionary<string, int> scores = new();
 
     private void Awake()
     {
@@ -27,6 +26,30 @@ public class StageManager : NetworkBehaviour
         else if (Instance != this)
         {
             Destroy(gameObject);
+        }
+    }
+
+    public override void OnNetworkSpawn()
+    {
+        NetworkManager.SceneManager.OnLoadComplete += OnSceneLoaded;
+    }
+
+    public override void OnNetworkDespawn()
+    {
+        NetworkManager.SceneManager.OnLoadComplete -= OnSceneLoaded;
+    }
+
+    private void Initialize(int id, string sceneName)
+    {
+        if (sceneName == Utils.SceneList.LobbyScene.ToString())
+        {
+
+        }
+        else if (sceneName == Utils.SceneList.TutorialScene.ToString()
+            || sceneName == Utils.SceneList.Stage1Scene.ToString()
+            || sceneName == Utils.SceneList.Stage2Scene.ToString())
+        {
+            waveIndex = 1;
         }
     }
 
@@ -50,10 +73,10 @@ public class StageManager : NetworkBehaviour
         ActorManager.Instance.ClearItemsServerRpc();
 
         int startCount = EvaluateWave();
-        string mvp = GetMVP();
+        string mvp = SessionManager.Instance.GetMVP();
         UIManager.Instance.EndRoundClientRpc(startCount, mvp);
 
-        ClearScores();
+        SessionManager.Instance.ClearScores();
         yield return null;
     }
 
@@ -90,30 +113,6 @@ public class StageManager : NetworkBehaviour
         }
 
         return starCount;
-    }
-
-    private string GetMVP()
-    {
-        if(scores.Count == 0) return string.Empty;
-
-        string mvpName = string.Empty;
-        int maxValue = int.MinValue;
-
-        foreach (var kvp in scores)
-        {
-            if (kvp.Value > maxValue)
-            {
-                maxValue = kvp.Value;
-                mvpName = kvp.Key;
-            }
-        }
-
-        return mvpName;
-    }
-
-    private void ClearScores()
-    {
-        scores.Clear();
     }
 
     private IEnumerator StartWave1()
@@ -185,13 +184,13 @@ public class StageManager : NetworkBehaviour
         ActorManager.Instance.ResetPlayerFiledHPClientRpc();
     }
 
-    [Rpc(SendTo.Server)]
-    public void UpdateScoreServerRpc(string playerName, RpcParams rpcParams = default)
+    private void OnSceneLoaded(ulong clientId, string sceneName, LoadSceneMode loadMode)
     {
-        if (!scores.ContainsKey(playerName))
+        if (clientId != NetworkManager.Singleton.LocalClientId)
         {
-            scores[playerName] = 0;
+            return;
         }
-        scores[playerName]++;
+
+        Initialize((int)clientId, sceneName);
     }
 }
