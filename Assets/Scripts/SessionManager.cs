@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Diagnostics;
 using Unity.Collections;
 using Unity.Netcode;
 
@@ -12,6 +13,7 @@ public class SessionManager : NetworkBehaviour
     public NetworkVariable<int> PlayerCount = new NetworkVariable<int>(0);
 
     private Dictionary<string, int> scores = new();
+    private int totalScore;
 
     private void Awake()
     {
@@ -58,6 +60,8 @@ public class SessionManager : NetworkBehaviour
     {
         PlayerCount.Value = 0;
         TeamName.Value = "";
+        ResetTotalScore();
+        ClearScores();
     }
 
     public bool IsAllPlayersReady()
@@ -80,6 +84,7 @@ public class SessionManager : NetworkBehaviour
         CurrentSessionPassword = password;
     }
 
+    #region Score
     [Rpc(SendTo.Server)]
     public void UpdateScoreServerRpc(string playerName, RpcParams rpcParams = default)
     {
@@ -90,7 +95,6 @@ public class SessionManager : NetworkBehaviour
         scores[playerName]++;
     }
 
-    #region Score
     public string GetMVP()
     {
         if (scores.Count == 0) return string.Empty;
@@ -110,9 +114,27 @@ public class SessionManager : NetworkBehaviour
         return mvpName;
     }
 
-    public void ClearScores()
+    public void CalculateTotalScore()
+    {
+        int sum = 0;
+        foreach (var score in scores.Values)
+        {
+            sum += score;
+        }
+        totalScore += sum;
+        long combinedScore = Algorythm.ScoreCalculator.GetCombinedScore(StageManager.Instance.WaveIndex, totalScore);
+
+        ClearScores();
+    }
+
+    private void ClearScores()
     {
         scores.Clear();
+    }
+
+    public void ResetTotalScore()
+    {
+        totalScore = 0;
     }
     #endregion
 }

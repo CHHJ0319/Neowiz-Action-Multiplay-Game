@@ -41,7 +41,7 @@ namespace Services
             {
                 await InitializeUnityServicesAsync();
 
-                long combinedScore = (long)(teamData.finalRound * 1000000) + teamData.totalScore;
+                long combinedScore = Algorythm.ScoreCalculator.GetCombinedScore(teamData.finalRound, teamData.totalScore);
                 var metadata = new Dictionary<string, object>
                 {
                     { "teamName", teamData.teamName },

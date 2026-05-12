@@ -1,6 +1,5 @@
 using Data;
 using System.Collections;
-using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -12,7 +11,7 @@ public class StageManager : NetworkBehaviour
     private float timePerWave = 180f;
     private float currentTime;
 
-    private int waveIndex = 1;
+    public int WaveIndex { get; private set; } = 1;
     private bool isWaveRunning = false;
 
     private void Awake()
@@ -49,7 +48,7 @@ public class StageManager : NetworkBehaviour
             || sceneName == Utils.SceneList.Stage1Scene.ToString()
             || sceneName == Utils.SceneList.Stage2Scene.ToString())
         {
-            waveIndex = 1;
+            WaveIndex = 1;
         }
     }
 
@@ -76,7 +75,7 @@ public class StageManager : NetworkBehaviour
         string mvp = SessionManager.Instance.GetMVP();
         UIManager.Instance.EndRoundClientRpc(startCount, mvp);
 
-        SessionManager.Instance.ClearScores();
+        SessionManager.Instance.CalculateTotalScore();
         yield return null;
     }
 
@@ -171,17 +170,17 @@ public class StageManager : NetworkBehaviour
     [Rpc(SendTo.Server)]
     public void UpdateWaveIndexServerRpc(RpcParams rpcParams = default)
     {
-        waveIndex++;
-        UIManager.Instance.SetWaveTextClientRpc(waveIndex);
+        WaveIndex++;
+        UIManager.Instance.SetWaveTextClientRpc(WaveIndex);
     }
 
     [Rpc(SendTo.Server)]
     public void ResetStageServerRpc(RpcParams rpcParams = default)
     {
-        waveIndex = 1;
-        UIManager.Instance.SetWaveTextClientRpc(waveIndex);
-
+        WaveIndex = 1;
+        UIManager.Instance.SetWaveTextClientRpc(WaveIndex);
         ActorManager.Instance.ResetPlayerFiledHPClientRpc();
+        SessionManager.Instance.ResetTotalScore();
     }
 
     private void OnSceneLoaded(ulong clientId, string sceneName, LoadSceneMode loadMode)
