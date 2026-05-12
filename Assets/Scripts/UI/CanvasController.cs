@@ -169,9 +169,9 @@ namespace UI
             resultPopup.gameObject.SetActive(isVisible);
         }
 
-        public void SetSaveRankingPopupVisible(bool isVisible)
+        public void ShowSaveRankingPopup()
         {
-            saveRankingPopup.gameObject.SetActive(isVisible);
+            saveRankingPopup.SetVisible(true);
         }
 
         public void ShowResult(int startCount, string mvp)

@@ -192,4 +192,9 @@ public class StageManager : NetworkBehaviour
 
         Initialize((int)clientId, sceneName);
     }
+
+    public int GetFinalRound()
+    {
+        return WaveIndex--;
+    }
 }

@@ -1,7 +1,8 @@
 using System.Collections.Generic;
-using System.Diagnostics;
+using System.Linq;
 using Unity.Collections;
 using Unity.Netcode;
+using Unity.Services.Leaderboards.Models;
 
 public class SessionManager : NetworkBehaviour
 {
@@ -13,7 +14,8 @@ public class SessionManager : NetworkBehaviour
     public NetworkVariable<int> PlayerCount = new NetworkVariable<int>(0);
 
     private Dictionary<string, int> scores = new();
-    private int totalScore;
+    public int TotalScore { get; private set; }
+    public int ExpectedRank { get; private set; }
 
     private void Awake()
     {
@@ -41,6 +43,11 @@ public class SessionManager : NetworkBehaviour
     public void SetTeamNameServerRpc(string teamName, RpcParams rpcParams = default)
     {
         TeamName.Value = teamName;
+    }
+
+    public string GetTeamName()
+    {
+        return TeamName.Value.ToString();
     }
 
     [Rpc(SendTo.Server)]
@@ -114,15 +121,18 @@ public class SessionManager : NetworkBehaviour
         return mvpName;
     }
 
-    public void CalculateTotalScore()
+    public async void CalculateTotalScore()
     {
         int sum = 0;
         foreach (var score in scores.Values)
         {
             sum += score;
         }
-        totalScore += sum;
-        long combinedScore = Algorythm.ScoreCalculator.GetCombinedScore(StageManager.Instance.WaveIndex, totalScore);
+        TotalScore += sum;
+        long combinedScore = Algorythm.ScoreCalculator.GetCombinedScore(StageManager.Instance.WaveIndex, TotalScore);
+
+        List<LeaderboardEntry> rankings = await DataManager.Instance.GetRankings();
+        ExpectedRank = rankings.Count(entry => entry.Score > combinedScore) + 1;
 
         ClearScores();
     }
@@ -134,7 +144,7 @@ public class SessionManager : NetworkBehaviour
 
     public void ResetTotalScore()
     {
-        totalScore = 0;
+        TotalScore = 0;
     }
     #endregion
 }
