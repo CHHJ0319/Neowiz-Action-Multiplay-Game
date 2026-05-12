@@ -16,7 +16,7 @@ namespace UI.LobbyScene
 
         private Image panelImage;
 
-        public NetworkVariable<FixedString32Bytes> playeyName = new NetworkVariable<FixedString32Bytes>();
+        public NetworkVariable<FixedString32Bytes> PlayeyName = new NetworkVariable<FixedString32Bytes>();
         public NetworkVariable<bool> isDisabled = new NetworkVariable<bool>();
         public NetworkVariable<bool> isReady = new NetworkVariable<bool>();
         private NetworkVariable<int> currentIndex = new NetworkVariable<int>(0);
@@ -36,7 +36,7 @@ namespace UI.LobbyScene
 
         public override void OnNetworkSpawn()
         {
-            playeyName.OnValueChanged += UpdatePlayerNameText;
+            PlayeyName.OnValueChanged += UpdatePlayerNameText;
             isDisabled.OnValueChanged += UpdateVisualState;
             isReady.OnValueChanged += UpdateReadyState;
             isReady.OnValueChanged += UpdateCharacterSelectButton;
@@ -59,7 +59,7 @@ namespace UI.LobbyScene
         {
             Events.GameEvents.OnReadyGame -= UpdateReadyState;
 
-            playeyName.OnValueChanged -= UpdatePlayerNameText;
+            PlayeyName.OnValueChanged -= UpdatePlayerNameText;
             isDisabled.OnValueChanged -= UpdateVisualState;
             isReady.OnValueChanged -= UpdateReadyState;
             isReady.OnValueChanged -= UpdateCharacterSelectButton;
@@ -88,12 +88,12 @@ namespace UI.LobbyScene
         [Rpc(SendTo.Server)]
         private void SetPlayerNameServerRpc(string name, RpcParams rpcParams = default)
         {
-            playeyName.Value = name;
+            PlayeyName.Value = name;
         }
 
         private void UpdatePlayerNameText(FixedString32Bytes previousValue, FixedString32Bytes newValue)
         {
-            playeyNameText.text = playeyName.Value.ToString();
+            playeyNameText.text = PlayeyName.Value.ToString();
         }
 
         private void SetCharacterVisible(bool isVisible)
@@ -193,6 +193,11 @@ namespace UI.LobbyScene
             {
                 SetCharacterVisible(true);
             }
+        }
+
+        public string GetPlayerName()
+        {
+            return PlayeyName.Value.ToString();
         }
     }
 

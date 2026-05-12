@@ -59,6 +59,7 @@ namespace UI.LobbyScene
         {
             if(isHost)
             {
+                SessionManager.Instance.SetMemberNames();
                 Utils.SceneNavigator.LoadSceneByName(Utils.SceneList.Stage1Scene);
             }
             else

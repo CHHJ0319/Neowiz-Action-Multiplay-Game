@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UI.TitleScene;
 using Unity.Netcode;
 using UnityEngine;
@@ -64,6 +65,11 @@ public class UIManager : NetworkBehaviour
     {
         int index = DataManager.Instance.ID;
         UI.CanvasController.Instance.DisablePlayerPanel(index);
+    }
+
+    public List<string> GetMemberNames()
+    {
+        return UI.CanvasController.Instance.GetMemberNames();
     }
     #endregion
 

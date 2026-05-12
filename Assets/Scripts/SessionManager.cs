@@ -13,6 +13,7 @@ public class SessionManager : NetworkBehaviour
     public NetworkVariable<FixedString64Bytes> TeamName = new NetworkVariable<FixedString64Bytes>();
     public NetworkVariable<int> PlayerCount = new NetworkVariable<int>(0);
 
+    public List<string> MemberNames { get; private set; }
     private Dictionary<string, int> scores = new();
     public int TotalScore { get; private set; }
     public int ExpectedRank { get; private set; }
@@ -67,6 +68,8 @@ public class SessionManager : NetworkBehaviour
     {
         PlayerCount.Value = 0;
         TeamName.Value = "";
+        MemberNames = new List<string>();
+
         ResetTotalScore();
         ClearScores();
     }
@@ -89,6 +92,11 @@ public class SessionManager : NetworkBehaviour
     private void SetSessionPassword(string password)
     {
         CurrentSessionPassword = password;
+    }
+
+    public void SetMemberNames()
+    {
+        MemberNames = UIManager.Instance.GetMemberNames();
     }
 
     #region Score

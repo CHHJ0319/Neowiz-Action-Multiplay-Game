@@ -195,6 +195,7 @@ public class StageManager : NetworkBehaviour
 
     public int GetFinalRound()
     {
-        return WaveIndex--;
+        int finalRound = WaveIndex - 1;
+        return finalRound;
     }
 }

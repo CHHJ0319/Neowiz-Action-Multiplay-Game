@@ -27,7 +27,7 @@ namespace UI.StageScene
             Data.TeamData myTeam = new Data.TeamData
             {
                 teamName = SessionManager.Instance.GetTeamName(),
-                memberNames = new List<string> { "철수", "영희", "민수", "바둑이" },
+                memberNames = SessionManager.Instance.MemberNames,
                 finalRound = StageManager.Instance.GetFinalRound(),
                 totalScore = SessionManager.Instance.TotalScore
             };

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UI.Common;
 using UnityEngine;
 using UnityEngine.UI;
@@ -132,6 +133,19 @@ namespace UI
             }
 
             return readyCount;
+        }
+
+        public List<string> GetMemberNames()
+        {
+            List<string> memberNames = new List<string>();
+            foreach (RectTransform child in characterSelectPanel)
+            {
+                UI.LobbyScene.PlayerSlot panel = child.GetComponent<UI.LobbyScene.PlayerSlot>();
+                string name = panel.GetPlayerName();
+                memberNames.Add(name);
+            }
+
+            return memberNames;
         }
         #endregion
 
