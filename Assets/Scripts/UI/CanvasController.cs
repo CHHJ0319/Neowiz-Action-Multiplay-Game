@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using UI.Common;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,7 +14,7 @@ namespace UI
 
         [Header("TitleScene")]
         public RectTransform settingCofirmPanel;
-        public UI.TitleScene.ConnectionErrorPopup connectionErrorPopup;
+        public UI.Common.CommonPopup connectionErrorPopup;
 
         [Header ("StageScene")]
         public RectTransform pointers;
