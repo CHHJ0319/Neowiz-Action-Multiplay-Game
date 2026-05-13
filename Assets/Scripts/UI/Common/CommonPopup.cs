@@ -15,6 +15,11 @@ namespace UI.Common
             SetupButtons();
         }
 
+        public virtual void Initialize()
+        {
+
+        }
+
         protected virtual void SetupButtons()
         {
             if (confirmButton != null)

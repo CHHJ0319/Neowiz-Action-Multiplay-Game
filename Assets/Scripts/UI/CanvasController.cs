@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UI.LobbyScene;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -33,6 +34,7 @@ namespace UI
         public UI.LobbyScene.JoinCodePanel joinCodePanel;
         public RectTransform characterSelectPanel;
         public UI.LobbyScene.LobbyMenuPanel LobbyMenuPanel;
+        public UI.LobbyScene.LeaveSessionPopup leaveSessionPopup;
 
         private void Awake()
         {
@@ -156,6 +158,15 @@ namespace UI
             }
 
             return memberNames;
+        }
+
+        public void ShowLeaveSessionPopup()
+        {
+            if (leaveSessionPopup == null)
+                return;
+
+            leaveSessionPopup.Initialize();
+            leaveSessionPopup.SetVisible(true);
         }
         #endregion
 

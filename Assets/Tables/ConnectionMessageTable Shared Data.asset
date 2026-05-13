@@ -43,6 +43,18 @@ MonoBehaviour:
     m_Key: ERR_CLIENT_DISCONNECTED
     m_Metadata:
       m_Items: []
+  - m_Id: 24796480921600
+    m_Key: CONFIRM_HOST_LEAVE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24796556419072
+    m_Key: CONFIRM_CLIENT_LEAVE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24796556419073
+    m_Key: ERR_HOST_DISCONNECTED_DISBAND
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

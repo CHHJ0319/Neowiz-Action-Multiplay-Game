@@ -66,7 +66,7 @@ namespace UI.LobbyScene
 
         private void OnCancelSessionButtonClicked()
         {
-            GameManager.Instance.Disconnect();
+            CanvasController.Instance.ShowLeaveSessionPopup();
         }
     }
 }
