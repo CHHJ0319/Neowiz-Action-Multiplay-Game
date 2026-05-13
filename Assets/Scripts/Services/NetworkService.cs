@@ -5,8 +5,6 @@ using System.Threading.Tasks;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
 using Unity.Networking.Transport.Relay;
-using Unity.Services.Authentication;
-using Unity.Services.Core;
 using Unity.Services.Relay;
 using Unity.Services.Relay.Models;
 using UnityEngine;
@@ -28,6 +26,8 @@ namespace Services
             }
             if (serverRelayUtilityTask.IsFaulted)
             {
+                string message = Utils.LocaleLoader.GetConnectionMessage("ERR_RELAY_ALLOCATION_FAILED");
+                UI.CanvasController.Instance.ShowCommonPopup(message);
                 Debug.LogError("Exception thrown when attempting to start Relay Server. Server not started. Exception: " + serverRelayUtilityTask.Exception.Message);
                 yield break;
             }
@@ -40,11 +40,15 @@ namespace Services
 
             if (!isSuccess)
             {
+                string message = Utils.LocaleLoader.GetConnectionMessage("ERR_HOST_START_FAILED");
+                UI.CanvasController.Instance.ShowCommonPopup(message);
                 Debug.LogError("NGO Host failed to start. Check your NetworkManager settings.");
                 yield break;
             }
 
             NetworkManager.Singleton.OnServerStopped += (bool isHost) => {
+                string message = Utils.LocaleLoader.GetConnectionMessage("ERR_SERVER_STOPPED_UNEXPECTEDLY");
+                UI.CanvasController.Instance.ShowCommonPopup(message);
                 Debug.LogWarning("Host has been stopped. Returning to Main Menu...");
             };
 
