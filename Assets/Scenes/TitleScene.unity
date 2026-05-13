@@ -753,6 +753,7 @@ MonoBehaviour:
   leaderBoard: {fileID: 1095767636}
   teamInfoPanel: {fileID: 1142163500}
   settingCofirmPanel: {fileID: 1856679985}
+  connectionErrorPopup: {fileID: 0}
   pointers: {fileID: 0}
   roundStartButton: {fileID: 0}
   barricadeHPBar: {fileID: 0}
@@ -3269,58 +3270,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 365332801677838858, guid: 8dfab4ffa9526014e9b70d765cd13325, type: 3}
-      insertIndex: 1
-      addedObject: {fileID: 514784970}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8dfab4ffa9526014e9b70d765cd13325, type: 3}
 --- !u!224 &514784965 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8492575363587606034, guid: 8dfab4ffa9526014e9b70d765cd13325, type: 3}
   m_PrefabInstance: {fileID: 514784964}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &514784966 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2369750322183188619, guid: 8dfab4ffa9526014e9b70d765cd13325, type: 3}
-  m_PrefabInstance: {fileID: 514784964}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
---- !u!114 &514784967 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5305026990968813481, guid: 8dfab4ffa9526014e9b70d765cd13325, type: 3}
-  m_PrefabInstance: {fileID: 514784964}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
---- !u!1 &514784969 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 365332801677838858, guid: 8dfab4ffa9526014e9b70d765cd13325, type: 3}
-  m_PrefabInstance: {fileID: 514784964}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &514784970
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 514784969}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4276ae4054f14534691915c6cb5551b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UI.TitleScene.SaveSettingConfirmPanel
-  message: {fileID: 0}
-  confirmButton: {fileID: 514784967}
-  cancelButton: {fileID: 514784966}
 --- !u!1 &534502250
 GameObject:
   m_ObjectHideFlags: 0
@@ -5361,7 +5317,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4952270119831626690, guid: 8dfab4ffa9526014e9b70d765cd13325, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -5396,6 +5353,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
+--- !u!114 &960077718 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6415703855706749175, guid: 8dfab4ffa9526014e9b70d765cd13325, type: 3}
+  m_PrefabInstance: {fileID: 960077714}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1 &960077719 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 365332801677838858, guid: 8dfab4ffa9526014e9b70d765cd13325, type: 3}
@@ -5413,7 +5381,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b711da7f1e95cd40a59361c2035adf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UI.TitleScene.QuitGameConfirmPopup
-  message: {fileID: 0}
+  message: {fileID: 960077718}
   confirmButton: {fileID: 960077717}
   cancelButton: {fileID: 960077716}
 --- !u!1 &961807689
@@ -6171,7 +6139,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da23dbecaebbcf0429b0bd705a561389, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SettingPanel
-  saveSettingPopup: {fileID: 514784970}
+  saveSettingPopup: {fileID: 0}
   settingConfirmPopup: {fileID: 1856679988}
   bgmMuteButton: {fileID: 1819141737}
   bgmMuteButtonLabel: {fileID: 1340404481}
@@ -6777,7 +6745,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4952270119831626690, guid: 8dfab4ffa9526014e9b70d765cd13325, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -6812,6 +6781,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
+--- !u!114 &1120635601 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6415703855706749175, guid: 8dfab4ffa9526014e9b70d765cd13325, type: 3}
+  m_PrefabInstance: {fileID: 1120635597}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1 &1120635602 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 365332801677838858, guid: 8dfab4ffa9526014e9b70d765cd13325, type: 3}
@@ -6829,7 +6809,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4276ae4054f14534691915c6cb5551b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UI.TitleScene.SaveSettingConfirmPanel
-  message: {fileID: 0}
+  message: {fileID: 1120635601}
   confirmButton: {fileID: 1120635600}
   cancelButton: {fileID: 1120635599}
 --- !u!114 &1142163500 stripped
@@ -10059,7 +10039,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4952270119831626690, guid: 8dfab4ffa9526014e9b70d765cd13325, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -10072,6 +10053,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8492575363587606034, guid: 8dfab4ffa9526014e9b70d765cd13325, type: 3}
   m_PrefabInstance: {fileID: 1856679984}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1856679986 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6415703855706749175, guid: 8dfab4ffa9526014e9b70d765cd13325, type: 3}
+  m_PrefabInstance: {fileID: 1856679984}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!114 &1856679988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10084,7 +10076,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 431e703c78a3d8949938edf1e3ca1166, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UI.TitleScene.SettingConfirmPanel
-  message: {fileID: 0}
+  message: {fileID: 1856679986}
   confirmButton: {fileID: 1514816834}
   cancelButton: {fileID: 2086339012}
 --- !u!1 &1929037954

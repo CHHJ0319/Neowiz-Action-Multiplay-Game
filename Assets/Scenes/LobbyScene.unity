@@ -3609,6 +3609,7 @@ MonoBehaviour:
   leaderBoard: {fileID: 1403538302}
   teamInfoPanel: {fileID: 1314757574}
   settingCofirmPanel: {fileID: 0}
+  connectionErrorPopup: {fileID: 0}
   pointers: {fileID: 0}
   roundStartButton: {fileID: 0}
   barricadeHPBar: {fileID: 0}
@@ -4247,7 +4248,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4952270119831626690, guid: 8dfab4ffa9526014e9b70d765cd13325, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -4310,7 +4312,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a31153fc8b44b5e4dae7d9e773212e7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UI.LobbyScene.CopyJoinCodePopup
-  prompt: {fileID: 1448359711}
+  message: {fileID: 1448359711}
   confirmButton: {fileID: 1448359710}
   cancelButton: {fileID: 1448359709}
 --- !u!1 &1480057683

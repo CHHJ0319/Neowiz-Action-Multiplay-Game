@@ -4,11 +4,16 @@ using UnityEngine.UI;
 
 namespace UI.Common
 {
-    public abstract class CommonPopup : MonoBehaviour
+    public class CommonPopup : MonoBehaviour
     {
         public TextMeshProUGUI message;
         public Button confirmButton;
         public Button cancelButton;
+
+        void Awake()
+        {
+            SetupButtons();
+        }
 
         protected virtual void SetupButtons()
         {
