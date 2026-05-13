@@ -752,8 +752,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UI.CanvasController
   leaderBoard: {fileID: 1095767636}
   teamInfoPanel: {fileID: 1142163500}
+  commonPopup: {fileID: 514784966}
   settingCofirmPanel: {fileID: 1856679985}
-  connectionErrorPopup: {fileID: 0}
   pointers: {fileID: 0}
   roundStartButton: {fileID: 0}
   barricadeHPBar: {fileID: 0}
@@ -3161,7 +3161,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 365332801677838858, guid: 8dfab4ffa9526014e9b70d765cd13325, type: 3}
       propertyPath: m_Name
-      value: ConnectionErrorPopup
+      value: CommonPopup
       objectReference: {fileID: 0}
     - target: {fileID: 365332801677838858, guid: 8dfab4ffa9526014e9b70d765cd13325, type: 3}
       propertyPath: m_IsActive
@@ -3277,6 +3277,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8492575363587606034, guid: 8dfab4ffa9526014e9b70d765cd13325, type: 3}
   m_PrefabInstance: {fileID: 514784964}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &514784966 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4952270119831626690, guid: 8dfab4ffa9526014e9b70d765cd13325, type: 3}
+  m_PrefabInstance: {fileID: 514784964}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e506271b3e72ae41910510b25ede684, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UI.Common.CommonPopup
 --- !u!1 &534502250
 GameObject:
   m_ObjectHideFlags: 0

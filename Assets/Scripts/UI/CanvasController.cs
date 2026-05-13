@@ -11,10 +11,10 @@ namespace UI
         [Header("Common")]
         public UI.Common.LeaderBoard leaderBoard;
         public UI.Common.TeamInfoPanel teamInfoPanel;
+        public UI.Common.CommonPopup commonPopup;
 
         [Header("TitleScene")]
         public RectTransform settingCofirmPanel;
-        public UI.Common.CommonPopup connectionErrorPopup;
 
         [Header ("StageScene")]
         public RectTransform pointers;
@@ -56,17 +56,19 @@ namespace UI
             teamInfoPanel.SetData(teamData);
             teamInfoPanel.SetVisible(true);
         }
+
+        public void ShowCommonPopup(string message)
+        {
+            if (commonPopup == null)
+                return;
+
+            commonPopup.SetMessage(message);
+            commonPopup.SetVisible(true);
+        }
         #endregion
 
         #region TitleScene
-        public void ShowConnectionErrorPopup(string message)
-        {
-            if (connectionErrorPopup == null)
-                return;
 
-            connectionErrorPopup.SetMessage(message);
-            connectionErrorPopup.SetVisible(true);
-        }
         #endregion
 
         #region LobbyScene
