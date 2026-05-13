@@ -7,7 +7,7 @@ namespace UI.LobbyScene
         void Awake()
         {
             string message = Utils.LocaleLoader.GetPopupMessage("CopyJoinCodeMessage");
-            SetPrompt(message);
+            SetMessage(message);
 
             SetupButtons();
         }

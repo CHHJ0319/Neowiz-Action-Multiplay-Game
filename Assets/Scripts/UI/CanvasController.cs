@@ -15,6 +15,7 @@ namespace UI
 
         [Header("TitleScene")]
         public RectTransform settingCofirmPanel;
+        public UI.TitleScene.ConnectionErrorPopup connectionErrorPopup;
 
         [Header ("StageScene")]
         public RectTransform pointers;
@@ -59,6 +60,14 @@ namespace UI
         #endregion
 
         #region TitleScene
+        public void ShowConnectionErrorPopup(string message)
+        {
+            if (connectionErrorPopup == null)
+                return;
+
+            connectionErrorPopup.SetMessage(message);
+            connectionErrorPopup.SetVisible(true);
+        }
         #endregion
 
         #region LobbyScene

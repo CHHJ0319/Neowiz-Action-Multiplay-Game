@@ -6,7 +6,7 @@ namespace UI.Common
 {
     public abstract class CommonPopup : MonoBehaviour
     {
-        public TextMeshProUGUI prompt;
+        public TextMeshProUGUI message;
         public Button confirmButton;
         public Button cancelButton;
 
@@ -29,9 +29,9 @@ namespace UI.Common
             }
         }
 
-        protected void SetPrompt(string message)
+        public void SetMessage(string message)
         {
-            prompt.text = message;  
+            this.message.text = message;  
         }
 
         private void OnPopupButtonClicked()

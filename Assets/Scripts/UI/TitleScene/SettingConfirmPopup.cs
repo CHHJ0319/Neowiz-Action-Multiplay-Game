@@ -4,8 +4,8 @@ namespace UI.TitleScene
     {
         void Awake()
         {
-            string message = Utils.LocaleLoader.GetPopupMessage("SettingConfirmMessage"); 
-            SetPrompt(message);
+            string message = Utils.LocaleLoader.GetPopupMessage("SettingConfirmMessage");
+            SetMessage(message);
 
             SetupButtons();
         }

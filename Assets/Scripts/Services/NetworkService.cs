@@ -33,9 +33,20 @@ namespace Services
             }
 
             var relayServerData = serverRelayUtilityTask.Result;
-            NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
+            var transport = NetworkManager.Singleton.GetComponent<UnityTransport>();
+            transport.SetRelayServerData(relayServerData);
 
-            NetworkManager.Singleton.StartHost();
+            bool isSuccess = NetworkManager.Singleton.StartHost();
+
+            if (!isSuccess)
+            {
+                Debug.LogError("NGO Host failed to start. Check your NetworkManager settings.");
+                yield break;
+            }
+
+            NetworkManager.Singleton.OnServerStopped += (bool isHost) => {
+                Debug.LogWarning("Host has been stopped. Returning to Main Menu...");
+            };
 
             yield return new WaitForSeconds(2.0f);
         }
