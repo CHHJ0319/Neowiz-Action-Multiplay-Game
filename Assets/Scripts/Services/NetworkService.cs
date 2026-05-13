@@ -26,9 +26,9 @@ namespace Services
             }
             if (serverRelayUtilityTask.IsFaulted)
             {
+                Debug.LogError("Exception thrown when attempting to start Relay Server. Server not started. Exception: " + serverRelayUtilityTask.Exception.Message);
                 string message = Utils.LocaleLoader.GetConnectionMessage("ERR_RELAY_ALLOCATION_FAILED");
                 UI.CanvasController.Instance.ShowCommonPopup(message);
-                Debug.LogError("Exception thrown when attempting to start Relay Server. Server not started. Exception: " + serverRelayUtilityTask.Exception.Message);
                 yield break;
             }
 
@@ -40,16 +40,16 @@ namespace Services
 
             if (!isSuccess)
             {
+                Debug.LogError("NGO Host failed to start. Check your NetworkManager settings.");
                 string message = Utils.LocaleLoader.GetConnectionMessage("ERR_HOST_START_FAILED");
                 UI.CanvasController.Instance.ShowCommonPopup(message);
-                Debug.LogError("NGO Host failed to start. Check your NetworkManager settings.");
                 yield break;
             }
 
             NetworkManager.Singleton.OnServerStopped += (bool isHost) => {
+                Debug.LogWarning("Host has been stopped. Returning to Main Menu...");
                 string message = Utils.LocaleLoader.GetConnectionMessage("ERR_SERVER_STOPPED_UNEXPECTEDLY");
                 UI.CanvasController.Instance.ShowCommonPopup(message);
-                Debug.LogWarning("Host has been stopped. Returning to Main Menu...");
             };
 
             yield return new WaitForSeconds(2.0f);
@@ -67,6 +67,8 @@ namespace Services
             if (clientRelayUtilityTask.IsFaulted)
             {
                 Debug.LogError("Exception thrown when attempting to connect to Relay Server. Exception: " + clientRelayUtilityTask.Exception.Message);
+                string message = Utils.LocaleLoader.GetConnectionMessage("ERR_RELAY_JOIN_FAILED");
+                UI.CanvasController.Instance.ShowCommonPopup(message);
                 yield break;
             }
 
@@ -75,9 +77,38 @@ namespace Services
 
             byte[] payload = Encoding.ASCII.GetBytes(password);
             NetworkManager.Singleton.NetworkConfig.ConnectionData = payload;
-            NetworkManager.Singleton.StartClient();
 
-            yield return new WaitUntil(() => NetworkManager.Singleton.IsConnectedClient);
+            if (!NetworkManager.Singleton.StartClient())
+            {
+                Debug.LogError("NGO Client failed to start.");
+                string message = Utils.LocaleLoader.GetConnectionMessage("ERR_CLIENT_START_FAILED");
+                UI.CanvasController.Instance.ShowCommonPopup(message);
+                yield break;
+            }
+
+            bool isTimedOut = false;
+            float timeoutDuration = 10f;
+            float timer = 0f;
+
+            while (!NetworkManager.Singleton.IsConnectedClient)
+            {
+                timer += Time.deltaTime;
+                if (timer > timeoutDuration)
+                {
+                    isTimedOut = true;
+                    break;
+                }
+                yield return null;
+            }
+
+            if (isTimedOut)
+            {
+                Debug.LogError("Connection Timed Out or Password Incorrect.");
+                string message = Utils.LocaleLoader.GetConnectionMessage("ERR_CONNECTION_TIMEOUT");
+                UI.CanvasController.Instance.ShowCommonPopup(message);
+                NetworkManager.Singleton.Shutdown();
+                yield break;
+            }
         }
 
         public static void ShutdownNetwork()

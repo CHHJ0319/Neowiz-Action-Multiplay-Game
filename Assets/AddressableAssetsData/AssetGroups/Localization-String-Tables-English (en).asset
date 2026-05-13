@@ -27,6 +27,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Locale-en
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 883d24dc4fa51e94bbcece346d26b439
+    m_Address: ConnectionMessageTable_en
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f15b149379359fd40a6af607b4f5042b
     m_Address: PopupMessageTable_en
     m_ReadOnly: 1

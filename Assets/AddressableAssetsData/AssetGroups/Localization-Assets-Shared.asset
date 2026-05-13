@@ -20,6 +20,11 @@ MonoBehaviour:
     m_ReadOnly: 1
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3dadf62d0c3947243a6c9aa0f4a5c81f
+    m_Address: Assets/Tables/ConnectionMessageTable Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7e18014ab84cb6d46948ba596654d826
     m_Address: Assets/Settings/PopupMessage Shared Data.asset
     m_ReadOnly: 1

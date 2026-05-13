@@ -27,6 +27,22 @@ MonoBehaviour:
     m_Key: ERR_SERVER_STOPPED_UNEXPECTEDLY
     m_Metadata:
       m_Items: []
+  - m_Id: 4082713485312
+    m_Key: ERR_RELAY_JOIN_FAILED
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4082726068224
+    m_Key: ERR_CLIENT_START_FAILED
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4082730262528
+    m_Key: ERR_CONNECTION_TIMEOUT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4082730262529
+    m_Key: ERR_CLIENT_DISCONNECTED
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
