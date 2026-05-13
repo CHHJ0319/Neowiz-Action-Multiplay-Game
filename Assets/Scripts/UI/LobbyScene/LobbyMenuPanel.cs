@@ -11,11 +11,9 @@ namespace UI.LobbyScene
         public Button confirmSessiontButton;
         public Button cancelSessionButton;
 
-        private bool _isHost = false;
-
         private void Update()
         {
-            if(_isHost)
+            if(Services.NetworkService.IsHost())
             {
                 if(isTest)
                 {
@@ -36,28 +34,26 @@ namespace UI.LobbyScene
             }
         }
 
-        public void Initialize(bool isHost)
+        public void Initialize()
         {
             TMP_Text buttonTitle = confirmSessiontButton.GetComponentInChildren<TMP_Text>();
-            if (isHost)
+            if (Services.NetworkService.IsHost())
             {
                 buttonTitle.text = "시작";
                 confirmSessiontButton.interactable = false;
-
-                _isHost = isHost; 
             }
             else
             {
                 buttonTitle.text = "준비";
             }
 
-            confirmSessiontButton.onClick.AddListener(() => OnConfirmSessionButtonClicked(isHost));
-            cancelSessionButton.onClick.AddListener(() => OnCancelSessionButtonClicked(isHost));
+            confirmSessiontButton.onClick.AddListener(() => OnConfirmSessionButtonClicked());
+            cancelSessionButton.onClick.AddListener(() => OnCancelSessionButtonClicked());
         }
 
-        private void OnConfirmSessionButtonClicked(bool isHost)
+        private void OnConfirmSessionButtonClicked()
         {
-            if(isHost)
+            if(Services.NetworkService.IsHost())
             {
                 SessionManager.Instance.SetMemberNames();
                 Utils.SceneNavigator.LoadSceneByName(Utils.SceneList.Stage1Scene);
@@ -68,9 +64,9 @@ namespace UI.LobbyScene
             }
         }
 
-        private void OnCancelSessionButtonClicked(bool isHost)
+        private void OnCancelSessionButtonClicked()
         {
-            GameManager.Instance.Disconnect(isHost);
+            GameManager.Instance.Disconnect();
         }
     }
 }

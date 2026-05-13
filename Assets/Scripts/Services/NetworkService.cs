@@ -172,5 +172,10 @@ namespace Services
 
             return allocation.ToRelayServerData("dtls");
         }
+
+        public static bool IsHost()
+        {
+            return NetworkManager.Singleton != null && NetworkManager.Singleton.IsHost;
+        }
     }
 }

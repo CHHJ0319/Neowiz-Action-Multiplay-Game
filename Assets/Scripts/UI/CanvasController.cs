@@ -72,14 +72,14 @@ namespace UI
         #endregion
 
         #region LobbyScene
-        public void SetLobbySceneUI(bool isHost)
+        public void SetLobbySceneUI()
         {
-            if(isHost)
+            if(Services.NetworkService.IsHost())
             {
                 SetJoinCode();
             }
 
-            LobbyMenuPanel.Initialize(isHost);
+            LobbyMenuPanel.Initialize();
             SetTeamNamePanel();
             SetPlayerPanel();
         }
@@ -160,9 +160,9 @@ namespace UI
         #endregion
 
         #region StageScene
-        public void SetStageSceneSceneUI(bool isHost)
+        public void SetStageSceneSceneUI()
         {
-            if(isHost)
+            if(Services.NetworkService.IsHost())
             {
                 if (roundStartButton != null)
                 {
@@ -172,7 +172,7 @@ namespace UI
             }
 
             SetPlayerStatusPanel();
-            resultPopup.Initialize(isHost);
+            resultPopup.Initialize();
         }
 
         public void HidePointers()

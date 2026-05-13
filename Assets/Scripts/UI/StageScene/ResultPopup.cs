@@ -45,9 +45,9 @@ namespace UI.StageScene
             }
         }
 
-        public void Initialize(bool isHost)
+        public void Initialize()
         {
-            if (isHost)
+            if (Services.NetworkService.IsHost())
             {
                 menuRow.gameObject.SetActive(true);
             }

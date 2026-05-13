@@ -36,12 +36,12 @@ public class UIManager : NetworkBehaviour
     {
         if (sceneName == Utils.SceneList.LobbyScene.ToString())
         {
-            UI.CanvasController.Instance.SetLobbySceneUI(IsHost);
+            UI.CanvasController.Instance.SetLobbySceneUI();
         }
         else if (sceneName == Utils.SceneList.Stage1Scene.ToString()
             || sceneName == Utils.SceneList.Stage2Scene.ToString())
         {
-            UI.CanvasController.Instance.SetStageSceneSceneUI(IsHost);
+            UI.CanvasController.Instance.SetStageSceneSceneUI();
         }
     }
 

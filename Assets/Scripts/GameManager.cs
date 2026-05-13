@@ -65,7 +65,7 @@ public class GameManager : NetworkBehaviour
 
     private void OnApplicationQuit()
     {
-        Disconnect(IsHost);
+        Disconnect();
     }
 
     private void Initiailize()
@@ -155,12 +155,12 @@ public class GameManager : NetworkBehaviour
 
     private void ForceDisconnect(ulong clientId)
     {
-        Disconnect(IsHost);
+        Disconnect();
     }
 
-    public void Disconnect(bool isHost)
+    public void Disconnect()
     {
-        if (isHost)
+        if (Services.NetworkService.IsHost())
         {
             SessionManager.Instance.ClearServerRpc();
         }
