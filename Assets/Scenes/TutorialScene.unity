@@ -104441,6 +104441,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39807f2fcffc9404a8bfb818ac093221, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UI.TutorialScene.TutorialPanel
+  Images: {fileID: 630941150}
+  previousButton: {fileID: 146709022}
+  nextButton: {fileID: 642062237}
 --- !u!1001 &1431521258
 PrefabInstance:
   m_ObjectHideFlags: 0
