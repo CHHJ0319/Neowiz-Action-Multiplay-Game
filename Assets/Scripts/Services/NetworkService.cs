@@ -106,7 +106,7 @@ namespace Services
                 Debug.LogError("Connection Timed Out or Password Incorrect.");
                 string message = Utils.LocaleLoader.GetConnectionMessage("ERR_CONNECTION_TIMEOUT");
                 UI.CanvasController.Instance.ShowCommonPopup(message);
-                NetworkManager.Singleton.Shutdown();
+                ShutdownNetwork();
                 yield break;
             }
         }
