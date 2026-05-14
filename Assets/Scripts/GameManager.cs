@@ -155,7 +155,12 @@ public class GameManager : NetworkBehaviour
 
     private void ForceDisconnect(ulong clientId)
     {
-        Disconnect();
+        string message = Utils.LocaleLoader.GetConnectionMessage("ERR_HOST_DISCONNECTED_DISBAND");
+        UIManager.Instance.ShowCommonPopup(message);
+        UIManager.Instance.SetupCommonPopup(() =>
+        {
+            Disconnect();
+        });
     }
 
     public void Disconnect()

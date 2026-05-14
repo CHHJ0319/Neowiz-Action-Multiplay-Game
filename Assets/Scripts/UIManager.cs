@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UI.TitleScene;
 using Unity.Netcode;
-using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public class UIManager : NetworkBehaviour
@@ -44,6 +44,18 @@ public class UIManager : NetworkBehaviour
             UI.CanvasController.Instance.SetStageSceneSceneUI();
         }
     }
+
+    #region Common
+    public void ShowCommonPopup(string message)
+    {
+        UI.CanvasController.Instance.ShowCommonPopup(message);
+    }
+
+    public void SetupCommonPopup(UnityAction onConfirmAction)
+    {
+        UI.CanvasController.Instance.SetupCommonPopup(onConfirmAction);
+    }
+    #endregion
 
     #region Title Scene
     public void UpdateSettingPanel()

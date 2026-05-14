@@ -77199,6 +77199,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UI.CanvasController
   leaderBoard: {fileID: 0}
   teamInfoPanel: {fileID: 0}
+  commonPopup: {fileID: 0}
   settingCofirmPanel: {fileID: 0}
   pointers: {fileID: 2097074116}
   roundStartButton: {fileID: 1949384588}
@@ -77214,6 +77215,7 @@ MonoBehaviour:
   joinCodePanel: {fileID: 0}
   characterSelectPanel: {fileID: 0}
   LobbyMenuPanel: {fileID: 0}
+  leaveSessionPopup: {fileID: 0}
 --- !u!1 &1085627258 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: acfcc7982b465484e9772512be7f30da, type: 3}
@@ -159043,7 +159045,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.39215687}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.78431374}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

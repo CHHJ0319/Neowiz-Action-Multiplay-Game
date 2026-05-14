@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace UI.Common
@@ -10,9 +11,14 @@ namespace UI.Common
         public Button confirmButton;
         public Button cancelButton;
 
-        void Awake()
+        private void OnEnable()
         {
             SetupButtons();
+        }
+
+        private void OnDisable()
+        {
+            
         }
 
         public virtual void Initialize()
@@ -24,6 +30,7 @@ namespace UI.Common
         {
             if (confirmButton != null)
             {
+                confirmButton.onClick.RemoveAllListeners();
                 confirmButton.onClick.AddListener(() =>
                 {
                     OnPopupButtonClicked();
@@ -32,6 +39,7 @@ namespace UI.Common
 
             if (cancelButton != null)
             {
+                cancelButton.onClick.RemoveAllListeners();
                 cancelButton.onClick.AddListener(() =>
                 {
                     OnPopupButtonClicked();
@@ -52,6 +60,17 @@ namespace UI.Common
         public void SetVisible(bool isVisible)
         {
             gameObject.SetActive(isVisible);
+        }
+
+        public void AddConfirmButtonListener(UnityAction onConfirmAction)
+        {
+            if (confirmButton != null)
+            {
+                confirmButton.onClick.AddListener(() =>
+                {
+                    onConfirmAction?.Invoke();
+                });
+            }
         }
     }
 }

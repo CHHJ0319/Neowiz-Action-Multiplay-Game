@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UI.LobbyScene;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace UI
@@ -66,6 +67,11 @@ namespace UI
 
             commonPopup.SetMessage(message);
             commonPopup.SetVisible(true);
+        }
+
+        public void SetupCommonPopup(UnityAction onConfirmAction)
+        {
+            commonPopup.AddConfirmButtonListener(onConfirmAction);
         }
         #endregion
 
