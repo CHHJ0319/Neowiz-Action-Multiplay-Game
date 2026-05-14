@@ -6,7 +6,9 @@ namespace Actor.Player
 {
     public class PlayerController : NetworkBehaviour
     {
-        [Header("Type Indicator")]
+        [Header("Indicator")]
+        public MeshRenderer cursor;
+        public Material[] typeMaterials;
         public SpriteRenderer typeIndicator;
 
         [Header("Movement Settings")]
@@ -71,6 +73,7 @@ namespace Actor.Player
             {
                 inputHandler.SetPlayerInputEnabled(true);
                 SetPlayerIndexServerRPC(DataManager.Instance.ID);
+                ShowCursor();
             }
             else
             {
@@ -152,8 +155,9 @@ namespace Actor.Player
                 Data.ElementType type = (Data.ElementType)Type.Value;
                 Events.PlayerEvents.UpdateRoleUI(role, type);
             }
-            SetTypeIndicator();
+            SetTypeIndicatorColor();
             ShowPointer();
+            SetCursorColor();
         }
 
         [Rpc(SendTo.Server)]
@@ -162,6 +166,36 @@ namespace Actor.Player
             playerIndex.Value = index;
         }
 
+        private void ShowCursor()
+        {
+            if (cursor == null)
+                return;
+            
+            cursor.gameObject.SetActive(true);
+        }
+
+        private void SetCursorColor()
+        {
+            if (Role.Value == (int)Data.PlayerRole.Shooter)
+            {
+                switch ((Data.ElementType)Type.Value)
+                {
+                    case Data.ElementType.Red:
+                        cursor.material = typeMaterials[0];
+                        break;
+                    case Data.ElementType.Green:
+                        cursor.material = typeMaterials[1];
+                        break;
+                    case Data.ElementType.Blue:
+                        cursor.material = typeMaterials[2];
+                        break;
+                }
+            }
+            else if (Role.Value == (int)Data.PlayerRole.Supporter)
+            {
+                cursor.material = typeMaterials[3];
+            }
+        }
         #endregion
 
         private void CalculateVeocity()
@@ -317,7 +351,7 @@ namespace Actor.Player
             pointer = UIManager.Instance.GetPointer(id);
         }
 
-        private void SetTypeIndicator()
+        private void SetTypeIndicatorColor()
         {
             if (typeIndicator == null)
                 return;
