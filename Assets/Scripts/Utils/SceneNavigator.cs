@@ -10,7 +10,7 @@ namespace Utils
             string sceneName = scene.ToString();
             if (NetworkManager.Singleton != null && NetworkManager.Singleton.IsListening)
             {
-                if (NetworkManager.Singleton.IsServer)
+                if (Services.NetworkService.IsServer())
                 {
                     NetworkManager.Singleton.SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
                 }

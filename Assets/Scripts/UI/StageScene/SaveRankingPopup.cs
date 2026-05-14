@@ -44,6 +44,7 @@ namespace UI.StageScene
                 totalScore = SessionManager.Instance.TotalScore
             };
             DataManager.Instance.SaveRanking(myTeam);
+            StageManager.Instance.ResetStageServerRpc();
 
             SetVisible(false);
         }

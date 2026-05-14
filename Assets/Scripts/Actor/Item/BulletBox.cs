@@ -1,6 +1,3 @@
-using Unity.Netcode;
-using UnityEngine;
-
 namespace Actor.Item
 {
     public class BulletBox : ItemBox

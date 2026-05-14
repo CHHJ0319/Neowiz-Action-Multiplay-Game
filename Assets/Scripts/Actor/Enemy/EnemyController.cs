@@ -1,7 +1,5 @@
 using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using static UnityEngine.LowLevelPhysics2D.PhysicsLayers;
 
 namespace Actor.Enemy
 {

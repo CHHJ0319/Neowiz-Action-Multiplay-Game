@@ -1,6 +1,5 @@
 using Unity.Netcode;
 using UnityEngine;
-using static UnityEngine.LowLevelPhysics2D.PhysicsLayers;
 
 namespace Actor.Weapon
 {

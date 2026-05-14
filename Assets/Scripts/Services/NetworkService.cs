@@ -177,5 +177,10 @@ namespace Services
         {
             return NetworkManager.Singleton != null && NetworkManager.Singleton.IsHost;
         }
+
+        public static bool IsServer()
+        {
+            return NetworkManager.Singleton != null && NetworkManager.Singleton.IsServer;
+        }
     }
 }
