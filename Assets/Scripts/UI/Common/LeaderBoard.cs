@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Unity.Services.Leaderboards.Models;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,42 +21,38 @@ namespace UI.Common
                 closeButton.onClick.AddListener(() => SetVisible(false));
             }
         }
-        private void OnEnable()
-        {
-            try
-            {
-                RefreshRanking();
-            }
-            catch (System.Exception e)
-            {
-                Debug.LogError($"[LeaderBoard] 데이터 로드 중 오류 발생: {e.Message}");
-            }
-        }
 
         public void SetVisible(bool isVisible)
         {
             gameObject.SetActive(isVisible);
         }
 
-        private async void RefreshRanking()
+        public async Task RefreshRanking()
         {
-            foreach (RectTransform child in content)
+            try
             {
-                Destroy(child.gameObject);
-            }
-
-            List<LeaderboardEntry> rankings = await DataManager.Instance.GetRankings();
-
-            foreach (var ranking in rankings)
-            {
-                if (!string.IsNullOrEmpty(ranking.Metadata))
+                foreach (RectTransform child in content)
                 {
-                    GameObject entry = Instantiate(leaderBoardEntryPrefab, content);
-                    UI.Common.LeaderBoardEntry leaderBoardEntry = entry.GetComponent<UI.Common.LeaderBoardEntry>();
-
-                    var details = JsonConvert.DeserializeObject<Data.TeamData>(ranking.Metadata);
-                    leaderBoardEntry.SetData(ranking.Rank + 1, details);
+                    Destroy(child.gameObject);
                 }
+
+                List<LeaderboardEntry> rankings = await DataManager.Instance.GetRankings();
+
+                foreach (var ranking in rankings)
+                {
+                    if (!string.IsNullOrEmpty(ranking.Metadata))
+                    {
+                        GameObject entry = Instantiate(leaderBoardEntryPrefab, content);
+                        UI.Common.LeaderBoardEntry leaderBoardEntry = entry.GetComponent<UI.Common.LeaderBoardEntry>();
+
+                        var details = JsonConvert.DeserializeObject<Data.TeamData>(ranking.Metadata);
+                        leaderBoardEntry.SetData(ranking.Rank + 1, details);
+                    }
+                }
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError($"[LeaderBoard] 데이터 로드 중 오류 발생: {e.Message}");
             }
         }
     }

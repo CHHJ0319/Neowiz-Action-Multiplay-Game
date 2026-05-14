@@ -43,11 +43,12 @@ namespace UI
         }
 
         #region Common
-        public void ShowLeaderBoard()
+        public async void ShowLeaderBoard()
         {
             if (leaderBoard == null)
                 return;
 
+            await leaderBoard.RefreshRanking();
             leaderBoard.SetVisible(true);
         }
 

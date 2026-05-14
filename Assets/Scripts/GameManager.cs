@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Text;
 using Unity.Netcode;
-using Unity.VectorGraphics;
 using UnityEngine;
 
 public class GameManager : NetworkBehaviour
