@@ -1,11 +1,14 @@
 using Unity.Netcode;
+using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEngine.LowLevelPhysics2D.PhysicsLayers;
 
 namespace Actor.Player 
 {
     public class PlayerController : NetworkBehaviour
     {
+        [Header("Type Indicator")]
+        public SpriteRenderer typeIndicator;
+
         [Header("Movement Settings")]
         [SerializeField] private float walkSpeed = 5f;
         [SerializeField] private float dashSpeed = 10f;
@@ -149,7 +152,7 @@ namespace Actor.Player
                 Data.ElementType type = (Data.ElementType)Type.Value;
                 Events.PlayerEvents.UpdateRoleUI(role, type);
             }
-
+            SetTypeIndicator();
             ShowPointer();
         }
 
@@ -314,7 +317,33 @@ namespace Actor.Player
             pointer = UIManager.Instance.GetPointer(id);
         }
 
-        public void ShowPointer()
+        private void SetTypeIndicator()
+        {
+            if (typeIndicator == null)
+                return;
+
+            if (Role.Value == (int)Data.PlayerRole.Shooter)
+            {
+                switch ((Data.ElementType)Type.Value)
+                {
+                    case Data.ElementType.Red:
+                        typeIndicator.color = Color.red;
+                        break;
+                    case Data.ElementType.Green:
+                        typeIndicator.color = Color.green;
+                        break;
+                    case Data.ElementType.Blue:
+                        typeIndicator.color = Color.blue;
+                        break;
+                }
+            }
+            else if (Role.Value == (int)Data.PlayerRole.Supporter)
+            {
+                typeIndicator.color = Color.white;
+            }
+        }
+
+        private void ShowPointer()
         {
             pointer.gameObject.SetActive(true);
             if (Role.Value == (int)Data.PlayerRole.Shooter)

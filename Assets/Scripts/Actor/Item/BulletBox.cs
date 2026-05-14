@@ -12,6 +12,9 @@ namespace Actor.Item
                 {
                     AddAmmo(player);
                 }
+                else if (player.Role.Value == (int)Data.PlayerRole.Supporter)
+                {
+                }
             }
         }
 
