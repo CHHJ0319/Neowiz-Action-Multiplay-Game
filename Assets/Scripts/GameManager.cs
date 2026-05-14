@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Text;
 using Unity.Netcode;
+using Unity.VectorGraphics;
 using UnityEngine;
 
 public class GameManager : NetworkBehaviour
@@ -41,26 +42,12 @@ public class GameManager : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-        if (IsServer)
-        {
-            
-
-        }
-        else
-        {
-            NetworkManager.Singleton.OnClientDisconnectCallback += ForceDisconnect;
-        }
+        NetworkManager.Singleton.OnClientDisconnectCallback += ForceDisconnect;
     }
 
     public override void OnNetworkDespawn()
     {
-        if (IsServer)
-        { 
-        }
-        else
-        {
-            NetworkManager.Singleton.OnClientDisconnectCallback -= ForceDisconnect;
-        }
+        NetworkManager.Singleton.OnClientDisconnectCallback -= ForceDisconnect;
     }
 
     private void OnApplicationQuit()
@@ -155,12 +142,28 @@ public class GameManager : NetworkBehaviour
 
     private void ForceDisconnect(ulong clientId)
     {
-        string message = Utils.LocaleLoader.GetConnectionMessage("ERR_HOST_DISCONNECTED_DISBAND");
-        UIManager.Instance.ShowCommonPopup(message);
-        UIManager.Instance.SetupCommonPopup(() =>
+        if (IsServer)
         {
-            Disconnect();
-        });
+            if (Utils.SceneNavigator.GetCurrentSceneName() == Utils.SceneList.Stage1Scene.ToString()
+            || Utils.SceneNavigator.GetCurrentSceneName() == Utils.SceneList.Stage2Scene.ToString())
+            {
+                string message = Utils.LocaleLoader.GetConnectionMessage("ERR_CLIENT_DISCONNECTED_NETWORK");
+                UIManager.Instance.ShowCommonPopup(message);
+                UIManager.Instance.SetupCommonPopup(() =>
+                {
+                    Disconnect();
+                });
+            }
+        }
+        else
+        {
+            string message = Utils.LocaleLoader.GetConnectionMessage("ERR_HOST_DISCONNECTED_DISBAND");
+            UIManager.Instance.ShowCommonPopup(message);
+            UIManager.Instance.SetupCommonPopup(() =>
+            {
+                Disconnect();
+            });
+        }
     }
 
     public void Disconnect()

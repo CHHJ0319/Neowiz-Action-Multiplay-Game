@@ -55,6 +55,10 @@ MonoBehaviour:
     m_Key: ERR_HOST_DISCONNECTED_DISBAND
     m_Metadata:
       m_Items: []
+  - m_Id: 248587997368320
+    m_Key: ERR_CLIENT_DISCONNECTED_NETWORK
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

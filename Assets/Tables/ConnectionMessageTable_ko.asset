@@ -74,6 +74,12 @@ MonoBehaviour:
       \uD654\uBA74\uC73C\uB85C \uC774\uB3D9\uD569\uB2C8\uB2E4."
     m_Metadata:
       m_Items: []
+  - m_Id: 248587997368320
+    m_Localized: "\uD300\uC6D0\uC774 \uAC8C\uC784\uC5D0\uC11C \uC774\uD0C8\uD558\uC5EC\n\uB354
+      \uC774\uC0C1 \uC9C4\uD589\uD560 \uC218 \uC5C6\uC2B5\uB2C8\uB2E4.\n\uD655\uC778\uC744
+      \uB204\uB974\uBA74\n\uD0C0\uC774\uD2C0 \uD654\uBA74\uC73C\uB85C \uC774\uB3D9\uD569\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
