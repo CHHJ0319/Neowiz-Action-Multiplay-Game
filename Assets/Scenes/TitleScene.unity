@@ -6159,7 +6159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da23dbecaebbcf0429b0bd705a561389, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SettingPanel
-  saveSettingPopup: {fileID: 0}
+  saveSettingPopup: {fileID: 1120635603}
   settingConfirmPopup: {fileID: 1856679988}
   bgmMuteButton: {fileID: 1819141737}
   bgmMuteButtonLabel: {fileID: 1340404481}
@@ -6659,7 +6659,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 365332801677838858, guid: 8dfab4ffa9526014e9b70d765cd13325, type: 3}
       propertyPath: m_Name
-      value: SaveSettingConfirmPopup (1)
+      value: SaveSettingPopup
       objectReference: {fileID: 0}
     - target: {fileID: 365332801677838858, guid: 8dfab4ffa9526014e9b70d765cd13325, type: 3}
       propertyPath: m_IsActive
