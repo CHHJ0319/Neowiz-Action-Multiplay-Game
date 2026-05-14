@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UI.LobbyScene;
+using UI.StageScene;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -211,8 +212,9 @@ namespace UI
             resultPopup.gameObject.SetActive(isVisible);
         }
 
-        public void ShowSaveRankingPopup()
+        public void ShowSaveRankingPopup(int rank)
         {
+            saveRankingPopup.Initialize(rank);
             saveRankingPopup.SetVisible(true);
         }
 

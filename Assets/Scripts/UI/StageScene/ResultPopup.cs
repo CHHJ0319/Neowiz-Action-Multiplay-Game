@@ -162,9 +162,11 @@ namespace UI.StageScene
         {
             UIManager.Instance.CloseResultPopupClientRpc();
             StageManager.Instance.UpdateWaveIndexServerRpc();
-            if(SessionManager.Instance.ExpectedRank < 9)
+
+            int currentRank = SessionManager.Instance.ExpectedRank;
+            if (currentRank < 9)
             {
-                CanvasController.Instance.ShowSaveRankingPopup();
+                CanvasController.Instance.ShowSaveRankingPopup(currentRank);
             }
         }
     }

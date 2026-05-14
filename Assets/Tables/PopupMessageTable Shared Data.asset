@@ -31,6 +31,14 @@ MonoBehaviour:
     m_Key: CopyJoinCodeMessage
     m_Metadata:
       m_Items: []
+  - m_Id: 2459989176700928
+    m_Key: MSG_RANK_CONGRATS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2459989260587008
+    m_Key: MSG_SAVE_WARNING_RESTART
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
