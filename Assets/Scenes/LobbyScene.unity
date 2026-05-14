@@ -201,7 +201,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &47838932
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4992,7 +4992,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3c84f0b46e39a446b3f8bc402af7929, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UI.LobbyScene.GameMenuPanel
-  isTest: 1
+  isTest: 0
   confirmSessiontButton: {fileID: 217067213}
   cancelSessionButton: {fileID: 2027884073}
 --- !u!1 &1708529221
@@ -5664,7 +5664,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1945058473
 RectTransform:
   m_ObjectHideFlags: 0
